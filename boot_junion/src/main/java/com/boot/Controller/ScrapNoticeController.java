@@ -71,6 +71,7 @@ public class ScrapNoticeController {
 		log.info("@# total=>"+total);
 		
 		log.info("@# cri2=>"+cri2);		
+		log.info("@# cri2=>"+cri2);	
 		
 		model.addAttribute("pageMaker", new PageDTO(total,cri2));			
 						
