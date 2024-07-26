@@ -548,7 +548,6 @@ main .mainContainer .jobPostList
                                     <div class="submitCon">
                                         <button class="submitTab" value="submit_status">지원완료</button><!-- 지원완료/미지원 분기 --> 
                                         <p value-"resume_submitDate">2024.05.31</p><!-- 지원완료/미지원 분기 -->
-                                        <p value-"resume_submitDate">2024.05.31</p><!-- 지원완료/미지원 분기 -->
                                     </div> <!-- btnCon 끝 -->     
                                     <div class="postCon">
                                         <button class="postStatus" value="post_status">채용중</button><!-- 채용마감/채용중 분기 -->
