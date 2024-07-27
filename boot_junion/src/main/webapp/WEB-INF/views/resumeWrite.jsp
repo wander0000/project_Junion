@@ -60,7 +60,7 @@
 	                                    <span class="icon">
 	                                        <i class="fa-solid fa-location-dot"></i>
 	                                    </span>
-										<h5 class="user_location">${userInfo.user_location}</h5>
+										<h5 class="user_location">${userInfo.user_location} ${userInfo.user_location2}</h5>
 	                                    <!-- <input class="location" type="text" maxlength="20" placeholder="위치" id="user_address" name="user_address"> -->
 	                                </div>
 	                                <div class="resumeCon wantPay">
@@ -228,7 +228,7 @@
 	                    </div>                    
 	                    <div class="sectionConBody tech">
 	                        <div class="Bodycon tech">
-								<input type="hidden" class="techValue" id="techValue" name="resume_stack"> <!-- resume_stack value 저장장소-->
+								<input type="text" class="techValue" id="techValue" name="stack_name"> <!-- resume_stack value 저장장소-->
 	                            <div class="techCon">
 	                                <div class="buttonTitle">기술</div>
 	                                <div class="buttonWrap">	                                    
@@ -308,23 +308,10 @@
 	        buttons.filter('.active').each(function() {
 	            buttonValues.push($(this).val());
 	        });
-	
-	        // AJAX 요청을 통해 서버로 데이터 전송
-	        $.ajax({
-	            url: "/resumeWrite", // 실제 서버 엔드포인트 URL
-	            type: "POST",  
-	            async: false,          
-	            data: JSON.stringify({resume_stack: buttonValues}),
-	            success: function(response) {
-	                // 선택된 값을 wishJob 입력 필드에 쉼표로 구분된 문자열로 표시
-	                techValue.val(buttonValues.join(', '));
-	            },
-	            error: function(response) {
-	                // 요청 중 오류 발생 시 처리
-	                console.error(response);
-	            }
-	        }); //ajax 끝       		
-		}); // submit click 끝
+			techValue.val(buttonValues.join(', '));	
+	        
+	              		
+		}); // submit click 끝 
 		
 // =============================================================================
 		

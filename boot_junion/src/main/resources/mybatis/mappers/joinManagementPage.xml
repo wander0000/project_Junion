@@ -52,12 +52,13 @@
 							notice_career, joincompany_date, resume_title, notice_num,
 							notice_endDate, noticeCheck, resume_num, notice_status , user_email  
 			from (select row_number() over(order by notice_num desc) as rownum,
-							n.com_email, n.com_name, n.notice_title, n.notice_area1, n.notice_area2,
-							n.notice_career, n.joincompany_date, r.resume_title, n.notice_num,
-							n.notice_endDate, n.noticeCheck, n.resume_num, n.notice_status , n.user_email 
-			                from notice_tb n 
-			                left JOIN resume_tb r ON n.resume_num = r.resume_num
-			                left JOIN submit_tb s ON s.resume_num = n.resume_num
+							s.com_email, c.com_name, n.notice_title, n.notice_area1, n.notice_area2,
+							n.notice_career, s.joincompany_date, r.resume_title, s.notice_num,
+							n.notice_endDate, n.noticeCheck, s.resume_num, n.notice_status , s.user_email 
+			                from submit_tb s 
+			                left JOIN resume_tb r ON s.resume_num = r.resume_num
+			                left JOIN notice_tb n ON s.notice_num = n.notice_num
+			                left JOIN com_tb c ON c.com_email = s.com_email
 							WHERE s.user_email = #{user_email}
 			                order by notice_num desc) a
 			where rownum <= (#{pageNum} * #{amount})
@@ -75,11 +76,14 @@
 							notice_career, joincompany_date, resume_title, notice_num,
 							notice_endDate, noticeCheck, resume_num, notice_status , user_email  
 			from (select row_number() over(order by notice_num desc) as rownum,
-							n.com_email, n.com_name, n.notice_title, n.notice_area1, n.notice_area2,
-							n.notice_career, n.joincompany_date, r.resume_title, n.notice_num,
-							n.notice_endDate, n.noticeCheck, n.resume_num, n.notice_status , n.user_email 
-			                from notice_tb n left JOIN resume_tb r ON n.resume_num = r.resume_num
-							WHERE n.user_email = #{user_email}
+							s.com_email, c.com_name, n.notice_title, n.notice_area1, n.notice_area2,
+							n.notice_career, s.joincompany_date, r.resume_title, s.notice_num,
+							n.notice_endDate, n.noticeCheck, s.resume_num, n.notice_status , s.user_email 
+			                from submit_tb s 
+			                left JOIN resume_tb r ON s.resume_num = r.resume_num
+			                left JOIN notice_tb n ON s.notice_num = n.notice_num
+			                left JOIN com_tb c ON c.com_email = s.com_email
+							WHERE s.user_email = #{user_email}
 							]]>
 							<include refid="select"></include>
 							<![CDATA[
@@ -91,7 +95,7 @@
     </select>
        
     <select id="joinManagementGetTotalCount" resultType="int">
-	    select count(*) from notice_tb where user_email=#{user_email}
+	    select count(*) from submit_tb where user_email=#{user_email}
     </select>
     
     

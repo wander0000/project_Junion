@@ -102,7 +102,7 @@ public class individualController {
 	@RequestMapping("/comScrapDelete")
 //	@ResponseBody
 //	public String comScrapDelete(@RequestParam("arrStr[]") String[] arrStr, HashMap<String, String> param, HttpServletRequest request,RedirectAttributes rttr) 
-	public int comScrapDelete(HashMap<String, String> param, HttpServletRequest request, RedirectAttributes rttr) 
+	public String comScrapDelete(HashMap<String, String> param, HttpServletRequest request, RedirectAttributes rttr) 
 	{
 		log.info("@# comScrapDelete");		
 		HttpSession session = request.getSession();
@@ -131,8 +131,8 @@ public class individualController {
 		rttr.addAttribute("amount",param.get("amount"));	
 		
 		
-		return 1;
-//		return "redirect:interComlist";
+//		return 1;
+		return "interComlist";
 	}
 	
 	

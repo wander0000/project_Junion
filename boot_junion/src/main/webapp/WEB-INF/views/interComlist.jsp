@@ -570,9 +570,10 @@ $(".normal").on("click", function() {
 					// dataType: 'json',
 					data:{"arrStr" : arr},
 					success: function(data) {
-						if (data == 1) {
+						if (data != 1) {
 							alert("삭제성공");
-							location.href = "interComList";
+							// location.href = "interComList";
+							location.replace("interComList");
 						} else {
 							alert("삭제에 실패했습니다.");
 						}
