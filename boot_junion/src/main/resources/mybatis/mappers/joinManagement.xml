@@ -65,23 +65,35 @@
     
     <!-- 전체 숫자 조회 -->
     <select id="TotalJoinManagementNum" resultType="int">
-	    select count(noticeCheck) from notice_tb where user_email=#{user_email}
+	    select count(noticeCheck) from submit_tb s
+	    left join notice_tb n 
+	    ON n.notice_num = s.notice_num
+	    where user_email=#{user_email}
     </select>
     
     <!-- 열람 숫자 조회 -->
     <select id="CheckJoinManagementNum" resultType="int">
-	    select count(noticeCheck) from notice_tb where user_email=#{user_email} and noticeCheck='열람'
+	    select count(noticeCheck) from submit_tb s
+	    left join notice_tb n 
+	    ON n.notice_num = s.notice_num
+	    where user_email=#{user_email} and noticeCheck='열람'
     </select>
     
     <!-- 미열람 숫자 조회 -->
     <select id="UnCheckJoinManagementNum" resultType="int">
-	    select count(noticeCheck) from notice_tb where user_email=#{user_email} and noticeCheck='미열람'
+	    select count(noticeCheck) from submit_tb s
+	    left join notice_tb n 
+	    ON n.notice_num = s.notice_num
+	    where user_email=#{user_email} and noticeCheck='미열람'
     </select>
 	
     <!-- 이력서 목록에서 셀렉트 박스 선택시 공유 여부 업데이트 되는 쿼리-->
-    <update id="cancelJoin">
-		update notice_tb set user_email=null, resume_num=null where notice_num= #{notice_num}
-    </update>
+    <delete id="cancelJoin">
+        delete from submit_tb where notice_num= #{notice_num}
+    </delete>
+    <!--<update id="cancelJoin">
+		update submit_tb set user_email=null, resume_num=null where notice_num= #{notice_num}
+    </update>-->
     
 </mapper>
 

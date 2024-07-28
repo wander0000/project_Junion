@@ -242,6 +242,7 @@ main .mainContainer .tabWrap .tabNum a
 .dataBody .dataBodyCon .leftDataWrap button.modify 
 {
   position: relative;
+  cursor: pointer;
 }
 
 /*.dataBody .dataBodyCon .leftDataWrap button.modify::after 
@@ -322,7 +323,12 @@ main .mainContainer .tabWrap .tabNum a
   gap: 0 20px;
 }
 
-.popB .buttonWrap button:hover
+.popB .buttonWrap .btn.buttonGray 
+{
+	cursor: pointer;
+}
+
+.popB .buttonWrap button:hover, .popB .buttonWrap input:hover
 {
   border:1px solid var(--main-color);
   background-color: var(--main-color);

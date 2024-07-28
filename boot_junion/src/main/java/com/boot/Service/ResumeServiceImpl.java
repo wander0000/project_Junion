@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.boot.DAO.JoinDAO;
 import com.boot.DAO.ResumeDAO;
 import com.boot.DAO.ResumeUploadDAO;
 import com.boot.DTO.ResumeDTO;
@@ -101,6 +102,28 @@ public class ResumeServiceImpl implements ResumeService{
 	public void resumeOfferUpdate(String resume_num, String resume_offer) {	
 		ResumeDAO dao = sqlSession.getMapper(ResumeDAO.class);
 		dao.resumeOfferUpdate(resume_num, resume_offer);			
+	}
+
+	@Override
+	public void insertResumeStack(String stack_name, int resume_num) {
+		
+		ResumeDAO dao = sqlSession.getMapper(ResumeDAO.class);
+		dao.insertResumeStack(stack_name, resume_num);	
+		
+		
+	}
+
+	@Override
+	public void modifyResumeStack(String stack_name, int resume_num) {
+		ResumeDAO dao = sqlSession.getMapper(ResumeDAO.class);
+		dao.modifyResumeStack(stack_name, resume_num);			
+	}
+
+	@Override
+	public void deleteResumeStack(String resume_num) {
+		log.info("@# deleteResumeStack resume_num==>" + resume_num);
+		ResumeDAO dao = sqlSession.getMapper(ResumeDAO.class);
+		dao.deleteResumeStack(resume_num);		
 	}
 
 	

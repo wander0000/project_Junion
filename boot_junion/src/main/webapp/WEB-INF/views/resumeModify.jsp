@@ -32,11 +32,11 @@
 	                    <div class="resumeConWrap">
 	                        <div class="resumeCon left">
 	                            <div class="resumeConTop">
-	                                <h5 class="name" name="user_name">${resumeInfo.user_name}</h5>
+	                                <h5 class="name" name="user_name">${userInfo.user_name}</h5>
 	                                <div class="ageSex">
 	                                    <!-- <h5 class="age">${resumeInfo.resume_age}</h5> -->
 	                                    <h5 class="age"></h5>
-										<h5 id="sex" style="font-size: var(--font-size16); font-weight: 300;">${resumeInfo.resume_gender}</h5>	                                    
+										<h5 id="sex" style="font-size: var(--font-size16); font-weight: 300;">${userInfo.user_gender}</h5>	                                    
 	                                </div>
 	                            </div>
 	                            <div class="resumeConBottom">
@@ -44,20 +44,20 @@
 	                                    <span class="icon">
 	                                        <i class="fa-solid fa-envelope"></i>
 	                                    </span>
-	                                    <h5 class="email">${resumeInfo.user_email}</h5>
+	                                    <h5 class="email">${userInfo.user_email}</h5>
 	                                </div>
 	                                <div class="resumeCon tel">
 	                                    <span class="icon">
 	                                        <i class="fa-solid fa-phone"></i>
 	                                    </span>
-										<h5 class="tel">${resumeInfo.user_tel}</h5>
+										<h5 class="tel">${userInfo.user_tel}</h5>
 	                                    <!-- <input class="tel" type="text" maxlength="20" placeholder="전화번호" id="user_tel" name="user_tel"> -->
 	                                </div>
 	                                <div class="resumeCon location">
 	                                    <span class="icon">
 	                                        <i class="fa-solid fa-location-dot"></i>
 	                                    </span>
-										<h5 class="user_location">${resumeInfo.user_address}</h5>
+										<h5 class="user_location">${userInfo.user_location} ${userInfo.user_location2}</h5>
 	                                    <!-- <input class="location" type="text" maxlength="20" placeholder="위치" id="user_address" name="user_address"> -->
 	                                </div>
 	                                <div class="resumeCon wantPay">
@@ -216,12 +216,12 @@
 	                    </div>                    
 	                    <div class="sectionConBody tech">
 	                        <div class="Bodycon tech">
-								<input type="hidden" class="techValue" id="techValue" name="resume_stack"> <!-- resume_stack value 저장장소-->
+								<input type="text" class="techValue" id="techValue" name="stack_name"> <!-- resume_stack value 저장장소-->
 	                            <div class="techCon">
 	                                <div class="buttonTitle">기술</div>
 	                                <div class="buttonWrap">	                                    
 										<c:forEach var="dto" items="${stack_name}">
-											<input type="button" class="tech" name="resume_stack" value="${dto.stack_name}">
+											<input type="button" class="tech" name="stack_name" value="${dto.stack_name}">
 										</c:forEach>
 	                                </div>
 	                            </div>    
@@ -229,7 +229,7 @@
 	                                <div class="buttonTitle">디자인</div>
 	                                <div class="buttonWrap">
 	                                    <c:forEach var="dto" items="${stack_name2}">
-											<input type="button" class="tech" name="resume_stack" value="${dto.stack_name}">
+											<input type="button" class="tech" name="stack_name" value="${dto.stack_name}">
 										</c:forEach>
 	                                </div>
 	                            </div>
@@ -237,7 +237,7 @@
 	                                <div class="buttonTitle">기획</div>
 	                                <div class="buttonWrap">
 	                                    <c:forEach var="dto" items="${stack_name3}">
-											<input type="button" class="tech" name="resume_stack" value="${dto.stack_name}">
+											<input type="button" class="tech" name="stack_name" value="${dto.stack_name}">
 										</c:forEach>
 	                                </div>
 	                            </div>                        
@@ -293,21 +293,7 @@
 				buttonValues.push($(this).val());
 			});
 
-			// AJAX 요청을 통해 서버로 데이터 전송
-			$.ajax({
-				url: "/resumeWrite", // 실제 서버 엔드포인트 URL
-				type: "POST",  
-				async: false,          
-				data: JSON.stringify({resume_stack: buttonValues}),
-				success: function(response) {
-					// 선택된 값을 wishJob 입력 필드에 쉼표로 구분된 문자열로 표시
-					techValue.val(buttonValues.join(', '));
-				},
-				error: function(response) {
-					// 요청 중 오류 발생 시 처리
-					console.error(response);
-				}
-			});
+			techValue.val(buttonValues.join(', '));
 		});
 
 		// 나이계산하기

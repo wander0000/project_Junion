@@ -4,7 +4,7 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.boot.DAO.PageDAO">   
-   <!-- <![CDATA[]]> : mybatis에서 특수문자 인식 처리 -->
+      <!-- <![CDATA[]]> : mybatis에서 특수문자 인식 처리 -->
     <select id="listWithPaging" resultType="com.boot.DTO.ResumeDTO">
 	    <![CDATA[
 		        select 	rownum, user_email, resume_num, resume_title, resume_pay, resume_offer, career_start, career_end,
@@ -37,30 +37,32 @@
    <!-- <![CDATA[]]> : mybatis에서 특수문자 인식 처리 -->
     
     <sql id="criteria"> <!-- 검색 로직: 키워드가 회사명이나 회사설명에 있는 리스트검색 -->
-  		 and (com_name like concat ('%', IFNULL(#{keyword}, ''), '%') or com_content like concat ('%', IFNULL(#{keyword}, ''), '%'))
+  		  AND (com_name like concat('%', IFNULL(#{keyword}, ''), '%') OR com_content like concat('%', IFNULL(#{keyword}, ''), '%')) 
    	</sql>
-       
-    <select id="comlistWithPaging" resultType="com.boot.DTO.CompanyInfoDTO">
+	
+		
+	<select id="comlistWithPaging" resultType="com.boot.DTO.CompanyInfoDTO">
     	<![CDATA[
-			  Select com_name, com_content, com_email, notice_count
-				from( Select rownum, com_name, com_content, com_email, notice_count
-					from(SELECT row_number() over(order by update_date desc) as rownum, 
-									c.com_name as com_name, c.com_content as com_content, 
-									c.com_email as com_email, c.update_date as update_date, (SELECT COUNT(*) FROM notice_tb n WHERE n.com_email = c.com_email) as notice_count
-						FROM COM_TB c 
-						INNER JOIN COM_SCRAP s ON c.com_email = s.com_email 
-						WHERE s.user_email=#{user_email}) a
-					where rownum <= (#{pageNum} * #{amount})
-					]]> 
+			SELECT com_name, com_content, com_email, notice_count 
+			 FROM ( SELECT rownum, com_name, com_content, com_email, notice_count 
+				    FROM ( SELECT row_number() over(order by update_date desc) as rownum, 
+				               c.com_name as com_name, c.com_content as com_content, c.com_email as com_email, c.update_date as update_date, 
+				               (SELECT COUNT(*) FROM notice_tb n WHERE n.com_email = c.com_email) as notice_count 
+				        			FROM COM_SCRAP s 
+							        Left outer JOIN COM_TB c ON c.com_email = s.com_email 
+							        WHERE s.user_email='q@q.com' ) a 
+				    WHERE rownum <= (#{pageNum} * #{amount}) 
+				    ]]> 
 						  <include refid="criteria"></include>
 					<![CDATA[
-					) aa 
-			where rownum > (#{pageNum}-1)*#{amount};
-   		]]>
+				) aa 
+				WHERE rownum > (#{pageNum}-1)*#{amount};
+  		]]>
     </select>   
      
     <select id="getComTotalCount" resultType="int">
-	    select count(*) from COM_SCRAP where user_email=#{user_email}
+		select count(*) from COM_SCRAP cs join COM_TB ct on cs.com_email = ct.com_email where cs.user_email =#{user_email}	
+		<include refid="criteria"></include>		
     </select>    
 
 
@@ -68,8 +70,10 @@
 	<!--  <![CDATA[]]> : mybatis에서 특수문자 인식 처리  -->
 	<sql id="criteria2">
 	<!--  검색 로직: 키워드가 회사명이나 회사설명에 있는 리스트검색  -->
-	and (com_name like concat ('%', IFNULL(#{keyword}, ''), '%') or notice_title like concat ('%', IFNULL(#{keyword}, ''), '%'))
+		and (com_name like concat ('%', IFNULL(#{keyword}, ''), '%') or notice_title like concat ('%', IFNULL(#{keyword}, ''), '%'))
 	</sql>
+	
+	
 	<select id="noticelistWithPaging" resultType="com.boot.DTO.ComNoticeDTO">
 	<![CDATA[ 
 		Select notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date 
@@ -89,6 +93,7 @@
 	
 	<select id="getNoticeTotalCount" resultType="int"> 
 		select count(*) from notice_scrap where user_email=#{user_email} 
+		<include refid="criteria2"/>
 	</select>
     
     

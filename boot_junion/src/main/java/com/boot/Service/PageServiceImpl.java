@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,11 +81,11 @@ public class PageServiceImpl implements PageService{
 	}
 
 	@Override
-	public int getComTotalCount(String user_email) {
+	public int getComTotalCount(@Param("user_email") String user_email, @Param("keyword") String keyword) {
 		log.info("@# PageServiceImpl getComTotalCount");
 		
 		PageDAO dao = sqlSession.getMapper(PageDAO.class);
-		int total = dao.getComTotalCount(user_email);
+		int total = dao.getComTotalCount(user_email, keyword);
 		
 		return total;
 	}	
@@ -113,11 +114,11 @@ public class PageServiceImpl implements PageService{
 	}
 
 	@Override
-	public int getNoticeTotalCount(String user_email) {
+	public int getNoticeTotalCount(@Param("user_email") String user_email, @Param("keyword") String keyword) {
 	log.info("@# PageServiceImpl getNoticeTotalCount");
 		
 		PageDAO dao = sqlSession.getMapper(PageDAO.class);
-		int total = dao.getNoticeTotalCount(user_email);
+		int total = dao.getNoticeTotalCount(user_email, keyword);
 		
 		return total;
 	}	
