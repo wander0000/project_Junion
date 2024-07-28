@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>개인-마이페이지-관심기업</title>
+<title>개인-관심기업</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/individualMain.css">
 <!--<link rel="stylesheet" href="src/main/resources/static/css/style.css">-->
@@ -492,7 +492,7 @@
 		
 		/*
 		2024-07-02 서연주 
-		기업명,공고제목으로 검색하기
+		기업명,기업소개 검색하기
 		*/
 		$("button.searchBtn").on("click",function(e){
 			e.preventDefault();

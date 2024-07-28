@@ -30,6 +30,7 @@ import com.boot.DTO.JoinDTO;
 import com.boot.DTO.JoinManagementPageDTO;
 import com.boot.DTO.LoginDTO;
 import com.boot.DTO.NoticeDTO;
+import com.boot.DTO.NoticeScrapDTO;
 import com.boot.DTO.PageDTO;
 import com.boot.DTO.ResumeDTO;
 import com.boot.DTO.ResumeUploadDTO;
@@ -78,14 +79,17 @@ public class individualController {
 	}
 		
 	
-	@RequestMapping("/individualNoticeScrap") //스크랩 공고
-	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2, @RequestParam(value = "keyword", required = false) String keyword) {
+	@RequestMapping("/individualNoticeScrap") //스크랩 공고 목록
+//	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2, @RequestParam(value = "keyword", required = false) String keyword) {
+	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2, 
+			@RequestParam(value = "keyword", required = false) String keyword , @RequestParam(value = "filter1", required = false) String filter1 ) {
 		log.info("@# individualNoticeScrap");	
 		
 		HttpSession session = request.getSession();
 		String user_email = (String)session.getAttribute("login_email");
 		log.info("@# individualNoticeScrap  user_email=>"+user_email);	
 		
+		cri2.setFilter1(filter1);
 		// 사용자정보의 스크랩 채용공고 목록 가져오기
 		ArrayList<ComNoticeDTO> list = pageService.noticelistWithPaging(cri2, request);
 		log.info("@# individualNoticeScrap getNoticeScrapList=>"+list);		
@@ -93,13 +97,67 @@ public class individualController {
 				
 		int total = pageService.getNoticeTotalCount(user_email, keyword);
 		log.info("@# individualNoticeScrap total=>"+total);
-		model.addAttribute("total",total);
+//		model.addAttribute("total",total);
 					
 		model.addAttribute("pageMaker", new PageDTO(total,cri2));			
 						
 		
 		return "individualNoticeScrap";
 	}
+	
+	
+
+	@RequestMapping("/noticeScrapWithStatus") //스크랩 공고 목록
+//	public String noticeScrapWithStatus(HttpServletRequest request, Model model, Criteria2 cri2, @RequestParam(value = "keyword", required = false) String keyword) {
+	public String noticeScrapWithStatus(HttpServletRequest request, Model model, Criteria2 cri2, 
+			@RequestParam(value = "keyword", required = false) String keyword , @RequestParam(value = "filter1", required = false) String filter1 ) {
+		log.info("@# noticeScrapWithStatus");	
+		
+		HttpSession session = request.getSession();
+		String user_email = (String)session.getAttribute("login_email");
+		log.info("@# individualNoticeScrap  user_email=>"+user_email);	
+		
+		cri2.setFilter1(filter1);
+		// 사용자정보의 스크랩 채용공고 목록 가져오기
+		ArrayList<ComNoticeDTO> list = pageService.noticelistWithPaging(cri2, request);
+		log.info("@# individualNoticeScrap getNoticeScrapList=>"+list);		
+		model.addAttribute("noticeList", list);
+				
+		int total = pageService.getNoticeTotalCount(user_email, keyword);
+		log.info("@# individualNoticeScrap total=>"+total);
+//		model.addAttribute("total",total);
+					
+		model.addAttribute("pageMaker", new PageDTO(total,cri2));			
+						
+		
+		return "redirect:/individualNoticeScrap";
+	}
+	
+
+	@RequestMapping("/noticeScrapDelete")//스크랩 공고 삭제
+	public String comScrapDelete(HashMap<String, String> param, HttpServletRequest request) {
+	
+		log.info("@# noticeScrapDelete");		
+		HttpSession session = request.getSession();
+		String user_email = (String)session.getAttribute("login_email");
+		
+		String [] arrStr = request.getParameterValues("arrStr");//notice_num배열
+        int size = arrStr.length;
+        NoticeScrapDTO dto = new NoticeScrapDTO();
+        log.info("@# arrStr notice_num배열====>" + Arrays.toString(arrStr));
+        for(int i=0; i<size; i++) {
+        	dto.setNotice_num(Integer.parseInt(arrStr[i]));//배열값이 string으로 넘어오기땨뮨에
+        	dto.setUser_email(user_email);
+        	
+        	log.info("@# notice_num,  user_email넣은 dto====>" + dto);
+        	
+        	service.noticeScrapDelete(dto);
+        }
+		
+		return "redirect:/individualNoticeScrap";
+	}
+	
+	
 	
 	
 	
@@ -113,7 +171,7 @@ public class individualController {
 		ArrayList<CompanyInfoDTO> list = pageService.comlistWithPaging(cri,request);		
 		int total = pageService.getComTotalCount(user_email, keyword);
 		model.addAttribute("comList", list);
-		model.addAttribute("total",total);	
+//		model.addAttribute("total",total);	
 		model.addAttribute("pageMaker", new PageDTO(total, cri));	
 		
 		return "interComlist";
@@ -133,9 +191,12 @@ public class individualController {
         int size = arrStr.length;
         ComScrapDTO dto = new ComScrapDTO();
         log.info("@# arrStr====>" + Arrays.toString(arrStr));
+        log.info("@# arrStr====>" + Arrays.toString(arrStr));
         for(int i=0; i<size; i++) {
         	dto.setCom_email(arrStr[i]);
         	dto.setUser_email(user_email);
+        	
+        	
         	service.comScrapDelete(dto);
         }
 		
