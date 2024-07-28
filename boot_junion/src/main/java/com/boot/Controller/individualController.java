@@ -78,20 +78,40 @@ public class individualController {
 	}
 		
 	
+	@RequestMapping("/individualNoticeScrap") //스크랩 공고
+	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2, @RequestParam(value = "keyword", required = false) String keyword) {
+		log.info("@# individualNoticeScrap");	
+		
+		HttpSession session = request.getSession();
+		String user_email = (String)session.getAttribute("login_email");
+		log.info("@# individualNoticeScrap  user_email=>"+user_email);	
+		
+		// 사용자정보의 스크랩 채용공고 목록 가져오기
+		ArrayList<ComNoticeDTO> list = pageService.noticelistWithPaging(cri2, request);
+		log.info("@# individualNoticeScrap getNoticeScrapList=>"+list);		
+		model.addAttribute("noticeList", list);
+				
+		int total = pageService.getNoticeTotalCount(user_email, keyword);
+		log.info("@# individualNoticeScrap total=>"+total);
+		model.addAttribute("total",total);
+					
+		model.addAttribute("pageMaker", new PageDTO(total,cri2));			
+						
+		
+		return "individualNoticeScrap";
+	}
+	
 	
 	
 	@RequestMapping("/interComlist")//관심기업
-	public String individualInterComlist(HttpServletRequest request, Criteria2 cri, Model model) {
+	public String individualInterComlist(HttpServletRequest request, Criteria2 cri, @RequestParam(value = "keyword", required = false) String keyword, Model model) {
 		log.info("@# individualInterComlist");		
 		
 		HttpSession session = request.getSession();
 		String user_email = (String)session.getAttribute("login_email");
-		
-//		ArrayList<CompanyInfoDTO> list = comService.comListById(user_email);
-//		model.addAttribute("comList", list);
-		
+	
 		ArrayList<CompanyInfoDTO> list = pageService.comlistWithPaging(cri,request);		
-		int total = pageService.getComTotalCount(user_email);
+		int total = pageService.getComTotalCount(user_email, keyword);
 		model.addAttribute("comList", list);
 		model.addAttribute("total",total);	
 		model.addAttribute("pageMaker", new PageDTO(total, cri));	
@@ -103,6 +123,7 @@ public class individualController {
 //	@ResponseBody
 //	public String comScrapDelete(@RequestParam("arrStr[]") String[] arrStr, HashMap<String, String> param, HttpServletRequest request,RedirectAttributes rttr) 
 	public String comScrapDelete(HashMap<String, String> param, HttpServletRequest request, RedirectAttributes rttr) 
+//	public String comScrapDelete(HashMap<String, String> param, HttpServletRequest request) 
 	{
 		log.info("@# comScrapDelete");		
 		HttpSession session = request.getSession();
@@ -118,21 +139,13 @@ public class individualController {
         	service.comScrapDelete(dto);
         }
 		
-//		String scrapComList = request.getParameter("comlist");
-//		log.info("@# comScrapDelete scrapComList"+scrapComList);
-//		
-//        int size = scrapComList.length;
-//        log.info("@# ajaxMsg====>"+scrapComList);	
-//        for(int i=0; i<size; i++) {
-//        	service.comScrapDelete(scrapComList[i], user_email);
-//        }
-//		resumeService.resumeDelete(param);
-        rttr.addAttribute("pageNum",param.get("pageNum"));
-		rttr.addAttribute("amount",param.get("amount"));	
+
+//        rttr.addAttribute("pageNum",param.get("pageNum"));
+//		rttr.addAttribute("amount",param.get("amount"));	
 		
 		
 //		return 1;
-		return "interComlist";
+		return "redirect:/interComlist";
 	}
 	
 	
