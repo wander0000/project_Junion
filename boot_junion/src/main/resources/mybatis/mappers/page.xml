@@ -74,6 +74,21 @@
 	</sql>
 	
 	
+	<sql id="orderType">
+<!--      <if test='(orderType == "recommendation" and cri.login_usertype == "1")'> 큰 따옴표 때문에 char타입이 적용이 안됐음 -->
+      <if test="(orderType == 'recommendation' and cri.login_usertype == '1')">
+<!--         ORDER BY r.resume_num-->
+<!--         ORDER BY stack_names like concat ('%','Android','%') DESC-->
+         ORDER BY (CASE WHEN stack_names LIKE CONCAT('%', (SELECT GROUP_CONCAT(stack) FROM com_stack WHERE com_email = #{cri.login_email}), '%') THEN 1 ELSE 0 END) DESC
+      </if>
+      <if test="(orderType == 'recommendation' and cri.login_usertype == '2')">
+         ORDER BY stack_names like concat ('%','JAVA','%') DESC
+      </if>
+      <if test='(orderType == "latest")'>
+         ORDER BY r.resume_num DESC
+      </if>
+   </sql>
+	
 	
 	
 	<select id="noticelistWithPaging" resultType="com.boot.DTO.ComNoticeDTO">
