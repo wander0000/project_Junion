@@ -372,6 +372,18 @@ main .postSection .a .more
     margin-right: 12px;
 }
 
+.con .uploadResult img
+{
+    width: 270px;
+    height: 220px;
+    border-radius: 10px;
+}
+
+.a .uploadResult img
+{
+    width: 48px;
+    height: 48px;
+}
 
 
 
