@@ -41,7 +41,7 @@ public class ComNoticeDTO {
 	private String joincompany_date;//notice list 불러올때 submit_tb에서 조회해서 가지고 가야되서 DTO에 필드만 넣음 (연주0728)
 	
 	
-	
+	private String com_location;//채용공고 상세에 필요한 회사 위치
 	
 	
 	
