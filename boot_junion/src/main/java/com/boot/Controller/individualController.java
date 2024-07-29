@@ -82,25 +82,52 @@ public class individualController {
 	@RequestMapping("/individualNoticeScrap") //스크랩 공고 목록
 //	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2, @RequestParam(value = "keyword", required = false) String keyword) {
 	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2, 
-			@RequestParam(value = "keyword", required = false) String keyword , @RequestParam(value = "filter1", required = false) String filter1 ) {
+			@RequestParam(value = "keyword", required = false) String keyword , @RequestParam(required = false) String orderBy ) {
 		log.info("@# individualNoticeScrap");	
 		
 		HttpSession session = request.getSession();
+		
+		if (orderBy == null) {
+            orderBy = (String) session.getAttribute("orderBy");
+            if (orderBy == null) {
+                orderBy = "desc";
+            }
+        }
+		
+		
 		String user_email = (String)session.getAttribute("login_email");
 		log.info("@# individualNoticeScrap  user_email=>"+user_email);	
 		
-		cri2.setFilter1(filter1);
-		// 사용자정보의 스크랩 채용공고 목록 가져오기
-		ArrayList<ComNoticeDTO> list = pageService.noticelistWithPaging(cri2, request);
+//		cri2.setFilter1(filter1);
+		ArrayList<ComNoticeDTO> list = new ArrayList<>();
+//		if (cri2.getFilter1() == null || cri2.getFilter1().equals("desc")) {
+		if (orderBy == null || orderBy.equals("desc")) {
+			// 사용자정보의 스크랩 채용공고 목록 가져오기(기본 최신순)
+			list = pageService.noticelistWithPaging(cri2, request);
+//			log.info("@# individualNoticeScrap getNoticeScrapList=>"+list);		
+//			model.addAttribute("noticeList", list);
+			
+//		}else if (cri2.getFilter1().equals("asc") ){
+		}else if (orderBy.equals("asc") ){
+			
+			// 사용자정보의 스크랩 채용공고 목록(오래된 순으로) 가져오기
+			list = pageService.noticelistCreateAsc(cri2, request);
+		} else {
+	        // 기본 최신순으로 설정
+	        list = pageService.noticelistWithPaging(cri2, request);
+	    }
+				
 		log.info("@# individualNoticeScrap getNoticeScrapList=>"+list);		
 		model.addAttribute("noticeList", list);
-				
 		int total = pageService.getNoticeTotalCount(user_email, keyword);
 		log.info("@# individualNoticeScrap total=>"+total);
 //		model.addAttribute("total",total);
 					
 		model.addAttribute("pageMaker", new PageDTO(total,cri2));			
-						
+			
+		
+//		rttr.addAttribute("noticeList",list);
+//		rttr.addAttribute("pageMaker",new PageDTO(total,cri2));	
 		
 		return "individualNoticeScrap";
 	}
@@ -109,7 +136,7 @@ public class individualController {
 
 	@RequestMapping("/noticeScrapWithStatus") //스크랩 공고 목록
 //	public String noticeScrapWithStatus(HttpServletRequest request, Model model, Criteria2 cri2, @RequestParam(value = "keyword", required = false) String keyword) {
-	public String noticeScrapWithStatus(HttpServletRequest request, Model model, Criteria2 cri2, 
+	public String noticeScrapWithStatus(HttpServletRequest request, Model model, Criteria2 cri2,
 			@RequestParam(value = "keyword", required = false) String keyword , @RequestParam(value = "filter1", required = false) String filter1 ) {
 		log.info("@# noticeScrapWithStatus");	
 		

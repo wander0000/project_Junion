@@ -29,6 +29,9 @@ public interface PageService {
 	//연주 스크랩 공고 총 갯수
 	public int getNoticeTotalCount(@Param("user_email") String user_email, @Param("keyword") String keyword);
 	
+	
+	//연주 스크랩 공고 리스트 오래된 순 withPage
+	public ArrayList<ComNoticeDTO> noticelistCreateAsc(Criteria2 cri2, HttpServletRequest request);
 	//연주 스크랩 공고 중 현재 채용중인 리스트검색 withPage
 	public ArrayList<ComNoticeDTO> noticelistCanSubmit(Criteria2 cri2, HttpServletRequest request);
 	//연주 스크랩 공고 중 채용마감인 리스트검색 withPage

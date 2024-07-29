@@ -85,11 +85,9 @@
 							, st.resume_num as resume_num, st.joincompany_date as joincompany_date
 						FROM notice_scrap ns 
 						left outer join notice_tb nt ON ns.notice_num = nt.notice_num
-						left outer join submit_tb st ON ns.notice_num = st.notice_num 
+						left outer join submit_tb st ON ns.user_email = st.user_email 
 						WHERE ns.user_email=#{user_email}  
-						order by nt.update_date,
-						CASE WHEN #{filter1} IS NULL OR #{filter1} = '' THEN 'DESC' ELSE #{filter1} END 
-						) a 
+						order by nt.notice_num desc ) a 
 				where rownum <= (#{pageNum} * #{amount}) 
 				]]>
 				<include refid="criteria2"/>
@@ -104,6 +102,28 @@
 		<include refid="criteria2"/>
 	</select>
 	
+	
+	
+	<select id="noticelistCreateAsc" resultType="com.boot.DTO.ComNoticeDTO">
+	<![CDATA[ 
+		Select notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+		from( Select rownum, notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+				from( SELECT row_number() over(order by nt.update_date desc) as rownum, nt.notice_num as notice_num, nt.com_email as com_email, nt.com_name as com_name, nt.notice_title as notice_title 
+							, nt.notice_career as notice_career, nt.notice_area1 as notice_area1, nt.notice_area2 as notice_area2,	nt.notice_startDate as notice_startDate, nt.notice_endDate as notice_endDate, nt.update_date as update_date 
+							, st.resume_num as resume_num, st.joincompany_date as joincompany_date
+						FROM notice_scrap ns 
+						left outer join notice_tb nt ON ns.notice_num = nt.notice_num
+						left outer join submit_tb st ON ns.user_email = st.user_email 
+						WHERE ns.user_email=#{user_email}  
+						order by nt.notice_num asc	) a 
+				where rownum <= (#{pageNum} * #{amount}) 
+				]]>
+				<include refid="criteria2"/>
+				<![CDATA[ 
+				) aa 
+		where rownum > (#{pageNum}-1)*#{amount}; 
+	]]>
+	</select>
 	
 	
 	
@@ -128,12 +148,12 @@
 							, st.resume_num as resume_num, st.joincompany_date as joincompany_date
 						FROM notice_scrap ns 
 						left outer join notice_tb nt ON ns.notice_num = nt.notice_num
-						left outer join submit_tb st ON ns.notice_num = st.notice_num 
+						left outer join submit_tb st ON ns.user_email = st.user_email 
 						WHERE ns.user_email=#{user_email}  
 						]]>
 						<include refid="filter2CanSubmit"/>
 						<![CDATA[ 
-						order by nt.update_date desc
+						order by nt.notice_num desc
 						) a 
 				where rownum <= (#{pageNum} * #{amount}) 
 				]]>
@@ -161,12 +181,12 @@
 							, st.resume_num as resume_num, st.joincompany_date as joincompany_date
 						FROM notice_scrap ns 
 						left outer join notice_tb nt ON ns.notice_num = nt.notice_num
-						left outer join submit_tb st ON ns.notice_num = st.notice_num 
+						left outer join submit_tb st ON ns.user_email = st.user_email 
 						WHERE ns.user_email=#{user_email}  
 						]]>
 						<include refid="filter2CannotSubmit"/>
 						<![CDATA[ 
-						order by nt.update_date desc
+						order by nt.notice_num desc
 						) a 
 				where rownum <= (#{pageNum} * #{amount}) 
 				]]>

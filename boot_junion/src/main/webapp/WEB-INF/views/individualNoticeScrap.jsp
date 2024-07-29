@@ -461,33 +461,30 @@ button.postStatus
                             <div class="optionSortLeft">
                                 <input type="checkbox" id="check_all" value="회사명">
                                 <button class="selectDel">삭제</button>
-                                <select id="orderByUpdate" class="custom-select" onchange="orderByUpdate(this.value);">
+                                <!-- <select id="orderByUpdate" class="custom-select" onchange="orderByUpdate(this.value);"> -->
+                                <!-- <select id="orderByUpdate" class="custom-select" onchange="switchTab(this.value,event);"> -->
+                                <select id="orderBy" class="custom-select" onchange="switchTab(this.value,event);">
                                 <!-- <select id="orderByUpdate" class="custom-select"> -->
-                                    <option value="desc"<c:if test="${pageMaker.cri.filter1 == 'desc'}">selected='selected'</c:if>>최신순</option>
-											              <option value="asc" <c:if test="${pageMaker.cri.filter1 == 'asc'}">selected='selected'</c:if>>오래된순</option>
+                                    <option value="desc"<c:if test="${orderBy == 'desc'}">selected='selected'</c:if>>최신순</option>
+											              <option value="asc" <c:if test="${orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option>
                                 </select>
-                                <select id="orderBySubmit" class="custom-select" 
-                                        th:onchange="|location.href='?searchText=' + document.querySelector('#searchText').value + '&amp;orderBy=' + this.value;|">
-                                    <option value="desc" th:selected="${orderBy == 'desc'}">지원완료</option>
-                                    <option value="asc" th:selected="${orderBy == 'asc'}">미지원</option>
+                                <!-- <select id="orderBySubmit" class="custom-select" onchange="switchTab2(this.value,event);"> -->
+                                <select id="orderBy" class="custom-select" onchange="switchTab(this.value,event);">
+                                    <option value="지원완료" <c:if test="${orderBy == '지원완료'}">selected='selected'</c:if>>지원완료</option>
+                                    <option value="미지원" <c:if test="${orderBy == '미지원'}">selected='selected'</c:if>>미지원</option>
                                 </select>
-                                <select id="orderByStatus" class="custom-select"
-                                        th:onchange="|location.href='?searchText=' + document.querySelector('#searchText').value + '&amp;orderBy=' + this.value;|">
-                                    <option value="desc" th:selected="${orderBy == ''}">채용중</option>
-                                    <option value="asc" th:selected="${orderBy == ''}">접수마감</option>
+                                <!-- <select id="orderByStatus" class="custom-select" onchange="switchTab3(this.value,event);"> -->
+                                <select id="orderBy" class="custom-select" onchange="switchTab(this.value,event);">
+                                    <option value="채용중" <c:if test="${orderBy == '채용중'}">selected='selected'</c:if>>채용중</option>
+                                    <option value="접수마감" <c:if test="${orderBy == '접수마감'}">selected='selected'</c:if>>접수마감</option>
                                 </select>
-                                <!-- <select class="scrapDate" name="sort" id="sort" title="정렬순서" onchange="location.href=this.value">
-                                    <option value="/zf_user/pds-resume/resume-download/order/id" label="">최근 등록순</option>
-                                    <option value="//경로적어야//" label="최근등록순">최근 등록순</option>
-                                    <option value="//경로적어야//" label="오래된순">오래된순</option>
-                                </select>//이건 네이버게시판 -->
                             </div><!-- optionSortLeft 끝 -->
                             <div class="optionSorRight">
                                 <form method="get" id="searchForm">
                                     <div class="search_Form">
                                         <input type="text" id="keyword" name="keyword" placeholder="기업명, 채용공고제목"  value="${pageMaker.cri.keyword}">
-                                        <!-- <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> -->
-                                        <!-- <input type="hidden" name="amount" value="${pageMaker.cri.amount}">페이징 처리를 위한 amount -->
+                                        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                                        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">페이징 처리를 위한 amount
                                         <button class="searchBtn" type="submit">검색하기</button>
                                     </div>
                                 </form><!-- searchForm / optionSortBtn right 끝 --> 
@@ -622,38 +619,7 @@ button.postStatus
 <script>
 	$(document).ready(function()
 	{
-		/*
-    2024-07-28 서연주 
-    최신순, 오래된순 : 키워드와 criteria객체 보내기
-    */
-    $("#orderByUpdate"),on("change", function (e) {
-      e.preventDefault;
-
-      var filter1 = $(this).val();
-      //cri의 값들을 출력한다음 JSON타입의 객체로 파싱
-      const cri = JSON.parse('<c:out value="${pageMaker.cri}"/>');
-      cri.filter1 = filter1; // filter1 값을 cri 객체에 추가
-
-      $.ajax
-      ({
-        url: "individualNoticeScrap",
-        type:"POST",
-        traditional : true, //배열로 보내는 방법
-        data: JSON.stringify(cri), // cri 객체를 JSON 문자열로 변환하여 전송
-        contentType: "application/json; charset=utf-8", // JSON 데이터 전송 시 설정
-        success: function() 
-        {
-          alert("변경 성공!");			                                                                                                                                    
-          console.log(data);
-          location.href = "individualNoticeScrap";
-        },
-        error: function(error) 
-        {
-          console.log(error);
-          alert("실패");
-        }
-      });
-    });
+		
     /*
     2024-07-02 서연주 
     기업명,공고제목으로 검색하기
@@ -772,41 +738,65 @@ button.postStatus
 
 // 	 최신순오래된순 구현하는 스크립트 노션에 참고자료있음 java단도 만들어야 
 // 
-//     document.querySelector('#orderBy').addEventListener('change', function() {
-//         var orderBy = document.querySelector('#orderBy').value;
-//         window.location.href = '/board/view?id=' + id + '&orderBy=' + orderBy;
-//     });
+    // document.querySelector('#orderBy').addEventListener('change', function() {
+    //     var orderBy = document.querySelector('#orderBy').value;
+    //     window.location.href = '/individualNoticeScrap?orderBy=' + orderBy;
+    // });
 
 
 	});
 
 
-  function orderByUpdate(filter1) {
-            // cri의 값들을 JSON 타입의 객체로 파싱
-            // const cri = JSON.parse('<c:out value="${pageMaker.cri}" escapeXml="false"/>');
-            // cri.filter1 = filter1; // filter1 값을 cri 객체에 추가
 
-            var cri = '<c:out value="${pageMaker.cri}"/>';
+  function switchTab(filter1, event){
+    document.getElementById('orderByUpdate').value = filter1;
+    document.getElementById('searchForm').submit();
+    // searchForm.attr("action","#").submit();//serachForm 정보를 들고 컨트롤러단으로 감
+  }
+  function switchTab2(filter1, event){
+    document.getElementById('orderBySubmit').value = filter1;
+    document.getElementById('searchForm').submit();
+    // searchForm.attr("action","#").submit();//serachForm 정보를 들고 컨트롤러단으로 감
+  }
+  function switchTab3(filter1, event){
+    document.getElementById('orderByStatus').value = filter1;
+    document.getElementById('searchForm').submit();
+    // searchForm.attr("action","#").submit();//serachForm 정보를 들고 컨트롤러단으로 감
+  }
+  /*
+  2024-07-28 서연주 
+  최신순, 오래된순 필터링
+  */
+  // function orderByUpdate(filter1) {
+  //   const cri = '<c:out value="${pageMaker.cri}"/>';
+  //   const criArray = Object.entries(cri);//객체에서 키:값 꺼내서 배열로 만듬
+  //   // criArray['filter1'] = filter1;//입력된 filter1값을 배열에 filer1의 값으로 넣어줌
+  //   // criArray.filter1 = filter1; // 이렇게는 안들어감
+  //   console.log("배열:", criArray);
 
-            cri.push(filter1.attr('filter1'));
-            console.log(cri);
+  //   $.ajax({
+  //       url: "individualNoticeScrap",
+  //       type: "POST",
+  //       traditional: true, // 배열로 보내는 방법
+  //       // data:{"arrStr" : criArray},//배열로 만든 cri를 전달
+  //       data:{"arrStr" : criArray, "filter1" : filter1},//배열로 만든 cri를 전달
+  //       success: function(data) {
+  //           alert("변경 성공!");
+  //           console.log(data);
+  //           location.href = "individualNoticeScrap";
+  //       },
+  //       error: function(error) {
+  //           console.log(error);
+  //           alert("실패");
+  //       }
+  //   });
+  // }
 
-            $.ajax({
-                url: "orderByUpdate",
-                type: "POST",
-                traditional: true, // 배열로 보내는 방법
-                data: JSON.stringify(cri), // cri 객체를 JSON 문자열로 변환하여 전송
-                success: function(data) {
-                    alert("변경 성공!");
-                    console.log(data);
-                    // 필요시 페이지를 다시 로드하거나 데이터를 업데이트
-                },
-                error: function(error) {
-                    console.log(error);
-                    alert("실패");
-                }
-            });
-        }
+  
+
+
+
+
 
 
 
