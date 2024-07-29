@@ -749,7 +749,7 @@ button.postStatus
 
 
   function switchTab(filter1, event){
-    document.getElementById('orderByUpdate').value = filter1;
+    document.getElementById('orderBy').value = filter1;
     document.getElementById('searchForm').submit();
     // searchForm.attr("action","#").submit();//serachForm 정보를 들고 컨트롤러단으로 감
   }

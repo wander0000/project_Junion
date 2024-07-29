@@ -38,7 +38,7 @@ import com.boot.DTO.UserDTO;
 import com.boot.DTO.UserJobDTO;
 import com.boot.DTO.UserStackDTO;
 import com.boot.Service.ComNoticeService;
-import com.boot.Service.CompanyInfo;
+import com.boot.Service.CompanyInfoService;
 import com.boot.Service.IndividualService;
 import com.boot.Service.JoinService;
 import com.boot.Service.LoginServiceImpl;
@@ -58,7 +58,7 @@ public class individualController {
 	private JoinService joinService;
 	
 	@Autowired
-	private CompanyInfo comService;
+	private CompanyInfoService comService;
 	
 	@Autowired
 	private PageService pageService;
@@ -93,7 +93,8 @@ public class individualController {
                 orderBy = "desc";
             }
         }
-		
+		 log.info("@# cri=>"+cri2);
+		 log.info("@# orderBy=>"+orderBy);
 		
 		String user_email = (String)session.getAttribute("login_email");
 		log.info("@# individualNoticeScrap  user_email=>"+user_email);	
