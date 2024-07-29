@@ -24,16 +24,13 @@ public class CardPageController {// 카드 형태 목록 페이징 처리를 위
 	private CardPageService pageService;
 	
 	@RequestMapping("/cardPageList")
+//	@RequestMapping("/jobPostList")
 	public String cardPageList(Standard std,Model model) {
-//	public String cardPageList(CardPageDAO dao,Model model) {
 		log.info("@# cardPage controller");
 		log.info("@# cardPage controller std!!=>"+std);
-//		log.info("@# cardPage controller dao!!=>"+dao);
 		
 		ArrayList<ComNoticeDAO> list = pageService.cardPageList(std);
-//		ArrayList<ComNoticeDAO> list = pageService.cardPageList(dao);
 		model.addAttribute("jobPost", list);
-//		int total = std.getPageNum();
 		model.addAttribute("paging", new CardPageDTO(123, std));
 		return "/recruitmentNotice/jobPostList";
 	}
