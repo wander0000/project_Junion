@@ -273,7 +273,9 @@ td .modifytext
   box-sizing: border-box; */
   
 }
-td input[type=text]
+td input[type=text],
+/* 추가 CSS 적용 */
+input[type=password]
 {
   height: 70px;
   width: calc(1200px - 360px);

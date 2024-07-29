@@ -142,6 +142,15 @@ section
 }
 
 
+.main .sub1 .write .message .active
+{
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  color: red;
+}
+
+
 /* company 1(text 입력 메인) 시작 */
 
 .maptext,
@@ -311,6 +320,83 @@ section
     resize: none;
 } */
 
+ /* CSS 추가 부분 */
+.sectionTitleWrap .title {
+    margin-right: auto;
+}
+
+.sectionNotice,
+.saveTech
+{
+    margin-left: auto;
+}
+
+.sectionTitleWrap.modify
+{
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+button.saveTech 
+{
+	border: 1px solid #111;
+    border-radius: 6px;
+    padding: 4px 20px;
+    min-width: 120px;
+    cursor: pointer;
+	height: 36px;
+	background-color: #111;
+	color: var(--color-white);
+    margin-left: 10px;
+}
+
+.sectionConBody .Bodycon.tech 
+{
+  display: block;
+  max-width: 1200px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px 0;
+}
+
+.sectionConBody .Bodycon.tech .techCon 
+{
+  display: flex;
+  align-items: center;
+  width: 100% !important;
+}
+.sectionConBody .Bodycon.tech .techCon .buttonTitle 
+{
+  min-width: 60px;
+}
+
+.sectionConBody .Bodycon.tech .techCon .buttonWrap
+{
+  display: grid;
+  width: calc(100% - 60px);
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  gap: 20px;
+}
+
+.sectionConBody .Bodycon.tech input.tech 
+{
+  border: 1px solid var(--input-gray);
+  border-radius: 6px;
+  padding: 12px 20px;
+  min-width: 120px;
+  cursor: pointer;
+}
+
+.sectionConBody .Bodycon.tech input.tech.active 
+{
+  background-color: var(--main-color);
+  color:var(--color-white);
+  border: 1px soldi var(--main-color);
+} 
+/* CSS 추가 부분 */
+
 .workLocation
 {
     display: flex;
@@ -357,8 +443,33 @@ section
 {
     display: flex;
     justify-content: center;
+    /* 추가 코드 */
+    gap: 20px;
 }
 
+/* 추가 코드 */
+
+
+/* Chrome, Safari, Edge, Opera -> input type = number에 화살표 없애기 */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.submit .ytn
+{
+  color: var(--color-black);
+/*  background-color: var(--color-white);*/
+  border: 1px soild var(--color-gray);
+  padding: 4px 8px;
+  border-radius: 4px;
+  margin-top: 20px;
+  font-size: var(--font-size14);
+  cursor: pointer;
+  padding: 10px 20px;
+  width: 100px;  
+}
+/* 추가 코드 */
 
 .submit .btn
 {
@@ -385,6 +496,31 @@ section
     font-weight: 200;
     max-width: 290px;
     
+}
+
+.uploadResult 
+{
+    width:100%;
+    height: 100%;
+}
+
+.uploadResult ul, .uploadResult ul li 
+{
+    width: 100%;
+    height: 100%;
+}
+
+.uploadResult ul li img
+{
+    width: 100%;
+    height: 500px;
+}
+
+.comInfoImage li img 
+{
+    width: 100%;
+    height: 100%;
+    border-radius: 20px;
 }
 /* 
 .wrap .right .box3 .m1,

@@ -93,7 +93,8 @@ public class individualController {
                 orderBy = "desc";
             }
         }
-		
+		 log.info("@# cri=>"+cri2);
+		 log.info("@# orderBy=>"+orderBy);
 		
 		String user_email = (String)session.getAttribute("login_email");
 		log.info("@# individualNoticeScrap  user_email=>"+user_email);	
