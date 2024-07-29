@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.boot.DTO.ComScrapDTO;
+import com.boot.DTO.NoticeScrapDTO;
 import com.boot.DTO.UserDTO;
 import com.boot.DTO.UserJobDTO;
 import com.boot.DTO.UserStackDTO;
@@ -26,4 +27,5 @@ public interface IndividualService {
 	public void deleteJob(String user_email);
 	public void deleteStack(String user_email);
 	public void comScrapDelete(ComScrapDTO dto);
+	public void noticeScrapDelete(NoticeScrapDTO dto);
 }

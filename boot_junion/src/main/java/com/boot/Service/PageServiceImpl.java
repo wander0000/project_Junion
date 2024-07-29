@@ -121,6 +121,48 @@ public class PageServiceImpl implements PageService{
 		int total = dao.getNoticeTotalCount(user_email, keyword);
 		
 		return total;
+	}
+
+	@Override
+	public ArrayList<ComNoticeDTO> noticelistCanSubmit(Criteria2 cri2, HttpServletRequest request) {
+		log.info("@# PageServiceImpl noticelistCanSubmit");
+		log.info("@# cri==>"+ cri2);
+		
+		// 세션에 이메일 담아서 쓰는 법
+		HttpSession session = request.getSession();		
+		String user_email = (String)session.getAttribute("login_email");
+		log.info("@# user_email==>"+ user_email);
+		
+		cri2.setUser_email(user_email);
+		log.info("@# setUser_email 한 후 cri==>"+ cri2);
+		
+		PageDAO dao = sqlSession.getMapper(PageDAO.class);
+		ArrayList<ComNoticeDTO> list = dao.noticelistCanSubmit(cri2);
+		
+		log.info("@# list==>"+ list);
+		
+		return list;
+	}
+
+	@Override
+	public ArrayList<ComNoticeDTO> noticelistCannotSubmit(Criteria2 cri2, HttpServletRequest request) {
+		log.info("@# PageServiceImpl noticelistCannotSubmit");
+		log.info("@# cri==>"+ cri2);
+		
+		// 세션에 이메일 담아서 쓰는 법
+		HttpSession session = request.getSession();		
+		String user_email = (String)session.getAttribute("login_email");
+		log.info("@# user_email==>"+ user_email);
+		
+		cri2.setUser_email(user_email);
+		log.info("@# setUser_email 한 후 cri==>"+ cri2);
+		
+		PageDAO dao = sqlSession.getMapper(PageDAO.class);
+		ArrayList<ComNoticeDTO> list = dao.noticelistCannotSubmit(cri2);
+		
+		log.info("@# list==>"+ list);
+		
+		return list;
 	}	
 	
 }

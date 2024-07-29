@@ -50,7 +50,7 @@
 				               (SELECT COUNT(*) FROM notice_tb n WHERE n.com_email = c.com_email) as notice_count 
 				        			FROM COM_SCRAP s 
 							        Left outer JOIN COM_TB c ON c.com_email = s.com_email 
-							        WHERE s.user_email='q@q.com' ) a 
+							        WHERE s.user_email=#{user_email} ) a 
 				    WHERE rownum <= (#{pageNum} * #{amount}) 
 				    ]]> 
 						  <include refid="criteria"></include>
@@ -74,26 +74,107 @@
 	</sql>
 	
 	
+	
+	
 	<select id="noticelistWithPaging" resultType="com.boot.DTO.ComNoticeDTO">
 	<![CDATA[ 
-		Select notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date 
-			from( Select rownum, notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date 
-					from( SELECT row_number() over(order by n.update_date desc) as rownum, n.notice_num as notice_num, n.com_email as com_email, n.com_name as com_name, 
-								n.notice_title as notice_title , n.notice_career as notice_career, n.notice_area1 as notice_area1, n.notice_area2 as notice_area2, 
-								n.notice_startDate as notice_startDate, n.notice_endDate as notice_endDate, n.update_date as update_date 
-							FROM notice_tb n INNER JOIN notice_scrap s ON n.notice_num = s.notice_num WHERE s.user_email='q@q.com') a 
-						where rownum <= (#{pageNum} * #{amount}) 
-						]]>
-							<include refid="criteria2"/>
-						<![CDATA[ 
-						) aa 
-			where rownum > (#{pageNum}-1)*#{amount}; 
+		Select notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+		from( Select rownum, notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+				from( SELECT row_number() over(order by nt.update_date desc) as rownum, nt.notice_num as notice_num, nt.com_email as com_email, nt.com_name as com_name, nt.notice_title as notice_title 
+							, nt.notice_career as notice_career, nt.notice_area1 as notice_area1, nt.notice_area2 as notice_area2,	nt.notice_startDate as notice_startDate, nt.notice_endDate as notice_endDate, nt.update_date as update_date 
+							, st.resume_num as resume_num, st.joincompany_date as joincompany_date
+						FROM notice_scrap ns 
+						left outer join notice_tb nt ON ns.notice_num = nt.notice_num
+						left outer join submit_tb st ON ns.notice_num = st.notice_num 
+						WHERE ns.user_email=#{user_email}  
+						order by nt.update_date,
+						CASE WHEN #{filter1} IS NULL OR #{filter1} = '' THEN 'DESC' ELSE #{filter1} END 
+						) a 
+				where rownum <= (#{pageNum} * #{amount}) 
+				]]>
+				<include refid="criteria2"/>
+				<![CDATA[ 
+				) aa 
+		where rownum > (#{pageNum}-1)*#{amount}; 
 	]]>
 	</select>
 	
 	<select id="getNoticeTotalCount" resultType="int"> 
-		select count(*) from notice_scrap where user_email=#{user_email} 
+		select count(*)FROM notice_scrap s left outer join notice_tb n ON n.notice_num = s.notice_num WHERE s.user_email=#{user_email} 
 		<include refid="criteria2"/>
+	</select>
+	
+	
+	
+	
+	
+	
+	<sql id="filter2CanSubmit">
+	<!--  sort 로직: 현재 채용중인 리스트검색  -->
+		<![CDATA[
+			AND nt.notice_endDate > CURDATE()
+		]]>
+	</sql>
+	
+	
+	
+	
+	<select id="noticelistCanSubmit" resultType="com.boot.DTO.ComNoticeDTO">
+	<![CDATA[ 
+		Select notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+		from( Select rownum, notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+				from( SELECT row_number() over(order by nt.update_date desc) as rownum, nt.notice_num as notice_num, nt.com_email as com_email, nt.com_name as com_name, nt.notice_title as notice_title 
+							, nt.notice_career as notice_career, nt.notice_area1 as notice_area1, nt.notice_area2 as notice_area2,	nt.notice_startDate as notice_startDate, nt.notice_endDate as notice_endDate, nt.update_date as update_date 
+							, st.resume_num as resume_num, st.joincompany_date as joincompany_date
+						FROM notice_scrap ns 
+						left outer join notice_tb nt ON ns.notice_num = nt.notice_num
+						left outer join submit_tb st ON ns.notice_num = st.notice_num 
+						WHERE ns.user_email=#{user_email}  
+						]]>
+						<include refid="filter2CanSubmit"/>
+						<![CDATA[ 
+						order by nt.update_date desc
+						) a 
+				where rownum <= (#{pageNum} * #{amount}) 
+				]]>
+				<include refid="criteria2"/>
+				<![CDATA[ 
+				) aa 
+		where rownum > (#{pageNum}-1)*#{amount}; 
+	]]>
+	</select>
+	
+	
+	<sql id="filter2CannotSubmit">
+	<!--  sort 로직: 현재 채용마감인 리스트검색  -->
+		<![CDATA[
+			AND nt.notice_endDate =< CURDATE()
+		]]>
+	</sql>
+	
+	<select id="noticelistCannotSubmit" resultType="com.boot.DTO.ComNoticeDTO">
+	<![CDATA[ 
+		Select notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+		from( Select rownum, notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+				from( SELECT row_number() over(order by nt.update_date desc) as rownum, nt.notice_num as notice_num, nt.com_email as com_email, nt.com_name as com_name, nt.notice_title as notice_title 
+							, nt.notice_career as notice_career, nt.notice_area1 as notice_area1, nt.notice_area2 as notice_area2,	nt.notice_startDate as notice_startDate, nt.notice_endDate as notice_endDate, nt.update_date as update_date 
+							, st.resume_num as resume_num, st.joincompany_date as joincompany_date
+						FROM notice_scrap ns 
+						left outer join notice_tb nt ON ns.notice_num = nt.notice_num
+						left outer join submit_tb st ON ns.notice_num = st.notice_num 
+						WHERE ns.user_email=#{user_email}  
+						]]>
+						<include refid="filter2CannotSubmit"/>
+						<![CDATA[ 
+						order by nt.update_date desc
+						) a 
+				where rownum <= (#{pageNum} * #{amount}) 
+				]]>
+				<include refid="criteria2"/>
+				<![CDATA[ 
+				) aa 
+		where rownum > (#{pageNum}-1)*#{amount}; 
+	]]>
 	</select>
     
     

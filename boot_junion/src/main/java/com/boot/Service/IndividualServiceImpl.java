@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.boot.DAO.IndividualDAO;
 import com.boot.DTO.ComScrapDTO;
+import com.boot.DTO.NoticeScrapDTO;
 import com.boot.DTO.UserDTO;
 import com.boot.DTO.UserJobDTO;
 import com.boot.DTO.UserStackDTO;
@@ -130,6 +131,18 @@ public class IndividualServiceImpl implements IndividualService{
 		log.info("@# IndividualServiceImpl comScrapDelete");
 		IndividualDAO dao = sqlSession.getMapper(IndividualDAO.class);
 		dao.comScrapDelete(dto);
+	}
+	
+	
+	@Override
+	public void noticeScrapDelete(NoticeScrapDTO dto) {
+		log.info("@# IndividualServiceImpl noticeScrapDelete");
+		IndividualDAO dao = sqlSession.getMapper(IndividualDAO.class);
+		try {
+		    dao.noticeScrapDelete(dto);
+		} catch (Exception e) {
+		    log.error("Error executing SQL: ", e);
+		}
 	}
 
 
