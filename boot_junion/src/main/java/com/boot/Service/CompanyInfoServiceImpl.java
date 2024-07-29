@@ -25,14 +25,14 @@ import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
-@Service("CompanyInfo")
+@Service("CompanyInfoService")
 public class CompanyInfoServiceImpl implements CompanyInfoService{
 
 	
 	@Autowired
 	private SqlSession sqlSession;
 
-	@Override
+	@Override//민중 메인 기업정보
 	public ArrayList<CompanyInfoDTO> comList() {  
 		log.info("@# comList list");
 		
@@ -42,36 +42,6 @@ public class CompanyInfoServiceImpl implements CompanyInfoService{
 		return list;
 	}
 	
-//	@Override
-//	public CompanyInfoDTO comInfoByNum(int com_num) {
-//		CompanyInfoDAO dao = sqlSession.getMapper(CompanyInfoDAO.class); 
-//		CompanyInfoDTO dto = dao.comInfoByNum(com_num);
-//		return dto;
-//	}
-
-//	@Override
-//	public ArrayList<CompanyInfoDTO> comListByNum(String comScrapArrStr) {
-//		log.info("@# comList list");
-//
-//		// 쉼표로 구분된 문자열을 정수 리스트로 변환
-//		List<Integer> comList = Arrays.stream(comScrapArrStr.split(","))
-//				.map(String::trim)          // 각 문자열의 양쪽 공백 제거
-//				.map(Integer::parseInt)     // 문자열을 정수로 변환
-//				.collect(Collectors.toList());
-//		
-//		log.info("@# comListByNum comList=>"+comList);
-//		
-//		ArrayList<CompanyInfoDTO> list = new ArrayList<>();
-//		
-//		CompanyInfoDAO dao = sqlSession.getMapper(CompanyInfoDAO.class); 
-//		for (int com_num : comList) {
-//			CompanyInfoDTO dto = dao.comInfoByNum(com_num);
-//            list.add(dto);
-//		log.info("@# comListByNum list=>"+list);
-//     }
-//				
-//		return list;
-//	}
 	
 	
 	
