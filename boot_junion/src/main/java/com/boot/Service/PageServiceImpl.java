@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -80,11 +81,11 @@ public class PageServiceImpl implements PageService{
 	}
 
 	@Override
-	public int getComTotalCount(String user_email) {
+	public int getComTotalCount(@Param("user_email") String user_email, @Param("keyword") String keyword) {
 		log.info("@# PageServiceImpl getComTotalCount");
 		
 		PageDAO dao = sqlSession.getMapper(PageDAO.class);
-		int total = dao.getComTotalCount(user_email);
+		int total = dao.getComTotalCount(user_email, keyword);
 		
 		return total;
 	}	
@@ -113,13 +114,77 @@ public class PageServiceImpl implements PageService{
 	}
 
 	@Override
-	public int getNoticeTotalCount(String user_email) {
+	public int getNoticeTotalCount(@Param("user_email") String user_email, @Param("keyword") String keyword) {
 	log.info("@# PageServiceImpl getNoticeTotalCount");
 		
 		PageDAO dao = sqlSession.getMapper(PageDAO.class);
-		int total = dao.getNoticeTotalCount(user_email);
+		int total = dao.getNoticeTotalCount(user_email, keyword);
 		
 		return total;
+	}
+
+	@Override //업데이트 오래된 순 스크랩공고목록 조회
+	public ArrayList<ComNoticeDTO> noticelistCreateAsc(Criteria2 cri2, HttpServletRequest request) {
+		log.info("@# PageServiceImpl noticelistCreateAsc");
+		log.info("@# cri==>"+ cri2);
+		
+		// 세션에 이메일 담아서 쓰는 법
+		HttpSession session = request.getSession();		
+		String user_email = (String)session.getAttribute("login_email");
+		log.info("@# user_email==>"+ user_email);
+		
+		cri2.setUser_email(user_email);
+		log.info("@# setUser_email 한 후 cri==>"+ cri2);
+		
+		PageDAO dao = sqlSession.getMapper(PageDAO.class);
+		ArrayList<ComNoticeDTO> list = dao.noticelistCreateAsc(cri2);
+		
+		log.info("@# list==>"+ list);
+		
+		return list;
+	}
+	
+	
+	@Override//채용중 스크랩공고목록 조회
+	public ArrayList<ComNoticeDTO> noticelistCanSubmit(Criteria2 cri2, HttpServletRequest request) {
+		log.info("@# PageServiceImpl noticelistCanSubmit");
+		log.info("@# cri==>"+ cri2);
+		
+		// 세션에 이메일 담아서 쓰는 법
+		HttpSession session = request.getSession();		
+		String user_email = (String)session.getAttribute("login_email");
+		log.info("@# user_email==>"+ user_email);
+		
+		cri2.setUser_email(user_email);
+		log.info("@# setUser_email 한 후 cri==>"+ cri2);
+		
+		PageDAO dao = sqlSession.getMapper(PageDAO.class);
+		ArrayList<ComNoticeDTO> list = dao.noticelistCanSubmit(cri2);
+		
+		log.info("@# list==>"+ list);
+		
+		return list;
+	}
+
+	@Override//채용마감 스크랩공고목록 조회
+	public ArrayList<ComNoticeDTO> noticelistCannotSubmit(Criteria2 cri2, HttpServletRequest request) {
+		log.info("@# PageServiceImpl noticelistCannotSubmit");
+		log.info("@# cri==>"+ cri2);
+		
+		// 세션에 이메일 담아서 쓰는 법
+		HttpSession session = request.getSession();		
+		String user_email = (String)session.getAttribute("login_email");
+		log.info("@# user_email==>"+ user_email);
+		
+		cri2.setUser_email(user_email);
+		log.info("@# setUser_email 한 후 cri==>"+ cri2);
+		
+		PageDAO dao = sqlSession.getMapper(PageDAO.class);
+		ArrayList<ComNoticeDTO> list = dao.noticelistCannotSubmit(cri2);
+		
+		log.info("@# list==>"+ list);
+		
+		return list;
 	}	
 	
 }

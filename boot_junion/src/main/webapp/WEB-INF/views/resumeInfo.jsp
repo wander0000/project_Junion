@@ -28,12 +28,12 @@
                     <h3 class="resumeTitle">${resumeInfo.resume_title}</h3>
                     <div class="resumeConWrap">
                         <div class="resumeCon left">
-                            <div class="resumeConTop">
-                                <h5 class="name">${resumeInfo.user_name}</h5>
+                            <div class="resumeConTop">								
+                                <h5 class="name">${user_name}</h5>
                                 <div class="ageSex">
                                     <h5 class="age"></h5>
                                     <!-- <h5 class="age">${resumeInfo.resume_age}</h5> -->
-                                    <h5 class="sex">${resumeInfo.resume_gender}</h5>
+                                    <h5 class="sex">${user_gender}</h5>
                                 </div>
                             </div>
                             <div class="resumeConBottom">
@@ -47,13 +47,13 @@
                                     <span class="icon">
                                         <i class="fa-solid fa-phone"></i>
                                     </span>
-                                    <h5>${resumeInfo.user_tel}</h5>
+                                    <h5>${user_tel}</h5>
                                 </div>
                                 <div class="resumeCon location">
                                     <span class="icon">
                                         <i class="fa-solid fa-location-dot"></i>
                                     </span>
-                                    <h5>${resumeInfo.user_address}</h5>
+                                    <h5>${user_location} ${user_location2}</h5>
                                 </div>
                                 <div class="resumeCon wantPay">
                                     <span class="icon">
@@ -283,7 +283,7 @@
         });
 
         // 기술스택값 짤라서 뿌리기
-        const userStack = "<c:out value='${resumeInfo.resume_stack}'/>";
+        const userStack = "<c:out value='${resumeInfo.stack_name}'/>";
         const stacks = userStack.split(',');
         let str = "";
         for( let i=0; i < stacks.length; i++) 
@@ -301,6 +301,7 @@
         let age = today.getFullYear() - birth+ 1;
         const Age = document.querySelector('.age');
 
+		
         console.log(birth);
         console.log(today);
         console.log(age);

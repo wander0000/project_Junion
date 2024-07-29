@@ -214,7 +214,7 @@ main .tabWrap
 {
   display: flex;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
 }
 
 main .tabWrap .tabCon 
@@ -313,14 +313,51 @@ main .tabWrap .tabNum a
   font-size: var(--font-size12);
 }
 
-.box .applicant-count {
+.box .applicant-count,
+.left .jobjob
+{
   border: 1px solid #e5e5ec;
   background-color: #F7F7F7;
   border-radius: 4px;
-  padding: 4px 8px;
+
   
-  margin-left: 8px;
   font-size: var(--font-size12);
+  width: 80px;
+  height: 32px;
+}
+
+.left .job,
+.right .applicant-count
+{
+	margin-right: 20px;	
+	display: flex;
+	text-align: center;
+
+}
+
+.left .jobjob .carh5,
+.right .jobjob .carh6,
+.right .jobjob .carh5
+{
+	font-size: var(--font-size14);
+	font-weight: 300;
+	color: #888;
+}
+
+.right .jobjob .carh6
+{
+	margin-left: 17px;
+}
+
+.right .jobjob .carh5
+{
+	margin-right: 20px;
+}
+
+.left .jobjob,
+.right .jobjob
+{
+	align-content: center;
 }
 
 

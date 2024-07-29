@@ -41,6 +41,14 @@ public interface ResumeDAO {
 	// 이력서 공개여부
 	public void resumeOfferUpdate(String resume_num, String resume_offer);
 	
+	// 회원가입-개인 stack 저장
+	public void insertResumeStack(@Param("stack_name")String stack_name, @Param("resume_num")int resume_num);
+
+	// 회원가입-개인 stack 수정
+	public void modifyResumeStack(@Param("stack_name")String stack_name, @Param("resume_num")int resume_num);
+	
+	// 회원가입-개인 stack 삭제
+	public void deleteResumeStack(String resume_num);
 }
 
 

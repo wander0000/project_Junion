@@ -92,7 +92,7 @@ public class ResumeController {
 	
 	// 개인 - 이력서 작성후 등록
 	@RequestMapping("/resumeWriteOk")
-	public String resumeWriteOk(Model model, HttpServletRequest request, ResumeDTO resumeDTO) 
+	public String resumeWriteOk(Model model, HttpServletRequest request, ResumeDTO resumeDTO, @RequestParam String stack_name) 
 //	public String resumeWriteOk(@RequestParam HashMap<String, String> param, Model model, HttpServletRequest request, ResumeDTO resumeDTO) 
 	{
 		log.info("@# resume resumeWriteOk");		
@@ -113,19 +113,12 @@ public class ResumeController {
 		
 		log.info("@# resume dtos");	
 		
-		resumeDTO.setUser_email(login_email);
-		resumeDTO.setUser_name(user_name);
-		resumeDTO.setResume_gender(user_gender);
-		resumeDTO.setUser_tel(user_tel);
-		resumeDTO.setUser_address(user_location);
+		resumeDTO.setUser_email(login_email);		
+//		resumeDTO.setResume_gender(user_gender);
+//		resumeDTO.setUser_tel(user_tel);
+//		resumeDTO.setUser_address(user_location);
 		resumeDTO.setResume_age(user_birthdate);
-		
-//		param.put("user_name", user_name); // 파람에 값 저장하는 것// "xml-파라미터명이랑 일치", 값 :
-//		param.put("resume_gender",user_gender); // 파람에 값 저장하는 것// "xml-파라미터명이랑 일치", 값 :
-//		param.put("user_tel", user_tel); // 파람에 값 저장하는 것// "xml-파라미터명이랑 일치", 값 :
-//		param.put("user_address", user_location); // 파람에 값 저장하는 것// "xml-파라미터명이랑 일치", 값 :
-//		param.put("resume_age", user_birthdate); // 파람에 값 저장하는 것// "xml-파라미터명이랑 일치", 값 :
-				
+						
 
 		log.info("@# resume login_email ==>>" + login_email);	
 		log.info("@# resume resumeDTO ==>>" + resumeDTO);
@@ -141,17 +134,51 @@ public class ResumeController {
 //		resumeService.resumeWrite(param);
 //		resumeService.resumeWrite(param, login_email);
 		// 파일 업로드 if문 끝
-
+		
+		int resume_num = resumeDTO.getResume_num();
+		
+		log.info("@# resume resumeDTO  resume_num==>>" + resume_num);
+		
+		String arr2 [] = stack_name.split(",");
+		
+		log.info("@# resume resumeDTO  arr2==>>" + arr2);
+		
+		for(int i = 0; i<arr2.length; i++) 
+		{
+			resumeService.insertResumeStack(arr2[i],resume_num); 
+		}
+		
 		return "redirect:resumeList";
 	}
 
 	// 개인 - 이력서 상세페이지
 	@RequestMapping("/resumeInfo")
-	public String resumeInfo(@RequestParam HashMap<String, String> param, Model model) 
+	public String resumeInfo(@RequestParam HashMap<String, String> param, Model model, HttpServletRequest request) 
 	{
 		log.info("@# resume/resumeInfo");	
+		HttpSession session = request.getSession();		
+		String login_email = (String)session.getAttribute("login_email");
+		
 		ResumeDTO dto = resumeService.resumeInfo(param);
+		UserDTO dtos = resumeService.userInfo(login_email);
+		log.info("@# UserDTO dtos==========>"+dtos);
+		
+		String user_name =  dtos.getUser_name();
+		String user_gender = dtos.getUser_gender();
+		String user_tel = dtos.getUser_tel();
+		String user_location = dtos.getUser_location();
+		String user_location2 = dtos.getUser_location2();
+		String user_birthdate = dtos.getUser_birthdate();
+		
+		dto.setResume_age(user_birthdate);				
+		
+		
 		model.addAttribute("resumeInfo", dto);
+		model.addAttribute("user_gender", user_gender);
+		model.addAttribute("user_tel", user_tel);
+		model.addAttribute("user_location", user_location);
+		model.addAttribute("user_location2", user_location2);
+		model.addAttribute("user_name", user_name);
 		
 		log.info("@# dto==========>"+dto);	
 		
@@ -168,7 +195,7 @@ public class ResumeController {
 	
 	// 개인 - 이력서 수정페이지
 	@RequestMapping("/resumeModify")
-	public String resumeModify(@RequestParam HashMap<String, String> param, Model model, HttpServletRequest request ) 
+	public String resumeModify(@RequestParam HashMap<String, String> param, Model model, HttpServletRequest request) 
 	{
 		HttpSession session = request.getSession();		
 		String login_email = (String)session.getAttribute("login_email");			
@@ -187,12 +214,16 @@ public class ResumeController {
 		List<JoinDTO> stack3 = joinService.stack3();		
 		model.addAttribute("stack_name3", stack3);
 		
+		UserDTO dtos = resumeService.userInfo(login_email);
+		model.addAttribute("userInfo",dtos);
+		
 		return "resumeModify";
 	}
 	
 	// 개인 - 이력서 수정페이지
 	@RequestMapping("/resumeModifyOk")
-	public String resumeModifyOk(@RequestParam HashMap<String, String> param, Model model, HttpServletRequest request,RedirectAttributes rttr) 
+	public String resumeModifyOk(@RequestParam HashMap<String, String> param, Model model, HttpServletRequest request,RedirectAttributes rttr
+			,@RequestParam String stack_name, ResumeDTO resumeDTO) 
 	{
 		HttpSession session = request.getSession();		
 		String login_email = (String)session.getAttribute("login_email");			
@@ -223,6 +254,21 @@ public class ResumeController {
 		
 		
 		resumeService.resumeModify(param);
+		int resume_num = resumeDTO.getResume_num();
+		
+		log.info("@# resume resumeDTO  resume_num==>>" + resume_num);
+		
+		String arr3 [] = stack_name.split(",");
+		
+		log.info("@# resume resumeDTO  arr3==>>" + arr3);
+		
+		resumeService.deleteResumeStack(String.valueOf(resume_num));
+		
+		for(int i = 0; i<arr3.length; i++) 
+		{			
+			resumeService.insertResumeStack(arr3[i], resume_num);
+		}
+		
 		
 		rttr.addAttribute("pageNum",param.get("pageNum"));
 		rttr.addAttribute("amount",param.get("amount"));
@@ -231,23 +277,24 @@ public class ResumeController {
 	}
 	
 	@RequestMapping("/resumeDelete")
-	public String resumeDelete(HashMap<String, String> param, HttpServletRequest request,RedirectAttributes rttr) 
+	public String resumeDelete(HashMap<String, String> param, HttpServletRequest request,RedirectAttributes rttr, ResumeDTO resumeDTO) 
 //	public String resumeDelete(@RequestParam("deleteResume")String[]deleteResume, HashMap<String, String> param) 
 	{
 		log.info("@# delete");		
 		
 		String[] ajaxMsg = request.getParameterValues("valueArr");
         int size = ajaxMsg.length;
+        
         log.info("@# ajaxMsg====>"+ajaxMsg);	
         for(int i=0; i<size; i++) {
         	resumeService.resumeDelete(ajaxMsg[i]);
-        }
-//		resumeService.resumeDelete(param);
+        	resumeService.deleteResumeStack(ajaxMsg[i]);
+        	List<ResumeUploadDTO> fileList = service.resumeGetFileList(Integer.parseInt(ajaxMsg[i]));
+        	service.resumeDeleteFile(fileList);
+        }        
+
         rttr.addAttribute("pageNum",param.get("pageNum"));
 		rttr.addAttribute("amount",param.get("amount"));	
-		
-		List<ResumeUploadDTO> fileList = service.resumeGetFileList(Integer.parseInt(param.get("resume_num")));
-		service.resumeDeleteFile(fileList);
 		
 		return "redirect:resumeList";
 	}

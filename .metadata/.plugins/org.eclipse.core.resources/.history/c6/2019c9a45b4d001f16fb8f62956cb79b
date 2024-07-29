@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.DAO.PageDAO">   
+      <!-- <![CDATA[]]> : mybatis에서 특수문자 인식 처리 -->
+    <select id="listWithPaging" resultType="com.boot.DTO.ResumeDTO">
+	    <![CDATA[
+		        select 	rownum, user_email, resume_num, resume_title, resume_pay, resume_offer, career_start, career_end,
+					    CONCAT(
+				        FLOOR(period_diff(DATE_FORMAT(career_end, '%Y%m'), DATE_FORMAT(career_start, '%Y%m')) / 12), '년 ', 
+				        period_diff(DATE_FORMAT(career_end, '%Y%m'), DATE_FORMAT(career_start, '%Y%m')) % 12, '개월') AS career_month 
+			from( select 	rownum, user_email, resume_num, resume_title, resume_pay, resume_offer, career_start, career_end,
+						    CONCAT(
+					        FLOOR(period_diff(DATE_FORMAT(career_end, '%Y%m'), DATE_FORMAT(career_start, '%Y%m')) / 12), '년 ', 
+					        period_diff(DATE_FORMAT(career_end, '%Y%m'), DATE_FORMAT(career_start, '%Y%m')) % 12, '개월') AS career_month  
+			from (select row_number() over(order by resume_num desc) as rownum,
+							user_email, resume_num, resume_title, resume_pay, resume_offer, career_start, career_end,
+						    CONCAT(
+					        FLOOR(period_diff(DATE_FORMAT(career_end, '%Y%m'), DATE_FORMAT(career_start, '%Y%m')) / 12), '년 ', 
+					        period_diff(DATE_FORMAT(career_end, '%Y%m'), DATE_FORMAT(career_start, '%Y%m')) % 12, '개월') AS career_month  
+			                from resume_tb where user_email=#{user_email}
+			                order by resume_num desc) a
+			where rownum <= (#{pageNum} * #{amount})
+			) aa
+			where rownum > (#{pageNum}-1)*#{amount};    
+	    ]]>
+    </select>    
+    <select id="getTotalCount" resultType="int">
+	    select count(*) from resume_tb where user_email=#{user_email}
+    </select>   
+    
+    
+    
+   <!-- 연주 개인마이페이지 관심기업 리스트 -->
+   <!-- <![CDATA[]]> : mybatis에서 특수문자 인식 처리 -->
+    
+    <sql id="criteria"> <!-- 검색 로직: 키워드가 회사명이나 회사설명에 있는 리스트검색 -->
+  		  AND (com_name like concat('%', IFNULL(#{keyword}, ''), '%') OR com_content like concat('%', IFNULL(#{keyword}, ''), '%')) 
+   	</sql>
+	
+		
+	<select id="comlistWithPaging" resultType="com.boot.DTO.CompanyInfoDTO">
+    	<![CDATA[
+			SELECT com_name, com_content, com_email, notice_count 
+			 FROM ( SELECT rownum, com_name, com_content, com_email, notice_count 
+				    FROM ( SELECT row_number() over(order by update_date desc) as rownum, 
+				               c.com_name as com_name, c.com_content as com_content, c.com_email as com_email, c.update_date as update_date, 
+				               (SELECT COUNT(*) FROM notice_tb n WHERE n.com_email = c.com_email) as notice_count 
+				        			FROM COM_SCRAP s 
+							        Left outer JOIN COM_TB c ON c.com_email = s.com_email 
+							        WHERE s.user_email=#{user_email} ) a 
+				    WHERE rownum <= (#{pageNum} * #{amount}) 
+				    ]]> 
+						  <include refid="criteria"></include>
+					<![CDATA[
+				) aa 
+				WHERE rownum > (#{pageNum}-1)*#{amount};
+  		]]>
+    </select>   
+     
+    <select id="getComTotalCount" resultType="int">
+		select count(*) from COM_SCRAP cs join COM_TB ct on cs.com_email = ct.com_email where cs.user_email =#{user_email}	
+		<include refid="criteria"></include>		
+    </select>    
+
+
+    <!--  연주 개인마이페이지 스크랩공고 리스트  -->
+	<!--  <![CDATA[]]> : mybatis에서 특수문자 인식 처리  -->
+	<sql id="criteria2">
+	<!--  검색 로직: 키워드가 회사명이나 회사설명에 있는 리스트검색  -->
+		and (com_name like concat ('%', IFNULL(#{keyword}, ''), '%') or notice_title like concat ('%', IFNULL(#{keyword}, ''), '%'))
+	</sql>
+	
+	
+	
+	
+	<select id="noticelistWithPaging" resultType="com.boot.DTO.ComNoticeDTO">
+	<![CDATA[ 
+		Select notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+		from( Select rownum, notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+				from( SELECT row_number() over(order by nt.update_date desc) as rownum, nt.notice_num as notice_num, nt.com_email as com_email, nt.com_name as com_name, nt.notice_title as notice_title 
+							, nt.notice_career as notice_career, nt.notice_area1 as notice_area1, nt.notice_area2 as notice_area2,	nt.notice_startDate as notice_startDate, nt.notice_endDate as notice_endDate, nt.update_date as update_date 
+							, st.resume_num as resume_num, st.joincompany_date as joincompany_date
+						FROM notice_scrap ns 
+						left outer join notice_tb nt ON ns.notice_num = nt.notice_num
+						left outer join submit_tb st ON ns.user_email = st.user_email 
+						WHERE ns.user_email=#{user_email}  
+						order by nt.update_date,
+						CASE WHEN #{filter1} IS NULL THEN 'DESC' ELSE #{filter1} END 
+						) a 
+				where rownum <= (#{pageNum} * #{amount}) 
+				]]>
+				<include refid="criteria2"/>
+				<![CDATA[ 
+				) aa 
+		where rownum > (#{pageNum}-1)*#{amount}; 
+	]]>
+	</select>
+	
+	<select id="getNoticeTotalCount" resultType="int"> 
+		select count(*)FROM notice_scrap s left outer join notice_tb n ON n.notice_num = s.notice_num WHERE s.user_email=#{user_email} 
+		<include refid="criteria2"/>
+	</select>
+	
+	
+	
+	
+	
+	
+	<sql id="filter2CanSubmit">
+	<!--  sort 로직: 현재 채용중인 리스트검색  -->
+		<![CDATA[
+			AND nt.notice_endDate > CURDATE()
+		]]>
+	</sql>
+	
+	
+	
+	
+	<select id="noticelistCanSubmit" resultType="com.boot.DTO.ComNoticeDTO">
+	<![CDATA[ 
+		Select notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+		from( Select rownum, notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+				from( SELECT row_number() over(order by nt.update_date desc) as rownum, nt.notice_num as notice_num, nt.com_email as com_email, nt.com_name as com_name, nt.notice_title as notice_title 
+							, nt.notice_career as notice_career, nt.notice_area1 as notice_area1, nt.notice_area2 as notice_area2,	nt.notice_startDate as notice_startDate, nt.notice_endDate as notice_endDate, nt.update_date as update_date 
+							, st.resume_num as resume_num, st.joincompany_date as joincompany_date
+						FROM notice_scrap ns 
+						left outer join notice_tb nt ON ns.notice_num = nt.notice_num
+						left outer join submit_tb st ON ns.user_email = st.user_email 
+						WHERE ns.user_email=#{user_email}  
+						]]>
+						<include refid="filter2CanSubmit"/>
+						<![CDATA[ 
+						order by nt.update_date desc
+						) a 
+				where rownum <= (#{pageNum} * #{amount}) 
+				]]>
+				<include refid="criteria2"/>
+				<![CDATA[ 
+				) aa 
+		where rownum > (#{pageNum}-1)*#{amount}; 
+	]]>
+	</select>
+	
+	
+	<sql id="filter2CannotSubmit">
+	<!--  sort 로직: 현재 채용마감인 리스트검색  -->
+		<![CDATA[
+			AND nt.notice_endDate =< CURDATE()
+		]]>
+	</sql>
+	
+	<select id="noticelistCannotSubmit" resultType="com.boot.DTO.ComNoticeDTO">
+	<![CDATA[ 
+		Select notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+		from( Select rownum, notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+				from( SELECT row_number() over(order by nt.update_date desc) as rownum, nt.notice_num as notice_num, nt.com_email as com_email, nt.com_name as com_name, nt.notice_title as notice_title 
+							, nt.notice_career as notice_career, nt.notice_area1 as notice_area1, nt.notice_area2 as notice_area2,	nt.notice_startDate as notice_startDate, nt.notice_endDate as notice_endDate, nt.update_date as update_date 
+							, st.resume_num as resume_num, st.joincompany_date as joincompany_date
+						FROM notice_scrap ns 
+						left outer join notice_tb nt ON ns.notice_num = nt.notice_num
+						left outer join submit_tb st ON ns.user_email = st.user_email 
+						WHERE ns.user_email=#{user_email}  
+						]]>
+						<include refid="filter2CannotSubmit"/>
+						<![CDATA[ 
+						order by nt.update_date desc
+						) a 
+				where rownum <= (#{pageNum} * #{amount}) 
+				]]>
+				<include refid="criteria2"/>
+				<![CDATA[ 
+				) aa 
+		where rownum > (#{pageNum}-1)*#{amount}; 
+	]]>
+	</select>
+    
+    
+</mapper>

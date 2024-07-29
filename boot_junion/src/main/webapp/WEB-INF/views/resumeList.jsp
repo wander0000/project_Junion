@@ -266,6 +266,7 @@ function deleteValue()
 			},
 			success : function(jdata) 
 			{
+				console.log("success");
 				if(jdata =1) 
 				{
 					alert("삭제성공");
