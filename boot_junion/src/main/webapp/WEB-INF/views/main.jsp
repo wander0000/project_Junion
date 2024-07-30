@@ -181,11 +181,11 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="conProfile">
+                                <div class="conProfile" onclick="location.href='comDetail?com_email=${dto.com_email}'" style="cursor:pointer;">
                                     <div class="conTitle">${dto.com_name}</div>
                                     <div class="conSec">여기에 뭐 넣어여?</div>
                                 </div>
-                                <button type="button" class="more">바로가기</button>
+                                <button type="button" class="more" onclick="location.href='comDetail?com_email=${dto.com_email}'" style="cursor:pointer;">바로가기</button>
                             </div>
                         </c:forEach>
                     </div><!--postSection 끝-->
