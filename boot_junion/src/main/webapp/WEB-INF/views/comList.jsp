@@ -509,7 +509,6 @@
 								event.preventDefault();
 								var form = document.createElement("form");
 								form.method = "get";
-								//form.action = "companyPageList";
 								form.action = "comList";
 								var pageNumInput = document.createElement("input");
 								pageNumInput.type = "hidden";
