@@ -780,6 +780,13 @@ if (!user_type || user_type == 1) {
 	$("#user_resume").css("display","none");
 }
 
+
+if (user_type == 1) {
+ $(".fa-heart").on("click", function () {
+	
+ });//end of fa-heart clcik function
+}
+
 // 24.07.28 side 부분 구현 -> 다른 채용 공고가 없을 경우의 로직
 	var postNum = "${postNum}";
 	if (postNum == 0) {
