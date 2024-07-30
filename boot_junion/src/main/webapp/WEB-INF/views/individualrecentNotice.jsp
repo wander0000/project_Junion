@@ -1,14 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>개인-스크랩 공고</title>
+<title>개인-최근 본 공고</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/individualMain.css">
 <!--<link rel="stylesheet" href="src/main/resources/static/css/style.css">-->
@@ -103,7 +102,7 @@ main .mainContainer
   gap: 40px 0;
 }
 
-/*스크랩공고 타이틀+숫자*/
+/*최근본공고 타이틀+숫자*/
 
 .mainContainer .recentJobPost
 {
@@ -455,7 +454,7 @@ button.postStatus
             <main>
                 <div class="mainContainer">
                     <div class="recentJobPost">
-                      <h3 class="title">스크랩 공고</h3>
+                      <h3 class="title">최근 본 공고</h3>
                       <h3 class="listNum">${pageMaker.total}</h3>
                     </div>
                     <div class="listTable">
@@ -620,8 +619,8 @@ button.postStatus
 </body>
 </html>
 <script>
-	$(document).ready(function(){
-	
+	$(document).ready(function()
+	{
 		
     /*
     2024-07-02 서연주 
@@ -645,41 +644,42 @@ button.postStatus
     2024-07-02 서연주 
     체크박스 선택
     */
-    //체크박스 전체선택
-    $(".optionSortLeft input").on("click", function () {
-      var checked = $(this).is(":checked");
-      console.log("check_all");
-      console.log(checked);
-      
-      if(checked){
-          $(".jobPostList").find('input').prop("checked", true);
-      } else {
-          $(".jobPostList").find('input').prop("checked", false);
-      }
-    });// 체크박스 전체 선택 끝
+   //체크박스 전체선택
+   $(".optionSortLeft input").on("click", function () {
+    var checked = $(this).is(":checked");
+    console.log("check_all");
+    console.log(checked);
+    
+    if(checked){
+        $(".jobPostList").find('input').prop("checked", true);
+    } else {
+        $(".jobPostList").find('input').prop("checked", false);
+    }
+});
 
-    // 체크박스 개별 선택
-    $(".normal").on("click", function() {
-      var checked = $(this).is(":checked");
-      console.log("click normal");
-      console.log(checked);
+// 체크박스 개별 선택
+$(".normal").on("click", function() {
+    var checked = $(this).is(":checked");
+    console.log("click normal");
+    console.log(checked);
 
-      if (!checked) {
-          $(".optionSortLeft input").prop("checked", false);
-      }else {
-          var is_checked = true;
-          
-          $(".normal").each(function(){
-            is_checked = is_checked && $(this).is(":checked");
-          });
-          
-          $(".optionSortLeft input").prop("checked", is_checked);
-      }
-    });// 체크박스 개별 선택 끝
+    if (!checked) {
+        $(".optionSortLeft input").prop("checked", false);
+    }else {
+        var is_checked = true;
+        
+        $(".normal").each(function(){
+          is_checked = is_checked && $(this).is(":checked");
+        });
+        
+        $(".optionSortLeft input").prop("checked", is_checked);
+    }
+});
 
    
 
-    /*
+
+/*
 		2024-07-27 서연주 
 		체크박스 누르고 삭제하기(휴지통버튼이나, 삭제하기 버튼 누르면)
 		*/
@@ -701,7 +701,7 @@ button.postStatus
 				if (chk) {
 					$.ajax
 					({
-						url:"noticeScrapDelete",
+						url:"recentNoticeDelete",
 						type:'POST',
 						traditional : true, //배열로 보내는 방법
 						// dataType: 'json',
@@ -709,7 +709,7 @@ button.postStatus
 						success: function(data) {
 							if (data != 1) {
 								alert("삭제성공");
-								location.href = "individualNoticeScrap";
+								location.href = "individualrecentNotice";
 							} else {
 								alert("삭제에 실패했습니다.");
 							}
@@ -722,8 +722,7 @@ button.postStatus
 			}
 		}// function deleteValue 끝
 
-
-    
+        
 
     /*
     2024-07-02 서연주 
@@ -735,7 +734,6 @@ button.postStatus
     // });
 
 
-        
 
     /*
     2024-07-29 서연주 
@@ -777,16 +775,7 @@ button.postStatus
       form.appendTo('body').submit();
   }
 
-
 	});
-
-
-
-
- 
-
-
-
 </script>
 <script>
   // 드롭다운 메뉴 (하지수)

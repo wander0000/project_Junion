@@ -52,6 +52,11 @@
         delete from notice_scrap where user_email= #{user_email} and notice_num= #{notice_num}
     </delete>
     
+	<delete id="recentNoticeDelete">
+        delete from recent_notice where user_email= #{user_email} and notice_num= #{notice_num}
+    </delete>
+    
+	
     
 <!--    <insert id="write">-->
 <!--    	<selectKey keyProperty="boardNo" order="BEFORE" resultType="int">-->

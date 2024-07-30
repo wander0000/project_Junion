@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.boot.DTO.ComNoticeAttachDTO;
 import com.boot.DTO.ComNoticeDTO;
+import com.boot.DTO.RecentNoticeDTO;
 import com.boot.DTO.ResumeDTO;
 import com.boot.DTO.SubmitDTO;
 
@@ -31,4 +32,6 @@ public interface ComNoticeService {
 	
 	public List<ComNoticeAttachDTO> registGetFileList(int notice_num); // int타입 notice_num파라미터를 list타입 <ComRegisterUploadDTO> getFileList로 사용하려함 / 파일열람
 	public void registDeleteFile(List<ComNoticeAttachDTO> fileList);  // notice_num 맞춰서 파일삭제로직 / 파일삭제
+	
+	public void updateRecentNotice(RecentNoticeDTO dto); //공고파일 열람하면 최근본공고테이블에 정보저장(연주0730)
 }

@@ -78,12 +78,13 @@ public class ComNoticeController {
 		log.info("notice_num!!!"+notice_num);
 		
 		
-		
+		// 24.07.30 연주 : 공고열람하면 최근본 공고 정보 저장하기==========================================================
 		 
-//		 notice_num 값을 세션에 저장
+		// notice_num 값을 세션에 저장하므로 값이 있는지 확인
 	    List<Integer> recentJobPosts = (List<Integer>) session.getAttribute("recentJobPost");
 	    log.info("recentJobPosts!!!"+recentJobPosts);
 	    
+	    //정보가 없으면 리스트를 만들어줌
 	    if (recentJobPosts == null) {
 	        recentJobPosts = new ArrayList<>();
 	    }
@@ -100,33 +101,21 @@ public class ComNoticeController {
 	    String user_email = (String) session.getAttribute("login_email");//세션에 저장된 사용자이메일 가져오기
 	    log.info("@# jobPost user_email => "+user_email);
 	    
-	    
         int size = recentJobPosts.size();
-//        RecentNoticeDTO dto = new RecentNoticeDTO();
+        RecentNoticeDTO recentNoticeDTO = new RecentNoticeDTO();//최근본 공고 저장할 DTO
 //        log.info("@# recentJobPosts====>" + Arrays.toString(recentJobPosts));
 //        log.info("@# arrStr====>" + Arrays.toString(arrStr));
-//        for(int i=0; i<size; i++) {
-//        	dto.setCom_email(arrStr[i]);
-//        	dto.setUser_email(user_email);
-//        	
-//        	
-//        	service.comScrapDelete(dto);
-//        }
-	    
-	    // 리스트를 쉼표로 구분된 문자열로 변환 > 쿼리를 통해 저장하려면 JSON형식이나 문자열로 반환해서 보내줘야 함
-	    String recentJobPostsStr = recentJobPosts.stream()
-	                                             .map(String::valueOf)
-	                                             .reduce((a, b) -> a + "," + b)
-	                                             .orElse("");
-	    log.info("@# jobPost recentJobPostsStr => "+recentJobPostsStr);
-	    
-	    UserDTO userDTO = new UserDTO();
-	    userDTO.setUser_email(user_email);
-	    userDTO.setRecent_noticeNumArray(recentJobPostsStr);
-//	    userService.updateUserNoticeNum(user_email, recentJobPosts); //array 형태로 보내니 안들어감.
-	    userService.updateUserNoticeNum(userDTO); // user정보에 최근본공고 저장
-
-		
+        for(int i=0; i<size; i++) {
+        	recentNoticeDTO.setNotice_num(recentJobPosts.get(i));
+        	recentNoticeDTO.setUser_email(user_email);
+        	
+        	postService.updateRecentNotice(recentNoticeDTO);
+        }
+	   
+     // 24.07.30 연주  끝================================================================================
+        
+        
+	   		
 		ComNoticeDTO dto = postService.JobPost(notice_num);
 		postService.hitUP(notice_num);
 		model.addAttribute("company", dto);

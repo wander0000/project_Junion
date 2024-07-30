@@ -15,13 +15,14 @@ import org.springframework.stereotype.Service;
 import com.boot.DAO.ComNoticeDAO;
 import com.boot.DTO.ComNoticeAttachDTO;
 import com.boot.DTO.ComNoticeDTO;
+import com.boot.DTO.RecentNoticeDTO;
 import com.boot.DTO.ResumeDTO;
 import com.boot.DTO.SubmitDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Service("JobPostService")
+@Service("ComNoticeService")
 public class ComNoticeServiceImpl implements ComNoticeService{
 
 	@Autowired
@@ -196,6 +197,16 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 				log.error("delete file error"+e.getMessage());
 			}
 		});//end of forEach
+	}
+
+	@Override
+	public void updateRecentNotice(RecentNoticeDTO dto) {//최근본 공고번호와 유저이메일 저장하기
+		log.info("@# ComNoticeServiceImpl updateRecentNotice");
+		ComNoticeDAO dao = sqlSession.getMapper(ComNoticeDAO.class);
+		int exists =dao.checkRecentNotice(dto);//이미 최근본공고테이블에 저장된 정보인지 확인(행갯수 반환)
+		if(exists == 0) {//저장된 정보가 아니면(처음 열람하는 공고면)
+			dao.updateRecentNotice(dto);//최근본공고테이블에 저장
+		}
 	}
 	
 

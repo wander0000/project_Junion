@@ -142,5 +142,48 @@
 	</select>
 	
 	
+	
+	<!--  연주 개인마이페이지 최근 본공고 리스트  -->
+	<!--  <![CDATA[]]> : mybatis에서 특수문자 인식 처리  -->
+		
+	
+	
+	<select id="recentnoticelistWithPaging" resultType="com.boot.DTO.ComNoticeDTO">
+	<![CDATA[ 
+		Select notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, 
+				notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+		from( Select rownum, notice_num, com_email, com_name, notice_title, notice_career, notice_area1, notice_area2, 
+					notice_startDate, notice_endDate, update_date, resume_num, joincompany_date
+				from( SELECT row_number() over(order by nt.update_date desc) as rownum, nt.notice_num as notice_num, nt.com_email as com_email, 
+							nt.com_name as com_name, nt.notice_title as notice_title 
+							, nt.notice_career as notice_career, nt.notice_area1 as notice_area1, nt.notice_area2 as notice_area2
+							, nt.notice_startDate as notice_startDate, nt.notice_endDate as notice_endDate, nt.update_date as update_date 
+							, st.resume_num as resume_num, st.joincompany_date as joincompany_date
+						FROM recent_notice rn 
+						left outer join notice_tb nt ON rn.notice_num = nt.notice_num
+						left outer join submit_tb st ON rn.user_email = st.user_email 
+						WHERE rn.user_email=#{user_email}  
+						]]>
+						<include refid="criteria2"/>
+						<include refid="orderBy"/>
+						<![CDATA[ 
+						) a 
+				where rownum <= (#{pageNum} * #{amount}) 
+				) aa 
+		where rownum > (#{pageNum}-1)*#{amount}; 
+	]]>
+	</select>
+	
+	<select id="getRecentNoticeTotalCount" resultType="int"> 
+		SELECT COUNT(*)
+		FROM recent_notice rn  
+		left outer join notice_tb nt ON rn.notice_num = nt.notice_num
+		left outer join submit_tb st ON rn.user_email = st.user_email  AND ns.notice_num = st.notice_num
+		WHERE rn.user_email=#{user_email}
+		<include refid="criteria2"/>
+		<include refid="orderBy"/>
+	</select>
+	
+	
     
 </mapper>

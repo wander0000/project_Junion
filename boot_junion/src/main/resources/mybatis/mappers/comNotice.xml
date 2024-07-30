@@ -84,6 +84,21 @@ select resume_title, resume_num from resume_tb where user_email=#{user_email}
 		delete from notice_attach where notice_num=#{notice_num}
     </delete>
 
+
+
+
+
+<!-- 연주 -->
+	<!-- 최근본 공고 저장하기 -->
+	<insert id="updateRecentNotice" parameterType="com.boot.DTO.RecentNoticeDTO">
+		insert into RECENT_NOTICE(notice_num, user_email) values (#{notice_num}, #{user_email})
+    </insert>
+	
+	<!-- 최근본 공고 테이블에 이미 있는 데이터인지 확인하기 -->
+	<select id="checkRecentNotice" resultType="int">
+		SELECT COUNT(*) FROM RECENT_NOTICE WHERE notice_num =#{notice_num} AND user_email = #{user_email}
+    </select>
+
 </mapper>
 
 
