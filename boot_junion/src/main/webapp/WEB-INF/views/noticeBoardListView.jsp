@@ -33,7 +33,7 @@
 
 	                <div class="headbox">
 	                    <h5 class="head">
-	                        공지사항
+	                        Q&A 게시판
 	                    </h5>
 	                </div> 
 
@@ -101,7 +101,7 @@
 		                            </div>
 		                            <div class="writer">
 		                                <h5 class="l1">
-											${dto.com_email}
+											${dto.login_email}
 		                                </h5>
 		                            </div>
 		                            <div class="date">
@@ -133,7 +133,7 @@
 
 
 	                <div class="buttonbox">
-						<a href="comBoardWriteView">
+						<a href="noticeBoardWriteView">
 		                    <button class="button">
 		                        <h5 class="but1">글쓰기</h5>
 		                    </button>
@@ -252,7 +252,7 @@
 
 		actionForm.find("input[name='pageNum']").val($(this).attr("href"));
 		// actionForm.submit();
-		actionForm.attr("action","comBoardList").submit();
+		actionForm.attr("action","noticeBoardList").submit();
 	});//end of paginate_button clcik
 
 	
@@ -279,7 +279,7 @@
 		actionForm.append("<input type='hidden' name='board_no' value='"+targetBno+"'>");
 		// actionForm.submit();
 		// 컨트롤러에 content_view 로 찾아감
-		actionForm.attr("action","comBoardDetailView").submit();
+		actionForm.attr("action","noticeBoardDetailView").submit();
 	});//end of move_link click
 	
 	
@@ -304,7 +304,7 @@
 			
 		}
 		
-		searchForm.attr("action","comBoardList").submit();
+		searchForm.attr("action","noticeBoardList").submit();
 		
 	}); // searchForm click 끝
 	
@@ -317,6 +317,9 @@
 			searchForm.find("input[name = 'keyword']").val("");
 		}
 	}); // searchForm select change 끝
+	
+
+	
 </script>
 
 
