@@ -465,18 +465,18 @@ button.postStatus
                                 <!-- <select id="orderByUpdate" class="custom-select" onchange="switchTab(this.value,event);"> -->
                                 <select id="orderBy" class="custom-select" onchange="switchTab(this.value,event);">
                                 <!-- <select id="orderByUpdate" class="custom-select"> -->
-                                    <option value="desc"<c:if test="${orderBy == 'desc'}">selected='selected'</c:if>>최신순</option>
-											              <option value="asc" <c:if test="${orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option>
+                                    <option value="desc"<c:if test="${pageMaker.cri.orderBy == 'desc'}">selected='selected'</c:if>>최신순</option>
+											              <option value="asc" <c:if test="${pageMaker.cri.orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option>
                                 </select>
                                 <!-- <select id="orderBySubmit" class="custom-select" onchange="switchTab2(this.value,event);"> -->
                                 <select id="orderBy" class="custom-select" onchange="switchTab(this.value,event);">
-                                    <option value="지원완료" <c:if test="${orderBy == '지원완료'}">selected='selected'</c:if>>지원완료</option>
-                                    <option value="미지원" <c:if test="${orderBy == '미지원'}">selected='selected'</c:if>>미지원</option>
+                                    <option value="지원완료" <c:if test="${pageMaker.cri.orderBy == 'submit'}">selected='selected'</c:if>>지원완료</option>
+                                    <option value="미지원" <c:if test="${pageMaker.cri.orderBy == 'noSubmit'}">selected='selected'</c:if>>미지원</option>
                                 </select>
                                 <!-- <select id="orderByStatus" class="custom-select" onchange="switchTab3(this.value,event);"> -->
                                 <select id="orderBy" class="custom-select" onchange="switchTab(this.value,event);">
-                                    <option value="채용중" <c:if test="${orderBy == '채용중'}">selected='selected'</c:if>>채용중</option>
-                                    <option value="접수마감" <c:if test="${orderBy == '접수마감'}">selected='selected'</c:if>>접수마감</option>
+                                    <option value="채용중" <c:if test="${pageMaker.cri.orderBy == 'inProgress'}">selected='selected'</c:if>>채용중</option>
+                                    <option value="접수마감" <c:if test="${pageMaker.cri.orderBy == 'finished'}">selected='selected'</c:if>>접수마감</option>
                                 </select>
                             </div><!-- optionSortLeft 끝 -->
                             <div class="optionSorRight">
@@ -484,7 +484,8 @@ button.postStatus
                                     <div class="search_Form">
                                         <input type="text" id="keyword" name="keyword" placeholder="기업명, 채용공고제목"  value="${pageMaker.cri.keyword}">
                                         <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-                                        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">페이징 처리를 위한 amount
+                                        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+                                        <input type="hidden" name="amount" value="${pageMaker.cri.orderBy}">
                                         <button class="searchBtn" type="submit">검색하기</button>
                                     </div>
                                 </form><!-- searchForm / optionSortBtn right 끝 --> 
@@ -749,48 +750,14 @@ button.postStatus
 
 
   function switchTab(filter1, event){
+    alert("정렬버튼 누름")
     document.getElementById('orderBy').value = filter1;
-    document.getElementById('searchForm').submit();
+    document.getElementById('searchForm').submit();//serachForm 정보를 들고 컨트롤러단으로 감
+    // document.getElementById('searchForm').attr("action","#").submit();//serachForm 정보를 들고 컨트롤러단으로 감
     // searchForm.attr("action","#").submit();//serachForm 정보를 들고 컨트롤러단으로 감
   }
-  function switchTab2(filter1, event){
-    document.getElementById('orderBySubmit').value = filter1;
-    document.getElementById('searchForm').submit();
-    // searchForm.attr("action","#").submit();//serachForm 정보를 들고 컨트롤러단으로 감
-  }
-  function switchTab3(filter1, event){
-    document.getElementById('orderByStatus').value = filter1;
-    document.getElementById('searchForm').submit();
-    // searchForm.attr("action","#").submit();//serachForm 정보를 들고 컨트롤러단으로 감
-  }
-  /*
-  2024-07-28 서연주 
-  최신순, 오래된순 필터링
-  */
-  // function orderByUpdate(filter1) {
-  //   const cri = '<c:out value="${pageMaker.cri}"/>';
-  //   const criArray = Object.entries(cri);//객체에서 키:값 꺼내서 배열로 만듬
-  //   // criArray['filter1'] = filter1;//입력된 filter1값을 배열에 filer1의 값으로 넣어줌
-  //   // criArray.filter1 = filter1; // 이렇게는 안들어감
-  //   console.log("배열:", criArray);
 
-  //   $.ajax({
-  //       url: "individualNoticeScrap",
-  //       type: "POST",
-  //       traditional: true, // 배열로 보내는 방법
-  //       // data:{"arrStr" : criArray},//배열로 만든 cri를 전달
-  //       data:{"arrStr" : criArray, "filter1" : filter1},//배열로 만든 cri를 전달
-  //       success: function(data) {
-  //           alert("변경 성공!");
-  //           console.log(data);
-  //           location.href = "individualNoticeScrap";
-  //       },
-  //       error: function(error) {
-  //           console.log(error);
-  //           alert("실패");
-  //       }
-  //   });
-  // }
+
 
   
 
