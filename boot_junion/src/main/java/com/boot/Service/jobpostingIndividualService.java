@@ -2,7 +2,10 @@ package com.boot.Service;
 
 import java.util.ArrayList;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.boot.DTO.Criteria3;
+import com.boot.DTO.OfferInfoDTO;
 import com.boot.DTO.jobpostingIndividualDTO;
 
 
@@ -18,4 +21,6 @@ public interface jobpostingIndividualService {
 	public ArrayList<String> getLocationList(); // 지역 리스트
 	
 	public int getTotalCount(); //
+	
+	public ArrayList<OfferInfoDTO> getOfferInfo(@Param("login_email") String login_email); // 
 }

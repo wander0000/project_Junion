@@ -6,6 +6,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.boot.DTO.Criteria3;
+import com.boot.DTO.OfferInfoDTO;
 import com.boot.DTO.jobpostingIndividualDTO;
 
 //실행시 매퍼파일을 읽어 들이도록 지정
@@ -25,8 +26,10 @@ public interface jobpostingIndividualDAO {
 	
 	public int getTotalCount(); //
 	
-	public ArrayList<String> getJobNames(@Param("login_email") String login_email); //
+	public ArrayList<String> getJobNames(@Param("login_email") String login_email); // 개인회원 추천순에 필요한 정보
 	
-	public ArrayList<String> getStackNames(@Param("login_email") String login_email); //
+	public ArrayList<String> getStackNames(@Param("login_email") String login_email); // 기업회원 추천순에 필요한 정보
+	
+	public ArrayList<OfferInfoDTO> getOfferInfo(@Param("login_email") String login_email); //
 }
 
