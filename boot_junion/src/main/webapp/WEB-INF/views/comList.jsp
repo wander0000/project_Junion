@@ -254,8 +254,26 @@
 						margin-bottom: 60px;
 					}
 
-					.pagingbox {
-						margin-bottom: 60px;
+					/* 페이징커스텀 */
+					.div_page {
+						margin-top: 40px;
+					}
+
+					.div_page ul {
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						gap: 0 20px;
+					}
+
+					.paginate_button {
+						text-decoration: none;
+						padding: 8px 14px;
+						border-radius: 6px;
+					}
+
+					.paginate_button a {
+						color: #111;
 					}
 				</style>
 
@@ -270,39 +288,29 @@
 							<div class="wrap">
 								<div class="devlist">
 
-									<div class="selectbox">
-										<div class="select">
-											<input class="title" type="text" placeholder="검색어를 입력해 주세요">
-										</div> <!-- 콘텐트박스 끝-->
-										<div class="icon">
-											<div class="i1">
-												<a href="#" class="fa-solid fa-magnifying-glass"
-													style="color: #ffa500;"></a>
-											</div>
-										</div>
-									</div> <!-- selectbox 끝-->
 
 
 
 
 									<form method="get" id="searchForm">
+										<div class="selectbox">
+											<div class="select">
+												<input class="title" type="text" name="keyword"
+													value="${pageMaker.cri.keyword}" placeholder="검색어를 입력해 주세요">
+											</div> <!-- 콘텐트박스 끝-->
+
+											<div class="icon">
+												<div class="i1">
+													<a href="#" class="fa-solid fa-magnifying-glass"
+														style="color: #ffa500;"></a>
+												</div>
+											</div>
+										</div> <!-- selectbox 끝-->
+
 										<!-- 추천순/최신순 탭 정보 보냄 -->
 										<input type="hidden" name="orderType" id="orderType" value="${orderType}">
 										<div class="filterbox">
 											<div class="left">
-												<!-- 직군/직무 사용 X -->
-												<!-- <div class="sbox">
-													<select class="select1" id="jobSelect" name="jobType">
-														<option value="" <c:out
-															value="${pageMaker.cri.jobType == null ? 'selected':''}" />
-														>직군/직무 무관</option>
-														<c:forEach var="job" items="${jobList}">
-															<option value="${job}" <c:out
-																value="${pageMaker.cri.jobType eq job ? 'selected':''}" />
-															>${job}</option>
-														</c:forEach>
-													</select>
-												</div> -->
 												<div class="sbox">
 													<select class="select1" id="stackSelect" name="stackType">
 														<option value="" <c:out
@@ -342,12 +350,13 @@
 											<div class="right">
 												<div class="f1">
 													<button
-														class="tab-btn ${orderType == 'recommendation' ? 'active' : ''}"
+														id="tab-btn ${orderType == 'recommendation' ? 'active' : ''}"
+														class="fil2"
 														onclick="switchTab('recommendation', event)">추천순</button>
 												</div>
 												<div class="f1">
-													<button class="tab-btn ${orderType == 'latest' ? 'active' : ''}"
-														onclick="switchTab('latest', event)">최신순</button>
+													<button id="tab-btn ${orderType == 'latest' ? 'active' : ''}"
+														class="fil2" onclick="switchTab('latest', event)">최신순</button>
 												</div>
 												${orderType}
 											</div>
@@ -413,39 +422,40 @@
 										</c:forEach>
 									</div> <!--  mtlist 끝-->
 
+									<!-- 페이징 기능 시작-->
 									<h3>${pageMaker}</h3>
 									<div class="div_page">
 										<ul>
 											<c:if test="${pageMaker.prev}">
-												<!-- <li>[Previous]</li> -->
+												<!-- <li>Previous</li> -->
 												<li class="paginate_button">
 													<a href="${pageMaker.startpage - 1}">
-														[Previous]
+														Previous
 													</a>
 												</li>
 											</c:if>
 											<c:forEach var="num" begin="${pageMaker.startpage}"
 												end="${pageMaker.endpage}">
-												<!-- <li>[${num}]</li> -->
-												<!-- <li ${pageMaker.cri.pageNum == num ? "style='color: red;'" : ""}> -->
+												<!-- <li>${num}</li> -->
+												<!-- <li ${pageMaker.cri.pageNum == num ? "style='color:#f00; font-weight: 600';'" : ""}>${num}</li> -->
+												<!-- <li ${pageMaker.cri.pageNum == num ? "style='color:#f00; font-weight: 600';'" : ""}> -->
 												<li class="paginate_button" ${pageMaker.cri.pageNum==num
-													? "style='background-color: yellow;'" : "" }>
-													<!-- [${num}] -->
+													? "style='border:2px solid #FFA500; font-weight: 900';'" : "" }>
 													<a href="${num}">
-														[${num}]
+														${num}
 													</a>
 												</li>
 											</c:forEach>
 											<c:if test="${pageMaker.next}">
-												<!-- <li>[Next]</li> -->
-												<li class="paginate_button">
+												<!-- <li>next</li> -->
+												<li class="paginate_button"><input type="hidden" name="">
 													<a href="${pageMaker.endpage + 1}">
-														[Next]
+														Next
 													</a>
 												</li>
 											</c:if>
 										</ul>
-									</div>
+									</div> <!-- div_page-->
 
 									<form id="actionForm" method="get">
 										<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
@@ -453,7 +463,6 @@
 										<!-- 페이징 검색시 페이지 번호 클릭할 때 필요한 파라미터 -->
 										<input type="hidden" name="stackType" value="${pageMaker.cri.stackType}">
 										<input type="hidden" name="locationType" value="${pageMaker.cri.locationType}">
-										<!-- <input type="hidden" name="jobType" value="${pageMaker.cri.jobType}"> -->
 										<!-- hidden 값 미스매치로 페이지가 나오지 않는 오류 있었음 -->
 									</form>
 
@@ -491,7 +500,8 @@
 								event.preventDefault();
 								var form = document.createElement("form");
 								form.method = "get";
-								form.action = "companyPageList";
+								//form.action = "companyPageList";
+								form.action = "comList";
 								var pageNumInput = document.createElement("input");
 								pageNumInput.type = "hidden";
 								pageNumInput.name = "pageNum";
@@ -511,7 +521,7 @@
 						// document.querySelectorAll('.form-box').forEach(function (el) {
 						// 	el.classList.remove('active');
 						// });
-						document.querySelectorAll('.tab-btn').forEach(function (el) {
+						document.querySelectorAll('#tab-btn').forEach(function (el) {
 							el.classList.remove('active');
 						});
 
