@@ -187,12 +187,14 @@ main .mainContainer
 .mainContainer .searchWrap .optionSorRight
 {
   margin-left: auto ;
-}
-.mainContainer .searchWrap .optionSorRight .search_Form
-{
   display: flex;
   gap : 10px;
 }
+/* .mainContainer .searchWrap .optionSorRight .search_Form
+{
+  display: flex;
+  gap : 10px;
+} */
 
 
 /* 검색창*/
@@ -361,7 +363,7 @@ main .mainContainer .jobPostList
   flex-direction: column;
   gap: 10px;
   align-items:center;
-  margin-top: 30px;
+  margin-top: 32px;
 }
 
 button.submitTab,
@@ -457,39 +459,42 @@ button.postStatus
                       <h3 class="listNum">${pageMaker.total}</h3>
                     </div>
                     <div class="listTable">
+                      <form method="get" id="searchForm">
                         <div class="searchWrap">
-                            <div class="optionSortLeft">
-                                <input type="checkbox" id="check_all" value="회사명">
-                                <button class="selectDel">삭제</button>
-                                <!-- <select id="orderByUpdate" class="custom-select" onchange="orderByUpdate(this.value);"> -->
-                                <!-- <select id="orderByUpdate" class="custom-select" onchange="switchTab(this.value,event);"> -->
-                                <select id="orderBy" class="custom-select" onchange="switchTab(this.value,event);">
-                                <!-- <select id="orderByUpdate" class="custom-select"> -->
-                                    <option value="desc"<c:if test="${orderBy == 'desc'}">selected='selected'</c:if>>최신순</option>
-											              <option value="asc" <c:if test="${orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option>
-                                </select>
-                                <!-- <select id="orderBySubmit" class="custom-select" onchange="switchTab2(this.value,event);"> -->
-                                <select id="orderBy" class="custom-select" onchange="switchTab(this.value,event);">
-                                    <option value="지원완료" <c:if test="${orderBy == '지원완료'}">selected='selected'</c:if>>지원완료</option>
-                                    <option value="미지원" <c:if test="${orderBy == '미지원'}">selected='selected'</c:if>>미지원</option>
-                                </select>
-                                <!-- <select id="orderByStatus" class="custom-select" onchange="switchTab3(this.value,event);"> -->
-                                <select id="orderBy" class="custom-select" onchange="switchTab(this.value,event);">
-                                    <option value="채용중" <c:if test="${orderBy == '채용중'}">selected='selected'</c:if>>채용중</option>
-                                    <option value="접수마감" <c:if test="${orderBy == '접수마감'}">selected='selected'</c:if>>접수마감</option>
-                                </select>
-                            </div><!-- optionSortLeft 끝 -->
-                            <div class="optionSorRight">
-                                <form method="get" id="searchForm">
-                                    <div class="search_Form">
-                                        <input type="text" id="keyword" name="keyword" placeholder="기업명, 채용공고제목"  value="${pageMaker.cri.keyword}">
+                                <div class="optionSortLeft">
+                                    <input type="checkbox" id="check_all" value="회사명">
+                                    <button class="selectDel">삭제</button>
+                                    <!-- <select id="orderByUpdate" class="custom-select" onchange="orderByUpdate(this.value);"> -->
+                                    <!-- <select id="orderByUpdate" class="custom-select" onchange="switchTab(this.value,event);"> -->
+                                    <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
+                                    <!-- <select id="orderByUpdate" class="custom-select"> -->
+                                        <option value="desc" <c:if test="${pageMaker.cri.orderBy == 'desc'}">selected='selected'</c:if>>최신순</option>
+                                        <option value="asc" <c:if test="${pageMaker.cri.orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option>
+                                        <!-- <option value="${pageMaker.cri.orderBy}" <c:if test="${pageMaker.cri.orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option> -->
+                                    </select>
+                                    <!-- <select id="orderBySubmit" class="custom-select" onchange="switchTab2(this.value,event);"> -->
+                                    <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
+                                        <option value="submit" <c:if test="${pageMaker.cri.orderBy == 'submit'}">selected='selected'</c:if>>지원완료</option>
+                                        <option value="noSubmit" <c:if test="${pageMaker.cri.orderBy == 'noSubmit'}">selected='selected'</c:if>>미지원</option>
+                                    </select>
+                                    <!-- <select id="orderByStatus" class="custom-select" onchange="switchTab3(this.value,event);"> -->
+                                    <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
+                                        <option value="inProgress" <c:if test="${pageMaker.cri.orderBy == 'inProgress'}">selected='selected'</c:if>>채용중</option>
+                                        <option value="finished" <c:if test="${pageMaker.cri.orderBy == 'finished'}">selected='selected'</c:if>>접수마감</option>
+                                    </select>
+                                    <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                                    <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+                                </div><!-- optionSortLeft 끝 -->
+                                <div class="optionSorRight">
+                                   
+                                        <input type="text" id="keyword" name="keyword" placeholder="기업명, 채용공고제목" value="${pageMaker.cri.keyword}">
                                         <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-                                        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">페이징 처리를 위한 amount
+                                        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
                                         <button class="searchBtn" type="submit">검색하기</button>
-                                    </div>
-                                </form><!-- searchForm / optionSortBtn right 끝 --> 
-                            </div>                   
-                        </div><!-- searchWrap 끝 -->  
+                                   
+                                </div> <!-- optionSortBtn right 끝 -->                  
+                              </div><!-- searchWrap 끝 -->  
+                            </form><!-- searchForm  끝 --> 
                         <div class="jobPostList">
                           <c:forEach items="${noticeList}" var="dto">		
                             <div class="postBox">
@@ -617,8 +622,8 @@ button.postStatus
 </body>
 </html>
 <script>
-	$(document).ready(function()
-	{
+	$(document).ready(function(){
+	
 		
     /*
     2024-07-02 서연주 
@@ -734,69 +739,53 @@ button.postStatus
 
         
 
-   
+       /*
+    2024-07-29 서연주 
+    필터링 선택하면 목록다시 조회(이벤트 리스너)
+    */
+    $('select#orderBy').on('change', function(event) {
+      alert("정렬버튼 누름")
+        switchTab(this.value);
+    });
 
-// 	 최신순오래된순 구현하는 스크립트 노션에 참고자료있음 java단도 만들어야 
-// 
-    // document.querySelector('#orderBy').addEventListener('change', function() {
-    //     var orderBy = document.querySelector('#orderBy').value;
-    //     window.location.href = '/individualNoticeScrap?orderBy=' + orderBy;
-    // });
 
 
 	});
 
 
 
-  function switchTab(filter1, event){
-    document.getElementById('orderBy').value = filter1;
-    document.getElementById('searchForm').submit();
-    // searchForm.attr("action","#").submit();//serachForm 정보를 들고 컨트롤러단으로 감
-  }
-  function switchTab2(filter1, event){
-    document.getElementById('orderBySubmit').value = filter1;
-    document.getElementById('searchForm').submit();
-    // searchForm.attr("action","#").submit();//serachForm 정보를 들고 컨트롤러단으로 감
-  }
-  function switchTab3(filter1, event){
-    document.getElementById('orderByStatus').value = filter1;
-    document.getElementById('searchForm').submit();
-    // searchForm.attr("action","#").submit();//serachForm 정보를 들고 컨트롤러단으로 감
-  }
-  /*
-  2024-07-28 서연주 
-  최신순, 오래된순 필터링
-  */
-  // function orderByUpdate(filter1) {
-  //   const cri = '<c:out value="${pageMaker.cri}"/>';
-  //   const criArray = Object.entries(cri);//객체에서 키:값 꺼내서 배열로 만듬
-  //   // criArray['filter1'] = filter1;//입력된 filter1값을 배열에 filer1의 값으로 넣어줌
-  //   // criArray.filter1 = filter1; // 이렇게는 안들어감
-  //   console.log("배열:", criArray);
+  function switchTab(value) {
+    // 선택된 값을 가진 새로운 폼을 동적으로 생성
+    var form = $('<form>', {
+        method: 'get',
+        action: $('#searchForm').attr('action')
+    });
 
-  //   $.ajax({
-  //       url: "individualNoticeScrap",
-  //       type: "POST",
-  //       traditional: true, // 배열로 보내는 방법
-  //       // data:{"arrStr" : criArray},//배열로 만든 cri를 전달
-  //       data:{"arrStr" : criArray, "filter1" : filter1},//배열로 만든 cri를 전달
-  //       success: function(data) {
-  //           alert("변경 성공!");
-  //           console.log(data);
-  //           location.href = "individualNoticeScrap";
-  //       },
-  //       error: function(error) {
-  //           console.log(error);
-  //           alert("실패");
-  //       }
-  //   });
-  // }
+    // 선택된 옵션값을 폼 데이터로 추가
+    form.append($('<input>', {
+        type: 'hidden',
+        name: 'orderBy',
+        value: value
+    }));
 
-  
+    // 기존의 숨겨진 필드들을 폼에 추가
+    form.append($('<input>', {
+        type: 'hidden',
+        name: 'pageNum',
+        value: $('input[name="pageNum"]').val()
+    }));
 
+    form.append($('<input>', {
+        type: 'hidden',
+        name: 'amount',
+        value: $('input[name="amount"]').val()
+    }));
 
+    // 폼을 바디에 추가하고 제출
+    form.appendTo('body').submit();
+}
 
-
+ 
 
 
 

@@ -140,12 +140,14 @@ section
 {
     display: flex;
     margin-bottom: 40px;
+    align-items: center;
 }
 
 
 .filterbox .right
 {
-    width: initial;
+    /* width: initial; */
+    align-items: center;
     display: flex;
     margin-left: auto;
 }
@@ -154,6 +156,8 @@ section
 .filterbox .left
 {
     display: flex;
+    align-items: center;
+    flex-grow: 1; /* 왼쪽 영역이 가용 공간을 채우도록 설정 */
 }
 
 
@@ -250,17 +254,33 @@ display:inline-block;
 {
     margin-right: 16px;
 }
-.selbox .sel .li
+.selbox .sel .tab-btn
 {
+    color: var(--color-gray);
     font-size: var(--font-size14);
     font-weight: 500px;
+    background: none;
+    border: none;
+    padding: 0;
+    margin: 0;
+    cursor: pointer;
+    outline: none;
+}
+.selbox .sel .tab-btn.active
+{
+    color: var(--color-black);
 }
 
-.pplist
-{
+.form-box {
+    display: none;
+}
+.form-box.active {
+    display: block;
+}
+
     
 
-}
+
 .pplist .pp
 {
     display: flex;
@@ -287,6 +307,53 @@ display:inline-block;
 .buttbox2
 {
     display: flex;
+    font-size: var(--font-size14);
+}
+.stack-item {
+    display: inline-block;
+    font-size: var(--font-size14);
+    padding: 8px 20px;
+    border: 1px solid var(--border-color-gray);
+    border-radius: 5px;
+    color: var(--color-gray);
+    background-color: var(--button-gray);
+}
+.job-item {
+    display: inline-block;
+    font-size: var(--font-size14);
+    padding: 8px 20px;
+    border: 1px solid var(--border-color-gray);
+    border-radius: 5px;
+    color: var(--color-gray);
+    background-color: var(--button-gray);
+}
+.buttbox2 .b2 .view_resume
+{
+    font-size: var(--font-size14);
+    padding: 8px 20px;
+    border:1px solid var(--border-color-gray);
+    border-radius: 5px;
+    color: var(--color-gray);
+    background-color: var(--button-gray);
+}
+.buttbox2 .b2 .view_resume:hover
+{
+    color: var(--color-white);
+    background-color: var(--border-color-gray);
+}
+.buttbox2 .b2 .proposalbutt
+{
+    font-size: var(--font-size14);
+    padding: 8px 20px;
+    border:1px solid var(--main-color);
+    border-radius: 5px;
+    color: var(--color-gray);
+    background-color: var(--color-white);
+}
+.buttbox2 .b2 .proposalbutt:hover
+{
+    color: var(--color-white);
+    background-color: var(--main-color);
 }
 
 .right
@@ -296,9 +363,6 @@ display:inline-block;
 .pplist .right
 {
     margin-right: 20px;
-}
-.right .date
-{
 }
 .right .buttbox2 .b2,
 .right .date .d1
@@ -325,7 +389,7 @@ display:inline-block;
 }
 
 
-.sbox .select1
+.sbox .select1, .sbox1 .select1, .sbox2 .select1
 {
     width: 240px;
     height: 36px;   
@@ -423,6 +487,159 @@ display:inline-block;
 {
     margin-bottom: 60px;
 }
+
+
+/* 페이징커스텀 */
+.div_page 
+{
+	margin-top: 40px;	
+}
+
+.div_page ul 
+{
+	display: flex;
+    align-items: center;
+    justify-content: center;	
+	gap: 0 20px;
+}
+
+.paginate_button 
+{
+	text-decoration: none;
+	padding: 8px 14px;
+	border-radius: 6px;
+}
+.paginate_button a 
+{
+	color: #111;
+}
+
+
+
+
+
+/* 팝업창 스타일 */
+.popup {
+    position: fixed;
+    /* z-index: 1; */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    /* width: 100vw; */
+    /* height: 100vh; */
+    /* overflow: auto; */
+    background-color: rgba(0, 0, 0, 0.5); /* 약간 어두운 배경 */
+    /* display: flex; */
+    /* align-items: center; */
+    /* justify-content: center; */
+}
+/* 팝업창 내용 */
+.popup-content {
+    position: absolute;
+    transform: translate(-50%,-50%);
+    background-color: #fff;
+    /* margin: auto; */
+    padding: 8px 15px 8px 25px;
+    width: 450px; /* 팝업창 너비 */
+    height: 600px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    border-radius: 10px;
+    top: 50%; /* 부모 요소에서 수직 중앙 */
+    left: 50%; /* 부모 요소에서 수평 중앙 */
+    /* margin: 0; */
+}
+/* 닫기 버튼 */
+.close {
+    color: var(--color-gray);
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    text-align: right;
+    /* margin-top: 0; */
+}
+.close:hover,
+.close:focus {
+    color: var(--main-color);
+    text-decoration: none;
+    cursor: pointer;
+}
+/* 입력 폼 스타일 */
+.popup-content form {
+    display: flex;
+    flex-direction: column;
+    /* margin: 0%; */
+    margin-top: 0;
+}
+/* 텍스트 스타일 */
+.popup-content div {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    /* margin-left: 0; */
+    /* margin-right: 0; */
+}
+.popup-content form .popTitle {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.popup-content hr {
+    border: none; /* 기본 테두리 제거 */
+    height: 1px; /* 높이를 1px로 설정 */
+    background-color: var(--border-color-gray); /* 배경색을 지정 */
+    margin: 0; /* 수직 여백 제거 */
+    width: 100%;
+}
+/* 제목 스타일 */
+.popup-content h3 {
+    /* margin-top: 10px; */
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.popup-content input[type="text"],
+.popup-content textarea {
+    width: 100%;
+    height: 180px;
+    /* height: auto; */
+    border: none;
+    resize: none;
+    font-size: var(--input-tab-size);
+    /* margin-top: 20px; */
+    /* margin-bottom: 20px; */
+}
+.popup-content .NoticeTitle {
+    width: 100%;
+    height: 36px;   
+    border-radius: 5px;
+    border: solid 1px var(--input-gray);
+    padding: 0 15px;
+    font-size: var(--font-size14);
+    font-weight: 200;
+    margin-right: 14px;
+    text-justify: auto;
+}
+.popup-content input[type="submit"] {
+    background-color: var(--color-white);
+    border: solid 1px var(--color-gray);
+    color: var(--color-black);
+    font-size: var(--font-size14);
+    padding: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 40px;
+    width: 25%;
+    margin: auto;
+    /* margin-bottom: 0; */
+    /* text-align: center; */
+    /* align-items: center; */
+}
+.popup-content input[type="submit"]:hover {
+    background-color: var(--main-color);
+    color: var(--color-white);
+    border: solid 1px var(--main-color);
+}
+
 
 
 
