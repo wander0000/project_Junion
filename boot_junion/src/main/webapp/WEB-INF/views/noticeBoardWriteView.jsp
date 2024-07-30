@@ -27,10 +27,10 @@
 			$.ajax({
 				 type:"post"
 				,data:formData
-				,url:"comBoardWrite"
+				,url:"noticeBoardWrite"
 				,success: function(data){
 					alert("저장완료");
-					location.href="comBoardList";
+					location.href="noticeBoardList";
 				}
 				,error: function(){
 					alert("오류발생");
@@ -48,8 +48,8 @@
 	            <div class="wrap">     
 	                <div class="board">
 
-						<form id="frm" method="post" action="comBoardWrite"> <!-- 폼 시작 -->
-						<input type='hidden' name='com_email' value='${logim_email}'>
+						<form id="frm" method="post" action="noticeBoardWrite"> <!-- 폼 시작 -->
+						<input type='hidden' name='login_email' value='${logim_email}'>
 						
 		                    <div class="headbox">
 		                        <h5 class="head">
@@ -87,7 +87,7 @@
 		                        <button id="wri" class="button" type="submit" >
 		                            <h5 class="but1">등록</h5>
 		                        </button>
-		                        <button formaction="comBoardList" class="button" type="list">
+		                        <button formaction="noticeBoardList" class="button" type="list">
 		                            <h5 class="but2">취소</h5>
 		                        </button>
 		                    </div><!--버튼 끝 -->
@@ -178,7 +178,7 @@
 				 type: "post"
 				,data: formData
 				//컨트롤러단 호출
-				,url: "compUploadAjaxAction"
+				,url: "noticeUploadAjaxAction"
 //processData : 기본은 key/value 를 Query String 으로 전송하는게 true
 //(파일 업로드는 false)
 				,processData: false
@@ -254,7 +254,7 @@
 				$.ajax({
 					 type: "post"
 					,data: {fileName: targetFile, type: type}
-					,url: "compDeleteFile"
+					,url: "noticeDeleteFile"
 					,success: function(result){
 						alert("파일이 삭제 되었습니다.");
 						//브라우저에서 해당 썸네일이나 첨부파일이미지 제거

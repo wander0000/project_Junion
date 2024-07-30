@@ -39,7 +39,7 @@
 						
 		                    <div class="titlebox">
 		                        <h5 class="title">
-		                            ${boardDetailView.board_title}${login_email}
+		                            ${boardDetailView.board_title}
 		                        </h5>
 		                    </div> 
 		                    <div class="namebox">
@@ -88,62 +88,31 @@
 		                        </div>
 		                    </div> <!-- 라스트라인 끝 -->
 							
-							<div id="uploadSection" class="lastline">  <!-- 파일이 없을 시 출력하지않기위해 id="uploadSection" 추가함-->
-								<div class="uploadResult">
-									<ul></ul>
+							    <div id="uploadSection" class="lastline">
+							        <div class="uploadResult"><ul></ul></div>
+							    </div>
+
+							    <div class="boardcontent">
+							        <div class="contentbox">
+							            <h5 class="content">${boardDetailView.board_content}</h5>
+							        </div>
+							    </div>
+
+								<!-- 버튼과 댓글 작성 폼을 동적으로 추가할 요소 -->
+								<div id="buttonbox" class="buttonbox">
+								    <!-- 여기에 동적으로 추가되는 버튼들이 위치하게 됩니다. -->
+
+								    <button type="submit" formaction="noticeBoardList" class="button">
+								        <h5 class="but2">목록</h5>
+								    </button>
 								</div>
-							</div>
-	
-			                <div class="boardcontent">
-			                    <div class="contentbox">
-			                        <h5 class="content">
-										${boardDetailView.board_content}
-			                        </h5> 
-			                    </div> 
-			                </div><!-- 콘텐트 끝-->
-
-							
-							
-							 
-								
-								
-			                <div class="buttonbox">
-
-								<button type="button" class="button" onclick="validateAndSubmit('noticeBoardModifyView')">
-									<h5 class="but1">수정</h5>
-								</button>
-			
-								<button type="button" class="button" onclick="validateAndSubmit('noticeBoardDelete')">
-									<h5 class="but2">삭제</h5>
-								</button>
-			
-			                    <button type="submit" formaction="noticeBoardList" class="button">
-									<h5 class="but2">목록</h5>
-								</button>
-
-			                </div><!--버튼 끝 -->
-
-							
-						</form>   <!--폼 끝-->
-
-						
-
-						
-						<!-- 댓글 시작-->
-						<div class="combox">
-							<!-- <input type="text" id="user_email" placeholder="작성자" > -->
-							<input type="text" id="commentContent" class="commentbox" placeholder="내용을 입력해주세요">
-                            <div class="buttonbox2">
-                                <button onclick="commentWrite()" class="button">
-                                    <h5 class="but2">등록</h5>
-                                </button>
-                            </div>
-						</div>
+							    <div id="commentBox" class="combox"></div>
+							</form>   <!--폼 끝-->
 						<div id="comment-list">
 							<div class="divcom">
 								<c:forEach items="${commentList}" var="comment">
 									<div class="divcom1">
-										<h5 class="comh1">${comment.com_email}</h5>
+										<h5 class="comh1">${comment.login_email}</h5>
 										<h5 class="comh2">${comment.commentContent}</h5>
 										<div class="comh3">
 											<fmt:formatDate value="${comment.commentCreatedTime}" pattern="yyyy-MM-dd HH:mm" />
@@ -169,38 +138,38 @@
 
 <script>
 
-	// 댓글스크립트 시작 //
-const commentWrite = () => {
-    const email = document.getElementById("login_email").value;
-    const content = document.getElementById("commentContent").value;
-    const no = "${boardDetailView.board_no}";
+	
+	// 댓글 작성 함수
+	const commentWrite = () => {
+	    const email = document.getElementById("login_email").value;
+	    const content = document.getElementById("commentContent").value.trim();
+	    const no = "${boardDetailView.board_no}";
 
-    // 내용이 비어 있거나 공백만 있을 때
-    if (!content.trim()) {
-        alert("내용이 없습니다.");
-        return; // 함수 종료
-    }
+	    // 내용이 비어 있거나 공백만 있을 때
+	    if (!content) {
+	        alert("내용이 없습니다.");
+	        return; // 함수 종료
+	    }
 
-    $.ajax({
-        type: "post",
-        data: {
-            login_email: email,
-            commentContent: content,
-            board_no: no
-        },
-        url: "/noticeBoardComment/noticeBoardSave",
-        success: function() {
-            console.log("작성성공");
-            // 페이지 새로 고침
-            location.reload();
-        },
-        error: function() {
-            console.log("실패");
-        }
-    }); // end of ajax
-} // 댓글스크립트 끝 //
+	    $.ajax({
+	        type: "POST",
+	        data: {
+	            login_email: email,
+	            commentContent: content,
+	            board_no: no
+	        },
+	        url: "/noticeBoardComment/noticeBoardSave",
+	        success: function() {
+	            console.log("작성 성공");
+	            location.reload(); // 페이지 새로고침
+	        },
+	        error: function() {
+	            console.log("실패");
+	        }
+	    });
+	};
 
-		
+	
 	
 	
 $(document).ready(function () {  
@@ -298,29 +267,29 @@ $(document).ready(function () {
 	
 	
 	
-	// 수정, 삭제 클릭시 자신이 쓴 글 맞는지 유효성검사 , 삭제시 팝업
-	function validateAndSubmit(action) {
-		const login_email = document.getElementById("login_email").value;
-		const authorEmail = "${boardDetailView.login_email}";
+function validateAndSubmit(action) {
+    const login_email = document.getElementById("login_email").value;
+    const authorEmail = "${boardDetailView.login_email}";
+    const loginUserType = "${login_usertype}";
+    const form = document.getElementById("boardForm");
 
-		if (login_email !== authorEmail) {
-			alert("작성자만 수정 및 삭제할 수 있습니다.");
-			return;
-		}
-		if (action === 'noticeBoardDelete') {
-			if (confirm("정말로 삭제하시겠습니까?")) {
-				alert("삭제 되었습니다");
-				const form = document.getElementById("boardForm");
-				form.action = action;
-				form.submit();
-			}
-		} else {
-			const form = document.getElementById("boardForm");
-			form.action = action;
-			form.submit();
-		}
-
+    if (login_email !== authorEmail && loginUserType !== '3') {
+        alert("작성자만 수정 및 삭제할 수 있습니다.");
+        return;
     }
+
+    if (action === 'noticeBoardDelete') {
+        if (confirm("정말로 삭제하시겠습니까?")) {
+            // 확인 후 삭제 처리
+            form.action = action;
+            form.submit();
+        }
+    } else {
+        // 수정 처리
+        form.action = action;
+        form.submit();
+    }
+}
 	
 	
 	  // URL복사
@@ -344,7 +313,7 @@ $(document).ready(function () {
         e.preventDefault(); // 기본 동작 방지
 
         const board_no = "${boardDetailView.board_no}";
-        const com_email = "${login_email}"; // 현재 로그인한 사용자의 이메일
+        const login_email = "${login_email}"; // 현재 로그인한 사용자의 이메일
 
         // AJAX 요청
         $.ajax({
@@ -376,6 +345,54 @@ $(document).ready(function () {
 
 
 
+$(document).ready(function() {
+	const loginUserType = "${login_usertype}";
+	 const login_email = "${login_email}";
+	 const authorEmail = "${boardDetailView.login_email}";
+
+	 // 관리자인 경우 또는 작성자와 로그인한 사용자의 이메일이 같은 경우
+	 if (loginUserType === "3" || login_email === authorEmail) {
+	     // 수정 버튼 추가
+	     if ($('#buttonbox').find('button:contains("수정")').length === 0) {
+	         $('#buttonbox').prepend(`
+	             <button type="button" class="button" onclick="validateAndSubmit('noticeBoardModifyView')">
+	                 <h5 class="but1">수정</h5>
+	             </button>
+	         `);
+	     }
+	     // 삭제 버튼 추가
+	     if ($('#buttonbox').find('button:contains("삭제")').length === 0) {
+	         $('#buttonbox').prepend(`
+	             <button type="button" class="button" onclick="validateAndSubmit('noticeBoardDelete')">
+	                 <h5 class="but2">삭제</h5>
+	             </button>
+	         `);
+	     }
+	 }
+
+	 // 댓글 작성 폼은 관리자인 경우 또는 작성자와 로그인한 사용자의 이메일이 같은 경우에만 표시
+	 if (loginUserType === "3" || login_email === authorEmail) {
+	     if ($('#commentBox').is(':empty')) {
+	         $('#commentBox').html(`
+	             <input type="text" id="commentContent" class="commentbox" placeholder="내용을 입력해주세요">
+	             <div class="buttonbox2">
+	                 <button onclick="commentWrite()" class="button">
+	                     <h5 class="but2">등록</h5>
+	                 </button>
+	             </div>
+	         `);
+	     }
+	 }
+});
+
+
+
+$(document).ready(function () {
+	    // 댓글 작성 버튼 클릭 시
+	    $(".buttonbox2 button").on("click", function(event) {
+	        event.preventDefault(); // 기본 클릭 동작 막기
+	    });
+	});
 
 	</script>
 	

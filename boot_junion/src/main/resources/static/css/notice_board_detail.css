@@ -125,7 +125,8 @@ section
 
 .board .contentbox
 {
-    min-height: 450px;
+    min-height: fit-content;
+	margin-bottom: 80px;
 }
 
 

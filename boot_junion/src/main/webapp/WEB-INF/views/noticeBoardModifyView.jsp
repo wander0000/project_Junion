@@ -27,11 +27,11 @@
 	        <section> 
 	            <div class="wrap">     
 	                <div class="board">
-						<form method="post" action="comBoardModify" id="frm"> <!-- 폼 시작-->
-						<input type='hidden' name='com_email' value='${login_email}'>
+						<form method="post" action="noticeBoardModify" id="frm"> <!-- 폼 시작-->
+						<input type='hidden' name='login_email' value='${login_email}'>
 							
 						<input type="hidden" name="board_no" value="${pageMaker.board_no}">
-						<input type="hidden" name="com_email" value="${boardModifyView.com_email}">
+						<input type="hidden" name="login_email" value="${boardModifyView.login_email}">
 						<input type="hidden" name="pageNum" value="${pageMaker.pageNum}">
 						<input type="hidden" name="amount" value="${pageMaker.amount}">
 
@@ -73,7 +73,7 @@
 							<button onclick="check_ok();" class="button" type="button">
 	                            <h5 class="but1">수정</h5>
 	                        </button>
-	                        <button formaction="comBoardList" class="button">
+	                        <button formaction="noticeBoardList" class="button">
 	                            <h5 class="but2">취소</h5>
 	                        </button>
 	                    </div><!--버튼 끝 -->
