@@ -4,37 +4,6 @@
 
 <mapper namespace="com.boot.DAO.jobpostingIndividualDAO">
 
-<!--    <select id="jobpostingIndividualSupport" resultType="com.boot.DTO.jobpostingIndividualDTO"> -->
-<!--		SELECT -->
-<!--		    u.user_name,-->
-<!--		    u.user_gender,-->
-<!--		    r.resume_age,-->
-<!--		    r.career_month,-->
-<!--		    r.resume_writeDate,-->
-<!--		    r.resume_num,-->
-<!--		    YEAR(CURDATE()) - YEAR(r.resume_age) + 1 AS korean_age,-->
-<!--		    (SELECT -->
-<!--		        GROUP_CONCAT(rs.stack_name)-->
-<!--		     FROM-->
-<!--		        resume_stack rs-->
-<!--		     WHERE rs.resume_num = r.resume_num-->
-<!--		    ) AS stack_names-->
-<!--		FROM -->
-<!--		    resume_tb r-->
-<!--		JOIN user_tb u ON r.user_email = u.user_email-->
-<!--		ORDER BY -->
-<!--		    r.resume_num DESC-->
-<!--	</select>-->
-	
-	
-<!--	<sql id="userType">-->
-<!--		<if test='(cri.login_usertype == "1")'>-->
-<!--			ORDER BY r.resume_num-->
-<!--		</if>-->
-<!--		<if test='(cri.login_usertype == "2")'>-->
-<!--			ORDER BY r.resume_num DESC-->
-<!--		</if>-->
-<!--	</sql>-->
 	<sql id="orderType">
 <!--		<if test='(orderType == "recommendation" and cri.login_usertype == "1")'> 큰 따옴표 때문에 char타입이 적용이 안됐음 -->
 		<if test="(orderType == 'recommendation' and cri.login_usertype == '1')">
@@ -137,14 +106,14 @@
 		SELECT
 			location_name
 		FROM
-			location;
+			location
 	</select>
 
     <select id="getTotalCount" resultType="int"> 
 		SELECT
 			count(*)
 		FROM
-			resume_tb;
+			resume_tb
 	</select>
 
     <select id="getJobNames" resultType="String"> 
@@ -153,7 +122,7 @@
 		FROM
 			user_job
 		WHERE
-			user_email = #{login_email};
+			user_email = #{login_email}
 	</select>
 
     <select id="getStackNames" resultType="String"> 
@@ -162,7 +131,17 @@
 		FROM
 			com_stack
 		WHERE
-			com_email = #{login_email};
+			com_email = #{login_email}
+	</select>
+
+    <select id="getOfferInfo" resultType="com.boot.DTO.OfferInfoDTO"> 
+		SELECT
+			notice_num, notice_title, notice_job, notice_career, notice_area1, notice_pay1, notice_pay2, com_name
+		FROM
+			notice_tb
+		WHERE
+			com_email = #{login_email}
+		AND datediff(notice_endDate, now()) >= 0
 	</select>
 	
 </mapper>

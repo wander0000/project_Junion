@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.boot.DAO.jobpostingIndividualDAO;
 import com.boot.DTO.Criteria3;
+import com.boot.DTO.OfferInfoDTO;
 import com.boot.DTO.jobpostingIndividualDTO;
 
 import lombok.extern.slf4j.Slf4j;
@@ -78,7 +79,7 @@ public class jobpostingIndividualServiceImpl implements jobpostingIndividualServ
 	
 	@Override
 	public ArrayList<String> getStackList() {
-		log.info("@# getJobList");
+		log.info("@# getStackList");
 		jobpostingIndividualDAO dao = sqlSession.getMapper(jobpostingIndividualDAO.class);
 		ArrayList<String> list = dao.getStackList();		
 		return list;
@@ -86,7 +87,7 @@ public class jobpostingIndividualServiceImpl implements jobpostingIndividualServ
 
 	@Override
 	public ArrayList<String> getLocationList() {
-		log.info("@# getJobList");
+		log.info("@# getLocationList");
 		jobpostingIndividualDAO dao = sqlSession.getMapper(jobpostingIndividualDAO.class);
 		ArrayList<String> list = dao.getLocationList();		
 		return list;
@@ -97,6 +98,14 @@ public class jobpostingIndividualServiceImpl implements jobpostingIndividualServ
 		jobpostingIndividualDAO dao = sqlSession.getMapper(jobpostingIndividualDAO.class);
 		int total = dao.getTotalCount();
 		return total;
+	}
+
+	@Override
+	public ArrayList<OfferInfoDTO> getOfferInfo(String login_email) {
+		log.info("@# getLocationList");
+		jobpostingIndividualDAO dao = sqlSession.getMapper(jobpostingIndividualDAO.class);
+		ArrayList<OfferInfoDTO> list = dao.getOfferInfo(login_email);		
+		return list;
 	}
 
 }

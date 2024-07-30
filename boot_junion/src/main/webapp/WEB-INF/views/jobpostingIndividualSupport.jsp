@@ -46,7 +46,7 @@
 						<div class="filterbox">	
 							<div class="left">
 								<div class="sbox1">
-									<select class="select1" id="stackSelect" name="stackType">
+									<select class="select1" id="stackSelect" name="stackType" onchange="selectSearchBox()">
 										<option value="" <c:out value="${pageMaker.cri.stackType == null ? 'selected':''}"/>>기술스택 무관</option>
 										<c:forEach var="stack" items="${stackList}">
 											<option value="${stack}" <c:out value="${pageMaker.cri.stackType eq stack ? 'selected':''}"/>>${stack}</option>
@@ -58,7 +58,7 @@
 								<!-- @@@@@@@개인 회원은 dropbox 직업/직무로 보이고 선택할 수 있도록@@@@@@@@@@@ -->
 
 								<div class="sbox2">
-									<select class="select1" id="jobSelect" name="jobType">
+									<select class="select1" id="jobSelect" name="jobType" onchange="selectSearchBox()">
 										<option value="" <c:out value="${pageMaker.cri.jobType == null ? 'selected':''}"/>>직업/직무 무관</option>
 										<c:forEach var="job" items="${jobList}">
 											<option value="${job}" <c:out value="${pageMaker.cri.jobType eq job ? 'selected':''}"/>>${job}</option>
@@ -68,7 +68,7 @@
 								<!-- selectbox 끝  -->
 
 								<div class="sbox">
-									<select class="select1" id="locationselect" name="locationType">
+									<select class="select1" id="locationselect" name="locationType" onchange="selectSearchBox()">
 										<option value="" <c:out value="${pageMaker.cri.locationType == null ? 'selected':''}"/>>지역 무관</option>
 										<c:forEach var="location" items="${locationList}">
 											<option value="${location}" <c:out value="${pageMaker.cri.locationType eq location ? 'selected':''}"/>>${location}</option>
@@ -78,7 +78,7 @@
 								<!-- selectbox 끝  -->
 
 								<div class="sbox">
-									<select class="select1" id="careerselect" name="careerType">
+									<select class="select1" id="careerselect" name="careerType" onchange="selectSearchBox()">
 										<option value="" <c:out value="${pageMaker.cri.careerType == null ? 'selected':''}"/>>경력 무관</option>
 										<option value="0" <c:out value="${pageMaker.cri.careerType eq '0' ? 'selected':''}"/>>신입</option>
 										<option value="1" <c:out value="${pageMaker.cri.careerType eq '1' ? 'selected':''}"/>>1년차</option>
@@ -91,11 +91,21 @@
 							</div>
 							<!-- 레프트 끝 -->
 
-							<div class="right">
-								<button class="fil2">
+							<div class="right" style="visibility: hidden;">
+								<button class="fil2" id="searchButton">
 									<div class="f1">
 										<h5 class="but1">
 											검색
+										</h5>
+									</div>
+								</button>
+							</div>
+
+							<div class="right">
+								<button class="fil2" onclick="setAllToNone()">
+									<div class="f1">
+										<h5 class="but1">
+											전체 무관
 										</h5>
 									</div>
 								</button>
@@ -185,34 +195,72 @@
 
 
 										<!-- 팝업창 구조 -->
+										<!-- <div id="proposalPopup" class="popup" style="display: none;">
+											<div class="popup-content">
+												<span class="close">&times;</span>
+												<form>
+													<div class="popTitle" style="text-align: center;">
+														<h3>포지션 제안</h3>
+													</div>
+													<hr>
+													<div >
+														<p><h4></h4></p>
+														<p></p>
+													</div>
+													<hr>
+													<div>
+														<textarea id="proposalMessage" name="proposalMessage">안녕하세요, 저희 회사의 Java 개발자 포지션에 대해 제안을 드립니다.													귀하의 프로필이 이 포지션에 적합하다고 판단되어 제안 드립니다.															저희 회사에서 귀하와 함께 일할 수 있기를 기대합니다.</textarea>
+													</div>
+													<hr>
+													<div>
+														<h4>채용 포지션</h4>
+														<p>직무&emsp;</p>
+														<p>경력&emsp;</p>
+														<p>&emsp;</p>
+													</div>
+													<div>
+														<select class="NoticeTitle" id="titleSelect" name="titleSelect">
+															<c:forEach var="offerInfo" items="${offerInfo}">
+																<option value="${offerInfo.notice_title}">${offerInfo.notice_title}</option>
+															</c:forEach>
+														</select>
+													</div>
+													<input type="submit" value="제안하기">
+												</form>
+											</div>
+										</div> -->
+
+
+										<!-- 팝업창 구조 -->
+										<!-- 드롭박스 선택으로 회원의 채용공고의 정보 불러오는 코드가 어려웠음 -->
 										<div id="proposalPopup" class="popup" style="display: none;">
 											<div class="popup-content">
-												<!-- <span class="close">&times;</span> -->
+												<span class="close">&times;</span>
 												<form>
 													<div class="popTitle" style="text-align: center;">
 														<h3>포지션 제안</h3>
 													</div>
 													<hr>
 													<div>
-														<p>Java 개발자 포지션에 대해 제안을 드립니다.</p>
+														<p><h4 id="selectedTitle"></h4></p>
+														<p id="selectedCompany"></p>
 													</div>
 													<hr>
 													<div>
-														<textarea id="proposalMessage" name="proposalMessage" rows="4" cols="50">
-															안녕하세요, 저희 회사의 Java 개발자 포지션에 대해 제안을 드립니다.
-															귀하의 프로필이 이 포지션에 적합하다고 판단되어 제안드립니다.
-															저희 회사에서 귀하와 함께 일할 수 있기를 기대합니다.
-														</textarea>
+														<textarea id="proposalMessage" name="proposalMessage" placeholder="달콤한 제안을 속삭여주세요 ><"></textarea>
 													</div>
 													<hr>
 													<div>
-														<h4><p>채용 포지션</p></h4>
+														<h4>채용 포지션</h4>
+														<p>직무&emsp;<span id="selectedJob"></span></p>
+														<p>경력&emsp;<span id="selectedCareer"></span></p>
+														<p><span id="selectedPay1"></span>&emsp;<span id="selectedPay2"></span></p>
 													</div>
 													<div>
-														<select class="select1" id="stackSelect" name="stackType">
-															<option value="">기술스택 무관</option>
-															<c:forEach var="stack" items="${stackList}">
-																<option value="${stack}">${stack}</option>
+														<select class="NoticeTitle" id="titleSelect" name="titleSelect" onchange="updateOfferInfo()">
+															<option value="" disabled selected>공고를 선택해주세요.</option>
+															<c:forEach var="offer" items="${offerInfo}">
+																<option value="${offer.notice_title}" data-com-name="${offer.com_name}" data-job="${offer.notice_job}" data-career="${offer.notice_career}" data-pay1="${offer.notice_pay1}" data-pay2="${offer.notice_pay2}만원">${offer.notice_title}</option>
 															</c:forEach>
 														</select>
 													</div>
@@ -235,7 +283,7 @@
 					<!-- </div> -->
 					<!-- 반복문 끝 -->
 
-
+					<!-- <h3>${pageMaker}</h3> -->
 					<div class="div_page">
 						<ul>
 							<c:if test="${pageMaker.prev}">
@@ -335,13 +383,35 @@
 		});
 
 		// 팝업창 외부 클릭 시 닫기
-		$(window).click(function(event) {
-			if (event.target == document.getElementById('proposalPopup')) {
-				$('#proposalPopup').css('display', 'none');
-			}
-		});
+		// $(window).click(function(event) {
+		// 	if (event.target == document.getElementById('proposalPopup')) {
+		// 		$('#proposalPopup').css('display', 'none');
+		// 	}
+		// });
 
 	});
+
+
+    // 폼이 프로그램적으로 변경 중인지를 나타내는 플래그 변수
+    var isProgrammaticChange = false;
+
+	function setAllToNone() {
+		// 모든 select 요소를 "무관" 옵션으로 설정
+        isProgrammaticChange = true; // 프로그램적 변경 시작
+        document.getElementById('stackSelect').value = "";
+        document.getElementById('jobSelect').value = "";
+        document.getElementById('locationSelect').value = "";
+        isProgrammaticChange = false; // 프로그램적 변경 종료
+	}
+
+	
+	// 드롭박스 선택만 하면 바로 서치되도록 함
+	function selectSearchBox() {
+        // 프로그램적으로 변경 중이 아닌 경우에만 실행
+        if (!isProgrammaticChange) {
+            document.getElementById('searchForm').submit();
+        }
+    }
 
 
 	// 다른 탭 눌렀을 때 input 정보 삭제
@@ -365,6 +435,29 @@
     	document.getElementById('searchForm').submit();
 	}
 
+
+    function updateOfferInfo() {
+        // 선택된 옵션을 가져옵니다.
+        var select = document.getElementById('titleSelect');
+        var selectedOption = select.options[select.selectedIndex];
+
+        // data-* 속성을 사용하여 관련 정보를 가져옵니다.
+        var noticeTitle = selectedOption.value;
+        var comName = selectedOption.getAttribute('data-com-name');
+        var job = selectedOption.getAttribute('data-job');
+        var career = selectedOption.getAttribute('data-career');
+        var pay1 = selectedOption.getAttribute('data-pay1');
+        var pay2 = selectedOption.getAttribute('data-pay2');
+
+        // DOM 요소에 값을 업데이트합니다.
+        document.getElementById('selectedTitle').textContent = noticeTitle;
+        document.getElementById('selectedCompany').textContent = comName;
+        document.getElementById('selectedJob').textContent = job;
+        document.getElementById('selectedCareer').textContent = career;
+        document.getElementById('selectedPay1').textContent = pay1;
+        document.getElementById('selectedPay2').textContent = pay2;
+    }
+    
 
 	var actionForm = $("#actionForm");
 
@@ -410,7 +503,7 @@
 	var searchForm = $("#searchForm");
 
 	// Search 버튼 클릭
-	$("#searchForm button").on("click", function (e) {
+	$("#searchButton").on("click", function (e) {
 		// alert("검색");
 		searchForm.attr("action", "jobpostingIndividualSupport").submit();
 	});//end of searchForm click
