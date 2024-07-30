@@ -59,7 +59,7 @@
 
 								<div class="sbox2">
 									<select class="select1" id="jobSelect" name="jobType">
-										<option value="" <c:out value="${pageMaker.cri.jobType == null ? 'selected':''}"/>>직업/직무</option>
+										<option value="" <c:out value="${pageMaker.cri.jobType == null ? 'selected':''}"/>>직업/직무 무관</option>
 										<c:forEach var="job" items="${jobList}">
 											<option value="${job}" <c:out value="${pageMaker.cri.jobType eq job ? 'selected':''}"/>>${job}</option>
 										</c:forEach>
@@ -119,7 +119,6 @@
 							<button class="tab-btn ${orderType == 'latest' ? 'active' : ''}" 
 								onclick="switchTab('latest', event)">최신순</button>
 						</div>
-						${orderType}
 					</div>
 
 					<!-- 추천순 리스트 시작 -->
@@ -178,15 +177,48 @@
 										</div>
 										<div class="buttbox2">
 											<h5 class="b2">
-												<button type="button" class="proposalbutt"
-													style="display:none;">제안하기</button>
-												<!-- <button 
-												<c:if test="${login_usertype == '1'}">
-													style="display:none;"
-												</c:if>>
-												제안하기
-											</button> -->
+												<button type="button" class="proposalbutt" style="display:none;">
+													제안하기
+												</button>
 											</h5>
+										</div>
+
+
+										<!-- 팝업창 구조 -->
+										<div id="proposalPopup" class="popup" style="display: none;">
+											<div class="popup-content">
+												<!-- <span class="close">&times;</span> -->
+												<form>
+													<div class="popTitle" style="text-align: center;">
+														<h3>포지션 제안</h3>
+													</div>
+													<hr>
+													<div>
+														<p>Java 개발자 포지션에 대해 제안을 드립니다.</p>
+													</div>
+													<hr>
+													<div>
+														<textarea id="proposalMessage" name="proposalMessage" rows="4" cols="50">
+															안녕하세요, 저희 회사의 Java 개발자 포지션에 대해 제안을 드립니다.
+															귀하의 프로필이 이 포지션에 적합하다고 판단되어 제안드립니다.
+															저희 회사에서 귀하와 함께 일할 수 있기를 기대합니다.
+														</textarea>
+													</div>
+													<hr>
+													<div>
+														<h4><p>채용 포지션</p></h4>
+													</div>
+													<div>
+														<select class="select1" id="stackSelect" name="stackType">
+															<option value="">기술스택 무관</option>
+															<c:forEach var="stack" items="${stackList}">
+																<option value="${stack}">${stack}</option>
+															</c:forEach>
+														</select>
+													</div>
+													<input type="submit" value="제안하기">
+												</form>
+											</div>
 										</div>
 
 
@@ -204,7 +236,6 @@
 					<!-- 반복문 끝 -->
 
 
-					<h3>${pageMaker}</h3>
 					<div class="div_page">
 						<ul>
 							<c:if test="${pageMaker.prev}">
@@ -218,10 +249,10 @@
 							<c:forEach var="num" begin="${pageMaker.startpage}" end="${pageMaker.endpage}">
 								<!-- <li>[${num}]</li> -->
 								<!-- <li ${pageMaker.cri.pageNum == num ? "style='color: red;'" : ""}> -->
-								<li class="paginate_button" ${pageMaker.cri.pageNum == num ? "style='background-color: yellow;'" : ""}>
+								<li class="paginate_button" ${pageMaker.cri.pageNum == num ? "style='border:2px solid #FFA500; font-weight: 900';" : ""}>
 									<!-- [${num}] -->
 									<a href="${num}">
-										[${num}]
+										${num}
 									</a>
 								</li>
 							</c:forEach>
@@ -289,6 +320,27 @@
 				$(this).css('display', 'none');
 			}
 		});
+
+
+
+		// 기존의 userType 관련 코드 유지
+		// 팝업창 열기
+		$('.proposalbutt').click(function() {
+			$('#proposalPopup').css('display', 'block');
+		});
+
+		// 팝업창 닫기
+		$('.close').click(function() {
+			$('#proposalPopup').css('display', 'none');
+		});
+
+		// 팝업창 외부 클릭 시 닫기
+		$(window).click(function(event) {
+			if (event.target == document.getElementById('proposalPopup')) {
+				$('#proposalPopup').css('display', 'none');
+			}
+		});
+
 	});
 
 
