@@ -64,9 +64,12 @@ public class individualController {
 	
 	@RequestMapping("/individualNoticeScrap") //스크랩 공고 목록
 //	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2, @RequestParam(value = "keyword", required = false) String keyword) {
+//	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2, HashMap<String, String> param) {
 	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2, 
-			@RequestParam(value = "keyword", required = false) String keyword, @RequestParam(value = "orderBy", required = false, defaultValue = "desc") String orderBy) {
+			@RequestParam(value = "keyword", required = false) String keyword,
+			@RequestParam(value = "orderBy", required = false, defaultValue = "desc") String orderBy) {
 		log.info("@# individualNoticeScrap");	
+//		log.info("@# param"+param);	
 		
 		HttpSession session = request.getSession();
 		
@@ -80,8 +83,8 @@ public class individualController {
 //        }
 		log.info("@# cri=>"+cri2);
 		cri2.setUser_email(user_email);
-		cri2.setOrderBy(orderBy);
-		cri2.setKeyword(keyword);
+//		cri2.setOrderBy(orderBy);
+//		cri2.setKeyword(keyword);
 		log.info("@# setUser_email,setOrderBy,setKeyword한 다음 cri=>"+cri2);
 		
 		ArrayList<ComNoticeDTO> list = new ArrayList<>();
@@ -100,37 +103,13 @@ public class individualController {
 //		rttr.addAttribute("noticeList",list);
 //		rttr.addAttribute("pageMaker",new PageDTO(total,cri2));	
 		
-		return "individualNoticeScrap";
+			return "individualNoticeScrap";
+//		return "aaa";
+//		return "redirect:individualNoticeScrap";
 	}
 	
 	
 
-//	@RequestMapping("/noticeScrapWithStatus") //스크랩 공고 목록
-////	public String noticeScrapWithStatus(HttpServletRequest request, Model model, Criteria2 cri2, @RequestParam(value = "keyword", required = false) String keyword) {
-//	public String noticeScrapWithStatus(HttpServletRequest request, Model model, Criteria2 cri2,
-//			@RequestParam(value = "keyword", required = false) String keyword , @RequestParam(value = "filter1", required = false) String filter1 ) {
-//		log.info("@# noticeScrapWithStatus");	
-//		
-//		HttpSession session = request.getSession();
-//		String user_email = (String)session.getAttribute("login_email");
-//		log.info("@# individualNoticeScrap  user_email=>"+user_email);	
-//		
-//		cri2.setFilter1(filter1);
-//		// 사용자정보의 스크랩 채용공고 목록 가져오기
-//		ArrayList<ComNoticeDTO> list = pageService.noticelistWithPaging(cri2, request);
-//		log.info("@# individualNoticeScrap getNoticeScrapList=>"+list);		
-//		model.addAttribute("noticeList", list);
-//				
-//		int total = pageService.getNoticeTotalCount(user_email, keyword);
-//		log.info("@# individualNoticeScrap total=>"+total);
-////		model.addAttribute("total",total);
-//					
-//		model.addAttribute("pageMaker", new PageDTO(total,cri2));			
-//						
-//		
-//		return "redirect:/individualNoticeScrap";
-//	}
-	
 
 	@RequestMapping("/noticeScrapDelete")//스크랩 공고 삭제
 	public String comScrapDelete(HashMap<String, String> param, HttpServletRequest request) {

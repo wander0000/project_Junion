@@ -37,6 +37,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.boot.DAO.ComNoticeDAO;
 import com.boot.DTO.ComNoticeAttachDTO;
 import com.boot.DTO.ComNoticeDTO;
+import com.boot.DTO.ComScrapDTO;
+import com.boot.DTO.RecentNoticeDTO;
 import com.boot.DTO.ResumeDTO;
 import com.boot.DTO.SubmitDTO;
 import com.boot.DTO.UserDTO;
@@ -76,9 +78,9 @@ public class ComNoticeController {
 		log.info("notice_num!!!"+notice_num);
 		
 		
-		/*
-		 24.07.24(수) 임하진 : 오류 발생으로 임시로 주석처리 함
-		 notice_num 값을 세션에 저장
+		
+		 
+//		 notice_num 값을 세션에 저장
 	    List<Integer> recentJobPosts = (List<Integer>) session.getAttribute("recentJobPost");
 	    log.info("recentJobPosts!!!"+recentJobPosts);
 	    
@@ -98,6 +100,19 @@ public class ComNoticeController {
 	    String user_email = (String) session.getAttribute("login_email");//세션에 저장된 사용자이메일 가져오기
 	    log.info("@# jobPost user_email => "+user_email);
 	    
+	    
+        int size = recentJobPosts.size();
+//        RecentNoticeDTO dto = new RecentNoticeDTO();
+//        log.info("@# recentJobPosts====>" + Arrays.toString(recentJobPosts));
+//        log.info("@# arrStr====>" + Arrays.toString(arrStr));
+//        for(int i=0; i<size; i++) {
+//        	dto.setCom_email(arrStr[i]);
+//        	dto.setUser_email(user_email);
+//        	
+//        	
+//        	service.comScrapDelete(dto);
+//        }
+	    
 	    // 리스트를 쉼표로 구분된 문자열로 변환 > 쿼리를 통해 저장하려면 JSON형식이나 문자열로 반환해서 보내줘야 함
 	    String recentJobPostsStr = recentJobPosts.stream()
 	                                             .map(String::valueOf)
@@ -110,7 +125,7 @@ public class ComNoticeController {
 	    userDTO.setRecent_noticeNumArray(recentJobPostsStr);
 //	    userService.updateUserNoticeNum(user_email, recentJobPosts); //array 형태로 보내니 안들어감.
 	    userService.updateUserNoticeNum(userDTO); // user정보에 최근본공고 저장
-*/
+
 		
 		ComNoticeDTO dto = postService.JobPost(notice_num);
 		postService.hitUP(notice_num);
