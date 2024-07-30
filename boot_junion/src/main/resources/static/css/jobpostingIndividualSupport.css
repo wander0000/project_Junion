@@ -489,6 +489,126 @@ display:inline-block;
 }
 
 
+/* 페이징커스텀 */
+.div_page 
+{
+	margin-top: 40px;	
+}
+
+.div_page ul 
+{
+	display: flex;
+    align-items: center;
+    justify-content: center;	
+	gap: 0 20px;
+}
+
+.paginate_button 
+{
+	text-decoration: none;
+	padding: 8px 14px;
+	border-radius: 6px;
+}
+.paginate_button a 
+{
+	color: #111;
+}
+
+
+
+
+
+/* 팝업창 스타일 */
+.popup {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.5); /* 약간 어두운 배경 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+/* 팝업창 내용 */
+.popup-content {
+    position: fixed;
+    background-color: #fff;
+    margin: 15% auto;
+    padding: 20px;
+    width: 500px; /* 팝업창 너비 */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* 그림자 효과 */
+    border-radius: 10px;
+}
+/* 닫기 버튼 */
+/* .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+} */
+/* 입력 폼 스타일 */
+.popup-content form {
+    display: flex;
+    flex-direction: column;
+}
+/* 텍스트 스타일 */
+.popup-content div {
+    margin: 20px;
+}
+.popup-content .popTitle {
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+.popup-content hr {
+    color: #E5E5EC;
+    width: 440px;
+}
+/* 제목 스타일 */
+.popup-content h3 {
+    /* margin-top: 10px; */
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: bold;
+}
+.popup-content input[type="text"],
+.popup-content textarea {
+    width: 430px;
+    height: 180px;
+    border: none;
+    resize: none;
+    font-size: var(--input-tab-size);
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.popup-content input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    height: 40px;
+    width: 20%;
+    margin: auto;
+    /* text-align: center; */
+    /* align-items: center; */
+}
+.popup-content input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+
+
 
 
 /* 푸터 */
