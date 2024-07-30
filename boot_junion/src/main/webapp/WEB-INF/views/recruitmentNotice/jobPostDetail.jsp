@@ -485,6 +485,12 @@
 	}
 	/*버튼끝*/
 
+	.uploadResult img
+	{
+		width: 720px;
+		height: 410px;
+    	border-radius: 15px;
+	}
 
 </style>
 
@@ -506,7 +512,12 @@
                     <!-- 컴퍼니 시작-->
 
                     <div class="company">
-                        <img class="imgg" src="images/company.svg" alt="#">
+						<div class="uploadResult">
+							<ul>
+
+							</ul>
+						</div>
+                        <!-- <img class="imgg" src="images/company.svg" alt="#"> -->
                     </div>
                     <div class="main">
                         <div class="sub1">
@@ -806,3 +817,50 @@ if (!user_type || user_type == 1) {
 		}
 
 </script>
+<script>
+	//24.07.30 지수
+	//파일 가져오기
+	$(document).ready(function () {
+		
+		var noticeNum = "${noticeNumber}";
+		console.log("notice_num=>","${noticeNumber}");
+		var uploadResultContainer = $(this).find('.uploadResult ul');
+
+		if (noticeNum) {
+			$.ajax({
+				url: '/registGetFileList',
+				type: 'GET',
+				data: { notice_num: noticeNum },
+				dataType: 'json',
+				success: function(data) {
+					showUploadResult(data, uploadResultContainer);
+				},
+				error: function(xhr, status, error) {
+					console.error('Error fetching file list for notice_num ' + noticeNum + ':', error);
+				}
+			});
+		} 
+   });
+   
+   function showUploadResult(uploadResultArr, uploadResultContainer){
+	   if (!uploadResultArr || uploadResultArr.length == 0) {
+		   return;
+	   }
+   
+	   var str = "";
+   
+	   $(uploadResultArr).each(function (i, obj) {
+		   var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+   
+		   str += "<li data-path='" + obj.uploadPath + "'";
+		   str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+		   str += "<div>";
+		   str += "<span style='display:none;'>" + obj.fileName + "</span>";
+		   str += "<img src='/registDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+		   str += "</div></li>";
+	   });
+   
+	   uploadResultContainer.empty().append(str);
+   }
+   
+   </script>

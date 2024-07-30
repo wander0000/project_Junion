@@ -115,6 +115,7 @@ public class ComNoticeController {
 		ComNoticeDTO dto = postService.JobPost(notice_num);
 		postService.hitUP(notice_num);
 		model.addAttribute("company", dto);
+		model.addAttribute("noticeNumber",notice_num);
 		
 		ArrayList<ComNoticeDTO> list = postService.otherJobPost(notice_num);
 		int postNum = list.size();
