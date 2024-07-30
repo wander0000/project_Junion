@@ -62,17 +62,71 @@ public class individualController {
 	}
 		
 	
+	@RequestMapping("/individualrecentNotice")//최근 본 공고 목록보기
+	public String individualrecentNotice(HttpServletRequest request, Model model, Criteria2 cri2) {
+		log.info("@# individualrecentNotice");		
+		
+		HttpSession session = request.getSession();
+		String user_email = (String)session.getAttribute("login_email");
+		log.info("@# recentNotice user_email=>"+user_email);		
+		
+		log.info("@# cri=>"+cri2);
+		cri2.setUser_email(user_email);
+		log.info("@# setUser_email한 다음 cri=>"+cri2);
+		
+		ArrayList<ComNoticeDTO> list = new ArrayList<>();
+	    list = pageService.recentnoticelistWithPaging(cri2);
+	    
+	    log.info("@# individualNoticeScrap noticelistWithPaging=>"+list);		
+		model.addAttribute("noticeList", list);
+		
+		int total = pageService.getRecentNoticeTotalCount(cri2);
+		log.info("@# individualNoticeScrap total=>"+total);
+//		model.addAttribute("total",total);
+					
+		model.addAttribute("pageMaker", new PageDTO(total,cri2));	
+		
+		return "individualrecentNotice";
+	}
+	
+	
+	
+	@RequestMapping("/recentNoticeDelete")//최근본 공고 삭제
+	public String recentNoticeDelete(HashMap<String, String> param, HttpServletRequest request) {
+	
+		log.info("@# recentNoticeDelete");		
+		HttpSession session = request.getSession();
+		String user_email = (String)session.getAttribute("login_email");
+		
+		String [] arrStr = request.getParameterValues("arrStr");//notice_num배열
+        int size = arrStr.length;
+        NoticeScrapDTO dto = new NoticeScrapDTO();
+        log.info("@# arrStr notice_num배열====>" + Arrays.toString(arrStr));
+        for(int i=0; i<size; i++) {
+        	dto.setNotice_num(Integer.parseInt(arrStr[i]));//배열값이 string으로 넘어오기땨뮨에
+        	dto.setUser_email(user_email);
+        	
+        	log.info("@# notice_num,  user_email넣은 dto====>" + dto);
+        	
+        	service.noticeScrapDelete(dto);
+        }
+		
+		return "redirect:/individualrecentNotice";
+	}
+	
+	
+	
 	@RequestMapping("/individualNoticeScrap") //스크랩 공고 목록
 //	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2, @RequestParam(value = "keyword", required = false) String keyword) {
 //	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2, HashMap<String, String> param) {
-	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2, 
-			@RequestParam(value = "keyword", required = false) String keyword,
-			@RequestParam(value = "orderBy", required = false, defaultValue = "desc") String orderBy) {
+	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2) {
+//	public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2, 
+//			@RequestParam(value = "keyword", required = false) String keyword,
+//			@RequestParam(value = "orderBy", required = false, defaultValue = "desc") String orderBy) {
 		log.info("@# individualNoticeScrap");	
 //		log.info("@# param"+param);	
 		
 		HttpSession session = request.getSession();
-		
 		String user_email = (String)session.getAttribute("login_email");
 		log.info("@# individualNoticeScrap  user_email=>"+user_email);	
 		
@@ -85,12 +139,12 @@ public class individualController {
 		cri2.setUser_email(user_email);
 //		cri2.setOrderBy(orderBy);
 //		cri2.setKeyword(keyword);
-		log.info("@# setUser_email,setOrderBy,setKeyword한 다음 cri=>"+cri2);
+		log.info("@# setUser_email한 다음 cri=>"+cri2);
 		
 		ArrayList<ComNoticeDTO> list = new ArrayList<>();
 	    list = pageService.noticelistWithPaging(cri2);
 				
-		log.info("@# individualNoticeScrap getNoticeScrapList=>"+list);		
+		log.info("@# individualNoticeScrap noticelistWithPaging=>"+list);		
 		model.addAttribute("noticeList", list);
 		
 		int total = pageService.getNoticeTotalCount(cri2);
@@ -138,7 +192,7 @@ public class individualController {
 	
 	
 	
-	@RequestMapping("/interComlist")//관심기업
+	@RequestMapping("/interComlist")//관심기업 목록조회
 	public String individualInterComlist(HttpServletRequest request, Criteria2 cri, @RequestParam(value = "keyword", required = false) String keyword, Model model) {
 		log.info("@# individualInterComlist");		
 		
@@ -154,7 +208,7 @@ public class individualController {
 		return "interComlist";
 	}
 	
-	@RequestMapping("/comScrapDelete")
+	@RequestMapping("/comScrapDelete")//관심기업 삭제
 //	@ResponseBody
 //	public String comScrapDelete(@RequestParam("arrStr[]") String[] arrStr, HashMap<String, String> param, HttpServletRequest request,RedirectAttributes rttr) 
 	public String comScrapDelete(HashMap<String, String> param, HttpServletRequest request, RedirectAttributes rttr) 

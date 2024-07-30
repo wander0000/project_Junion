@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 
 import com.boot.DTO.ComNoticeAttachDTO;
 import com.boot.DTO.ComNoticeDTO;
+import com.boot.DTO.RecentNoticeDTO;
 import com.boot.DTO.ResumeDTO;
 import com.boot.DTO.SubmitDTO;
 
@@ -43,6 +44,10 @@ public interface ComNoticeDAO {
 	public void registDeleteFile(String notice_num);  // notice_num 맞춰서 파일삭제로직 / 파일삭제
 	
     public List<Integer> getNoticeNums(@Param("com_email") String com_email); //notice_num 배열 가져오기
+    
+    
+    public int checkRecentNotice(RecentNoticeDTO dto); //최근본공고테이블에 같은 값이 있는지 확인(연주0730)
+    public void updateRecentNotice(RecentNoticeDTO dto); //공고파일 열람하면 최근본공고테이블에 정보저장(연주0730)
 
 	
 }
