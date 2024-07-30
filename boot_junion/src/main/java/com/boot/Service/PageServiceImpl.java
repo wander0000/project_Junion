@@ -93,17 +93,18 @@ public class PageServiceImpl implements PageService{
 	
 	
 	@Override
-	public ArrayList<ComNoticeDTO> noticelistWithPaging(Criteria2 cri2, HttpServletRequest request) {
+//	public ArrayList<ComNoticeDTO> noticelistWithPaging(Criteria2 cri2, HttpServletRequest request) {
+		public ArrayList<ComNoticeDTO> noticelistWithPaging(Criteria2 cri2) {
 		log.info("@# PageServiceImpl noticelistWithPaging");
 		log.info("@# cri==>"+ cri2);
 		
-		// 세션에 이메일 담아서 쓰는 법
-		HttpSession session = request.getSession();		
-		String user_email = (String)session.getAttribute("login_email");
-		log.info("@# user_email==>"+ user_email);
-		
-		cri2.setUser_email(user_email);
-		log.info("@# setUser_email 한 후 cri==>"+ cri2);
+//		// 세션에 이메일 담아서 쓰는 법
+//		HttpSession session = request.getSession();		
+//		String user_email = (String)session.getAttribute("login_email");
+//		log.info("@# user_email==>"+ user_email);
+//		
+//		cri2.setUser_email(user_email);
+//		log.info("@# setUser_email 한 후 cri==>"+ cri2);
 		
 		PageDAO dao = sqlSession.getMapper(PageDAO.class);
 		ArrayList<ComNoticeDTO> list = dao.noticelistWithPaging(cri2);
@@ -114,11 +115,12 @@ public class PageServiceImpl implements PageService{
 	}
 
 	@Override
-	public int getNoticeTotalCount(@Param("user_email") String user_email, @Param("keyword") String keyword) {
+//	public int getNoticeTotalCount(@Param("user_email") String user_email, @Param("keyword") String keyword) {
+	public int getNoticeTotalCount(Criteria2 cri2) {
 	log.info("@# PageServiceImpl getNoticeTotalCount");
 		
 		PageDAO dao = sqlSession.getMapper(PageDAO.class);
-		int total = dao.getNoticeTotalCount(user_email, keyword);
+		int total = dao.getNoticeTotalCount(cri2);
 		
 		return total;
 	}
