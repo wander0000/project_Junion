@@ -14,7 +14,7 @@ import com.boot.DTO.CompanyInfoDTO;
 import com.boot.DTO.CompanyListDTO;
 import com.boot.DTO.CompanyPageDTO;
 import com.boot.DTO.Criteria4;
-import com.boot.Service.CompanyInfo;
+import com.boot.Service.CompanyInfoService;
 import com.boot.Service.CompanyListService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CompanyListController {
 	@Autowired
-	private CompanyInfo infoService;
+	private CompanyInfoService infoService;
 	
 	@Autowired
 	private CompanyListService companyListService;
@@ -61,13 +61,12 @@ public class CompanyListController {
 //    	model.addAttribute("paging", new CompanyPageDTO(123, std));
     	
 //    	ArrayList<CompanyInfoDTO> list = infoService.comList(orderType, cri);
-//    	ArrayList<CompanyListDTO> list = companyListService.comList(orderType, cri);
-//    	model.addAttribute("comList", list);
-    	ArrayList<CompanyListDTO> comList = companyListService.comList(orderType, cri);
-    	int total = companyListService.getTotalCount();
-    	model.addAttribute("comList", comList);
-    	model.addAttribute("pageMaker", new CompanyPageDTO(total, cri));
+    	ArrayList<CompanyListDTO> list = companyListService.comList(orderType, cri);
+    	model.addAttribute("comList", list);
     	
+    	int total = companyListService.getTotalCount();
+    	
+    	model.addAttribute("pageMaker", new CompanyPageDTO(total, cri));
     	log.info("@# companyPage controller cri!!=>"+cri);
 		
 		return "comList";
