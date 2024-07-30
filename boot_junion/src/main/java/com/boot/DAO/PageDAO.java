@@ -30,7 +30,8 @@ public interface PageDAO {
 	//연주 스크랩 공고 리스트 withPage
 	public ArrayList<ComNoticeDTO> noticelistWithPaging(Criteria2 cri2);
 	//연주 스크랩 공고 총 갯수
-	public int getNoticeTotalCount(@Param("user_email") String user_email, @Param("keyword") String keyword);
+//	public int getNoticeTotalCount(@Param("user_email") String user_email, @Param("keyword") String keyword);
+	public int getNoticeTotalCount(Criteria2 cri2);
 		
 	//연주 스크랩 공고 리스트 오래된 순 withPage
 	public ArrayList<ComNoticeDTO> noticelistCreateAsc(Criteria2 cri2);

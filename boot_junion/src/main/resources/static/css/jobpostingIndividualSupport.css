@@ -278,11 +278,9 @@ display:inline-block;
     display: block;
 }
 
-.pplist
-{
     
 
-}
+
 .pplist .pp
 {
     display: flex;
@@ -360,9 +358,6 @@ display:inline-block;
 .pplist .right
 {
     margin-right: 20px;
-}
-.right .date
-{
 }
 .right .buttbox2 .b2,
 .right .date .d1
@@ -534,7 +529,7 @@ display:inline-block;
 }
 /* 팝업창 내용 */
 .popup-content {
-    position: fixed;
+    /* position: fixed; */
     background-color: #fff;
     margin: 15% auto;
     padding: 20px;
