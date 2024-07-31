@@ -21,6 +21,9 @@ public interface JoinManagementPageService {
 	
 	public ArrayList<NoticeDTO> notice_status2(JaewonCriteria cri3 , HttpServletRequest request);
 	
+	// 공고상태업데이트
+	public void updateStatus();
+	
 	// 별점
 	public void comStar(StarDTO stardto);
 	
