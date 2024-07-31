@@ -211,33 +211,33 @@ public class ComNoticeController {
 	}
 	
 	// 채용공고 등록
-	@RequestMapping("/registerNotice")
-	public String regiserNotice(ComNoticeDTO comNoticeDTO, HttpServletRequest httpServletRequest, Model model) {
-		log.info("@# registerNotice");
-		
-		HttpSession session = httpServletRequest.getSession();
-		session.getAttribute("login_email");
-		session.getAttribute("login_name");
-		log.info("@# session  =>"+(String) session.getAttribute("login_email"));
-		
-		model.addAttribute("com_email",session.getAttribute("login_email"));
-		model.addAttribute("com_name", session.getAttribute("login_name"));
-		
+		@RequestMapping("/registerNotice")
+		public String regiserNotice(ComNoticeDTO comNoticeDTO, HttpServletRequest httpServletRequest, Model model) {
+			log.info("@# registerNotice");
+			
+			HttpSession session = httpServletRequest.getSession();
+			session.getAttribute("login_email");
+			session.getAttribute("login_name");
+			log.info("@# session  =>"+(String) session.getAttribute("login_email"));
+			
+			model.addAttribute("com_email",session.getAttribute("login_email"));
+			model.addAttribute("com_name", session.getAttribute("login_name"));
+			
 
-		log.info("@# comNoticeDTO=>"+comNoticeDTO);
-		
-		if (comNoticeDTO.getComNoticeAttachList() != null) {
-			comNoticeDTO.getComNoticeAttachList().forEach(attach -> log.info("@# attach=>"+attach));
+			log.info("@# comNoticeDTO=>"+comNoticeDTO);
+			
+			if (comNoticeDTO.getComNoticeAttachList() != null) {
+				comNoticeDTO.getComNoticeAttachList().forEach(attach -> log.info("@# attach=>"+attach));
+			}
+			service.registerNotice(comNoticeDTO);
+			service.noticeInsertStack(comNoticeDTO);
+			service.noticeStauts(comNoticeDTO);
+			
+			httpServletRequest.setAttribute("msg", "공고를 등록하였습니다.");
+			httpServletRequest.setAttribute("url", "/companyMain");
+			return "/alert";
+			
 		}
-		service.registerNotice(comNoticeDTO);
-		
-		
-		httpServletRequest.setAttribute("msg", "공고를 등록하였습니다.");
-		httpServletRequest.setAttribute("url", "/companyMain");
-		return "/alert";
-		
-	}
-	
 	
 	@PostMapping("/registUploadAjaxAction")
 //	public void uploadAjaxPost(MultipartFile[] uploadFile) {
@@ -297,7 +297,7 @@ public class ComNoticeController {
 //					썸네일 파일은 s_ 를 앞에 추가
 					FileOutputStream thumnail = new FileOutputStream(new File(uploadPath, "s_"+uploadFileName));
 					
-//					썸네일 파일 형식을 100/100 크기로 생성
+//					썸네일 파일 형식을 1200/1200 크기로 생성
 					Thumbnailator.createThumbnail(fis, thumnail, 1200, 1200);
 					
 					thumnail.close();
