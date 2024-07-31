@@ -303,14 +303,14 @@ main
 
 .userInfoTable td .Btn
 {
-  background-color: var(--button-gray);
-  border: 1px solid var(--input-gray);
-  font-size: 16px;
-  color: var(--color-gray);
-  /* width: 100px; */
-  height: 44px;
-  padding: 10px;
-  border-radius: 6px;
+  background-color: #f7f7f7;
+	border: 1px solid var(--input-gray);
+	color: #777;
+	font-size: var(--font-size14);
+	border-radius: 6px;
+	align-items:center;
+	justify-content:center; 
+	padding: 8px 10px;
 }
 
 

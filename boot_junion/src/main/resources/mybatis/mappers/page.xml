@@ -161,7 +161,7 @@
 							, st.resume_num as resume_num, st.joincompany_date as joincompany_date
 						FROM recent_notice rn 
 						left outer join notice_tb nt ON rn.notice_num = nt.notice_num
-						left outer join submit_tb st ON rn.user_email = st.user_email and AND rn.notice_num = st.notice_num
+						left outer join submit_tb st ON rn.user_email = st.user_email and rn.notice_num = st.notice_num
 						WHERE rn.user_email=#{user_email}  
 						]]>
 						<include refid="criteria2"/>
