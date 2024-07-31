@@ -49,12 +49,10 @@ public class JoinManagementPageController {
 		
 		ArrayList<NoticeDTO> noticeDTO = joinManagementPageService.joinManagementPaging(cri3, request);		
 //		ArrayList<ResumeDTO> resumeList = service.listWithPaging(cri,user_email);		
-		int total = joinManagementPageService.joinManagementGetTotalCount(user_email);
-		log.info("@# total=>"+total);
-		
-		log.info("@# noticeDTO" + noticeDTO);
-		log.info("@# cri3"+cri3);			
+		int total = joinManagementPageService.joinManagementGetTotalCount(user_email);				
 
+		joinManagementPageService.updateStatus();
+		
 		log.info("@# noticeDTO==>"+noticeDTO);
 		int total2 = joinManagementService.TotalJoinManagementNum(user_email, noticeCheck);
 		int check = joinManagementService.CheckJoinManagementNum(user_email, noticeCheck);
