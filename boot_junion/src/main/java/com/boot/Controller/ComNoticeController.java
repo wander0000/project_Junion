@@ -44,7 +44,6 @@ import com.boot.DTO.SubmitDTO;
 import com.boot.DTO.UserDTO;
 import com.boot.Service.ComNoticeService;
 import com.boot.Service.IndividualService;
-import com.boot.Service.ScrapService;
 
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -57,7 +56,7 @@ public class ComNoticeController {
 	private ComNoticeService postService;
 	
 	@Autowired
-	private ScrapService scrapService;
+	private IndividualService userService;
 	
 
 	@RequestMapping("/jobPostList")
@@ -127,11 +126,10 @@ public class ComNoticeController {
 		model.addAttribute("otherPost", list);
 		model.addAttribute("postNum", postNum);
 		
-	      log.info("user_email ->" + user_email);
-//	      if(user_email != null) {//session의 이메일 정보를 얻어, 값이 있을 경우 로직 수행
-	         String com_email = scrapService.existingCompany(user_email, notice_num);
-	         model.addAttribute("com_email", com_email);
-//	      }
+//		String com_email = dto.getCom_email();
+//		String com_location = postService.comLocation(com_email);
+//		model.addAttribute("com_location", com_location);
+		
 		return "/recruitmentNotice/jobPostDetail";
 	}
 	

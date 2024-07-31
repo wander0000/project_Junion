@@ -118,7 +118,7 @@
 							, st.resume_num as resume_num, st.joincompany_date as joincompany_date
 						FROM notice_scrap ns 
 						left outer join notice_tb nt ON ns.notice_num = nt.notice_num
-						left outer join submit_tb st ON ns.user_email = st.user_email AND ns.notice_num = st.notice_num
+						left outer join submit_tb st ON ns.user_email = st.user_email 
 						WHERE ns.user_email=#{user_email}  
 						]]>
 						<include refid="criteria2"/>

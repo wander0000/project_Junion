@@ -14,12 +14,16 @@ import com.boot.DTO.StarDTO;
 
 public interface JoinManagementPageService {
 	// Criteria 객체를 이용해서 페이징 처리
+	// Criteria 객체를 이용해서 페이징 처리
 	public ArrayList<NoticeDTO> joinManagementPaging(JaewonCriteria cri3, HttpServletRequest request);
 	
 	// 페이지 총 갯수 
 	public int joinManagementGetTotalCount(String user_email);
 	
 	public ArrayList<NoticeDTO> notice_status2(JaewonCriteria cri3 , HttpServletRequest request);
+	
+	// 공고상태업데이트
+	public void updateStatus();
 	
 	// 별점
 	public void comStar(StarDTO stardto);

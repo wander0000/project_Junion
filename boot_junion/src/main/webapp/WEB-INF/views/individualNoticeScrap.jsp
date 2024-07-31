@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>개인-스크랩 공고</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/individualMain.css">
+<!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/individualMain.css"> -->
 <!--<link rel="stylesheet" href="src/main/resources/static/css/style.css">-->
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
@@ -38,15 +38,7 @@
 	  --font-size12: 12px;
 	}
   
-	/* 네비게이션 옆 컨텐츠 영역 */
-	.mainContent 
-	{
-	  width: calc( 100% - 260px);
-	  min-height: 100vh;
-	}
-	
-
-  /* 드롭다운 메뉴 */
+	/* 드롭다운 메뉴 */
 	.dorpdowmMain
 	{
 	display: flex;
@@ -86,45 +78,107 @@
 	}
 
 
+/* 네비게이션 옆 컨텐츠 영역 */
+.mainContent 
+{
+  width: calc( 100% - 260px);
+  min-height: 100vh;
+}
 
+/* 헤더 */
+.mainContent header 
+{
+  width: 100%;
+  height: 90px;
+  border-bottom: 1px solid var(--input-gray);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
 
-	
-/*메인콘텐츠 전체*/
-main
+/* 헤더 아이디 영역 */
+.mainContent header .userWrapper
+{
+  display: flex;
+  white-space: nowrap;
+  margin-left: auto;
+  align-items: center;
+}
+
+.mainContent header .userWrapper img
+{
+  margin-right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;   
+}
+
+.mainContent header .userWrapper h4.name 
+{
+  font-size: var(--font-size14);
+  margin-right: 12px;
+}
+
+/* 메인 */
+main 
 {
   display: flex;
   justify-content: center;
+  padding: 50px 0 120px;  
 }
+
+main .mainContainer 
+{
+  max-width:1200px;
+}
+
+/* 프로필 : 사진 + 이름 */
+main .mainContainer .memberInfo 
+{
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+main .mainContainer .memberInfo img.memberImg 
+{
+  width:64px;
+  height: 64px;
+  margin-right: 20px;
+}
+
+main .mainContainer .memberInfo .memberName 
+{
+  font-size: var(--font-size32);
+  font-weight: 600;
+} 
+
 main .mainContainer
 {
-  display: flex;
-  flex-direction: column; 
-  min-width: 1200px;
-  gap: 40px 0;
+display: flex;
+flex-direction: column; 
+min-width: 1200px;
+gap: 40px 0;
 }
 
 
-
-.mainContainer .recentJobPost
-{
-  display: flex;
-  font-size: var(--font-size32);
-  margin-top: 70px;
-  gap : 0 20px;
+	/* 타이틀 + 숫자*/
+	.mainContainer .subtitle
+	{
+		display: flex;
+		font-size: var(--font-size32);
+		color: var(--color-black);
+		/* margin-top: 70px; */
+		gap : 0 20px;
   
-}
-.mainContainer .recentJobPost .title 
-{
-  color: var(--color-black);
-  /* margin-top: 70px; */
-  
-}
+	}
 
-.mainContainer .recentJobPost .listNum 
-{
-  color: var(--main-color);
-  margin-right:200px;
-}
+	.mainContainer .subtitle .listNum
+	{
+	color: var(--main-color);
+	}
+
 
 
 /*sort tab 전체*/
@@ -457,9 +511,9 @@ button.postStatus
           </header>    
             <main>
                 <div class="mainContainer">
-                    <div class="recentJobPost">
-                      <h3 class="title">스크랩 공고</h3>
-                      <h3 class="listNum">${pageMaker.total}</h3>
+                    <div class="subtitle">
+                      <h4 class="title">스크랩 공고</h4>
+                      <h4 class="listNum">${pageMaker.total}</h4>
                     </div>
                     <div class="listTable">
                       <form method="get" id="searchForm">
@@ -471,17 +525,20 @@ button.postStatus
                                     <!-- <select id="orderByUpdate" class="custom-select" onchange="switchTab(this.value,event);"> -->
                                     <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
                                     <!-- <select id="orderByUpdate" class="custom-select"> -->
+                                        <option>공고등록순</option>
                                         <option value="desc" <c:if test="${pageMaker.cri.orderBy == 'desc'}">selected='selected'</c:if>>최신순</option>
                                         <option value="asc" <c:if test="${pageMaker.cri.orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option>
                                         <!-- <option value="${pageMaker.cri.orderBy}" <c:if test="${pageMaker.cri.orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option> -->
                                     </select>
                                     <!-- <select id="orderBySubmit" class="custom-select" onchange="switchTab2(this.value,event);"> -->
-                                    <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
+                                      <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
+                                        <option>지원여부</option>
                                         <option value="submit" <c:if test="${pageMaker.cri.orderBy == 'submit'}">selected='selected'</c:if>>지원완료</option>
                                         <option value="noSubmit" <c:if test="${pageMaker.cri.orderBy == 'noSubmit'}">selected='selected'</c:if>>미지원</option>
-                                    </select>
-                                    <!-- <select id="orderByStatus" class="custom-select" onchange="switchTab3(this.value,event);"> -->
-                                    <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
+                                      </select>
+                                      <!-- <select id="orderByStatus" class="custom-select" onchange="switchTab3(this.value,event);"> -->
+                                        <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
+                                        <option>채용상태</option>
                                         <option value="inProgress" <c:if test="${pageMaker.cri.orderBy == 'inProgress'}">selected='selected'</c:if>>채용중</option>
                                         <option value="finished" <c:if test="${pageMaker.cri.orderBy == 'finished'}">selected='selected'</c:if>>접수마감</option>
                                     </select>

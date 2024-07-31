@@ -136,7 +136,7 @@ input[type=checkbox]
 .postContainer .accept .value,
 .postContainer .work .value
 {
-    font-size: var(--font-size18);
+    font-size: var(--font-size16);
     align-content: center;
 }
 
