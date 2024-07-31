@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class jobpostingIndividualDTO {
 	
 	private String user_name; // 
+	private String user_email; // 
 	private String user_gender; // 
 	private String career_month; // 
 	private String stack_names; // 

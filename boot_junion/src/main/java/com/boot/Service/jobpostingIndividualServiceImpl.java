@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -92,20 +93,34 @@ public class jobpostingIndividualServiceImpl implements jobpostingIndividualServ
 		ArrayList<String> list = dao.getLocationList();		
 		return list;
 	}
+	
+//	@Override
+//	public int getTotalCount() {
+//		jobpostingIndividualDAO dao = sqlSession.getMapper(jobpostingIndividualDAO.class);
+//		int total = dao.getTotalCount();
+//		return total;
+//	}
 
 	@Override
-	public int getTotalCount() {
+	public int getTotalCount(@Param("cri") Criteria3 cri) {
 		jobpostingIndividualDAO dao = sqlSession.getMapper(jobpostingIndividualDAO.class);
-		int total = dao.getTotalCount();
+		int total = dao.getTotalCount(cri);
 		return total;
 	}
 
 	@Override
 	public ArrayList<OfferInfoDTO> getOfferInfo(String login_email) {
-		log.info("@# getLocationList");
+		log.info("@# getOfferInfo");
 		jobpostingIndividualDAO dao = sqlSession.getMapper(jobpostingIndividualDAO.class);
 		ArrayList<OfferInfoDTO> list = dao.getOfferInfo(login_email);		
 		return list;
+	}
+
+	@Override
+	public void insertOffer(OfferInfoDTO offer) {
+		log.info("@# insertOffer");
+		jobpostingIndividualDAO dao = sqlSession.getMapper(jobpostingIndividualDAO.class);
+		dao.insertOffer(offer);		
 	}
 
 }

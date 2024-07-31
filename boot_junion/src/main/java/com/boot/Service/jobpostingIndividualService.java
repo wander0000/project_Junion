@@ -20,7 +20,10 @@ public interface jobpostingIndividualService {
 	
 	public ArrayList<String> getLocationList(); // 지역 리스트
 	
-	public int getTotalCount(); //
+//	public int getTotalCount(); 
+	public int getTotalCount(@Param("cri") Criteria3 cri); 
 	
 	public ArrayList<OfferInfoDTO> getOfferInfo(@Param("login_email") String login_email); // 
+	
+	public void insertOffer(OfferInfoDTO offer); // offer 정보 insert
 }
