@@ -218,6 +218,7 @@
   border-radius: 6px;
   align-items:center;
   justify-content:center;
+  /* padding: 8px 10px; */
 }
 /* sort 탭*/
 .mainContainer .searchWrap .optionSortLeft .custom-select
@@ -315,7 +316,7 @@ main .mainContainer .jobPostList
 .com_name , .jobPostTitle, p.submitResume
 {
   font-size: var(--font-size14);
-  color: var(--color-gray);
+  color: #777;
   cursor: pointer;
 }
 
@@ -513,7 +514,7 @@ button.postStatus
             <main>
                 <div class="mainContainer">
                     <div class="subtitle">
-                      <h4 class="title">스크랩 공고</h4>
+                      <h4 class="title">최근 본 공고</h4>
                       <h4 class="listNum">${pageMaker.total}</h4>
                     </div>
                     <div class="listTable">
@@ -526,22 +527,22 @@ button.postStatus
                                     <!-- <select id="orderByUpdate" class="custom-select" onchange="switchTab(this.value,event);"> -->
                                     <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
                                     <!-- <select id="orderByUpdate" class="custom-select"> -->
-                                        <option>공고등록순</option>
+                                        <option disabled selected>공고등록순</option>
                                         <option value="desc" <c:if test="${pageMaker.cri.orderBy == 'desc'}">selected='selected'</c:if>>최신순</option>
                                         <option value="asc" <c:if test="${pageMaker.cri.orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option>
                                         <!-- <option value="${pageMaker.cri.orderBy}" <c:if test="${pageMaker.cri.orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option> -->
                                     </select>
                                     <!-- <select id="orderBySubmit" class="custom-select" onchange="switchTab2(this.value,event);"> -->
                                       <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
-                                        <option>지원여부</option>
+                                        <option disabled selected>지원여부</option>
                                         <option value="submit" <c:if test="${pageMaker.cri.orderBy == 'submit'}">selected='selected'</c:if>>지원완료</option>
                                         <option value="noSubmit" <c:if test="${pageMaker.cri.orderBy == 'noSubmit'}">selected='selected'</c:if>>미지원</option>
                                       </select>
                                       <!-- <select id="orderByStatus" class="custom-select" onchange="switchTab3(this.value,event);"> -->
                                         <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
-                                        <option>채용상태</option>
+                                        <option disabled selected>채용상태</option>
                                         <option value="inProgress" <c:if test="${pageMaker.cri.orderBy == 'inProgress'}">selected='selected'</c:if>>채용중</option>
-                                        <option value="finished" <c:if test="${pageMaker.cri.orderBy == 'finished'}">selected='selected'</c:if>>접수마감</option>
+                                        <option value="finished" <c:if test="${pageMaker.cri.orderBy == 'finished'}">selected='selected'</c:if>>채용마감</option>
                                     </select>
                                     <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
                                     <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
@@ -835,18 +836,20 @@ button.postStatus
     $('p.submitResume').click(function(e){
       console.log("지원하기 클릭 click");
       // hidden input의 값(공고번호)를 가져옴
-      var noticeNumStr = $(this).siblings('.noticeNum').val(); // hidden input의 값(공고번호)를 가져옴
+      // var noticeNumStr = $(this).siblings('.noticeNum').val(); // hidden input의 값(공고번호)를 가져옴
       var noticeNumStr = $(this).siblings('input[type="hidden"]').val(); // hidden input의 값(공고번호)를 가져옴
-      alert(noticeNumStr);
+      // alert(noticeNumStr);
 
       // noticeNumStr 값을 정수로 파싱합니다.
       var noticeNum = parseInt(noticeNumStr, 10);
       var url = '/profileInfo?notice_num=' + noticeNum; // url도 변수로 받음
       //새창으로 열기
-      window.open(url,'profileInfo','top=150, left=500, width=500, height=270, resizable = no, scrollbars = no');
+      window.open(url,'profileInfo','top=150, left=600, width=560, height=440, resizable = no, scrollbars = no');
       // window.open('/profileInfo?notice_num=${dto.notice_num}','profileInfo','top=100, left=200,width=500, height=270, resizable = no, scrollbars = no');
     });
     
+
+
 
     /*
     2024-07-29 서연주 
