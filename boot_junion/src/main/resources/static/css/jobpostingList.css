@@ -180,13 +180,10 @@ main .containe
 
 
 /* 헤더밑 타이틀*/
-
-
-main .toptitle .toptitlehh
+main .toptitle
 {
   font-size: var(--font-size32);
   text-align: left;
-  font-weight: 600;
   width: 100%;
   margin-bottom: 40px;
 } 
@@ -229,7 +226,7 @@ main .tabWrap .tabCon
 
 main .tabWrap .tabTitle a
 {
-  font-size: var(--font-size20);
+  font-size: var(--font-size24);
   font-weight: 600;
   color: var(--color-black);
   margin-right: 12px;
@@ -242,18 +239,6 @@ main .tabWrap .tabNum a
   color: var(--main-color);
 }
 
-
-.datesbox
-{
-	display: grid; 
-	grid-template-columns: 190px 100px;
-	margin-top: 12px
-}
-
-.datesbox .dates
-{
-	margin-right: 16px;
-}
 
 /*박스*/
 
@@ -294,7 +279,7 @@ main .tabWrap .tabNum a
 {
   color: #888;
   font-size: var(--font-size14);
-
+  margin-top: 4px;
 }
 
 .box .progress 
@@ -308,7 +293,7 @@ main .tabWrap .tabNum a
 {
   color: #888;
   font-size: var(--font-size14);
-
+  margin-top: 4px;
 }
 
 .box .right 
@@ -341,17 +326,10 @@ main .tabWrap .tabNum a
   height: 32px;
 }
 
-.left .job
-{
-	margin-right: 20px;	
-	display: flex;
-	text-align: center;
-
-}
-
+.left .job,
 .right .applicant-count
 {
-
+	margin-right: 20px;	
 	display: flex;
 	text-align: center;
 

@@ -13,8 +13,6 @@ import com.boot.DTO.ResumeDTO;
 import com.boot.DTO.SubmitDTO;
 
 public interface ComNoticeDAO {
-	
-//	하진
 	public ArrayList<ComNoticeDTO> JobPostCard();//채용공고(카드형) 목록 가져오기
 	public void hitUP(int notice_num);//채용공고 선택시 조회수 증가
 	public ComNoticeDTO JobPost(int notice_num);//상세 채용공고 정보 가져오기
@@ -32,6 +30,7 @@ public interface ComNoticeDAO {
 	
 
 	public void updateSubmitData(HashMap<String, String> param);//이력서지원정보 저장
+		
 	
 
     

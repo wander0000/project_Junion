@@ -205,29 +205,6 @@ main .checkboxwrap .check .checkbox1
 
 }
 
-
-main .toptitle .toptitlehh
-{
-  font-size: var(--font-size32);
-  text-align: left;
-  font-weight: 600;
-  width: 100%;
-  margin-bottom: 40px;
-} 
-
-
-.notfound
-{
-	display: flex;
-	text-align: center;
-	justify-items: center;
-}
-.notfound .notfoundhh
-{
-	font-size: 24px;
-	font-weight: 600;
-}
-
 /*박스*/
 
 .box 
@@ -249,21 +226,6 @@ main .toptitle .toptitlehh
   display: flex;
   align-items: center;
   width: 80%;
-}
-
-.box .left .le
-{
-	/*margin-right: 100px;*/
-	display: flex;
-	width: 220px;
-}
-
-.box .left .le .pfname,
-.box .left .le .pfage
-{
-	display: flex;
-	text-align: center;
-	margin: auto 10px;
 }
 
 .box .profile
@@ -313,16 +275,10 @@ main .toptitle .toptitlehh
   
 }
 
-.box .dates
+.box .dates 
 {
   color: #888;
   font-size: var(--font-size14);
-  margin-top: 4px;
- 
-}
-.pname
-{
-  color: #888;
   margin-top: 4px;
  
 }
@@ -362,7 +318,6 @@ main .toptitle .toptitlehh
   background-color: #FFA500;
   color: white;
 }
-
 
 
 /*팝업*/

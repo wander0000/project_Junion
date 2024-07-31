@@ -44,7 +44,7 @@ public class CompanyInfoServiceImpl implements CompanyInfoService{
 	
 	
 	
-	//하진
+	
 	@Override
 	public ArrayList<ComNoticeDTO> getEndNotice(String com_email){//마감된 공고를 가져오는 메소드
 		CompanyInfoDAO dao= sqlSession.getMapper(CompanyInfoDAO.class);
