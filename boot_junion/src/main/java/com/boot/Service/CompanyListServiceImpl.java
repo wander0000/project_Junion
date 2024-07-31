@@ -61,12 +61,14 @@ public class CompanyListServiceImpl implements CompanyListService{
 	}
 
 /*
-	07/26 11:50 민중
+	07/31 12:20 민중
 */
 	@Override
-	public int getTotalCount() {
+//	public int getTotalCount() {
+	public int getTotalCount(Criteria4 cri) {
 		CompanyListDAO dao = sqlSession.getMapper(CompanyListDAO.class);
-		int total = dao.getTotalCount();
+//		int total = dao.getTotalCount();
+		int total = dao.getTotalCount(cri);
 		return total;
 	}
 }
