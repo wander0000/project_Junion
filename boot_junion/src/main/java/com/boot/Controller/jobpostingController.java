@@ -134,25 +134,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 	    
 	    
 	    
-	    // 인재풀 리스트 (개인)
-	    @RequestMapping("/jobpostingIndividualSupport")
-	    public String jobpostingIndividualSupport(Model model, HttpServletRequest request) 
-	    {
-	    	log.info("@# jobpostingIndividualSupport");	
-	    	
-	    	// 세션에 이메일 담아서 쓰는 법
-	    	HttpSession session = request.getSession();		
-	//		String login_email = (String)session.getAttribute("login_email");
-	    	String notice_num = (String)session.getAttribute("notice_num"); 
-	    	String login_email = "a@junion.com";  // @ 이메일 없으므로 임시로 지정해줌  
-	    	log.info("@# notice_num=>"+notice_num);
-	    	ArrayList<jobpostingDTO> jobpostingIndividualSupport = jobpostingService.jobpostingSupport(notice_num); 
-	    	model.addAttribute("jobpostingIndividualSupport",jobpostingIndividualSupport);	
-	    	
-	    	
-	
-	    	return "jobpostingIndividualSupport";
-	    }
+//	    // 인재풀 리스트 (개인)
+//	    @RequestMapping("/jobpostingIndividualSupport")
+//	    public String jobpostingIndividualSupport(Model model, HttpServletRequest request) 
+//	    {
+//	    	log.info("@# jobpostingIndividualSupport");	
+//	    	
+//	    	// 세션에 이메일 담아서 쓰는 법
+//	    	HttpSession session = request.getSession();		
+//	//		String login_email = (String)session.getAttribute("login_email");
+//	    	String notice_num = (String)session.getAttribute("notice_num"); 
+//	    	String login_email = "a@junion.com";  // @ 이메일 없으므로 임시로 지정해줌  
+//	    	log.info("@# notice_num=>"+notice_num);
+//	    	ArrayList<jobpostingDTO> jobpostingIndividualSupport = jobpostingService.jobpostingSupport(notice_num); 
+//	    	model.addAttribute("jobpostingIndividualSupport",jobpostingIndividualSupport);	
+//	    	
+//	    	
+//	
+//	    	return "jobpostingIndividualSupport";
+//	    }
 	    // =============================  SUPPORT 끝  ==========================
 	    
 	    

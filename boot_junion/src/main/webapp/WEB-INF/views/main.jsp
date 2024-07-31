@@ -42,7 +42,7 @@
                     <div class="sectionA">
                         <div class="sectionName">
                             <div class="subtitle">신입 개발자 채용</div>
-                                <a href="#" class="more">더보기
+                                <a href="cardPageList" class="more">더보기
                                     <i class="fa-solid fa-angle-right"></i>
                                 </a>
                         </div><!--sectionName-->
@@ -74,14 +74,14 @@
                     <div class="sectionB">
                         <div class="sectionName">
                             <div class="subtitle">기업 공고</div>
-                            <a href="#" class="more">더보기
+                            <a href="cardPageList" class="more">더보기
                                 <i class="fa-solid fa-angle-right"></i>
                             </a>
                         </div><!--sectionName-->
                         <div class="themaCon">
                             <div class="postThema">
                                 <div class="sectionName">
-                                    <h5 class="subtitle"><span>신입</span> TOP 50</h5>
+                                    <h5 class="subtitle"><span style="color: #FFA500;">신입</span> TOP 5</h5>
                                     <a href="#" class="moreView">더보기
                                         <i class="fa-solid fa-angle-right"></i>
                                     </a>
@@ -105,7 +105,7 @@
                             </div><!--thema 영역-->
                             <div class="postThema">
                                 <div class="sectionName">
-                                    <div class="subtitle"><span>경력</span> 인기 TOP 50</div>
+                                    <div class="subtitle"><span style="color: #FFA500;">경력</span> 인기 TOP 5</div>
                                     <a href="#" class="moreView">더보기
                                         <i class="fa-solid fa-angle-right"></i>
                                     </a>
@@ -129,7 +129,7 @@
                             </div><!--thema 영역-->
                             <div class="postThema">
                                 <div class="sectionName">
-                                    <div class="subtitle"><span>오늘</span> 뜬 인기 TOP 50</div>
+                                    <div class="subtitle"><span style="color: #FFA500;">오늘</span> 뜬 인기 TOP 5</div>
                                     <a href="#" class="moreView">더보기
                                         <i class="fa-solid fa-angle-right"></i>
                                     </a>
@@ -167,7 +167,7 @@
                 <div class="sectionC">
                     <div class="sectionName">
                         <div class="subtitle">추천 기업</div>
-                        <a href="#" class="more">더보기
+                        <a href="comList" class="more">더보기
                             <i class="fa-solid fa-angle-right"></i>
                         </a>
                     </div><!--sectionName 끝-->
@@ -181,11 +181,11 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <div class="conProfile">
+                                <div class="conProfile" onclick="location.href='comDetail?com_email=${dto.com_email}'" style="cursor:pointer;">
                                     <div class="conTitle">${dto.com_name}</div>
                                     <div class="conSec">여기에 뭐 넣어여?</div>
                                 </div>
-                                <button type="button" class="more">바로가기</button>
+                                <button type="button" class="more" onclick="location.href='comDetail?com_email=${dto.com_email}'" style="cursor:pointer;">바로가기</button>
                             </div>
                         </c:forEach>
                     </div><!--postSection 끝-->
