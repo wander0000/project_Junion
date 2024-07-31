@@ -26,7 +26,6 @@ public interface ComNoticeService {
 	//공고 지원 처리
 	public boolean updateSubmitData(HashMap<String, String> param);//이력서지원정보 저장
 	
-	
 	public void registerNotice(ComNoticeDTO comNoticeDTO); //공고등록
 	public void noticeInsertStack(ComNoticeDTO comNoticeDTO); //공고등록-스택테이블에 insert
 	public void noticeStauts(ComNoticeDTO comNoticeDTO); //공고 상태 업데이트

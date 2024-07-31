@@ -30,7 +30,7 @@ public class UserDTO {
 	private List<UserAttachDTO> userAttachDTO;
 	private List<UserStackDTO> userStackDTO;
 	private List<UserJobDTO> userJobDTO;
-	private List<ScrapDTO> noticeScrapDTO;
+	private List<NoticeScrapDTO> noticeScrapDTO;
 	private List<RecentNoticeDTO> recentNoticeDTO;
 	
 	private List<UserAttachDTO> userAttachList;

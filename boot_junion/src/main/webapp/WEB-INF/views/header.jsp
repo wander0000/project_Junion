@@ -103,6 +103,7 @@
 <body>
 	<header>
         <div class="headerInner">
+<!--        <div class="headerInner">-->
             <h5 class="logo">
                 <a href="main">
                     <img src="${pageContext.request.contextPath}/images/logo.svg" alt="#">
@@ -112,8 +113,9 @@
                 <li><a href="cardPageList">채용</a></li>
                 <li><a href="jobpostingIndividualSupport">인재풀</a></li>
                 <li><a href="comList">기업정보</a></li>
-                <li><a href="boardCommunity">커뮤니티</a></li>
-                <li><a href="noticeBoardList">Q&A</a></li> 
+                <li><a href="boardList">커뮤니티</a></li>
+                <li><a href="dailyCS">DailyCS</a></li>
+                <!-- <li><a href="#">공지사항</a></li> -->
             </ul>
             <ul class="rightMenu">
                 <li id="login"><a href="login">로그인</a></li>

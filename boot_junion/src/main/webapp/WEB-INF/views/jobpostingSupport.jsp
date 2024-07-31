@@ -16,7 +16,7 @@
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 <style>
     /* 드롭다운 메뉴 */
-    .dorpdowmMain {
+	.dorpdowmMain {
         display: flex;
     }
     .dropdown {
@@ -50,15 +50,6 @@
     }
     .filterBox label {
         margin-right: 5px;
-    }
-    /* 데이터 없음 스타일 */
-    .notfound {
-        text-align: center;
-        margin-top: 20px;
-    }
-    .notfoundhh {
-        font-size: 16px;
-        color: #888;
     }
 </style>
 <script>
@@ -185,103 +176,87 @@
         <main>
             <div class="containe">
                 <div class="toptitle">
-                    <!-- 쿼리 파라미터로 받은 notice_title 표시하기 -->
-                    <h3 class="toptitlehh">지원자 목록<!--${param.notice_title}--></h3>
+                    <h3>Java, 백앤드 포지션 경력무관 채용공고</h3>
                     <!-- 반복문 시작 -->
-                    <c:choose>
-                        <c:when test="${not empty jobpostingSupport}">
-                            <c:forEach items="${jobpostingSupport}" var="sup">
-                                <div class="box" data-birth="${sup.calculated_age}">
-                                    <div class="left">
-										<div class="le">
-	                                        <img class="profile" src="images/people.svg">
-	                                        <div id="pfname_${sup.resume_num}" class="pfname" onclick="handleClick(${sup.resume_num}, ${sup.notice_num})">${sup.user_name}</div>
-	                                        <div class="pfage">${sup.user_gender} ${sup.calculated_age}세</div>
-										</div>
-                                        <div class="pfEntry">${sup.career_month}</div>
-                                        <c:if test="${not empty sup.stack_names}">
-                                            <c:forEach var="stackName" items="${sup.stack_names}">
-                                                <button class="leftbtn">${stackName}</button>
-                                            </c:forEach>
-                                        </c:if>
-                                    </div>
-									<!-- 필터 박스 추가 -->
-									<div class="filterBox">
-									    <label for="statusFilter_${sup.resume_num}"></label>
-									    <select id="statusFilter_${sup.resume_num}" name="statusFilter" onchange="updateStatus(${sup.resume_num}, ${sup.notice_num})">
-									        <!-- 기본값 '합격여부' -->
-									        <option value="" <c:if test="${empty sup.submit_status}">selected</c:if>>합격여부</option>
-									        <option value="합격" <c:if test="${sup.submit_status == '합격'}">selected</c:if>>합격</option>
-									        <option value="불합격" <c:if test="${sup.submit_status == '불합격'}">selected</c:if>>불합격</option>
-									        <option value="보류" <c:if test="${sup.submit_status == '보류'}">selected</c:if>>보류</option>
-									    </select>
-									</div>
-                                    <div class=pname>
-                                        ${sup.submit_check}
-                                    </div>
-                                    <!-- pop -->
-                                    <div class="popUp disN">
-                                        <form id="frm" method="post" action="jobpostingOffer">
-                                            <input type="hidden" name="resume_num" value="${sup.resume_num}">
-                                            <div class="popBg">
-                                                <div class="popCon disF flexD">
-                                                    <div class="popH mlauto">
-                                                        <span class="icon cancel fs24">
-                                                            <i class="fa-solid fa-xmark"></i>
-                                                        </span>
-                                                    </div>
-                                                    <div class="popM">
-                                                        <div class="title">포지션 제안</div>
-                                                        <hr class="pophr">
-                                                        <div class="job">
-                                                            <input type="text" name="offer_title" placeholder="제목을 입력하시오">
-                                                        </div>
-                                                        <div class="comname">
-                                                            <input type="text" name="offer_name" placeholder="기업명을 입력하시오">
-                                                        </div>
-                                                        <hr class="pophr">
-                                                        <textarea class="comtext" name="offer_content" placeholder="내용을 입력하시오"></textarea>
-                                                        <hr class="pophr" >
-                                                        <div class="posita">채용포지션</div>
-                                                        <div class="posit">
-                                                            <div class="positinfo">
-                                                                <div class="positinfo1"></div>
-                                                                <div class="positinfo1">
-                                                                    <input type="text" name="offer_job" placeholder="직무를 입력하시오">
-                                                                </div>
-                                                            </div>
-                                                            <div class="positinfo">
-                                                                <div class="positinfo1"></div>
-                                                                <div class="positinfo1">
-                                                                    <input type="text" name="offer_career" placeholder="경력을 입력하시오">
-                                                                </div>
-                                                            </div>
-                                                            <div class="positinfo">
-                                                                <div class="positinfo1"></div>
-                                                                <div class="positinfo1">
-                                                                    <input type="text" name="offer_pay" placeholder="연봉을 입력하시오">
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="popB">
-                                                            <button class="submit tabBtn" type="submit">제안하기</button>
-                                                        </div>    
-                                                    </div>
-                                                </div>
-                                            </div> 
-                                        </form> <!-- 폼 끝 -->
-                                    </div><!-- popUp끝 -->
-                                </div>
-                            </c:forEach>
-                        </c:when>
-                        <c:otherwise>
-                            <div class="notfound">
-                                <h5 class="notfoundhh">
-                                    지원자가 아직 없습니다.
-                                </h5>
-                            </div>
-                        </c:otherwise>
-                    </c:choose>
+					<c:forEach items="${jobpostingSupport}" var="sup">
+					    <div class="box" data-birth="${sup.calculated_age}">
+					        <div class="left">
+					            <img class="profile" src="images/people.svg">
+	<div id="pfname_${sup.resume_num}" class="pfname" onclick="handleClick(${sup.resume_num}, ${sup.notice_num})">${sup.user_name}</div>
+					            <div class="pfage">${sup.user_gender} ${sup.calculated_age}세</div>
+					            <div class="pfEntry">${sup.career_month}</div>
+					            <c:if test="${not empty sup.stack_names}">
+					                <c:forEach var="stackName" items="${sup.stack_names}">
+					                    <button class="leftbtn">${stackName}</button>
+					                </c:forEach>
+					            </c:if>
+					        </div>
+							<!-- 필터 박스 추가 -->
+							<div class="filterBox">
+								<label for="statusFilter_${sup.resume_num}">상태:</label>
+								<select id="statusFilter_${sup.resume_num}" name="statusFilter" onchange="updateStatus(${sup.resume_num}, ${sup.notice_num})">
+								    <option value="합격" <c:if test="${sup.submitStatus == '합격'}">selected</c:if>>합격</option>
+								    <option value="불합격" <c:if test="${sup.submitStatus == '불합격'}">selected</c:if>>불합격</option>
+								    <option value="보류" <c:if test="${sup.submitStatus == '보류'}">selected</c:if>>보류</option>
+								</select>
+							</div>
+					        <div class=pname>
+								${sup.submit_check}
+							</div>
+					        <!-- pop -->
+					        <div class="popUp disN">
+					            <form id="frm" method="post" action="jobpostingOffer">
+					                <input type="hidden" name="resume_num" value="${sup.resume_num}">
+					                <div class="popBg">
+					                    <div class="popCon disF flexD">
+					                        <div class="popH mlauto">
+					                            <span class="icon cancel fs24">
+					                                <i class="fa-solid fa-xmark"></i>
+					                            </span>
+					                        </div>
+					                        <div class="popM">
+					                            <div class="title">포지션 제안</div>
+					                            <hr class="pophr">
+					                            <div class="job">
+					                                <input type="text" name="offer_title" placeholder="제목을 입력하시오">
+					                            </div>
+					                            <div class="comname">
+					                                <input type="text" name="offer_name" placeholder="기업명을 입력하시오">
+					                            </div>
+					                            <hr class="pophr">
+					                            <textarea class="comtext" name="offer_content" placeholder="내용을 입력하시오"></textarea>
+					                            <hr class="pophr" >
+					                            <div class="posita">채용포지션</div>
+					                            <div class="posit">
+					                                <div class="positinfo">
+					                                    <div class="positinfo1"></div>
+					                                    <div class="positinfo1">
+					                                        <input type="text" name="offer_job" placeholder="직무를 입력하시오">
+					                                    </div>
+					                                </div>
+					                                <div class="positinfo">
+					                                    <div class="positinfo1"></div>
+					                                    <div class="positinfo1">
+					                                        <input type="text" name="offer_career" placeholder="경력을 입력하시오">
+					                                    </div>
+					                                </div>
+					                                <div class="positinfo">
+					                                    <div class="positinfo1"></div>
+					                                    <div class="positinfo1">
+					                                        <input type="text" name="offer_pay" placeholder="연봉을 입력하시오">
+					                                    </div>
+					                                </div>
+					                            </div>
+					                            <div class="popB">
+					                                <button class="submit tabBtn" type="submit">제안하기</button>
+					                            </div>    
+					                        </div>
+					                    </div>
+					                </div> 
+					            </form> <!-- 폼 끝 -->
+					        </div><!-- popUp끝 -->
+					    </div>
+					</c:forEach>
                     <!-- 반복문 끝 -->
                 </div> <!-- contain끝 -->
             </div>
@@ -315,6 +290,8 @@
 </footer>
 </body>
 </html>
+
+
 
 
 <!-- ------------------------------------------- 스크립트 시작 ------------------------------->
