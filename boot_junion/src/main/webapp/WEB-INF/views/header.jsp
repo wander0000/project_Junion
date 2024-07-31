@@ -113,7 +113,7 @@
                 <li><a href="jobpostingIndividualSupport">인재풀</a></li>
                 <li><a href="comList">기업정보</a></li>
                 <li><a href="boardCommunity">커뮤니티</a></li>
-                <li><a href="noticeBoardList">Q&A</a></li> 
+                <li><a href="noticeCommunity">Q&A</a></li> 
             </ul>
             <ul class="rightMenu">
                 <li id="login"><a href="login">로그인</a></li>
