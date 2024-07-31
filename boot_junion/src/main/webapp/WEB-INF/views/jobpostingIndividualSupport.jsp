@@ -46,7 +46,8 @@
 						<div class="filterbox">	
 							<div class="left">
 								<div class="sbox1">
-									<select class="select1" id="stackSelect" name="stackType" onchange="selectSearchBox()">
+									<!-- <select class="select1" id="stackSelect" name="stackType" onchange="selectSearchBox()"> -->
+									<select class="select1" id="stackSelect" name="stackType">
 										<option value="" <c:out value="${pageMaker.cri.stackType == null ? 'selected':''}"/>>기술스택 무관</option>
 										<c:forEach var="stack" items="${stackList}">
 											<option value="${stack}" <c:out value="${pageMaker.cri.stackType eq stack ? 'selected':''}"/>>${stack}</option>
@@ -58,7 +59,8 @@
 								<!-- @@@@@@@개인 회원은 dropbox 직업/직무로 보이고 선택할 수 있도록@@@@@@@@@@@ -->
 
 								<div class="sbox2">
-									<select class="select1" id="jobSelect" name="jobType" onchange="selectSearchBox()">
+									<!-- <select class="select1" id="jobSelect" name="jobType" onchange="selectSearchBox()"> -->
+									<select class="select1" id="jobSelect" name="jobType">
 										<option value="" <c:out value="${pageMaker.cri.jobType == null ? 'selected':''}"/>>직업/직무 무관</option>
 										<c:forEach var="job" items="${jobList}">
 											<option value="${job}" <c:out value="${pageMaker.cri.jobType eq job ? 'selected':''}"/>>${job}</option>
@@ -68,7 +70,8 @@
 								<!-- selectbox 끝  -->
 
 								<div class="sbox">
-									<select class="select1" id="locationselect" name="locationType" onchange="selectSearchBox()">
+									<!-- <select class="select1" id="locationselect" name="locationType" onchange="selectSearchBox()"> -->
+									<select class="select1" id="locationselect" name="locationType">
 										<option value="" <c:out value="${pageMaker.cri.locationType == null ? 'selected':''}"/>>지역 무관</option>
 										<c:forEach var="location" items="${locationList}">
 											<option value="${location}" <c:out value="${pageMaker.cri.locationType eq location ? 'selected':''}"/>>${location}</option>
@@ -78,7 +81,8 @@
 								<!-- selectbox 끝  -->
 
 								<div class="sbox">
-									<select class="select1" id="careerselect" name="careerType" onchange="selectSearchBox()">
+									<!-- <select class="select1" id="careerselect" name="careerType" onchange="selectSearchBox()"> -->
+									<select class="select1" id="careerselect" name="careerType">
 										<option value="" <c:out value="${pageMaker.cri.careerType == null ? 'selected':''}"/>>경력 무관</option>
 										<option value="0" <c:out value="${pageMaker.cri.careerType eq '0' ? 'selected':''}"/>>신입</option>
 										<option value="1" <c:out value="${pageMaker.cri.careerType eq '1' ? 'selected':''}"/>>1년차</option>
@@ -91,7 +95,8 @@
 							</div>
 							<!-- 레프트 끝 -->
 
-							<div class="right" style="visibility: hidden;">
+							<!-- <div class="right" style="visibility: hidden;"> -->
+							<div class="right">
 								<button class="fil2" id="searchButton">
 									<div class="f1">
 										<h5 class="but1">
@@ -101,7 +106,7 @@
 								</button>
 							</div>
 
-							<div class="right">
+							<!-- <div class="right">
 								<button class="fil2" onclick="setAllToNone()">
 									<div class="f1">
 										<h5 class="but1">
@@ -109,7 +114,7 @@
 										</h5>
 									</div>
 								</button>
-							</div>
+							</div> -->
 
 							<input type="hidden" name="pageNum" value="1">
 							<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
@@ -131,7 +136,6 @@
 						</div>
 					</div>
 
-					<!-- 추천순 리스트 시작 -->
 					<!-- <div id="recommendation" class="form-box active"> -->
 						<c:forEach items="${jobpostingIndividualSupport}" var="sup">
 							<div class="pplist"> <!--  pplist 시작-->
@@ -187,13 +191,14 @@
 										</div>
 										<div class="buttbox2">
 											<h5 class="b2">
-												<button type="button" class="proposalbutt" style="display:none;">
+												<!-- <button type="button" class="proposalbutt" style="display:none;" onclick="setUserEmail('${sup}')"> -->
+												<button type="button" class="proposalbutt" style="display:none;" onclick="setUserEmail('${sup.user_email}'); setResumeNum('${sup.resume_num}')">
 													제안하기
 												</button>
 											</h5>
 										</div>
 
-
+										
 										<!-- 팝업창 구조 -->
 										<!-- <div id="proposalPopup" class="popup" style="display: none;">
 											<div class="popup-content">
@@ -236,34 +241,49 @@
 										<div id="proposalPopup" class="popup" style="display: none;">
 											<div class="popup-content">
 												<span class="close">&times;</span>
-												<form>
+												<form method="get" action="sendOffer">
 													<div class="popTitle" style="text-align: center;">
 														<h3>포지션 제안</h3>
 													</div>
 													<hr>
 													<div>
-														<p><h4 id="selectedTitle"></h4></p>
-														<p id="selectedCompany"></p>
+														<p><h4 id="selectedTitle">공고 제목</h4></p>
+														<p id="selectedCompany">기업 이름</p>
 													</div>
 													<hr>
 													<div>
-														<textarea id="proposalMessage" name="proposalMessage" placeholder="달콤한 제안을 속삭여주세요 ><"></textarea>
+														<textarea id="offerMessage" name="offer_content" placeholder="달콤한 제안을 속삭여주세요 ><"></textarea>
 													</div>
 													<hr>
 													<div>
 														<h4>채용 포지션</h4>
 														<p>직무&emsp;<span id="selectedJob"></span></p>
 														<p>경력&emsp;<span id="selectedCareer"></span></p>
-														<p><span id="selectedPay1"></span>&emsp;<span id="selectedPay2"></span></p>
+														<p><span id="selectedPay1">급여</span>&emsp;<span id="selectedPay2"></span><span>만원</span></p>
 													</div>
 													<div>
-														<select class="NoticeTitle" id="titleSelect" name="titleSelect" onchange="updateOfferInfo()">
+														<select class="NoticeTitle" id="titleSelect" name="titleSelect" onchange="updateOfferInfo()" required>
 															<option value="" disabled selected>공고를 선택해주세요.</option>
 															<c:forEach var="offer" items="${offerInfo}">
-																<option value="${offer.notice_title}" data-com-name="${offer.com_name}" data-job="${offer.notice_job}" data-career="${offer.notice_career}" data-pay1="${offer.notice_pay1}" data-pay2="${offer.notice_pay2}만원">${offer.notice_title}</option>
+																<option value="${offer.notice_title}" data-com-name="${offer.com_name}" data-job="${offer.notice_job}"
+																		data-career="${offer.notice_career}" data-pay1="${offer.notice_pay1}" data-pay2="${offer.notice_pay2}"
+																		data-offerInfo="${offer}" data-num="${offer.notice_num}">
+																	${offer.notice_title}
+																</option>
 															</c:forEach>
 														</select>
 													</div>
+													<!-- <input type="hidden" value="" id="noticeTitle" name="notice_title">
+													<input type="hidden" value="" id="comName" name="com_name">
+													<input type="hidden" value="" id="noticeJob" name="notice_job">
+													<input type="hidden" value="" id="noticeCareer" name="notice_career">
+													<input type="hidden" value="" id="noticePay1" name="notice_pay1">
+													<input type="hidden" value="" id="noticePay2" name="notice_pay2"> -->
+													<input type="hidden" value="" id="noticeNum" name="notice_num">
+													<!-- <input type="hidden" value="" id="offerInfo" name="offerInfoDTO"> -->
+													<input type="hidden" value="" id="userEmail" name="user_email">
+													<input type="hidden" value="" id="resumeNum" name="resume_num">
+													<input type="hidden" value="${login_email}" id="comEmail" name="com_email">
 													<input type="submit" value="제안하기">
 												</form>
 											</div>
@@ -392,6 +412,7 @@
 	});
 
 
+	/*
     // 폼이 프로그램적으로 변경 중인지를 나타내는 플래그 변수
     var isProgrammaticChange = false;
 
@@ -412,9 +433,9 @@
             document.getElementById('searchForm').submit();
         }
     }
+	*/
 
 
-	// 다른 탭 눌렀을 때 input 정보 삭제
 	function switchTab(tab, event) {
 		// event.preventDefault(); // 기본 동작 방지
 
@@ -436,6 +457,18 @@
 	}
 
 
+    function setUserEmail(userEmail) {
+        // userEmail 값을 설정
+        document.getElementById('userEmail').value = userEmail;
+    }
+
+
+    function setResumeNum(resumeNum) {
+        // userEmail 값을 설정
+        document.getElementById('resumeNum').value = resumeNum;
+    }
+
+
     function updateOfferInfo() {
         // 선택된 옵션을 가져옵니다.
         var select = document.getElementById('titleSelect');
@@ -449,6 +482,9 @@
         var pay1 = selectedOption.getAttribute('data-pay1');
         var pay2 = selectedOption.getAttribute('data-pay2');
 
+        var num = selectedOption.getAttribute('data-num');
+        // var offerInfo = selectedOption.getAttribute('data-offerInfo');
+
         // DOM 요소에 값을 업데이트합니다.
         document.getElementById('selectedTitle').textContent = noticeTitle;
         document.getElementById('selectedCompany').textContent = comName;
@@ -456,6 +492,15 @@
         document.getElementById('selectedCareer').textContent = career;
         document.getElementById('selectedPay1').textContent = pay1;
         document.getElementById('selectedPay2').textContent = pay2;
+
+		// document.getElementById('noticeTitle').value = noticeTitle;
+		// document.getElementById('comName').value = comName;
+		// document.getElementById('noticeJob').value = job;
+		// document.getElementById('noticeCareer').value = career;
+		// document.getElementById('noticePay1').value = pay1;
+		// document.getElementById('noticePay2').value = pay2;
+		document.getElementById('noticeNum').value = num;
+		// document.getElementById('offerInfo').value = offerInfo;
     }
     
 

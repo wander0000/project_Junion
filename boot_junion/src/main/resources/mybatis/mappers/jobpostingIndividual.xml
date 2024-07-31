@@ -21,7 +21,7 @@
 <!--			ORDER BY stack_names like concat ('%','(SELECT stack FROM com_stack WHERE com_email = cri.login_email)','%') DESC-->
 			ORDER BY (CASE
 	            <foreach item="stack" collection="cri.stackNames" separator=" " open="" close="">
-	                WHEN job_names LIKE '%${stack}%' THEN 1
+	                WHEN stack_names LIKE '%${stack}%' THEN 1
 	            </foreach>
 	            ELSE 0
         	END) DESC
@@ -51,11 +51,12 @@
 <!--    <![CDATA[ : mybatis 에서 특수문자 인식처리 -->
     <select id="jobpostingIndividualSupport" resultType="com.boot.DTO.jobpostingIndividualDTO">
     <![CDATA[ 
-		select rownum, user_name, user_gender, resume_age, career_month, resume_writeDate, resume_num, stack_names, job_names, career_years
-			from (select rownum, user_name, user_gender, resume_age, career_month, resume_writeDate, resume_num, stack_names, job_names, career_years
+		select rownum, user_name, user_email, user_gender, resume_age, career_month, resume_writeDate, resume_num, stack_names, job_names, career_years
+			from (select rownum, user_name, user_email, user_gender, resume_age, career_month, resume_writeDate, resume_num, stack_names, job_names, career_years
 			from (select row_number() over(ORDER BY r.resume_num DESC) as rownum,
 									    u.user_name,
 									    u.user_gender,
+									    r.user_email,
 									    r.resume_age,
 									    r.career_month,
 									    r.resume_writeDate,
@@ -109,11 +110,23 @@
 			location
 	</select>
 
+<!--    <select id="getTotalCount" resultType="int"> -->
+<!--		SELECT-->
+<!--			count(*)-->
+<!--		FROM-->
+<!--			resume_tb-->
+<!--	</select>-->
+
     <select id="getTotalCount" resultType="int"> 
-		SELECT
+	<![CDATA[ 
+		SELECT 
 			count(*)
 		FROM
-			resume_tb
+			resume_tb r
+		JOIN
+			user_tb u ON r.user_email = u.user_email
+	]]>
+	 	<include refid="criteria3"></include>
 	</select>
 
     <select id="getJobNames" resultType="String"> 
@@ -143,6 +156,13 @@
 			com_email = #{login_email}
 		AND datediff(notice_endDate, now()) >= 0
 	</select>
+	
+	<insert id="insertOffer">
+	    INSERT INTO
+	    	offer (notice_num, offer_content, user_email, com_email)
+        VALUES
+        	(#{offer.notice_num}, #{offer.offer_content}, #{offer.user_email}, #{offer.com_email})
+	</insert>
 	
 </mapper>
 

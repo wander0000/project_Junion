@@ -9,6 +9,10 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OfferInfoDTO {
 	private int notice_num;
+	private int resume_num;
+	private String user_email;
+	private String com_email;
+	private String offer_content;
 	private String notice_title;
 	private String notice_job;
 	private String notice_career;

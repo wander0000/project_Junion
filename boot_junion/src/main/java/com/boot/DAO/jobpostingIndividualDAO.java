@@ -24,12 +24,15 @@ public interface jobpostingIndividualDAO {
 
 	public ArrayList<String> getLocationList(); // 지역 리스트
 	
-	public int getTotalCount(); //
+//	public int getTotalCount();
+	public int getTotalCount(@Param("cri") Criteria3 cri);
 	
 	public ArrayList<String> getJobNames(@Param("login_email") String login_email); // 개인회원 추천순에 필요한 정보
 	
 	public ArrayList<String> getStackNames(@Param("login_email") String login_email); // 기업회원 추천순에 필요한 정보
 	
 	public ArrayList<OfferInfoDTO> getOfferInfo(@Param("login_email") String login_email); //
+	
+	public void insertOffer(@Param("offer") OfferInfoDTO offer); // offer 정보 insert
 }
 
