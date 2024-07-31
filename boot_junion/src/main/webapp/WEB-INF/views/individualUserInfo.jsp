@@ -34,10 +34,7 @@
   --font-size12: 12px;
 }
 
-.container 
-{
-  display: flex;
-}
+
 
 /* 네비게이션 */
 .navigation
@@ -130,12 +127,6 @@
   white-space: nowrap;
 }
 
-/* 네비게이션 옆 컨텐츠 영역 */
-.mainContent 
-{
-  width: calc( 100% - 260px);
-  min-height: 100vh;
-}
 
 /* 드롭다운 메뉴 */
 .dorpdowmMain
@@ -178,25 +169,31 @@
 
   
 
+/* 네비게이션 옆 컨텐츠 영역 */
+.mainContent 
+{
+  width: calc( 100% - 260px);
+  min-height: 100vh;
+}
 
 /* 헤더 */
 .mainContent header 
 {
+  width: 100%;
   height: 90px;
   border-bottom: 1px solid var(--input-gray);
   padding: 0 40px;
   display: flex;
   align-items: center;
+  box-sizing: border-box;
 }
 
 /* 헤더 아이디 영역 */
 .mainContent header .userWrapper
 {
   display: flex;
-  padding: 0 15px;
   white-space: nowrap;
   margin-left: auto;
-  width: 140px;
   align-items: center;
 }
 
@@ -217,25 +214,30 @@
 
 
 
+/* 메인 */
+main 
+	{
+	display: flex;
+	justify-content: center;
+	padding: 50px 0 120px;  
+	}
+
+	.infoWrap
+	{
+		display: flex;
+		flex-direction: column; 
+		max-width:1200px;
+		gap: 40px 0;
+	}
 
 
-
-
-/*메인콘텐츠 전체*/
-
-.sectionInner
-{
-  display: flex;
-  justify-content: center;
-  min-width: 1200px;
-}
 
 /*회원정보수정 타이틀*/
 
 .infoTitle
 {
   font-size: var(--font-size32);
-  margin-top: 70px;
+  color: var(--color-black);
 }
 
 /*회원사진 + 테이블*/
@@ -243,9 +245,7 @@
 {
   display : flex;
   gap: 50px;
-  margin-top: 80px;
-  
-  
+  /* margin-top: 80px; */
 }
 
 /*회원사진*/
@@ -328,7 +328,7 @@
   border-radius: 6px;
   width: 240px;
   height: 56px;
-  margin: 40px auto;
+  /* margin: 40px auto; */
   font-size: 16px;
   color: var(--color-white);
   cursor: pointer;
@@ -364,8 +364,8 @@
          </div>
       </header>   
 
-            <section>
-                <div class="sectionInner">
+            <main>
+                <div class="mainContainer">
                     <form method="post" id="userInfoForm" action="modifyPage">
                         <div class="infoWrap">
                             <h2 class="infoTitle">회원 정보 수정</h2>
@@ -399,9 +399,9 @@
                                           <th>희망직무</th>
                                           <td class="disF">
                                               <div class="position" id="position">
-												<c:forEach items="${jobInfo}" var="dto">
-													<input type="button" class="Btn" value="${dto.job_name}">
-												</c:forEach>
+                                                  <c:forEach items="${jobInfo}" var="dto">
+                                                    <input type="button" class="Btn" value="${dto.job_name}">
+                                                  </c:forEach>
                                               </div>
                                           </td>
                                         </tr>
@@ -409,9 +409,9 @@
                                             <th>기술스택</th>
                                             <td class="disF">
                                                 <div class="stack" id="stack">
-													<c:forEach items="${stackInfo}" var="dto">
-														<input type="button" class="Btn" value="${dto.stack_name}">
-													</c:forEach>  
+                                                  <c:forEach items="${stackInfo}" var="dto">
+                                                    <input type="button" class="Btn" value="${dto.stack_name}">
+                                                  </c:forEach>  
                                                 </div>
                                             </td>
                                         </tr>
@@ -428,8 +428,8 @@
                             </div>
                         </div> <!--infoWrap끝 : 개인정보  -->
                     </form>
-                </div> <!-- sectionInner 끝 : 전체 1200 영역-->
-            </section>
+                </div> <!-- mainContainer 끝 : 전체 1200 영역-->
+            </main>
         </div><!-- mainContent-->
     </div>    
 	<%@ include file="footer.jsp" %>

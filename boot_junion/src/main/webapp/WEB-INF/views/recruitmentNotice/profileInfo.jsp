@@ -44,6 +44,11 @@ section
     align-items: center;
 }
 
+.sectionInner
+{
+    /* margin: 40px; */
+}
+
 /* section */
 /* .sectionInner */
 .container
