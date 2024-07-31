@@ -46,9 +46,7 @@
 		SELECT location_name FROM location
 	</select>
 	<!-- 민중 끝-->
-    <select id="getTotalCount" resultType="int"> 
-		SELECT count(*) FROM com_tb
-	</select>
+    
 	
 	
 <!--		com_star 사용예정-->

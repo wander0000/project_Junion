@@ -11,7 +11,7 @@ import com.boot.DAO.ScrapDAO;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Service("scrapNoticeService")
+@Service("ScrapService")
 public class ScrapServiceImpl implements ScrapService{
 
 	@Autowired
@@ -25,7 +25,7 @@ public class ScrapServiceImpl implements ScrapService{
 	}
 	
 	@Override
-	public boolean comScrap(HashMap<String, String> param){//관심기업 스크랩
+	public boolean uploadcomScrap(HashMap<String, String> param){//관심기업 스크랩
 		ScrapDAO dao = sqlSession.getMapper(ScrapDAO.class);
 		String user_email = param.get("user_email");
 		int notice_num = Integer.parseInt(param.get("notice_num"));
@@ -33,7 +33,7 @@ public class ScrapServiceImpl implements ScrapService{
 		
 		String check = dao.existingCompany(user_email, notice_num);
 		if(check == null) {//관심 기업에 추가되지 않았다면 관심 기업 목록에 추가
-			dao.comScrap(param);
+			dao.uploadcomScrap(param);
 			result = true;
 		}else {
 			dao.deleteComScrap(param);

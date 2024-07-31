@@ -15,7 +15,7 @@
 	</select>
 	
 <!--2. 값이 없을 경우, DB에 정보 추가 -->
-	<insert id="comScrap">
+	<insert id="uploadcomScrap">
 <!--		insert into com_scrap values(#{user_email},#{com_email})-->
 		insert into com_scrap values(#{com_email}, #{user_email})
 	</insert>

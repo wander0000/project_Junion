@@ -15,49 +15,22 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-public class ScrapController {	@Autowired
-	private ScrapService scrapService;
-//
-//@Autowired
-//private PageService pageService;
-
-@RequestMapping("/comScrap")
-//public void comScrap(HashMap<String, String> param){//관심기업 스크랩
-public ResponseEntity<Boolean> comScrap(@RequestParam HashMap<String, String> param){//관심기업 스크랩
-	log.info("comScrap controller!!!");
-	log.info("comScrap controller param!!! "+param);
-	log.info("스크랩 컨트롤러 git 연동 확인용 ");
-	log.info("commit이 제대로 되었나요? ");
+public class ScrapController {	
 	
-	boolean result = scrapService.comScrap(param);
+	@Autowired
+	private ScrapService scrapService;
+
+	
+@RequestMapping("/uploadcomScrap")
+//public void comScrap(HashMap<String, String> param){//관심기업 스크랩
+public ResponseEntity<Boolean> uploadcomScrap(@RequestParam HashMap<String, String> param){//관심기업 스크랩
+	log.info("uploadcomScrap controller!!!");
+	log.info("uploadcomScrap controller param!!! "+param);
+
+	
+	boolean result = scrapService.uploadcomScrap(param);
 	return new ResponseEntity<Boolean>(result, HttpStatus.OK);
 }
-
-//@RequestMapping("/individualNoticeScrap") //스크랩 공고
-//public String individualNoticeScrap(HttpServletRequest request, Model model, Criteria2 cri2) {
-//	log.info("@# noticeScrap");	
-//	
-//	HttpSession session = request.getSession();
-//	String user_email = (String)session.getAttribute("login_email");
-//	log.info("@# noticeScrap  user_email=>"+user_email);	
-//	
-//	// 사용자정보의 스크랩 채용공고 목록 가져오기
-//	ArrayList<ComNoticeDTO> list = pageService.noticelistWithPaging(cri2, request);
-//	log.info("@# noticeScrap getNoticeScrapList=>"+list);		
-//	model.addAttribute("noticeList", list);
-//	log.info("@# noticeList=>" + list);
-//	
-//	int total = pageService.getNoticeTotalCount(user_email);
-//	log.info("@# total=>"+total);
-//	
-//	log.info("@# cri2=>"+cri2);		
-//	log.info("@# cri2 깃 수정중=>"+cri2);		
-//	
-//	model.addAttribute("pageMaker", new PageDTO(total,cri2));			
-//					
-//	
-//	return "individualNoticeScrap";
-//}
 
 
 
