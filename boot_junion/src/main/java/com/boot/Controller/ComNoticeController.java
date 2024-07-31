@@ -73,12 +73,13 @@ public class ComNoticeController {
 	
 	@RequestMapping("/jobPostDetail")
 	public String JobPost(HttpSession session, int notice_num, Model model) {//채용공고 목록 -> 채용공고 상세 이동
+//	public String JobPost(HttpSession session, String noticeNum, Model model) {//채용공고 목록 -> 채용공고 상세 이동
 //		public String JobPost(int notice_num, Model model, @RequestParam HashMap<String, String> param) {//채용공고 상세
 		log.info("jobPostDetail");
-		log.info("notice_num!!!"+notice_num);
-		
 		
 		// 24.07.30 연주 : 공고열람하면 최근본 공고 정보 저장하기==========================================================
+//		int notice_num = Integer.parseInt(noticeNum);//뷰단에서 넘길때 int로 넘기기 힘들어서 일단 스트링으로 받아서 int로 파
+		log.info("notice_num!!!"+notice_num);
 		 
 		// notice_num 값을 세션에 저장하므로 값이 있는지 확인
 	    List<Integer> recentJobPosts = (List<Integer>) session.getAttribute("recentJobPost");
