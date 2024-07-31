@@ -10,7 +10,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>개인-스크랩 공고</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/individualMain.css">
+<!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/individualMain.css"> -->
 <!--<link rel="stylesheet" href="src/main/resources/static/css/style.css">-->
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
@@ -38,15 +38,7 @@
 	  --font-size12: 12px;
 	}
   
-	/* 네비게이션 옆 컨텐츠 영역 */
-	.mainContent 
-	{
-	  width: calc( 100% - 260px);
-	  min-height: 100vh;
-	}
-	
-
-  /* 드롭다운 메뉴 */
+	/* 드롭다운 메뉴 */
 	.dorpdowmMain
 	{
 	display: flex;
@@ -86,45 +78,107 @@
 	}
 
 
+/* 네비게이션 옆 컨텐츠 영역 */
+.mainContent 
+{
+  width: calc( 100% - 260px);
+  min-height: 100vh;
+}
 
+/* 헤더 */
+.mainContent header 
+{
+  width: 100%;
+  height: 90px;
+  border-bottom: 1px solid var(--input-gray);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
 
-	
-/*메인콘텐츠 전체*/
-main
+/* 헤더 아이디 영역 */
+.mainContent header .userWrapper
+{
+  display: flex;
+  white-space: nowrap;
+  margin-left: auto;
+  align-items: center;
+}
+
+.mainContent header .userWrapper img
+{
+  margin-right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;   
+}
+
+.mainContent header .userWrapper h4.name 
+{
+  font-size: var(--font-size14);
+  margin-right: 12px;
+}
+
+/* 메인 */
+main 
 {
   display: flex;
   justify-content: center;
+  padding: 50px 0 120px;  
 }
+
+main .mainContainer 
+{
+  max-width:1200px;
+}
+
+/* 프로필 : 사진 + 이름 */
+main .mainContainer .memberInfo 
+{
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+main .mainContainer .memberInfo img.memberImg 
+{
+  width:64px;
+  height: 64px;
+  margin-right: 20px;
+}
+
+main .mainContainer .memberInfo .memberName 
+{
+  font-size: var(--font-size32);
+  font-weight: 600;
+} 
+
 main .mainContainer
 {
-  display: flex;
-  flex-direction: column; 
-  min-width: 1200px;
-  gap: 40px 0;
+display: flex;
+flex-direction: column; 
+min-width: 1200px;
+gap: 40px 0;
 }
 
-/*스크랩공고 타이틀+숫자*/
 
-.mainContainer .recentJobPost
-{
-  display: flex;
-  font-size: var(--font-size32);
-  margin-top: 70px;
-  gap : 0 20px;
+	/* 타이틀 + 숫자*/
+	.mainContainer .subtitle
+	{
+		display: flex;
+		font-size: var(--font-size32);
+		color: var(--color-black);
+		/* margin-top: 70px; */
+		gap : 0 20px;
   
-}
-.mainContainer .recentJobPost .title 
-{
-  color: var(--color-black);
-  /* margin-top: 70px; */
-  
-}
+	}
 
-.mainContainer .recentJobPost .listNum 
-{
-  color: var(--main-color);
-  margin-right:200px;
-}
+	.mainContainer .subtitle .listNum
+	{
+	color: var(--main-color);
+	}
+
 
 
 /*sort tab 전체*/
@@ -260,10 +314,13 @@ main .mainContainer .jobPostList
   border:1px solid var(--border-color-gray);
   cursor: pointer;
 }
-.mainContainer .jobPostList .postBox .boxLeft a
+
+
+p.com_name , p.jobPostTitle, p.submitResume
 {
   font-size: var(--font-size14);
   color: var(--color-gray);
+  cursor: pointer;
 }
 
 /*공고 박스 중간*/
@@ -454,13 +511,13 @@ button.postStatus
           </header>    
             <main>
                 <div class="mainContainer">
-                    <div class="recentJobPost">
-                      <h3 class="title">스크랩 공고</h3>
-                      <h3 class="listNum">${pageMaker.total}</h3>
+                    <div class="subtitle">
+                      <h4 class="title">스크랩 공고</h4>
+                      <h4 class="listNum">${pageMaker.total}</h4>
                     </div>
                     <div class="listTable">
-                        <form method="get" id="searchForm">
-                            <div class="searchWrap">
+                      <form method="get" id="searchForm">
+                        <div class="searchWrap">
                                 <div class="optionSortLeft">
                                     <input type="checkbox" id="check_all" value="회사명">
                                     <button class="selectDel">삭제</button>
@@ -486,24 +543,30 @@ button.postStatus
                                     <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
                                 </div><!-- optionSortLeft 끝 -->
                                 <div class="optionSorRight">
-                                    <input type="text" id="keyword" name="keyword" placeholder="기업명, 채용공고제목" value="${pageMaker.cri.keyword}">
-                                    <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-                                    <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-                                    <button class="searchBtn" type="submit">검색하기</button>
+                                   
+                                        <input type="text" id="keyword" name="keyword" placeholder="기업명, 채용공고제목" value="${pageMaker.cri.keyword}">
+                                        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                                        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+                                        <button class="searchBtn" type="submit">검색하기</button>
+                                   
                                 </div> <!-- optionSortBtn right 끝 -->                  
-                           </div><!-- searchWrap 끝 -->  
-                        <form><!-- searchForm  끝 --> 
+                              </div><!-- searchWrap 끝 -->  
+                            </form><!-- searchForm  끝 --> 
                         <div class="jobPostList">
                           <c:forEach items="${noticeList}" var="dto">		
                             <div class="postBox">
                                 <div class="boxLeft">
                                     <input type="checkbox" name="postListRow" id="${dto.notice_num}" class="normal"><!-- id값에 공고번호 넣어줘야함-->
                                     <!-- <label for="com_name">브레인즈컴퍼니</label> -->
-                                    <label for="com_name"><a href="/comDetail?com_email=${dto.com_email}">${dto.com_name}</a></label>
+                                    <!-- <a class="com_name" href="/comDetail?com_email=${dto.com_email}">${dto.com_name}</a> -->
+                                    <p class="com_name">${dto.com_name}</p>
                                 </div><!-- boxLeft 끝-->
                                 <div class="boxMiddle">
                                     <!-- <h3 class="jobPostTitle">[Web Product 팀] 프론트 엔드 엔지니어 (3년 이상)</h3> -->
-                                    <a class="jobPostTitle" href="jobPostDetail?notice_num=${dto.notice_num}">${dto.notice_title}</a>
+                                    <!-- <a class="jobPostTitle" href="jobPostDetail?notice_num=${dto.notice_num}">${dto.notice_title}</a> -->
+                                    <p class="jobPostTitle">${dto.notice_title}</p>
+                                    <!-- notice_num 가져갈 수 있도록 hidden   -->
+                                    <input type="hidden" class="noticeNum" value="${dto.notice_num}">
                                     <div class="jobPostInfo">
                                         <!-- <p class="notice_area">서울 성동구</p> -->
                                         <p class="notice_area">${dto.notice_area1} ${dto.notice_area2}</p>
@@ -521,7 +584,9 @@ button.postStatus
                                               <a href="resumeInfo?resume_num=${dto.resume_num}">지원한 이력서 보기</a>
                                             </c:when>
                                             <c:otherwise>
-                                              <a class="title" href="#">지원하기</p><!-- 지원하기 팝업뜨도록 설계--> 
+                                              <p class="submitResume">지원하기</p><!-- 지원하기 팝업뜨도록 설계--> 
+                                              <!-- notice_num 가져갈 수 있도록 hidden -->
+                                              <input type="hidden"id="noticeNum" value="${dto.notice_num}">  
                                             </c:otherwise>
                                           </c:choose>
                                         </div>
@@ -601,7 +666,7 @@ button.postStatus
                           </li>
                         </c:if>
                       </ul>
-                    </div><!-- div_page 끝 -->   
+                              </div><!-- div_page 끝 -->   
                     <!-- 데이터를 가지고 컨트롤러단으로 가기때문에 -->
                       <!-- <form action="listWithPaging" method="get" id="actionForm"> -->
                       <!-- <form action="list" method="get" id="actionForm"> -->
@@ -726,23 +791,64 @@ button.postStatus
     
 
     /*
-    2024-07-02 서연주 
-    자세히보기 누르면 기업정보 상세페이지로 새창(기업아이디를 가지고 이동해야함)
+    2024-07-31 서연주 
+    기업이름 누르면 기업정보 상세페이지로 새창(기업이메일 값 가지고 새 탭으로 이동)
     */
-    // $('button.detailBtn').click(function(e){
-    //     console.log("자세히보기 click");
-    //     window.open('http://www.naver.com','com_detail','top=100, left=200, width=1200, height=600, status=no, menubar=no, toolbar=no, resizable=yes');
-    // });
+    $('p.com_name').click(function(e){
+      console.log("기업명 클릭 click");
+      // window.open('/comDetail?com_email=${dto.com_email}','com_detail','top=100, left=200, width=1200, height=800, status=no, menubar=no, toolbar=no, resizable=yes, channelmode=yes');
+      window.open('/comDetail?com_email=${dto.com_email}');//새 탭으로 이동으로 변경
+    });
 
+    /*
+    2024-07-31 서연주 
+    공고명 누르면 공고 상세페이지로 새창(공고번호 값 가지고 새 탭으로 이동)
+    */
+    $('p.jobPostTitle').click(function(e){
+      console.log("공고명 클릭 click");
+      // hidden input의 값(공고번호)를 가져옴
+      // var noticeNumStr = $(this).siblings('.noticeNum').find('input[type="hidden"]').val(); // hidden input의 값(공고번호)를 가져옴
+      var noticeNumStr = $(this).siblings('.noticeNum').val(); // hidden input의 값(공고번호)를 가져옴
+      // alert(noticeNumStr);
+      
+      // noticeNumStr 값을 정수로 파싱합니다.
+      var noticeNum = parseInt(noticeNumStr, 10);
+      var url = '/jobPostDetail?notice_num=' + noticeNum; // url도 변수로 받음
+      
+      //새창으로 열기
+      // window.open(url, 'notice_detail', 'top=100, left=200, width=1200, height=800, status=no, menubar=no, toolbar=no, resizable=yes');
+      //새 탭으로 열기
+      window.open(url);
+      
+    });
+    
+    /*
+    2024-07-31 서연주 
+    지원하기 누르면 지원하기 페이지 새창(공고번호 가지고 새 창으로 /profileInfo매핑)
+    */
+   
+    $('p.submitResume').click(function(e){
+      console.log("지원하기 클릭 click");
+      // hidden input의 값(공고번호)를 가져옴
+      var noticeNumStr = $(this).siblings('.noticeNum').val(); // hidden input의 값(공고번호)를 가져옴
+      var noticeNumStr = $(this).siblings('input[type="hidden"]').val(); // hidden input의 값(공고번호)를 가져옴
+      alert(noticeNumStr);
 
-        
+      // noticeNumStr 값을 정수로 파싱합니다.
+      var noticeNum = parseInt(noticeNumStr, 10);
+      var url = '/profileInfo?notice_num=' + noticeNum; // url도 변수로 받음
+      //새창으로 열기
+      window.open(url,'profileInfo','top=100, left=200,width=500, height=270, resizable = no, scrollbars = no');
+      // window.open('/profileInfo?notice_num=${dto.notice_num}','profileInfo','top=100, left=200,width=500, height=270, resizable = no, scrollbars = no');
+    });
+    
 
     /*
     2024-07-29 서연주 
     필터링 선택하면 목록다시 조회(이벤트 리스너)
     */
     $('select#orderBy').on('change', function(event) {
-      alert("정렬버튼 누름")
+      // alert("정렬버튼 누름")
         switchTab(this.value);
     });
     

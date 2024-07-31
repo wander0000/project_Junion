@@ -37,12 +37,6 @@
 	  --font-size12: 12px;
 	}
 
-	/* 네비게이션 옆 컨텐츠 영역 */
-	.mainContent 
-	{
-	  width: calc( 100% - 260px);
-	  min-height: 100vh;
-	}
 	
 
 	/* 드롭다운 메뉴 */
@@ -84,55 +78,105 @@
 	font-size: var(--color-black);
 	}
 	
-	
-	
-	/*메인콘텐츠 전체*/
-	
-	section
-	{
-	  display: flex;
-	  justify-content: center;
-	  min-width: 1200px;
-	}
-	
+	/* 네비게이션 옆 컨텐츠 영역 */
+.mainContent 
+{
+  width: calc( 100% - 260px);
+  min-height: 100vh;
+}
 
-	/*메인콘텐츠 전체*/
-	main
-	{
-	  display: flex;
-	  justify-content: center;
-	}
-	main .mainContainer
-	{
-	  display: flex;
-	  flex-direction: column; 
-	  min-width: 1200px;
-	  gap: 40px 0;
-	}
+/* 헤더 */
+.mainContent header 
+{
+  width: 100%;
+  height: 90px;
+  border-bottom: 1px solid var(--input-gray);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
 
-	/*메인타이틀*/
-	.mainContainer .mainTitle
-	{
-	  font-size: var(--font-size32);
-	  margin-top: 70px;
-	  color: var(--color-black);
-	  gap : 0 20px;
-	}
+/* 헤더 아이디 영역 */
+.mainContent header .userWrapper
+{
+  display: flex;
+  white-space: nowrap;
+  margin-left: auto;
+  align-items: center;
+}
 
-	/*서브 타이틀 + 숫자*/
+.mainContent header .userWrapper img
+{
+  margin-right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;   
+}
+
+.mainContent header .userWrapper h4.name 
+{
+  font-size: var(--font-size14);
+  margin-right: 12px;
+}
+
+/* 메인 */
+main 
+{
+  display: flex;
+  justify-content: center;
+  padding: 50px 0 120px;  
+}
+
+main .mainContainer 
+{
+  max-width:1200px;
+}
+
+/* 프로필 : 사진 + 이름 */
+main .mainContainer .memberInfo 
+{
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+main .mainContainer .memberInfo img.memberImg 
+{
+  width:64px;
+  height: 64px;
+  margin-right: 20px;
+}
+
+main .mainContainer .memberInfo .memberName 
+{
+  font-size: var(--font-size32);
+  font-weight: 600;
+} 
+
+main .mainContainer
+{
+display: flex;
+flex-direction: column; 
+min-width: 1200px;
+gap: 40px 0;
+}
+
+
+	/* 타이틀 + 숫자*/
 	.mainContainer .subtitle
 	{
-	  display: flex;
-	  align-items: center;
-	  /* justify-content: center; */
-	  gap : 0 10px;
-	  font-size: var(--font-size24);
+		display: flex;
+		font-size: var(--font-size32);
+		color: var(--color-black);
+		/* margin-top: 70px; */
+		gap : 0 20px;
+  
 	}
 
 	.mainContainer .subtitle .listNum
 	{
-	  color: var(--main-color);
-	  /* margin: 0 10px 0 40px; */
+	color: var(--main-color);
 	}
 
 
@@ -609,13 +653,9 @@
 			</header>    
 	         <main>
 	             <div class="mainContainer">
-	                 <div class="mainTitle">
-	                     <h3>받은 제안</h3>
-	                 </div><!-- mainTitle 끝 -->
 	                 <div class="subtitle">
-	                     <h4 class="title">총</h4>
-	                     <h4 class="listNum">7</h4><!-- 받은제안 갯수 가져와야 -->
-	                     <h4 class="end">개</h4>
+	                     <h4 class="title">받은 제안</h4>
+	                     <h4 class="listNum">${pageMaker.total}</h4>
 	                 </div>
 	                 <div class="listTable">
 	                     <div class="searchWrap">
@@ -637,7 +677,7 @@
 	                     <div class="offerList">
 	                         <div class="postBox"><!-- 제안박스하나 시작 -->  
 	                             <div class="boxLeft">
-	                                 <input type="checkbox" name="offerListRow"id= "" class="normal">
+	                                 <input type="checkbox" name="offerListRow" id= "" class="normal">
 	                                 <p class="offer_date">2024.05.09 10:59</p><!--제안일 정보 가지고 와야--> 
 	                             </div><!-- boxLeft 끝-->
 	                             <div class="boxMiddle">
