@@ -21,9 +21,9 @@ public interface CompanyListDAO {
 */
 //	public ArrayList<String> getJobList(); // 직군/직무 리스트
 	
-	public ArrayList<String> getStackList(); // 기술 스킬 리스트
+	public ArrayList<String> getStackList(); // 기술 스킬 리스트s
 
 	public ArrayList<String> getLocationList(); // 지역 리스트
 	
-	public int getTotalCount();
+	public int getTotalCount(@Param("cri") Criteria4 cri);
 }
