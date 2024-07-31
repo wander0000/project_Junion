@@ -26,6 +26,8 @@ public class ScrapController {	@Autowired
 public ResponseEntity<Boolean> comScrap(@RequestParam HashMap<String, String> param){//관심기업 스크랩
 	log.info("comScrap controller!!!");
 	log.info("comScrap controller param!!! "+param);
+	log.info("스크랩 컨트롤러 git 연동 확인용 ");
+	log.info("commit이 제대로 되었나요? ");
 	
 	boolean result = scrapService.comScrap(param);
 	return new ResponseEntity<Boolean>(result, HttpStatus.OK);
