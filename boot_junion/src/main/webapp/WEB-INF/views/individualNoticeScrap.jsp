@@ -77,90 +77,86 @@
 	font-size: var(--color-black);
 	}
 
+  
+	/* 네비게이션 옆 컨텐츠 영역 */
+	.mainContent 
+	{
+	width: calc( 100% - 260px);
+	min-height: 100vh;
+	}
 
-/* 네비게이션 옆 컨텐츠 영역 */
-.mainContent 
-{
-  width: calc( 100% - 260px);
-  min-height: 100vh;
-}
+	/* 헤더 */
+	.mainContent header 
+	{
+	width: 100%;
+	height: 90px;
+	border-bottom: 1px solid var(--input-gray);
+	padding: 0 40px;
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	}
 
-/* 헤더 */
-.mainContent header 
-{
-  width: 100%;
-  height: 90px;
-  border-bottom: 1px solid var(--input-gray);
-  padding: 0 40px;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-}
+	/* 헤더 아이디 영역 */
+	.mainContent header .userWrapper
+	{
+	display: flex;
+	white-space: nowrap;
+	margin-left: auto;
+	align-items: center;
+	}
 
-/* 헤더 아이디 영역 */
-.mainContent header .userWrapper
-{
-  display: flex;
-  white-space: nowrap;
-  margin-left: auto;
-  align-items: center;
-}
+	.mainContent header .userWrapper img
+	{
+	margin-right: 12px;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;   
+	}
 
-.mainContent header .userWrapper img
-{
-  margin-right: 12px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;   
-}
+	.mainContent header .userWrapper h4.name 
+	{
+	font-size: var(--font-size14);
+	margin-right: 12px;
+	}
 
-.mainContent header .userWrapper h4.name 
-{
-  font-size: var(--font-size14);
-  margin-right: 12px;
-}
+	/* 메인 */
+	main 
+	{
+	display: flex;
+	justify-content: center;
+	padding: 50px 0 120px;  
+	}
 
-/* 메인 */
-main 
-{
-  display: flex;
-  justify-content: center;
-  padding: 50px 0 120px;  
-}
+	main .mainContainer
+	{
+		display: flex;
+		flex-direction: column; 
+		max-width:1200px;
+		gap: 40px 0;
+	}
 
-main .mainContainer 
-{
-  max-width:1200px;
-}
 
-/* 프로필 : 사진 + 이름 */
-main .mainContainer .memberInfo 
-{
-  display: flex;
-  align-items: center;
-  margin-bottom: 40px;
-}
+	/* 프로필 : 사진 + 이름 */
+	main .mainContainer .memberInfo 
+	{
+	display: flex;
+	align-items: center;
+	margin-bottom: 40px;
+	}
 
-main .mainContainer .memberInfo img.memberImg 
-{
-  width:64px;
-  height: 64px;
-  margin-right: 20px;
-}
+	main .mainContainer .memberInfo img.memberImg 
+	{
+	width:64px;
+	height: 64px;
+	margin-right: 20px;
+	}
 
-main .mainContainer .memberInfo .memberName 
-{
-  font-size: var(--font-size32);
-  font-weight: 600;
-} 
-
-main .mainContainer
-{
-display: flex;
-flex-direction: column; 
-min-width: 1200px;
-gap: 40px 0;
-}
+	main .mainContainer .memberInfo .memberName 
+	{
+	font-size: var(--font-size32);
+	font-weight: 600;
+	} 
 
 
 	/* 타이틀 + 숫자*/
@@ -232,7 +228,7 @@ gap: 40px 0;
   font-size: var(--font-size16);
   border-radius: 6px;
   padding-left: 15px;
-  color: #222;
+  color: #555;
   cursor: pointer;
 }
 
@@ -316,10 +312,10 @@ main .mainContainer .jobPostList
 }
 
 
-p.com_name , p.jobPostTitle, p.submitResume
+.com_name , .jobPostTitle, p.submitResume
 {
   font-size: var(--font-size14);
-  color: var(--color-gray);
+  color: #777;
   cursor: pointer;
 }
 
@@ -338,7 +334,7 @@ p.com_name , p.jobPostTitle, p.submitResume
 .postBox .boxMiddle .jobPostTitle
 {
   font-size: var(--font-size16);
-  color: #555;
+  color: #222;
   cursor: pointer;
 }
 
@@ -423,18 +419,23 @@ p.com_name , p.jobPostTitle, p.submitResume
   margin-top: 32px;
 }
 
+
+
+
+
 button.submitTab,
 button.postStatus
 {
-  width: 80px;
-  height: 32px;
-  background-color: var(--button-gray);
-  border:1px solid var(--border-color-gray);
-  color: var(--color-gray);
-  font-size: var(--font-size16);
-  border-radius: 6px;
-  align-items:center;
-  justify-content:center;
+  background-color: #f7f7f7;
+	border: 1px solid var(--input-gray);
+	color: #777;
+	font-size: var(--font-size14);
+	border-radius: 6px;
+	align-items:center;
+	justify-content:center; 
+	cursor: pointer;
+	min-width: 80px;
+	padding: 8px 10px;
 }
 
 
@@ -562,12 +563,12 @@ button.postStatus
                                     <input type="checkbox" name="postListRow" id="${dto.notice_num}" class="normal"><!-- id값에 공고번호 넣어줘야함-->
                                     <!-- <label for="com_name">브레인즈컴퍼니</label> -->
                                     <!-- <a class="com_name" href="/comDetail?com_email=${dto.com_email}">${dto.com_name}</a> -->
-                                    <p class="com_name">${dto.com_name}</p>
+                                    <h4 class="com_name">${dto.com_name}</h4>
                                 </div><!-- boxLeft 끝-->
                                 <div class="boxMiddle">
                                     <!-- <h3 class="jobPostTitle">[Web Product 팀] 프론트 엔드 엔지니어 (3년 이상)</h3> -->
                                     <!-- <a class="jobPostTitle" href="jobPostDetail?notice_num=${dto.notice_num}">${dto.notice_title}</a> -->
-                                    <p class="jobPostTitle">${dto.notice_title}</p>
+                                    <h4 class="jobPostTitle">${dto.notice_title}</h4>
                                     <!-- notice_num 가져갈 수 있도록 hidden   -->
                                     <input type="hidden" class="noticeNum" value="${dto.notice_num}">
                                     <div class="jobPostInfo">
@@ -689,7 +690,8 @@ button.postStatus
 </html>
 <script>
 	$(document).ready(function(){
-	
+	    
+
 		
     /*
     2024-07-02 서연주 
@@ -797,7 +799,7 @@ button.postStatus
     2024-07-31 서연주 
     기업이름 누르면 기업정보 상세페이지로 새창(기업이메일 값 가지고 새 탭으로 이동)
     */
-    $('p.com_name').click(function(e){
+    $('.com_name').click(function(e){
       console.log("기업명 클릭 click");
       // window.open('/comDetail?com_email=${dto.com_email}','com_detail','top=100, left=200, width=1200, height=800, status=no, menubar=no, toolbar=no, resizable=yes, channelmode=yes');
       window.open('/comDetail?com_email=${dto.com_email}');//새 탭으로 이동으로 변경
@@ -807,7 +809,7 @@ button.postStatus
     2024-07-31 서연주 
     공고명 누르면 공고 상세페이지로 새창(공고번호 값 가지고 새 탭으로 이동)
     */
-    $('p.jobPostTitle').click(function(e){
+    $('.jobPostTitle').click(function(e){
       console.log("공고명 클릭 click");
       // hidden input의 값(공고번호)를 가져옴
       // var noticeNumStr = $(this).siblings('.noticeNum').find('input[type="hidden"]').val(); // hidden input의 값(공고번호)를 가져옴
@@ -841,10 +843,12 @@ button.postStatus
       var noticeNum = parseInt(noticeNumStr, 10);
       var url = '/profileInfo?notice_num=' + noticeNum; // url도 변수로 받음
       //새창으로 열기
-      window.open(url,'profileInfo','top=100, left=200,width=500, height=270, resizable = no, scrollbars = no');
+      window.open(url,'profileInfo','top=150, left=600, width=560, height=440, resizable = no, scrollbars = no');
       // window.open('/profileInfo?notice_num=${dto.notice_num}','profileInfo','top=100, left=200,width=500, height=270, resizable = no, scrollbars = no');
     });
     
+
+
 
     /*
     2024-07-29 서연주 

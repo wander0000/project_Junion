@@ -782,7 +782,8 @@ if (!user_type || user_type == 1) {
             var notice_num = urlParams.get('notice_num');
             console.log(notice_num);
             // var popupProperties = "width=600, height=400, resizable = no, scrollbars = no";
-            var popupProperties = "width=500, height=270, resizable = no, scrollbars = no";
+            // var popupProperties = "width=500, height=270, resizable = no, scrollbars = no";
+            var popupProperties = "width=560, height=440, resizable = no, scrollbars = no";
             window.open("/profileInfo?notice_num="+notice_num,"profileInfo.jsp", popupProperties);
             // document.location.href="/profileInfo?"+notice_num;
             

@@ -78,90 +78,90 @@
 	font-size: var(--color-black);
 	}
 
-/* 네비게이션 옆 컨텐츠 영역 */
-.mainContent 
-{
-  width: calc( 100% - 260px);
-  min-height: 100vh;
-}
+	/* 네비게이션 옆 컨텐츠 영역 */
+	.mainContent 
+	{
+	width: calc( 100% - 260px);
+	min-height: 100vh;
+	}
 
-/* 헤더 */
-.mainContent header 
-{
-  width: 100%;
-  height: 90px;
-  border-bottom: 1px solid var(--input-gray);
-  padding: 0 40px;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-}
+	/* 헤더 */
+	.mainContent header 
+	{
+	width: 100%;
+	height: 90px;
+	border-bottom: 1px solid var(--input-gray);
+	padding: 0 40px;
+	display: flex;
+	align-items: center;
+	box-sizing: border-box;
+	}
 
-/* 헤더 아이디 영역 */
-.mainContent header .userWrapper
-{
-  display: flex;
-  white-space: nowrap;
-  margin-left: auto;
-  align-items: center;
-}
+	/* 헤더 아이디 영역 */
+	.mainContent header .userWrapper
+	{
+	display: flex;
+	white-space: nowrap;
+	margin-left: auto;
+	align-items: center;
+	}
 
-.mainContent header .userWrapper img
-{
-  margin-right: 12px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;   
-}
+	.mainContent header .userWrapper img
+	{
+	margin-right: 12px;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;   
+	}
 
-.mainContent header .userWrapper h4.name 
-{
-  font-size: var(--font-size14);
-  margin-right: 12px;
-}
+	.mainContent header .userWrapper h4.name 
+	{
+	font-size: var(--font-size14);
+	margin-right: 12px;
+	}
 
-/* 메인 */
-main 
-{
-  display: flex;
-  justify-content: center;
-  padding: 50px 0 120px;  
-}
-
-main .mainContainer 
-{
-  max-width:1200px;
-}
-
-/* 프로필 : 사진 + 이름 */
-main .mainContainer .memberInfo 
-{
-  display: flex;
-  align-items: center;
-  margin-bottom: 40px;
-}
-
-main .mainContainer .memberInfo img.memberImg 
-{
-  width:64px;
-  height: 64px;
-  margin-right: 20px;
-}
-
-main .mainContainer .memberInfo .memberName 
-{
-  font-size: var(--font-size32);
-  font-weight: 600;
-} 
+	/* 메인 */
+	main 
+	{
+	display: flex;
+	justify-content: center;
+	padding: 50px 0 120px;  
+	}
 
 	main .mainContainer
 	{
-	display: flex;
-	flex-direction: column; 
-	min-width: 1200px;
-	gap: 40px 0;
+		display: flex;
+		flex-direction: column; 
+		max-width:1200px;
+		gap: 40px 0;
 	}
 
+
+	/* 프로필 : 사진 + 이름 */
+	main .mainContainer .memberInfo 
+	{
+	display: flex;
+	align-items: center;
+	margin-bottom: 40px;
+	}
+
+	main .mainContainer .memberInfo img.memberImg 
+	{
+	width:64px;
+	height: 64px;
+	margin-right: 20px;
+	}
+
+	main .mainContainer .memberInfo .memberName 
+	{
+	font-size: var(--font-size32);
+	font-weight: 600;
+	} 
+
+
+
+
+	
 
 	/* 타이틀 + 숫자*/
 	.mainContainer .subtitle
@@ -315,7 +315,7 @@ main .mainContainer .memberInfo .memberName
 	.postBox .boxMiddle .com_name
 	{
 	font-size: var(--font-size16);
-	color: var(--color-black);
+	color: #222;
 	cursor: pointer;
 	}
 
@@ -349,25 +349,34 @@ main .mainContainer .memberInfo .memberName
 	/*자세히보기 버튼*/
 	.boxRight .detailTab
 	{
-	display: flex;
-	width: 135px;
-	height: 32px;
+	/* display: flex; */
+	/* width: 135px; */
+	/* height: 32px; */
 	/* box-sizing: ; */
-	cursor: pointer;
+	/* cursor: pointer; */
 
 	}
 	/*자세히보기 버튼*/
 	.boxRight button
 	{
-	width: inherit;
-	background-color: var(--button-gray);
-	border:1px solid var(--border-color-gray);
-	color: var(--color-gray);
-	font-size: var(--font-size16);
+	/* width: inherit; */
+	background-color: #f7f7f7;
+	border: 1px solid var(--input-gray);
+	color: #777;
+	font-size: var(--font-size14);
 	border-radius: 6px;
 	align-items:center;
 	justify-content:center; 
+	cursor: pointer;
+	min-width: 135px;
+	padding: 8px 20px;
 	}
+
+
+
+
+
+
 
 
 	/*휴지통아이콘*/ 
@@ -476,7 +485,7 @@ main .mainContainer .memberInfo .memberName
 											<h4 class="com_name">${dto.com_name}</h4>
 										</a>
 										<div class="comInfo">
-											<p>${dto.com_content}</p>
+											<p class="comContent">${dto.com_content}</p>
 										</div><!-- comInfo 끝-->
 										<div class="jobPostNum">
 											<p class="title">현재 ${dto.notice_count}건 채용중</p>
@@ -547,7 +556,23 @@ main .mainContainer .memberInfo .memberName
 </html>
 <script>
 	$(document).ready(function() {
-	
+		/*
+	        2024-06-25 이재원 : 글자수 제한 + 넘는건 ...처리
+			2024-06-25 서연주 : class 선택자만 수정해서 사용
+	    */
+	    $('.comInfo > .comContent').each(function()
+	    {
+	        var length = 80; //표시할 글자 수 정하기
+	    
+	        $(this).each(function()
+	        {
+
+	            if($(this).text().length >= length)
+	            {
+	                $(this).text($(this).text().substr(0, length) + '...');	//지정한 글자수 이후 표시할 텍스트 '...'
+	            }
+	        });
+	    });
 		
 		/*
 		2024-07-02 서연주 
