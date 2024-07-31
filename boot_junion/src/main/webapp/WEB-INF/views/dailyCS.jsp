@@ -187,7 +187,8 @@
           success: function(data) {    
 			alert("문제풀이에 참여하셨습니다.")   
 			console.log('modifyCheck 성공:', data);   
-			$('.questionPop').hide(); 
+			$('.questionPop').hide();
+			location.replace('dailyCS'); 
           },
           error: function(error) {
               console.error('Error:', error);
