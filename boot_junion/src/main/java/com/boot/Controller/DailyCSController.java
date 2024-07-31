@@ -53,9 +53,10 @@ public class DailyCSController {
 	    log.info("modifyCheck cs_num====>"+user_email);
 	    
 	    dailyCSService.modifyCheck(cs_num, user_email);	    
+	    dailyCSService.question(cs_num);
 	    
-//	    return "redirect:dailyCS";
-	    return null;
+	    return "redirect:dailyCS";
+//	    return null;
 	}
 
 	@GetMapping("/dailyCS")
