@@ -21,7 +21,7 @@ import com.boot.DTO.ComScrapDTO;
 import com.boot.DTO.CompanyInfoDTO;
 import com.boot.DTO.Criteria2;
 import com.boot.DTO.JoinDTO;
-import com.boot.DTO.NoticeScrapDTO;
+import com.boot.DTO.ScrapDTO;
 import com.boot.DTO.PageDTO;
 import com.boot.DTO.UserDTO;
 import com.boot.DTO.UserJobDTO;
@@ -100,7 +100,7 @@ public class individualController {
 		
 		String [] arrStr = request.getParameterValues("arrStr");//notice_num배열
         int size = arrStr.length;
-        NoticeScrapDTO dto = new NoticeScrapDTO();
+        ScrapDTO dto = new ScrapDTO();
         log.info("@# arrStr notice_num배열====>" + Arrays.toString(arrStr));
         for(int i=0; i<size; i++) {
         	dto.setNotice_num(Integer.parseInt(arrStr[i]));//배열값이 string으로 넘어오기땨뮨에
@@ -174,7 +174,7 @@ public class individualController {
 		
 		String [] arrStr = request.getParameterValues("arrStr");//notice_num배열
         int size = arrStr.length;
-        NoticeScrapDTO dto = new NoticeScrapDTO();
+        ScrapDTO dto = new ScrapDTO();
         log.info("@# arrStr notice_num배열====>" + Arrays.toString(arrStr));
         for(int i=0; i<size; i++) {
         	dto.setNotice_num(Integer.parseInt(arrStr[i]));//배열값이 string으로 넘어오기땨뮨에

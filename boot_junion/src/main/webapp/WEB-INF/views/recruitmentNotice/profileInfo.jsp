@@ -94,6 +94,8 @@ section
 {
     height: 40px;
     font-size: var(--font-size16);
+    padding: 5px 30px 5px 10px;
+    /* box-sizing: border-box; */
 }
 
 /* section .sectionInner .name */
@@ -188,22 +190,40 @@ section
 </body>
 </html>
 <script>
-    // 24.07.12 하진
+// 24.07.31 하진
 $(document).ready(function() {
+    const user_type = "${login_usertype}";
+    // console.log("user type은 "+ user_type);
+    if (!user_type) {// 비회원의 경우, 이력서 부분 비활성화 및 버튼 변경 + url 변경
+        $(".list").css("filter","blur(8px)");
+        window.alert = function() {};
+        $(".rewirte").text("회원가입").click(function(){
+            window.opener.location.href = 'joinSelect';
+            window.close();
+        });
+        $(".resume").text("로그인").click(function(){
+            
+            window.opener.location.href = 'login';
+            window.close();
+        });
+    }
+
+
+    // 24.07.12 하진
     function check() {
-        var selectedResume = $(".profileList").val();
-        console.log(selectedResume);
+        var selectedResume = $(".profileList").val();//이력서 선택시 해당 이력서의 번호값을 가져옴
+        // console.log(selectedResume);
     }
 
     function getQueryStringValue(key) {//현재 페이지 URL에서 쿼리스트링으로 넣은 notice_num 값을 가져오는 함수
-        const urlParams = new URLSearchParams(window.location.search);
-        return urlParams.get(key);
+        const urlParams = new URLSearchParams(window.location.search);//url의 쿼리 문자열을 가져옮
+        return urlParams.get(key);//get 메소드로 쿼리 문자열 중 파라미터의 값을 찾음
     }
 
     function insertQueryValue() {
         const queryValue = getQueryStringValue('notice_num');// 가져오고자 하는 쿼리스트링 이름
         if (queryValue) {// 쿼리스트링 이름이 있으면 함수 실행
-            $('#notice_num').val(queryValue);
+            $('#notice_num').val(queryValue);// id가 notice_num인 부분의 값을 함수 결과로 얻은 값으로 설정
         }
     }
 
@@ -211,40 +231,48 @@ $(document).ready(function() {
  
 });
 
-$(".rewirte").on("click", function () {
+$(".rewirte").on("click", function () {// 수정하기 버튼 클릭시 함수 처리
+// $(".rewirte").addEventListener('click', function () {// 수정하기 버튼 클릭시 이벤트 추가(안먹음)
+    window.opener.location.href = 'resumeList'; // 원하는 URL로 변경
+    // location.href="resumeList";//이동할 창의 url -> 팝업 창의 url이 변경됨
     window.close();
-    location.href="resumeList";
 })
+
+
 // 2024-07-13 하진
 // 2024-07-25 하진
 // 2024-07-28 하진
+// 2024-07-31 하진 : 부모창의 클래스 삭제 기능 추가
 function resumeOK(){
     var notice_num = document.getElementById("notice_num").value;
-    // var notice_num = document.getElementById("#notice_num").value;
-    console.log("submit!! notice_num->"+notice_num);
+    // console.log("submit!! notice_num->"+notice_num);
     var resume_num = document.getElementById("resume_num").value;
-    // var resume_num = document.getElementById('#resume_num').val();
-    console.log("submit!! resume_num ->"+resume_num);
-    // var com_email = document.getElementById("#com_email").value;
+    // console.log("submit!! resume_num ->"+resume_num);
     var com_email = "${notice.com_email}";
-    console.log("submit com_email!!"+com_email);
+    // console.log("submit com_email!!"+com_email);
 
-    // var user_email = "${user_email}";//controller에서 user_email이란 이름으로 model에 보낸 값을 받는 변수
     var user_email = "${login_email}";// session 값을 직접 가져오도록 로직 수정
-    console.log("submit user_email!!"+user_email);
+    // console.log("submit user_email!!"+user_email);
 
     if(resume_num){
         $.ajax({
                 type : "POST",
                 url : "/resumeUser",
-                data : {notice_num : notice_num, resume_num : resume_num, com_email : com_email, user_email : user_email},
+                data : {
+                        notice_num : notice_num, 
+                        resume_num : resume_num, 
+                        com_email : com_email, 
+                        user_email : user_email
+                    },
                 success : function(result){
                     if(result == false){
                     alert("지원이 완료되었습니다!");
+                    window.opener.$("#user_resume").removeClass("active");
                     window.close();
                 }
                 else{
                     alert("이미 지원한 공고입니다.");
+                    window.opener.$("#user_resume").removeClass("active");
                     window.close();
                 }
             }    

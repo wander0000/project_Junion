@@ -44,6 +44,7 @@ import com.boot.DTO.SubmitDTO;
 import com.boot.DTO.UserDTO;
 import com.boot.Service.ComNoticeService;
 import com.boot.Service.IndividualService;
+import com.boot.Service.ScrapService;
 
 import lombok.extern.slf4j.Slf4j;
 import net.coobird.thumbnailator.Thumbnailator;
@@ -56,7 +57,7 @@ public class ComNoticeController {
 	private ComNoticeService postService;
 	
 	@Autowired
-	private IndividualService userService;
+	private ScrapService scrapService;
 	
 
 	@RequestMapping("/jobPostList")
@@ -73,13 +74,12 @@ public class ComNoticeController {
 	
 	@RequestMapping("/jobPostDetail")
 	public String JobPost(HttpSession session, int notice_num, Model model) {//채용공고 목록 -> 채용공고 상세 이동
-//	public String JobPost(HttpSession session, String noticeNum, Model model) {//채용공고 목록 -> 채용공고 상세 이동
 //		public String JobPost(int notice_num, Model model, @RequestParam HashMap<String, String> param) {//채용공고 상세
 		log.info("jobPostDetail");
+		log.info("notice_num!!!"+notice_num);
+		
 		
 		// 24.07.30 연주 : 공고열람하면 최근본 공고 정보 저장하기==========================================================
-//		int notice_num = Integer.parseInt(noticeNum);//뷰단에서 넘길때 int로 넘기기 힘들어서 일단 스트링으로 받아서 int로 파
-		log.info("notice_num!!!"+notice_num);
 		 
 		// notice_num 값을 세션에 저장하므로 값이 있는지 확인
 	    List<Integer> recentJobPosts = (List<Integer>) session.getAttribute("recentJobPost");
@@ -127,10 +127,11 @@ public class ComNoticeController {
 		model.addAttribute("otherPost", list);
 		model.addAttribute("postNum", postNum);
 		
-//		String com_email = dto.getCom_email();
-//		String com_location = postService.comLocation(com_email);
-//		model.addAttribute("com_location", com_location);
-		
+	      log.info("user_email ->" + user_email);
+//	      if(user_email != null) {//session의 이메일 정보를 얻어, 값이 있을 경우 로직 수행
+	         String com_email = scrapService.existingCompany(user_email, notice_num);
+	         model.addAttribute("com_email", com_email);
+//	      }
 		return "/recruitmentNotice/jobPostDetail";
 	}
 	
