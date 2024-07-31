@@ -525,17 +525,20 @@ button.postStatus
                                     <!-- <select id="orderByUpdate" class="custom-select" onchange="switchTab(this.value,event);"> -->
                                     <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
                                     <!-- <select id="orderByUpdate" class="custom-select"> -->
+                                        <option>공고등록순</option>
                                         <option value="desc" <c:if test="${pageMaker.cri.orderBy == 'desc'}">selected='selected'</c:if>>최신순</option>
                                         <option value="asc" <c:if test="${pageMaker.cri.orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option>
                                         <!-- <option value="${pageMaker.cri.orderBy}" <c:if test="${pageMaker.cri.orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option> -->
                                     </select>
                                     <!-- <select id="orderBySubmit" class="custom-select" onchange="switchTab2(this.value,event);"> -->
-                                    <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
+                                      <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
+                                        <option>지원여부</option>
                                         <option value="submit" <c:if test="${pageMaker.cri.orderBy == 'submit'}">selected='selected'</c:if>>지원완료</option>
                                         <option value="noSubmit" <c:if test="${pageMaker.cri.orderBy == 'noSubmit'}">selected='selected'</c:if>>미지원</option>
-                                    </select>
-                                    <!-- <select id="orderByStatus" class="custom-select" onchange="switchTab3(this.value,event);"> -->
-                                    <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
+                                      </select>
+                                      <!-- <select id="orderByStatus" class="custom-select" onchange="switchTab3(this.value,event);"> -->
+                                        <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
+                                        <option>채용상태</option>
                                         <option value="inProgress" <c:if test="${pageMaker.cri.orderBy == 'inProgress'}">selected='selected'</c:if>>채용중</option>
                                         <option value="finished" <c:if test="${pageMaker.cri.orderBy == 'finished'}">selected='selected'</c:if>>접수마감</option>
                                     </select>

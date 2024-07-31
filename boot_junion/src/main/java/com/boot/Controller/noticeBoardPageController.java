@@ -11,14 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.boot.DTO.Criteria;
-import com.boot.DTO.boardBoardDTO;
 import com.boot.DTO.boardPageDTO;
-import com.boot.DTO.comBoardBoardDTO;
 import com.boot.DTO.noticeBoardBoardDTO;
-import com.boot.Service.boardBoardService;
-import com.boot.Service.boardPageService;
-import com.boot.Service.comBoardBoardService;
-import com.boot.Service.comBoardPageService;
 import com.boot.Service.noticeBoardBoardService;
 import com.boot.Service.noticeBoardPageService;
 
@@ -52,6 +46,8 @@ public class noticeBoardPageController {
 	        return "redirect:/noticeBoardList";
 	    } else if ("2".equals(userType))  	{
 	        return "redirect:/noticeBoardList";
+	    } else if ("3".equals(userType))  	{
+	        return "redirect:/noticeBoardList";
 	    } else {
 	        return "redirect:/login";
 	    }
@@ -67,11 +63,7 @@ public class noticeBoardPageController {
 		log.info("@# list");
 		log.info("@# cri=>"+cri);
 
-	    HttpSession session = httpServletRequest.getSession(false); // false: 세션이 없으면 새로 생성하지 않음
-	    if (session == null) {
-	        // 세션이 없으면 로그인 페이지로 리다이렉트
-	        return "redirect:/login";
-	    }
+		
 		
 		
 		ArrayList<noticeBoardBoardDTO> list = service.boardListWithPaging(cri);
