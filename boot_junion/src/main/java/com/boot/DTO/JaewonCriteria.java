@@ -12,7 +12,6 @@ public class JaewonCriteria {
 	private String user_email;
 	private String noticeCheck;
 	private String notice_status;
-	private String cs_type;
 	
 	public JaewonCriteria() 
 	{
