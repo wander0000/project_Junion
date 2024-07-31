@@ -478,7 +478,6 @@
 						});
 
 						// 페이지 버튼 클릭 이벤트
-						// 페이지 버튼 클릭 이벤트
 						document.querySelectorAll(".paginate_button a").forEach(function (pageLink) {
 							pageLink.addEventListener("click", function (event) {
 								event.preventDefault();
