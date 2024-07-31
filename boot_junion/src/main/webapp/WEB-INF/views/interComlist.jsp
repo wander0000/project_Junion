@@ -9,7 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>개인-관심기업</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
-<link rel="stylesheet" href="${pageContext.request.contextPath}/css/individualMain.css">
+<!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/individualMain.css"> -->
 <!--<link rel="stylesheet" href="src/main/resources/static/css/style.css">-->
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
@@ -37,12 +37,7 @@
 	  --font-size12: 12px;
 	}
 
-	/* 네비게이션 옆 컨텐츠 영역 */
-	.mainContent 
-	{
-	  width: calc( 100% - 260px);
-	  min-height: 100vh;
-	}
+	
 	
 	/* 드롭다운 메뉴 */
 	.dorpdowmMain
@@ -83,13 +78,82 @@
 	font-size: var(--color-black);
 	}
 
+/* 네비게이션 옆 컨텐츠 영역 */
+.mainContent 
+{
+  width: calc( 100% - 260px);
+  min-height: 100vh;
+}
 
-	/*메인콘텐츠 전체*/
-	main
-	{
-	display: flex;
-	justify-content: center;
-	}
+/* 헤더 */
+.mainContent header 
+{
+  width: 100%;
+  height: 90px;
+  border-bottom: 1px solid var(--input-gray);
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* 헤더 아이디 영역 */
+.mainContent header .userWrapper
+{
+  display: flex;
+  white-space: nowrap;
+  margin-left: auto;
+  align-items: center;
+}
+
+.mainContent header .userWrapper img
+{
+  margin-right: 12px;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;   
+}
+
+.mainContent header .userWrapper h4.name 
+{
+  font-size: var(--font-size14);
+  margin-right: 12px;
+}
+
+/* 메인 */
+main 
+{
+  display: flex;
+  justify-content: center;
+  padding: 50px 0 120px;  
+}
+
+main .mainContainer 
+{
+  max-width:1200px;
+}
+
+/* 프로필 : 사진 + 이름 */
+main .mainContainer .memberInfo 
+{
+  display: flex;
+  align-items: center;
+  margin-bottom: 40px;
+}
+
+main .mainContainer .memberInfo img.memberImg 
+{
+  width:64px;
+  height: 64px;
+  margin-right: 20px;
+}
+
+main .mainContainer .memberInfo .memberName 
+{
+  font-size: var(--font-size32);
+  font-weight: 600;
+} 
+
 	main .mainContainer
 	{
 	display: flex;
@@ -98,21 +162,16 @@
 	gap: 40px 0;
 	}
 
-	/*메인타이틀*/
-	.mainContainer .mainTitle
-	{
-	font-size: var(--font-size32);
-	margin-top: 70px;
-	color: var(--color-black);
-	gap : 0 20px;
-	}
 
-	/*서브 타이틀 + 숫자*/
+	/* 타이틀 + 숫자*/
 	.mainContainer .subtitle
 	{
-	display: flex;
-	gap: 0 20px;
-	font-size: var(--font-size24);
+		display: flex;
+		font-size: var(--font-size32);
+		color: var(--color-black);
+		/* margin-top: 70px; */
+		gap : 0 20px;
+  
 	}
 
 	.mainContainer .subtitle .listNum
@@ -379,9 +438,9 @@
 			</header>    
             <main>
                 <div class="mainContainer">
-                    <div class="mainTitle">
-                        <h3>관심기업</h3>
-                    </div><!-- mainTitle 끝 -->
+                    <!-- <div class="mainTitle"> -->
+                        <!-- <h3 class="mainTitle">관심기업</h3> -->
+                    <!-- </div>mainTitle 끝 -->
                     <div class="subtitle">
                         <h4 class="title">관심기업</h4>
                         <!-- <h4 class="listNum">${comList.size()}</h4> -->
