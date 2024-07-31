@@ -110,6 +110,7 @@ public class JoinManagementPageController {
 		
 		String notice_num = stardto.getCom_email();
 		log.info("@# noticeStatus notice_num ===>"+ notice_num);
+		log.info("@# noticeStatus notice_num ===>"+ notice_num);
 		
 		joinManagementPageService.comStar(stardto);
 		

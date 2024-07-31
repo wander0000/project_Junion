@@ -23,6 +23,7 @@
 	<div class="container">
 	    <%@ include file="header.jsp" %>
 		<%@ include file="quickMenu.jsp" %>
+<!--		<%@ include file="quickMenu.jsp" %>-->
 		<section>
 			<div class="wrap">
 				<h3 class="sectionTitle">데일리CS</h3>

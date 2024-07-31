@@ -103,6 +103,7 @@
 <body>
 	<header>
         <div class="headerInner">
+<!--        <div class="headerInner">-->
             <h5 class="logo">
                 <a href="main">
                     <img src="${pageContext.request.contextPath}/images/logo.svg" alt="#">

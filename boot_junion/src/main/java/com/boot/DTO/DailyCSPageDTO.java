@@ -12,6 +12,7 @@ public class DailyCSPageDTO {
 	private boolean prev, next;
 	private int total;
 	private dailyCSCriteria cri3; // 화면에 출력 갯수
+//	private dailyCSCriteria cri3; // 화면에 출력 갯수
 	
 	public DailyCSPageDTO(int total, dailyCSCriteria cri3) {
 		super();

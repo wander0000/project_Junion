@@ -31,6 +31,7 @@ public class JoinManagementPageServiceImpl implements JoinManagementPageService{
 	public  ArrayList<NoticeDTO> joinManagementPaging(JaewonCriteria cri3, HttpServletRequest request) {
 		log.info("@# JoinManagementPageServiceImpl joinManagementPaging");
 		log.info("@# JoinManagementPageServiceImpl cri3==>"+ cri3);
+		log.info("@# JoinManagementPageServiceImpl cri3==>"+ cri3);
 		
 		// 세션에 이메일 담아서 쓰는 법
 		HttpSession session = request.getSession();		

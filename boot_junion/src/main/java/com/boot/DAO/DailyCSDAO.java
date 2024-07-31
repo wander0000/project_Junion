@@ -30,6 +30,7 @@ public interface DailyCSDAO {
 	// 문제 탭버튼으로 불러오기
 //	public ArrayList<DailyCSDTO> searchTab(@Param("cs_type")String cs_type);
 //	public ArrayList<DailyCSDTO> searchTab(@Param("cs_type")String cs_type, JaewonCriteria cri3);
+//	public ArrayList<DailyCSDTO> searchTab(@Param("cs_type")String cs_type, JaewonCriteria cri3);
 	public ArrayList<DailyCSDTO> searchTab(dailyCSCriteria cri3);
 	
 	// 페이지 총 갯수 

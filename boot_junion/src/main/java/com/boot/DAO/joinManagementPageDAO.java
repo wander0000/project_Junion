@@ -22,6 +22,7 @@ public interface joinManagementPageDAO {
 	public int joinManagementGetTotalCount(@Param("user_email") String user_email);
 	
 	// 검색조건
+//	public ArrayList<NoticeDTO> notice_status2(	JaewonCriteria cri3);
 	public ArrayList<NoticeDTO> notice_status2(	JaewonCriteria cri3);
 	
 	// 공고상태업데이트

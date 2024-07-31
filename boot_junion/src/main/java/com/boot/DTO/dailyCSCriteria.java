@@ -13,6 +13,7 @@ public class dailyCSCriteria {
 	private String noticeCheck;
 	private String notice_status;
 	private String cs_type;
+//	private String cs_type;
 	
 	public dailyCSCriteria() 
 	{

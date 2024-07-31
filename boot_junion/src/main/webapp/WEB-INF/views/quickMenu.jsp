@@ -102,6 +102,7 @@
 </head>
 <body>
 	<div class="quickMenu">
+<!--	<div class="quickMenu">-->
 		<ul>
 			<li class="quickMenuCon">
 				<a class="menuCon" href="cardPageList">

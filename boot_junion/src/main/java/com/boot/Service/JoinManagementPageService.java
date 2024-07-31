@@ -14,6 +14,7 @@ import com.boot.DTO.StarDTO;
 
 public interface JoinManagementPageService {
 	// Criteria 객체를 이용해서 페이징 처리
+	// Criteria 객체를 이용해서 페이징 처리
 	public ArrayList<NoticeDTO> joinManagementPaging(JaewonCriteria cri3, HttpServletRequest request);
 	
 	// 페이지 총 갯수 

@@ -82,6 +82,8 @@ public class DailyCSController {
 		model.addAttribute("cs_type", cs_type);		
 		
 		int total = dailyCSService.dailyCSGetTotalCount();
+		log.info("searchTab total====>"+total);
+		
 		model.addAttribute("pageMaker", new DailyCSPageDTO(total,cri3));
 		
 		return "dailyCS";

@@ -38,6 +38,7 @@
 		<mapper resource="mybatis/mappers/companyList.xml"/>
 		<mapper resource="mybatis/mappers/jobpostingIndividual.xml"/>
 		<mapper resource="mybatis/mappers/dailyCS.xml"/>		
+<!--		<mapper resource="mybatis/mappers/dailyCS.xml"/>		-->
 	</mappers>
 </configuration>
 

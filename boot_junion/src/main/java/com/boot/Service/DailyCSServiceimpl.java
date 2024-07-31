@@ -61,6 +61,7 @@ public class DailyCSServiceimpl implements DailyCSService{
 	public ArrayList<DailyCSDTO> searchTab(dailyCSCriteria cri3) {
 		DailyCSDAO dao = sqlSession.getMapper(DailyCSDAO.class);
 //		ArrayList<DailyCSDTO> searchTab = dao.searchTab(cs_type, cri3);
+//		ArrayList<DailyCSDTO> searchTab = dao.searchTab(cs_type, cri3);
 		ArrayList<DailyCSDTO> searchTab = dao.searchTab(cri3);
 		return searchTab;
 	}

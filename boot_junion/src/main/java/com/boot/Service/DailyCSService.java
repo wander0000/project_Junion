@@ -14,6 +14,7 @@ import com.boot.DTO.dailyCSCriteria;
 public interface DailyCSService {
 	// 문제 리스트 불러오기
 //	public ArrayList<DailyCSDTO> questionList();
+//	public ArrayList<DailyCSDTO> questionList();
 	public ArrayList<DailyCSDTO> questionList(dailyCSCriteria cri3);
 	
 	// 문제 팝업 데이터 불러오기
