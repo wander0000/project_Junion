@@ -85,13 +85,6 @@ public class JoinManagementPageServiceImpl implements JoinManagementPageService{
 		
 	}
 
-	// 공고 업데이트
-	@Override
-	public void updateStatus() {
-		joinManagementPageDAO dao = sqlSession.getMapper(joinManagementPageDAO.class);
-		dao.updateStatus();		
-	}
-
 	
 
 }

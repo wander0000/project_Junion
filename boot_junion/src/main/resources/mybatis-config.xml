@@ -22,7 +22,8 @@
 		<mapper resource="mybatis/mappers/boardUpload.xml"/>
 		<mapper resource="mybatis/mappers/jobposting.xml"/>
 		<mapper resource="mybatis/mappers/recentNotice.xml"/>
-		<mapper resource="mybatis/mappers/scrapNotice.xml"/>
+<!--		<mapper resource="mybatis/mappers/scrapNotice.xml"/>-->
+		<mapper resource="mybatis/mappers/scrap.xml"/>
 		<mapper resource="mybatis/mappers/comInfoUpload.xml"/>
 		<mapper resource="mybatis/mappers/cardPage.xml"/>
 		<mapper resource="mybatis/mappers/companyInfo.xml"/>
@@ -37,7 +38,6 @@
 		<mapper resource="mybatis/mappers/noticeBoardUpload.xml"/>
 		<mapper resource="mybatis/mappers/companyList.xml"/>
 		<mapper resource="mybatis/mappers/jobpostingIndividual.xml"/>
-		<mapper resource="mybatis/mappers/dailyCS.xml"/>		
 	</mappers>
 </configuration>
 

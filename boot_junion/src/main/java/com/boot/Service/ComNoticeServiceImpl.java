@@ -117,7 +117,6 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 	}
 	
 	
-	
 //	지수
 
 	

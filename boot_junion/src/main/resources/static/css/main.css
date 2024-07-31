@@ -341,7 +341,7 @@ main .postSection .a
     border: 1px solid var(--border-color-gray);
     display: flex;
     align-items: center;
-
+    border-radius: 5px;
 }
 
 main .postSection .a .conImage
@@ -350,6 +350,7 @@ main .postSection .a .conImage
     height: 48px;
     background-color: var(--color-gray);
     margin: 0 10px;
+    border-radius: 5px;
 }
 
 main .postSection .a .conProfile .conTitle
@@ -385,6 +386,7 @@ main .postSection .a .more
 {
     width: 48px;
     height: 48px;
+    border-radius: 5px;
 }
 
 
