@@ -818,6 +818,56 @@ if (!user_type || user_type == 1) {
 	$("#user_resume").css("display","none");
 }
 
+// 관심 기업 DB 정보가 있을 경우, 해당 이미지 활성화
+let scrap_email = "${com_email}";//스크랩 DB에서 얻는 com_meail
+console.log("scrap_email!!"+scrap_email);
+if (scrap_email) {
+	// $("#heart").replace(".fa-solid fa-heart").addClass("active");
+	document.getElementById("heart").className ="fa-solid fa-heart";
+	// $(".fa-regular fa-heart").replace(".fa-solid fa-heart");
+	$("#heart").addClass("active");
+}
+
+// 관심 기업 추가 로직
+const user_email = "${login_email}";
+console.log("user_email = " + user_email);
+const com_email = "${company.com_email}";
+console.log("com_email = " + com_email);
+if (user_type == 1) {
+ $(".fa-heart").on("click", function () {
+	var urlParams = new URLSearchParams(location.search);
+            // const urlParams = new URLSearchParams(currentUrl);
+    var notice_num = urlParams.get('notice_num');
+	console.log("this is notice_num = "+notice_num);
+	 $.ajax({
+			type : "POST",
+			url : "/uploadcomScrap",				
+			data : {
+				user_email : user_email,
+				com_email : com_email,
+				notice_num : notice_num
+				},
+			success : function(response){
+					if(response == true){
+						console.log("success");
+						alert("관심 기업으로 등록되었습니다.");
+						document.getElementById("heart").className ="fa-solid fa-heart";
+						$("#heart").addClass("active");
+						// }else if(response == false){
+						}else{
+						console.log("remove");
+						alert("관심 기업에서 삭제되었습니다.");
+						document.getElementById("heart").className ="fa-regular fa-heart";
+						$(".fa-heart").removeClass("active");
+					}
+                }
+	});//end of ajax
+ });//end of fa-heart clcik function
+}
+
+
+
+
 $(".fa-share-from-square").click(function(){
 	const url = window.location.href;
 	// 현재 페이지의 url을 가져오는 속성
