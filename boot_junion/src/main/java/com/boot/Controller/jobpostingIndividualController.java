@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.boot.DTO.Criteria3;
 import com.boot.DTO.OfferInfoDTO;
 import com.boot.DTO.PageDTO2;
+import com.boot.DTO.ResumeDTO;
+import com.boot.DTO.UserDTO;
 import com.boot.DTO.jobpostingIndividualDTO;
 import com.boot.Service.jobpostingIndividualService;
 
@@ -97,6 +99,7 @@ public class jobpostingIndividualController {
 	    	model.addAttribute("login_usertype",login_usertype);
 	    	model.addAttribute("orderType",orderType);// 화면단에서 orderType 확인하기 위함
 	    	
+	    	
 	    	// 직군/직무 리스트
 	    	ArrayList<String> jobList = jobpostingIndividualService.getJobList();
 	    	model.addAttribute("jobList", jobList);
@@ -115,6 +118,7 @@ public class jobpostingIndividualController {
 	    	
 	    	ArrayList<jobpostingIndividualDTO> jobpostingIndividualSupport = jobpostingIndividualService.jobpostingIndividualSupport(orderType, cri);
 //	    	ArrayList<jobpostingIndividualDTO> jobpostingIndividualSupport = jobpostingIndividualService.jobpostingIndividualSupport(cri);
+	    	
 	    	
 	    	// @@@@@@@@@@@@@@@@@ 페이징 total 사이즈 잘못들어오는거 cri 파라미터로 xml에 where조건 달아서 수정 @@@@@@@@@@@@@@@@@@@@@@@@@@
 //	    	int total = jobpostingIndividualService.getTotalCount();
@@ -145,4 +149,47 @@ public class jobpostingIndividualController {
     
     
     // =============================  jobpostingIndividual 끝  ==========================
+    
+    
+    
+    
+    @RequestMapping("/resumeInfo2")
+	public String resumeInfo2(@RequestParam int resumeNum, Model model, HttpServletRequest request) 
+	{
+		log.info("@# resume/resumeInfo");	
+//		HttpSession session = request.getSession();		
+//		String login_email = (String)session.getAttribute("login_email");
+		
+		ResumeDTO dto = jobpostingIndividualService.resumeInfo(resumeNum);
+		UserDTO dtos = jobpostingIndividualService.userInfo(dto.getUser_email());
+		log.info("@# UserDTO dtos==========>"+dtos);
+		
+		String user_name =  dtos.getUser_name();
+		String user_gender = dtos.getUser_gender();
+		String user_tel = dtos.getUser_tel();
+		String user_location = dtos.getUser_location();
+		String user_location2 = dtos.getUser_location2();
+		String user_birthdate = dtos.getUser_birthdate();
+		
+		dto.setResume_age(user_birthdate);				
+		
+		
+		model.addAttribute("resumeInfo", dto);
+		model.addAttribute("user_gender", user_gender);
+		model.addAttribute("user_tel", user_tel);
+		model.addAttribute("user_location", user_location);
+		model.addAttribute("user_location2", user_location2);
+		model.addAttribute("user_name", user_name);
+		
+		log.info("@# dto==========>"+dto);	
+		
+		
+		String link = dto.getResume_portfolio_url();
+		log.info("@# link===========>"+link);
+        model.addAttribute("links", link);
+        
+		
+		
+		return "resumeInfo";
+	}
 }

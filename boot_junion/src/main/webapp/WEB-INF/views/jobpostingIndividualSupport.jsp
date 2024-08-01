@@ -61,7 +61,7 @@
 								<div class="sbox2">
 									<!-- <select class="select1" id="jobSelect" name="jobType" onchange="selectSearchBox()"> -->
 									<select class="select1" id="jobSelect" name="jobType">
-										<option value="" <c:out value="${pageMaker.cri.jobType == null ? 'selected':''}"/>>직업/직무 무관</option>
+										<option value="" <c:out value="${pageMaker.cri.jobType == null ? 'selected':''}"/>>직군/직무 무관</option>
 										<c:forEach var="job" items="${jobList}">
 											<option value="${job}" <c:out value="${pageMaker.cri.jobType eq job ? 'selected':''}"/>>${job}</option>
 										</c:forEach>
@@ -184,8 +184,7 @@
 										<div class="buttbox2">
 											<h5 class="b2">
 												<button type="button" class="view_resume"
-												onclick="location.href='resumeInfo?resume_num=${sup.resume_num}'">
-												<!-- onclick="location.href='resumeInfo'"> -->
+												onclick="location.href='resumeInfo2?resumeNum=${sup.resume_num}'">
 													이력서열람
 												</button>
 											</h5>
@@ -193,7 +192,8 @@
 										<div class="buttbox2">
 											<h5 class="b2">
 												<!-- <button type="button" class="proposalbutt" style="display:none;" onclick="setUserEmail('${sup}')"> -->
-												<button type="button" class="proposalbutt" style="display:none;" onclick="setUserEmail('${sup.user_email}'); setResumeNum('${sup.resume_num}')">
+												<button type="button" class="proposalbutt" style="display:none;"
+														onclick="setUserEmail('${sup.user_email}'); setResumeNum('${sup.resume_num}')">
 													제안하기
 												</button>
 											</h5>
@@ -457,6 +457,26 @@
     	document.getElementById('searchForm').submit();
 	}
 
+
+
+    var alreadyProposedList; /* 제안 여부를 확인하는 논리나 데이터 */
+	
+    // 'proposalbutt' 클래스를 가진 모든 버튼 선택
+    var proposalButtons = document.querySelectorAll(".proposalbutt");
+	
+	// 제안 완료한 제안버튼 비활성화
+    proposalButtons.forEach(function(button, index) {
+        if (alreadyProposedList[index]) {  // alreadyProposedList 배열의 값이 true인 경우
+            button.disabled = true;
+            button.textContent = "제안 완료";
+        }
+    });
+
+
+
+    if (true) {
+        disableButton(proposalButton);
+    }
 
     function setUserEmail(userEmail) {
         // userEmail 값을 설정
