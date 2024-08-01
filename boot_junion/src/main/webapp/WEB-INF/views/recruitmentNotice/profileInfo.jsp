@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>지원하기</title>
 <link rel="stylesheet" href="css/default.css">
 <!-- import font-awesome, line-awesome -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
@@ -44,10 +44,6 @@ section
     align-items: center;
 }
 
-.sectionInner
-{
-    /* margin: 40px; */
-}
 
 /* section */
 /* .sectionInner */
@@ -237,6 +233,13 @@ function resumeOK(){
     // var user_email = "${user_email}";//controller에서 user_email이란 이름으로 model에 보낸 값을 받는 변수
     var user_email = "${login_email}";// session 값을 직접 가져오도록 로직 수정
     console.log("submit user_email!!"+user_email);
+
+
+    //24.08.01(하진) : 이력서 수정 페이지로 이동
+    $(".rewirte").click(function(){
+        
+    });//end of rewirte click function
+
 
     if(resume_num){
         $.ajax({
