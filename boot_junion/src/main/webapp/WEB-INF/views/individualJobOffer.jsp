@@ -665,11 +665,13 @@ gap: 40px 0;
 	                         </div><!-- optionSortLeft 끝 -->
 	                         <div class="optionSorRight">
 	                             <span>
-	                                 <input type="checkbox" id="desc" value="desc">
+	                                 <input type="checkbox" id="orderByDate" value="desc">
 	                                 <label for="desc">최신순</label>
+									 <input type="hidden"id="pageNum" value="${pageMaker.cri.pageNum}">
+									 <input type="hidden"id="amount" value="${pageMaker.cr.amount}">
 	                             </span>
 	                             <span>
-	                                 <input type="checkbox" id="urgent" value="urgent">
+	                                 <input type="checkbox" id="orderByDate" value="urgent">
 	                                 <label for="urgent">마감임박</label>
 	                             </span>
 	                         </div> <!-- optionSorRight 끝 -->                   
@@ -804,7 +806,7 @@ gap: 40px 0;
 																<c:when test="${dto.resume_submitDate == null}">
 																	<input type="button" class="submitResume" value="지원하기">
 																	<!-- offer_num 가져갈 수 있도록 hidden -->
-																	<input type="hidden"id="noticeNum" value="${dto.offer_num}">  
+																	<input type="hidden"id="noticeNum" value="${dto.notice_num}">  
 																</c:when>
 																<c:otherwise>
 																	<button>지원완료</button>
@@ -984,6 +986,7 @@ gap: 40px 0;
     */
     $('.com_name').click(function(e){
       console.log("기업명 클릭 click");
+	  
       // window.open('/comDetail?com_email=${dto.com_email}','com_detail','top=100, left=200, width=1200, height=800, status=no, menubar=no, toolbar=no, resizable=yes, channelmode=yes');
       window.open('/comDetail?com_email=${dto.com_email}');//새 탭으로 이동으로 변경
     });
@@ -992,43 +995,51 @@ gap: 40px 0;
     2024-07-31 서연주 
     공고명 누르면 공고 상세페이지로 새창(공고번호 값 가지고 새 탭으로 이동)
     */
-    // $('.jobPostTitle').click(function(e){
-    //   console.log("공고명 클릭 click");
-    //   // hidden input의 값(공고번호)를 가져옴
-    //   // var noticeNumStr = $(this).siblings('.noticeNum').find('input[type="hidden"]').val(); // hidden input의 값(공고번호)를 가져옴
-    //   var noticeNumStr = $(this).siblings('.noticeNum').val(); // hidden input의 값(공고번호)를 가져옴
-    //   // alert(noticeNumStr);
+    $('.jobPostTitle').click(function(e){
+      console.log("공고명 클릭 click");
+      // hidden input의 값(공고번호)를 가져옴
+      // var noticeNumStr = $(this).siblings('.noticeNum').find('input[type="hidden"]').val(); // hidden input의 값(공고번호)를 가져옴
+      var noticeNumStr = $(this).siblings('.noticeNum').val(); // hidden input의 값(공고번호)를 가져옴
+      // alert(noticeNumStr);
       
-    //   // noticeNumStr 값을 정수로 파싱합니다.
-    //   var noticeNum = parseInt(noticeNumStr, 10);
-    //   var url = '/jobPostDetail?notice_num=' + noticeNum; // url도 변수로 받음
+      // noticeNumStr 값을 정수로 파싱합니다.
+      var noticeNum = parseInt(noticeNumStr, 10);
+      var url = '/jobPostDetail?notice_num=' + noticeNum; // url도 변수로 받음
       
-    //   //새창으로 열기
-    //   // window.open(url, 'notice_detail', 'top=100, left=200, width=1200, height=800, status=no, menubar=no, toolbar=no, resizable=yes');
-    //   //새 탭으로 열기
-    //   window.open(url);
+      //새창으로 열기
+      // window.open(url, 'notice_detail', 'top=100, left=200, width=1200, height=800, status=no, menubar=no, toolbar=no, resizable=yes');
+      //새 탭으로 열기
+      window.open(url);
       
-    // });
+    });
     
     /*
     2024-07-31 서연주 
-    지원하기 누르면 지원하기 페이지 새창(공고번호 가지고 새 창으로 /profileInfo매핑)
+    지원하기 누르면 새창으로 열기(/profileInfo 지원하기 보기)
     */
    
     $('.submitResume').click(function(e){
-      console.log("지원하기 클릭 click");
-      // hidden input의 값(공고번호)를 가져옴
-      // var noticeNumStr = $(this).siblings('.noticeNum').val(); // hidden input의 값(공고번호)를 가져옴
-      var noticeNumStr = $(this).siblings('input[type="hidden"]').val(); // hidden input의 값(공고번호)를 가져옴
-      // alert(noticeNumStr);
+		console.log("지원하기 클릭 click");
+		// hidden input의 값(공고번호)를 가져옴
+		// var noticeNumStr = $(this).siblings('.noticeNum').val(); // hidden input의 값(공고번호)를 가져옴
+		var noticeNumStr = $(this).siblings('input[type="hidden"]').val(); // hidden input의 값(공고번호)를 가져옴
+		// alert(noticeNumStr);
 
-      // noticeNumStr 값을 정수로 파싱합니다.
-      var noticeNum = parseInt(noticeNumStr, 10);
-      var url = '/profileInfo?notice_num=' + noticeNum; // url도 변수로 받음
-      //새창으로 열기
-      window.open(url,'profileInfo','top=150, left=600, width=560, height=440, resizable = no, scrollbars = no');
-      // window.open('/profileInfo?notice_num=${dto.notice_num}','profileInfo','top=100, left=200,width=500, height=270, resizable = no, scrollbars = no');
-    });
+		// noticeNumStr 값을 정수로 파싱합니다.
+		var noticeNum = parseInt(noticeNumStr, 10);
+
+		//팝업창 닫기
+	    $(this).parents('.popUp').css({"display":"none"}); 
+	   
+		//새창으로 열기(/profileInfo 지원하기 보기)
+		  var url = '/profileInfo?notice_num=' + noticeNum; // url도 변수로 받음
+		window.open(url,'profileInfo','top=150, left=600, width=560, height=440, resizable = no, scrollbars = no');
+		
+		//새 탭으로 열기(공고상세보기)
+		// var url = '/jobPostDetail?notice_num=' + noticeNum; // url도 변수로 받음
+		// window.open(url);
+		
+	});
     
 
 
@@ -1037,23 +1048,20 @@ gap: 40px 0;
     2024-07-29 서연주 
     필터링 선택하면 목록다시 조회(이벤트 리스너)
     */
-    $('select#orderBy').on('change', function(event) {
-      // alert("정렬버튼 누름")
+    $('input#orderByDate').on('click', function(event) {
+    	alert("최신순/마감임박순 버튼 누름")
         switchTab(this.value);
     });
     
     function switchTab(value) {
-      // 선택된 값을 가진 새로운 폼을 동적으로 생성
-      var form = $('<form>', {
-          method: 'get',
-          action: $('#searchForm').attr('action')
-      });
-  
-      // 선택된 옵션값을 폼 데이터로 추가
-      form.append($('<input>', {
-          type: 'hidden',
-          name: 'orderBy',
-          value: value
+      //  orderBy 값 담아서 보낼 pageMaker 동적으로 생성
+      var pageMaker = "<c:out value='${pageMaker}'/>";
+
+      // 선택된 체크박스값을 pageMaker에 추가
+      pageMaker.append($('<input>', {
+          type: 'checkbox',
+          name: 'orderByDate',
+          value:  $('input[id="orderByDate"]').val()
       }));
   
       // 기존의 숨겨진 필드들을 폼에 추가
