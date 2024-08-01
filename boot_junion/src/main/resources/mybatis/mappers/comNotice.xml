@@ -23,8 +23,9 @@
 <!--  채용공고 클릭시 상세정보 페이지 이동, 정보 뿌리기 -->
 <!--  2024-07-24 하진 : 테이블 정규화로 인해 쿼리 수정 -> join  -->
 <!--  2024-07-24 하진 : 재수정...join 오류 -->
+
 	<select id="JobPost" resultType="com.boot.DTO.ComNoticeDTO">
-		SELECT n.notice_title, n.com_email, c.com_name, n.notice_jobInfo, c.com_location, 
+		SELECT n.notice_title, n.com_email, c.com_name, n.notice_jobInfo, n.notice_job, c.com_location, 
 				n.notice_condition, n.notice_prefer, n.notice_benefit, nt.notice_stack, 
 				n.notice_startDate, n.notice_endDate, n.notice_area1, n.notice_area2, 
 				n.notice_career, n.notice_department, n.notice_position, n.notice_recruitNum, 
@@ -106,6 +107,8 @@
 		    update notice_tb set notice_status = case when notice_endDate < now() then '공고마감' else '공고중' end where notice_num = #{notice_num}
 	  ]]>
     </update>
+    
+<!--공고수정-->
     
     
     
