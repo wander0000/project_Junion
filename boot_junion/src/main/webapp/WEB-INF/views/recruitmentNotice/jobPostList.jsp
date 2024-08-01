@@ -262,7 +262,7 @@ display:inline-block;
 {
     width: 270px;
     height: 180px;
-    background-image: url(../images/company.svg);
+    /* background-image: url(../images/company.svg); */
     background-position: center;
     background-size: cover;
     border-radius: 10px;
@@ -280,6 +280,13 @@ display:inline-block;
     border:1px solid var(--main-color);
     background-color: var(--main-color);
     color: var(--main-color);
+}
+
+.menubox .uploadResult img
+{
+    width: 270px;
+    height: 180px;
+    border-radius: 10px;
 }
 
 
@@ -454,9 +461,15 @@ display:inline-block;
 					<c:forEach var="dto" items="${jobPost}">
                     <div class="menutitle"> 
                         <div class="menubox">
-                            <a href="/jobPostDetail?notice_num=${dto.notice_num}" class="tag">
+                            <a href="/jobPostDetail?notice_num=${dto.notice_num}" class="tag" data-notice-num="${dto.notice_num}">
                             <!-- <a href="/jobPostDetail" class="tag"> -->
-                                <div class="img" ></div>
+                                <div class="img" >
+                                    <div class="uploadResult">
+                                        <ul>
+
+                                        </ul>
+                                    </div>
+                                </div>
                             </a>
                             <div class="scrap">
                                 <div class="s1">
@@ -576,3 +589,57 @@ $(document).ready(function() {
 
 
 </script>
+
+<script>
+// 2024-08-01 지수 (공고 목록 사진 들고오기)
+
+    $(document).ready(function () {
+       // tag 반복하면서 데이터 가져옴
+       $('.tag').each(function () {
+           // tag data-notice-num 속성에서 값을 가져옴
+           var noticeNum = $(this).data('notice-num');
+           
+           // 현재 tag .uploadResult 요소를 선택
+           var uploadResultContainer = $(this).find('.uploadResult ul');
+   
+           if (noticeNum) {
+               $.ajax({
+                   url: '/cardPageFileList',
+                   type: 'GET',
+                   data: { notice_num: noticeNum },
+                   dataType: 'json',
+                   success: function(data) {
+                       showUploadResult(data, uploadResultContainer);
+                   },
+                   error: function(xhr, status, error) {
+                       console.error('Error fetching file list for notice_num ' + noticeNum + ':', error);
+                   }
+               });
+           } 
+       });
+       
+   });
+   
+   function showUploadResult(uploadResultArr, uploadResultContainer){
+       if (!uploadResultArr || uploadResultArr.length == 0) {
+           return;
+       }
+   
+       var str = "";
+   
+       $(uploadResultArr).each(function (i, obj) {
+           var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+   
+           str += "<li data-path='" + obj.uploadPath + "'";
+           str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+           str += "<div>";
+           str += "<span style='display:none;'>" + obj.fileName + "</span>";
+           str += "<img src='/cardPageDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+           str += "</div></li>";
+       });
+   
+       uploadResultContainer.empty().append(str);
+   }
+   
+   // 공고 목록 사진 들고오기 끝 - 지수 
+   </script>
