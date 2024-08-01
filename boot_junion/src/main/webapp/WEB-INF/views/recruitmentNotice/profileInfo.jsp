@@ -193,7 +193,6 @@ section
 $(document).ready(function() {
     function check() {
         var selectedResume = $(".profileList").val();
-        console.log(selectedResume);
     }
 
     function getQueryStringValue(key) {//현재 페이지 URL에서 쿼리스트링으로 넣은 notice_num 값을 가져오는 함수
@@ -212,21 +211,31 @@ $(document).ready(function() {
  
 });
 
-$(".rewirte").on("click", function () {
-    window.close();
-    location.href="resumeList";
+// 24.08.01 하진
+// 수정하기 버튼 클릭시 해당 이력서 수정 페이지로 이동
+$(".rewirte").click(function () {
+    console.log("수정하기 클릭!!")
+    var resume_num = document.getElementById("resume_num").value;
+    console.log("이력서 번호는 "+resume_num);
+    if(resume_num){
+        window.opener.location.href="resumeInfo?resume_num="+resume_num;
+        window.close();
+    }else{
+        window.opener.location.href="resumeList";
+        window.close;
+    }
 })
+
+
 // 2024-07-13 하진
 // 2024-07-25 하진
 // 2024-07-28 하진
+// 이력서 제출 기능
 function resumeOK(){
     var notice_num = document.getElementById("notice_num").value;
-    // var notice_num = document.getElementById("#notice_num").value;
     console.log("submit!! notice_num->"+notice_num);
     var resume_num = document.getElementById("resume_num").value;
-    // var resume_num = document.getElementById('#resume_num').val();
     console.log("submit!! resume_num ->"+resume_num);
-    // var com_email = document.getElementById("#com_email").value;
     var com_email = "${notice.com_email}";
     console.log("submit com_email!!"+com_email);
 
