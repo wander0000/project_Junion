@@ -139,23 +139,29 @@ section
     font-size: var(--font-size14);
     font-weight: 300;
 }
+.board .lastline .r1,
+.board .lastline .r22
+{
+	color: #FFA500;
+}
 
 
 
 
 
-.board .lastline,
-.board .buttonbox
+.board .lastline
 {
     display: flex;
     border-bottom: 1px solid var(--border-color-gray);
     padding-bottom: 20px;
 }
-
 .board .buttonbox
 {
+    display: flex;
 	margin-bottom: 20px;
 }
+
+
 
 
 
@@ -200,6 +206,15 @@ section
 	align-items: center;
 	height: 40px;
 	margin-bottom: 20px;
+	border-top: 1px solid var(--border-color-gray);
+	padding-top: 20px;
+}
+.comboxbox
+{
+	display: flex;
+	align-items: center;;
+	border-top: 1px solid var(--border-color-gray);
+	padding-top: 20px;
 }
 
 .combox .buttonbox2
@@ -216,7 +231,10 @@ section
 	height: 38px;
 	border: 1px solid var(--input-gray);
 	border-radius: 6px;
+	padding-left: 12px;
 }
+
+
 .board .buttonbox .button
 {
     display: flex;
@@ -227,6 +245,7 @@ section
     {
         background: var(--main-color);
         color: #fff;
+		border: 1px solid var(--main-color);
     }
 }
 .board .buttonbox2 .button
@@ -239,6 +258,7 @@ section
     {
         background: var(--main-color);
         color: #fff;
+		border: 1px solid var(--main-color);
     }
 }
 

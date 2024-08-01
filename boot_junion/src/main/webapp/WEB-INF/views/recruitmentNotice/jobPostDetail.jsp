@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>채용공고 상세</title>
     <meta charset="UTF-8">
 <!-- <link rel="stylesheet" href="css/default.css">
 <link rel="stylesheet" href="css/posting_list.css"> -->
@@ -95,6 +95,7 @@
 	{
 		background-color: var(--color-white);
 		border: none;
+		cursor: pointer;
 		/* gap: 50px; */
 	}
 
@@ -150,9 +151,27 @@
 
 	.wrap .main .sub2
 	{
-	    max-width: 90px ;
+	  	max-width: 90px ;
+		gap: 15px;/*간격*/
+		display: flex;/*없을 경우, 세로로 div처럼 세로로 출력됨*/
+		/* cursor: pointer; */
+	}
+	
+	.wrap .main .icon,
+	.right .iconn
+	{
+		background-color: var(--color-white);
+		border: none;
+		font-size: var(--font-size20);
 	}
 
+	#heart.active /*조건 만족시 CSS - 크기가 작아 보여 크기를 키움*/
+	{
+		width: 100%;
+		height: 100%;
+    color : red;
+		font-size: 22px;
+	}
 
 	.wrap .column
 	{
@@ -305,6 +324,10 @@
 	    margin-bottom: 13px;
 	}
 	.wrap .right .boxbox
+	{
+	    margin-top: 10px;
+	}
+	.wrap .right .boxbox .ic
 	{
 	    margin-top: 10px;
 	}
@@ -526,16 +549,19 @@
                             <h5 class="title">${company.notice_title}</h5>
                         </div>
                         <div class="sub2">
-                            <button class="icon">
-                                <i class="fa-regular fa-bookmark" style = font-size:20px;></i>
-                            </button>
-                            <button class="icon">
-                                <i class="fa-regular fa-heart" style = font-size:20px;></i>
-                            </button>
-                            <button class="icon">
-                                <i class="fa-regular fa-share-from-square" style = font-size:20px;></i>
-                            </button>
-                        </div>
+							<!-- <button class="icon"> -->
+							<span class="icon">
+								<i class="fa-regular fa-bookmark"></i>
+							<!-- </button> -->
+							</span>
+							<span class="icon">
+								<i class="fa-regular fa-heart" id="heart"></i>
+								<!-- <i class="fa-solid fa-heart" id="heart"></i> -->
+							</span>
+							<span class="icon">
+								<i class="fa-regular fa-share-from-square"></i>
+							</span>
+						</div>
                     </div>
 
 
@@ -791,6 +817,21 @@ if (!user_type || user_type == 1) {
 }else{
 	$("#user_resume").css("display","none");
 }
+
+$(".fa-share-from-square").click(function(){
+	const url = window.location.href;
+	// 현재 페이지의 url을 가져오는 속성
+      
+	var textarea = document.createElement("textarea");
+      	document.body.appendChild(textarea);
+      textarea.value = url;
+      textarea.select();
+      document.execCommand("copy");
+      document.body.removeChild(textarea);
+      
+      alert("URL이 복사되었습니다.")//완료시 alert 발생
+});//end of fa-share-from-square click function
+
 
 // 24.07.28 side 부분 구현 -> 다른 채용 공고가 없을 경우의 로직
 	var postNum = "${postNum}";

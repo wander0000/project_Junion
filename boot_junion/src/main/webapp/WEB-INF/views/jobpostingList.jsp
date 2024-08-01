@@ -144,7 +144,7 @@
 									
 				                    <div>
 				                        <div class="job-title">
-				                            <a href="jobpostingSupport?notice_num=${dto.notice_num}">${dto.notice_title}</a> 
+			                                <a href="jobPostDetail?notice_num=${dto.notice_num}">${dto.notice_title}</a>
 											<!--"${pageContext.request.contextPath}/jobpostingSupport?notice_num=${dto.notice_num}&resume_num=${dto.resume_num}"-->
 				                        </div>
 										<div class="datesbox">
@@ -155,8 +155,8 @@
 				                </div>
 				                <div class="right">
 				                    <div class="deletejobp">
-										<a href="jobPostDetail?notice_num=${dto.notice_num}" class="jobjob">
-										    <h5 class="carh5" >공고이동</h5>
+										<a href="#" class="jobjob">
+										    <h5 class="carh5" >공고수정</h5>
 										</a>
 				                    </div>
 				                    <div class="deletejobp">
@@ -164,11 +164,11 @@
 				                            <h5 class="carh5">삭제</h5>
 				                        </a>
 				                    </div>
-				                    <div class="applicant-count">
-				                        <div class="jobjob">
-				                            <h5 class="carh6">지원자 ${dto.t_count}</h5>
-				                        </div>
-				                    </div>
+									<a class="applicant-count" href="jobpostingSupport?notice_num=${dto.notice_num}">
+									    <div class="jobjob">
+									        <h5 class="carh6">지원자 ${dto.t_count}</h5>
+									    </div>
+									</a>
 				                </div>
 				            </div>
 				        </c:forEach>
@@ -189,7 +189,7 @@
 				                        </div>
 				                        <div>
 				                            <div class="job-title">
-				                                <a href="jobpostingSupport?notice_num=${dto.notice_num}">${dto.notice_title}</a>
+				                                <a href="jobPostDetail?notice_num=${dto.notice_num}">${dto.notice_title}</a>
 				                            </div>
 											<div class="datesbox">
 											    <div class="dates">${dto.notice_startDate} ~ ${dto.notice_endDate} </div>
@@ -199,8 +199,8 @@
 				                    </div>
 				                    <div class="right">
 				                        <div class="deletejobp">
-											<a href="jobPostDetail?notice_num=${dto.notice_num}" class="jobjob">
-											    <h5 class="carh5" >공고이동</h5>
+											<a href="#" class="jobjob">
+											    <h5 class="carh5" >공고수정</h5>
 											</a>
 				                        </div>
 				                        <div class="deletejobp">
@@ -208,11 +208,11 @@
 				                                <h5 class="carh5">삭제</h5>
 				                            </a>
 				                        </div>
-				                        <div class="applicant-count">
-				                            <div class="jobjob">
-				                                <h5 class="carh6">지원자 ${dto.t_count}</h5>
-				                            </div>
-				                        </div>
+										<a class="applicant-count" href="jobpostingSupport?notice_num=${dto.notice_num}">
+										    <div class="jobjob">
+										        <h5 class="carh6">지원자 ${dto.t_count}</h5>
+										    </div>
+										</a>
 				                    </div>
 				                </div>
 				            </c:if>
@@ -234,7 +234,7 @@
 				                        </div>
 				                        <div>
 				                            <div class="job-title">
-				                                <a href="jobpostingSupport?notice_num=${dto.notice_num}">${dto.notice_title}</a>
+				                                <a href="jobPostDetail?notice_num=${dto.notice_num}">${dto.notice_title}</a>
 				                            </div>
 											<div class="datesbox">
 											    <div class="dates">${dto.notice_startDate} ~ ${dto.notice_endDate} </div>
@@ -244,8 +244,8 @@
 				                    </div>
 				                    <div class="right">
 				                        <div class="deletejobp">
-											<a href="jobPostDetail?notice_num=${dto.notice_num}" class="jobjob">
-											    <h5 class="carh5" >공고이동</h5>
+											<a href="#" class="jobjob">
+											    <h5 class="carh5" >공고수정</h5>
 											</a>
 				                        </div>
 				                        <div class="deletejobp">
@@ -253,11 +253,11 @@
 				                                <h5 class="carh5">삭제</h5>
 				                            </a>
 				                        </div>
-				                        <div class="applicant-count">
+				                        <a class="applicant-count" href="jobpostingSupport?notice_num=${dto.notice_num}">
 				                            <div class="jobjob">
 				                                <h5 class="carh6">지원자 ${dto.t_count}</h5>
 				                            </div>
-				                        </div>
+				                        </a>
 				                    </div>
 				                </div>
 				            </c:if>
