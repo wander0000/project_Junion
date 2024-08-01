@@ -193,6 +193,7 @@ section
     {
         background: var(--main-color);
         color: #fff;
+		border: 1px solid var(--main-color);
     }
 }
 
@@ -212,6 +213,7 @@ justify-content: center;
     {
         background: var(--main-color);
         color: #fff;
+		border: 1px solid var(--main-color);
     }
 }
   /*버튼 끝*/

@@ -78,7 +78,7 @@
 		                                <div>
 		                                    <h5 class="r2">
 												<span >
-													<a href="#" onclick="clip(); return false;">
+													<a href="#" onclick="clip(); return false;" class="r1">
 														URL복사
 													</a>
 												</span>
@@ -106,6 +106,7 @@
 								        <h5 class="but2">목록</h5>
 								    </button>
 								</div>
+								
 				<!--			    <div id="commentBox" class="combox"></div>-->
 							</form>   <!--폼 끝-->
 						<div id="comment-list">
@@ -225,9 +226,10 @@
         })();
 
         // 댓글 작성 관련
-        const loginUserType = "${login_usertype}";
-        const login_email = "${login_email}";
-        const authorEmail = "${boardDetailView.login_email}";
+		const loginUserType = "${login_usertype}";
+		const login_email = "${login_email}";
+		const authorEmail = "${boardDetailView.login_email}";
+		
 		
 		// 관리자인 경우 또는 작성자와 로그인한 사용자의 이메일이 같은 경우
 		if (loginUserType === "3" || login_email === authorEmail) {
@@ -248,26 +250,32 @@
 		        `);
 		    }
 		}
+		
+		const commentCount = ${commentList.size()};
 
-        if (loginUserType === "3" || login_email === authorEmail) {
-            const commentBoxHtml = `
-                <div id="commentBox" class="combox">
-                    <input type="text" id="commentContent" class="commentbox" placeholder="내용을 입력해주세요">
-                    <div class="buttonbox2">
-                        <button onclick="commentWrite()" class="button">
-                            <h5 class="but2">등록</h5>
-                        </button>
-                    </div>
-                </div>
-            `;
+		    
+		    if (loginUserType === "3" || login_email === authorEmail) {
+		        const commentBoxHtml = `
+		            <div id="commentBox" class="combox">
+		                <input type="text" id="commentContent" class="commentbox" placeholder="내용을 입력해주세요">
+		                <div class="buttonbox2">
+		                    <button onclick="commentWrite()" class="button">
+		                        <h5 class="but2">등록</h5>
+		                    </button>
+		                </div>
+		            </div>
+		        `;
 
-            $('#buttonbox').after(commentBoxHtml);
+		        $('#buttonbox').after(commentBoxHtml);
+		    }else if (commentCount > 0){
+				const commentBoxHtml = `
+		            <div id="commentBox" class="comboxbox">
+		            </div>
+		        `;
 
-            // 댓글 작성 버튼 클릭 시
-            $(".buttonbox2 button").on("click", function(event) {
-                event.preventDefault(); // 기본 클릭 동작 막기
-            });
-        }
+		        $('#buttonbox').after(commentBoxHtml);
+			}
+		
 
         // 좋아요 버튼 클릭 시
         $('#likeButton').on('click', function (e) {

@@ -186,7 +186,10 @@
             <div class="containe">
                 <div class="toptitle">
                     <!-- 쿼리 파라미터로 받은 notice_title 표시하기 -->
-                    <h3 class="toptitlehh">지원자 목록<!--${param.notice_title}--></h3>
+					<c:if test="${not empty jobpostingSupport}">
+					    <c:set var="first" value="${jobpostingSupport[0]}"/>
+					    <h3 class="toptitlehh">${first.notice_title} 지원자 목록</h3>
+					</c:if>
                     <!-- 반복문 시작 -->
                     <c:choose>
                         <c:when test="${not empty jobpostingSupport}">
