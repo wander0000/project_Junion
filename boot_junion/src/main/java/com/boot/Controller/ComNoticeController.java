@@ -193,7 +193,7 @@ public class ComNoticeController {
 		return "comRegistCheck";
 	}
 	
-	//채용공고 등록 페이지
+	//채용공고 등록 페이지 
 	@RequestMapping("/comRegistUpload")
 	public String comRegistUpload(ComNoticeDTO comNoticeDTO, HttpServletRequest httpServletRequest, Model model) {
 		log.info("@# comRegistUpload");
@@ -238,6 +238,30 @@ public class ComNoticeController {
 			return "/alert";
 			
 		}
+		
+		//2024-08-01 지수
+		//채용공고 수정 페이지
+		@RequestMapping("/comRegistModify")
+		public String comRegistModify(ComNoticeDTO comNoticeDTO, HttpServletRequest httpServletRequest, Model model, int notice_num) {
+			log.info("@# comRegistModify");
+			
+			HttpSession session = httpServletRequest.getSession();
+			session.getAttribute("login_email");
+			session.getAttribute("login_name");
+			log.info("@# session  =>"+(String) session.getAttribute("login_email"));
+			
+			model.addAttribute("com_email",session.getAttribute("login_email"));
+			model.addAttribute("com_name", session.getAttribute("login_name"));
+			
+			ComNoticeDTO dto = service.JobPost(notice_num);
+			
+			model.addAttribute("notice", dto);
+//			model.addAttribute("noticeNumber",notice_num);
+			
+			
+			return "comRegistModify";
+		}
+		
 	
 	@PostMapping("/registUploadAjaxAction")
 //	public void uploadAjaxPost(MultipartFile[] uploadFile) {

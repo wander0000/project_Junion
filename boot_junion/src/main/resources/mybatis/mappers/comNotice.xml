@@ -13,7 +13,7 @@
 <!--  채용공고 클릭시 상세정보 페이지 이동, 정보 뿌리기 -->
 <!--  2024-07-24 하진 : 테이블 정규화로 인해 쿼리 수정 -> join  -->
 <!--  2024-07-24 하진 : 재수정...join 오류 -->
-<select id="JobPost" resultType="com.boot.DTO.ComNoticeDTO"> SELECT n.notice_title, n.com_email, c.com_name, n.notice_jobInfo, c.com_location, n.notice_condition, n.notice_prefer, n.notice_benefit, nt.notice_stack, n.notice_startDate, n.notice_endDate, n.notice_area1, n.notice_area2, n.notice_career, n.notice_department, n.notice_position, n.notice_recruitNum, n.notice_pay1, n.notice_pay2 FROM notice_tb n JOIN (SELECT com_email, GROUP_CONCAT(stack SEPARATOR ', ') AS notice_stack FROM notice_stack WHERE notice_num = #{notice_num} GROUP BY com_email) nt ON n.com_email = nt.com_email JOIN com_tb c ON n.com_email = c.com_email WHERE n.notice_num = #{notice_num}; </select>
+<select id="JobPost" resultType="com.boot.DTO.ComNoticeDTO"> SELECT n.notice_title, n.com_email, c.com_name, n.notice_jobInfo, n.notice_job, c.com_location, n.notice_condition, n.notice_prefer, n.notice_benefit, nt.notice_stack, n.notice_startDate, n.notice_endDate, n.notice_area1, n.notice_area2, n.notice_career, n.notice_department, n.notice_position, n.notice_recruitNum, n.notice_pay1, n.notice_pay2 FROM notice_tb n JOIN (SELECT com_email, GROUP_CONCAT(stack SEPARATOR ', ') AS notice_stack FROM notice_stack WHERE notice_num = #{notice_num} GROUP BY com_email) nt ON n.com_email = nt.com_email JOIN com_tb c ON n.com_email = c.com_email WHERE n.notice_num = #{notice_num}; </select>
 <!-- 	채용공고 상세정보 페이지로 이동시 사이드에 해당 기업의 다른 공고를 출력하는 쿼리 -->
 <select id="otherJobPost" resultType="com.boot.DTO.ComNoticeDTO"> select notice_num, notice_title, notice_area1, notice_area2, notice_career, notice_endDate, notice_department, notice_contactType from notice_tb where notice_endDate > now() and com_email=(select com_email from notice_tb where notice_num=#{notice_num}) and notice_num != #{notice_num} order by notice_hit desc; </select>
 <!-- 	지원하기 클릭, 외부 팝업에 공고 정보 가져오기  -->
@@ -69,6 +69,8 @@ select resume_title, resume_num from resume_tb where user_email=#{user_email}
 		    update notice_tb set notice_status = case when notice_endDate < now() then '공고마감' else '공고중' end where notice_num = #{notice_num}
 	  ]]>
     </update>
+    
+<!--공고수정-->
     
     
     
