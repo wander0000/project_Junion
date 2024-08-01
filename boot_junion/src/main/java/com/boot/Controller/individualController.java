@@ -22,6 +22,7 @@ import com.boot.DTO.CompanyInfoDTO;
 import com.boot.DTO.Criteria2;
 import com.boot.DTO.JoinDTO;
 import com.boot.DTO.NoticeScrapDTO;
+import com.boot.DTO.OfferInfoDTO;
 import com.boot.DTO.PageDTO;
 import com.boot.DTO.UserDTO;
 import com.boot.DTO.UserJobDTO;
@@ -54,9 +55,33 @@ public class individualController {
 		return "individualMain";
 	}
 	
-	@RequestMapping("/jobOffer")//받은 제안
-	public String individualJobOffer(Model model){
-		log.info("@# individualMain");		
+	@RequestMapping("/individualJobOffer")//받은 제안
+	public String individualJobOffer(HttpServletRequest request, Model model, Criteria2 cri2){
+		log.info("@# individualJobOffer");	
+		
+		HttpSession session = request.getSession();
+		String user_email = (String)session.getAttribute("login_email");
+		log.info("@# individualJobOffer  user_email=>"+user_email);	
+		
+		log.info("@# cri=>"+cri2);
+		cri2.setUser_email(user_email);
+//		cri2.setOrderBy(orderBy);
+//		cri2.setKeyword(keyword);
+		log.info("@# setUser_email한 다음 cri=>"+cri2);
+		
+		ArrayList<OfferInfoDTO> list = new ArrayList<>();
+	    list = pageService.offerListWithPaging(cri2);
+				
+		log.info("@# individualJobOffer noticelistWithPaging=>"+list);		
+		model.addAttribute("offerList", list);
+		
+		int total = pageService.offerListTotalCount(cri2);
+		log.info("@# individualJobOffer total=>"+total);
+//		model.addAttribute("total",total);
+					
+		model.addAttribute("pageMaker", new PageDTO(total,cri2));	
+		
+		
 		
 		return "individualJobOffer";
 	}

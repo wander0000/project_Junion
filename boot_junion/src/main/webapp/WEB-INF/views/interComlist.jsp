@@ -132,7 +132,7 @@
 	{
 		display: flex;
 		flex-direction: column; 
-		max-width:1200px;
+		min-width:1200px;
 		gap: 40px 0;
 	}
 
@@ -209,16 +209,17 @@
 	/*삭제버튼*/
 	.mainContainer .searchWrap .optionSortLeft button
 	{
-	width: 65px;
-	height: 36px;
-	background-color: initial;
-	border:1px solid var(--border-color-gray);
-	color: var(--color-gray);
-	font-size: var(--font-size16);
-	border-radius: 6px;
-	align-items:center;
-	justify-content:center;
-	cursor: pointer;
+		width: 65px;
+		/* height: 36px; */
+		background-color: var(--color-white);
+		border: 1px solid var(--input-gray);
+		color: #777;
+		font-size: var(--font-size14);
+		border-radius: 6px;
+		align-items:center;
+		justify-content:center;
+		padding: 8px 10px;
+		cursor: pointer;
 	}
 
 
@@ -238,26 +239,27 @@
 	.mainContainer .searchWrap .optionSorRight input
 	{
 	width: 240px;
-	height: 36px;
 	border:1px solid var(--input-gray);
-	font-size: var(--font-size16);
+	font-size: var(--font-size14);
 	border-radius: 6px;
 	padding-left: 15px;
-	box-sizing: border-box;
+	color: #777;
+	padding: 8px 10px;
+	cursor: pointer;
 	}
 
 	/*검색하기 버튼*/
 	.mainContainer .searchWrap .optionSorRight button
 	{
-	width: 78px;
-	height: 36px;
-	border: none;
-	background-color: var(--main-color);
-	color: var(--color-white);
-	font-size: var(--font-size16);
-	border-radius: 6px;
-	cursor: pointer;
-	box-sizing: border-box;
+		width: 78px;
+		/* height: 36px; */
+		border:1px solid var(--input-gray);
+		font-size: var(--font-size14);
+		border-radius: 6px;
+		padding-left: 15px;
+		color: #777;
+		padding: 8px 10px;
+		cursor: pointer;
 	}
 
 

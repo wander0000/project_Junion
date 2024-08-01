@@ -78,47 +78,6 @@
 	}
 
   
-	/* 네비게이션 옆 컨텐츠 영역 */
-	.mainContent 
-	{
-	width: calc( 100% - 260px);
-	min-height: 100vh;
-	}
-
-	/* 헤더 */
-	.mainContent header 
-	{
-	width: 100%;
-	height: 90px;
-	border-bottom: 1px solid var(--input-gray);
-	padding: 0 40px;
-	display: flex;
-	align-items: center;
-	box-sizing: border-box;
-	}
-
-	/* 헤더 아이디 영역 */
-	.mainContent header .userWrapper
-	{
-	display: flex;
-	white-space: nowrap;
-	margin-left: auto;
-	align-items: center;
-	}
-
-	.mainContent header .userWrapper img
-	{
-	margin-right: 12px;
-	width: 36px;
-	height: 36px;
-	border-radius: 50%;   
-	}
-
-	.mainContent header .userWrapper h4.name 
-	{
-	font-size: var(--font-size14);
-	margin-right: 12px;
-	}
 
 	/* 메인 */
 	main 
@@ -132,7 +91,7 @@
 	{
 		display: flex;
 		flex-direction: column; 
-		max-width:1200px;
+		min-width:1200px;
 		gap: 40px 0;
 	}
 
@@ -210,25 +169,31 @@
 .mainContainer .searchWrap .optionSortLeft button
 {
   width: 65px;
-  height: 36px;
-  background-color: initial;
-  border:1px solid var(--border-color-gray);
-  color: var(--color-gray);
-  font-size: var(--font-size16);
+  /* height: 36px; */
+  background-color: var(--color-white);
+  border: 1px solid var(--input-gray);
+  color: #777;
+  font-size: var(--font-size14);
   border-radius: 6px;
   align-items:center;
   justify-content:center;
+  padding: 8px 10px;
+  cursor: pointer;
 }
+
+
+
 /* sort 탭*/
 .mainContainer .searchWrap .optionSortLeft .custom-select
 {
   width: 180px;
-  height: 36px;
+  /* height: 36px; */
   border:1px solid var(--input-gray);
-  font-size: var(--font-size16);
+  font-size: var(--font-size14);
   border-radius: 6px;
   padding-left: 15px;
-  color: #555;
+  color: #777;
+  padding: 8px 10px;
   cursor: pointer;
 }
 
@@ -240,39 +205,39 @@
   display: flex;
   gap : 10px;
 }
-/* .mainContainer .searchWrap .optionSorRight .search_Form
-{
-  display: flex;
-  gap : 10px;
-} */
 
 
 /* 검색창*/
 .mainContainer .searchWrap .optionSorRight input
 {
   width: 240px;
-  height: 36px;
   border:1px solid var(--input-gray);
-  font-size: var(--font-size16);
+  font-size: var(--font-size14);
   border-radius: 6px;
-  padding-left: 15px;
+  color: #777;
+  padding: 8px 10px;
+  cursor: pointer;
 }
 
 /*검색하기 버튼*/
-.mainContainer .searchWrap .optionSorRight button
+.searchBtn
 {
-  width: 78px;
-  height: 36px;
-  background-color: var(--main-color);
-  border:none;
-  color: var(--color-white);
-  font-size: var(--font-size16);
+  /* width: 78px; */
+  background-color: var(--color-white);
+  border: 1px solid var(--input-gray);
+  color: #777;
+  font-size: var(--font-size14);
   border-radius: 6px;
-  align-items:center;
-  justify-content:center;
-  box-sizing: border-box;
+  padding: 8px 10px;
   cursor: pointer;
 }
+
+.searchBtn:hover
+{
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
+    color: var(--color-white);
+	}
 
 
 /*공고 박스 리스트*/
@@ -334,7 +299,7 @@ main .mainContainer .jobPostList
 .postBox .boxMiddle .jobPostTitle
 {
   font-size: var(--font-size16);
-  color: #222;
+  color: #555;
   cursor: pointer;
 }
 
@@ -426,17 +391,17 @@ main .mainContainer .jobPostList
 button.submitTab,
 button.postStatus
 {
+  border:1px solid var(--input-gray);
+  font-size: var(--font-size14);
+  border-radius: 6px;
+  padding-left: 15px;
+  color: #777;
   background-color: #f7f7f7;
-	border: 1px solid var(--input-gray);
-	color: #777;
-	font-size: var(--font-size14);
-	border-radius: 6px;
-	align-items:center;
-	justify-content:center; 
-	cursor: pointer;
-	min-width: 80px;
-	padding: 8px 10px;
+  padding: 8px 10px;
+  width: 80px;
 }
+
+
 
 
 /*휴지통아이콘*/
@@ -483,6 +448,7 @@ button.postStatus
 
 
 
+
 	
 </style>
 </head>
@@ -517,45 +483,43 @@ button.postStatus
                       <h4 class="listNum">${pageMaker.total}</h4>
                     </div>
                     <div class="listTable">
-                      <form method="get" id="searchForm">
-                        <div class="searchWrap">
-                                <div class="optionSortLeft">
-                                    <input type="checkbox" id="check_all" value="회사명">
-                                    <button class="selectDel">삭제</button>
-                                    <!-- <select id="orderByUpdate" class="custom-select" onchange="orderByUpdate(this.value);"> -->
-                                    <!-- <select id="orderByUpdate" class="custom-select" onchange="switchTab(this.value,event);"> -->
+                        <form method="get" id="searchForm">
+                          <div class="searchWrap">
+                              <div class="optionSortLeft">
+                                  <input type="checkbox" id="check_all" value="회사명">
+                                  <button class="selectDel">삭제</button>
+                                  <!-- <select id="orderByUpdate" class="custom-select" onchange="orderByUpdate(this.value);"> -->
+                                  <!-- <select id="orderByUpdate" class="custom-select" onchange="switchTab(this.value,event);"> -->
+                                  <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
+                                  <!-- <select id="orderByUpdate" class="custom-select"> -->
+                                      <option disabled selected>공고등록순</option>
+                                      <option value="desc" <c:if test="${pageMaker.cri.orderBy == 'desc'}">selected='selected'</c:if>>최신순</option>
+                                      <option value="asc" <c:if test="${pageMaker.cri.orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option>
+                                      <!-- <option value="${pageMaker.cri.orderBy}" <c:if test="${pageMaker.cri.orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option> -->
+                                  </select>
+                                  <!-- <select id="orderBySubmit" class="custom-select" onchange="switchTab2(this.value,event);"> -->
                                     <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
-                                    <!-- <select id="orderByUpdate" class="custom-select"> -->
-                                        <option disabled selected>공고등록순</option>
-                                        <option value="desc" <c:if test="${pageMaker.cri.orderBy == 'desc'}">selected='selected'</c:if>>최신순</option>
-                                        <option value="asc" <c:if test="${pageMaker.cri.orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option>
-                                        <!-- <option value="${pageMaker.cri.orderBy}" <c:if test="${pageMaker.cri.orderBy == 'asc'}">selected='selected'</c:if>>오래된순</option> -->
+                                      <option disabled selected>지원여부</option>
+                                      <option value="submit" <c:if test="${pageMaker.cri.orderBy == 'submit'}">selected='selected'</c:if>>지원완료</option>
+                                      <option value="noSubmit" <c:if test="${pageMaker.cri.orderBy == 'noSubmit'}">selected='selected'</c:if>>미지원</option>
                                     </select>
-                                    <!-- <select id="orderBySubmit" class="custom-select" onchange="switchTab2(this.value,event);"> -->
+                                    <!-- <select id="orderByStatus" class="custom-select" onchange="switchTab3(this.value,event);"> -->
                                       <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
-                                        <option disabled selected>지원여부</option>
-                                        <option value="submit" <c:if test="${pageMaker.cri.orderBy == 'submit'}">selected='selected'</c:if>>지원완료</option>
-                                        <option value="noSubmit" <c:if test="${pageMaker.cri.orderBy == 'noSubmit'}">selected='selected'</c:if>>미지원</option>
-                                      </select>
-                                      <!-- <select id="orderByStatus" class="custom-select" onchange="switchTab3(this.value,event);"> -->
-                                        <select id="orderBy" name="orderBy" class="custom-select" onchange="switchTab(this.value);">
-                                        <option disabled selected>채용상태</option>
-                                        <option value="inProgress" <c:if test="${pageMaker.cri.orderBy == 'inProgress'}">selected='selected'</c:if>>채용중</option>
-                                        <option value="finished" <c:if test="${pageMaker.cri.orderBy == 'finished'}">selected='selected'</c:if>>채용마감</option>
-                                    </select>
+                                      <option disabled selected>채용상태</option>
+                                      <option value="inProgress" <c:if test="${pageMaker.cri.orderBy == 'inProgress'}">selected='selected'</c:if>>채용중</option>
+                                      <option value="finished" <c:if test="${pageMaker.cri.orderBy == 'finished'}">selected='selected'</c:if>>채용마감</option>
+                                  </select>
+                                  <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                                  <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+                              </div><!-- optionSortLeft 끝 -->
+                              <div class="optionSorRight">
+                                    <input type="text" id="keyword" name="keyword" placeholder="기업명, 채용공고제목" value="${pageMaker.cri.keyword}">
                                     <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
                                     <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-                                </div><!-- optionSortLeft 끝 -->
-                                <div class="optionSorRight">
-                                   
-                                        <input type="text" id="keyword" name="keyword" placeholder="기업명, 채용공고제목" value="${pageMaker.cri.keyword}">
-                                        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-                                        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-                                        <button class="searchBtn" type="submit">검색하기</button>
-                                   
-                                </div> <!-- optionSortBtn right 끝 -->                  
-                              </div><!-- searchWrap 끝 -->  
-                            </form><!-- searchForm  끝 --> 
+                                    <button class="searchBtn" type="submit">검색하기</button>
+                              </div> <!-- optionSortBtn right 끝 -->                  
+                          </div><!-- searchWrap 끝 -->  
+                        </form><!-- searchForm  끝 --> 
                         <div class="jobPostList">
                           <c:forEach items="${noticeList}" var="dto">		
                             <div class="postBox">
@@ -578,7 +542,7 @@ button.postStatus
                                         <p class="notice_job">${dto.notice_career}</p>
                                     </div><!-- jobPostInfo 끝-->
                                     <div class="resumeInfo">
-                                        <!-- 지원완료:지원한이력서력서보기(지원일자), 미지원:기본이력서로지원하기 분기처리해야함 --> 
+                                        <!-- 지원완료:지원한이력서력서보기(지원일자), 미지원:기본이력서로지원하기 분기처리 --> 
                                         <div class="statusCon">
                                           <c:choose>
                                             <c:when test="${dto.resume_num != null}">

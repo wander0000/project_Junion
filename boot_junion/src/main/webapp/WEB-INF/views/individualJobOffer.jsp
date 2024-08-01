@@ -661,239 +661,210 @@ gap: 40px 0;
 	                     <div class="searchWrap">
 	                         <div class="optionSortLeft">
 	                             <input type="checkbox" id="check_all" value="회사명">
-	                             <button>삭제</button>
+								 <button class="selectDel">삭제</button>
 	                         </div><!-- optionSortLeft 끝 -->
 	                         <div class="optionSorRight">
 	                             <span>
-	                                 <input type="checkbox" id="desc" value="최신순">
+	                                 <input type="checkbox" id="desc" value="desc">
 	                                 <label for="desc">최신순</label>
 	                             </span>
 	                             <span>
-	                                 <input type="checkbox" id="urgent" value="마감임박">
+	                                 <input type="checkbox" id="urgent" value="urgent">
 	                                 <label for="urgent">마감임박</label>
 	                             </span>
 	                         </div> <!-- optionSorRight 끝 -->                   
 	                     </div><!-- searchWrap 끝 -->  
 	                     <div class="offerList">
-	                         <div class="postBox"><!-- 제안박스하나 시작 -->  
-	                             <div class="boxLeft">
-	                                 <input type="checkbox" name="offerListRow" id= "" class="normal">
-	                                 <p class="offer_date">2024.05.09 10:59</p><!--제안일 정보 가지고 와야--> 
-	                             </div><!-- boxLeft 끝-->
-	                             <div class="boxMiddle">
-	                                 <h4 class="com_name">(주)티오에스코리아</h4>
-	                                 <div class="comInfo">
-	                                     <p>서울 국내·외 교육 관련 마케팅 및 컨설팀 업무 바이럴 및 온라인 마케팅 / 키워드 광고 / 등</p>
-	                                 </div><!-- comInfo 끝-->
-	                             </div><!-- boxMiddle  끝-->
-	                             <div class="boxRight">
-	                                 <span class="offer_agree"> 
-	                                     <button onclick="location.href='#'">미응답</button><!-- 제안거절/지원완료/미응답-->
-	                                 </span>
-	                                 <spn class="open">
-	                                     <input type="button" id="opendetail" class="open" value="자세히보기">
-	                                 <!-- <label for="opendetail">자세히보기<label> -->
-	                                 </spn>
-	                                 <div class="delIcon">
-	                                     <i class="fa-regular fa-trash-can"></i>
-	                                 </div>
-	                             </div><!-- boxRight 끝 -->   
-	                             <!-- pop 영역 -->
-	                             <div class="popUp disN">
-	                                 <div class="popBg">
-	                                     <div class="popCon disF flexD">
-	                                         <div class="popH">
-	                                             <div class="popHLeft">
-	                                                 <div class="popH1">
-	                                                     <h3 class="notice_title">[Junion][경력] 백엔드 개발자 채용</h3>
-	                                                 </div>
-	                                                 <div class="popH2">
-	                                                     <h5 class="com_name">주니온</h5>
-	                                                 </div>
-	                                                 <div class="popH3">
-	                                                     <span>
-	                                                         <h5>제안일</h5>
-	                                                         <h5>2024.05.31</h5>
-	                                                     </span>
-	                                                     <span>
-	                                                         <h5>응답기한</h5>
-	                                                         <h5>2024.06.31</h5>
-	                                                     </span>
-	                                                 </div>
-	                                             </div><!-- popHLeft 끝 -->
-	                                             <div class="popHRight" >
-	                                                 <span class="icon cancel fs24">
-	                                                     <i class="fa-solid fa-xmark"></i>
-	                                                 </span>
-	                                             </div>
-	                                         </div><!-- popH 끝 -->  
-	                                         <div class="popM">
-	                                             <div class="popM1">
-	                                                 <pre>안녕하세요. 주니온 입니다.<br>저희가 찾고있는 포지션에 적합한 인재라고 생각되어 이렇게 제안 드립니다.<br>긍정적인 검토 부탁 드리며, 관련 자세한 내용이 궁금하시다면 응답기간 내 회신 부탁 드립니다.</pre><!-- 제안입력단 textarea 정보랑 일치시킬 것 -->
-	                                                 <!-- <textarea cols="50" rows="8"><c:out value="${content}" /></textarea>제안입력단 textarea 정보랑 일치시킬 것 -->
-	                                             </div>
-	                                             <div class="popM2">
-	                                                 <div class="popM2Left">
-	                                                     <h4 class="title">백엔드 개발자(경력) 채용</h4>
-	                                                     <div class="detail">
-	                                                         <p class="com_name">(주) 주니온</p>
-	                                                         <p class="com_location">부산광역시 부산진구 중앙대로 123-123</p>
-	                                                     </div>
-	                                                 </div>
-	                                                 <div class="popM2Right">
-	                                                     <a href="#">
-	                                                         <i class="fa-solid fa-chevron-right"></i>
-	                                                     </a>
-	                                                 </div>
-	                                             </div>
-	                                             <div class="popM3">
-	                                                 <h4 class="popM3Con title">인사담당자 정보</h4>
-	                                                 <p class="popM3Con">홍길동(총무부)</p>
-	                                                 <p class="popM3Con">010 - 0000 - 0000</p>
-	                                                 <p class="popM3Con">junion@junion.co.kr</p>
-	                                             </div>
-	                                             <div class="popM4">
-	                                                 <div class="logo">
-	                                                     <a href="#">
-	                                                         <img src="images/logo.svg" alt="#">
-	                                                     </a>
-	                                                 </div>
-	                                                 <div class="detail">
-	                                                     <h4 class="com_name">(주) 주니온</h4>
-	                                                     <div class="detailB">
-	                                                         <label for="comInfo" class="com_info">기업정보 보러가기</label>
-	                                                         <div id="comInfo" class="chevron-right">
-	                                                             <a href="#">
-	                                                                 <i class="fa-solid fa-chevron-right"></i>
-	                                                             </a>
-	                                                         </div>
-	                                                     </div>
-	                                                 </div>
+	                         <div class="postBox"><!-- 제안박스 시작 -->  
+								 <c:forEach items="${offerList}" var="dto">		
+									<div class="boxLeft">
+										<input type="checkbox" name="offerListRow" id= "" class="normal">
+										<p class="offer_date">${dto.offer_date}</p>
+									</div><!-- boxLeft 끝-->
+									<div class="boxMiddle">
+										<h4 class="com_name">${dto.com_name}</h4>
+										<div class="comInfo">
+											<p>[${dto.notice_job}] [${dto.notice_career}] ${dto.notice_title}</p>
+										</div><!-- comInfo 끝-->
+									</div><!-- boxMiddle  끝-->
+									<div class="boxRight">
+										<div class="reponseStatus"> 
+											<!-- 제안거절/지원완료/미응답 분기처리 --> 
+											<!-- <button onclick="location.href='#'">미응답</button> -->
+											<c:choose>
+												<c:when test="${dto.offer_agree == 미응답}">
+													<button>미응답</button>
+													<!-- notice_num 가져갈 수 있도록 hidden -->
+													<input type="hidden"id="noticeNum" value="${dto.notice_num}">  
+												</c:when>
+												<c:when test="${dto.offer_agree == 지원완료}">
+													<button>지원완료</button>
+													<!-- notice_num 가져갈 수 있도록 hidden -->
+													<input type="hidden"id="resumeNum" value="${dto.resume_num}">  
+												</c:when>
+												<c:otherwise>
+													<button>제안거절</button>
+												</c:otherwise>
+											</c:choose>
+										</div>
+										<!-- <spn class="open"> -->
+											<!-- <input type="button" id="opendetail" class="open" value="자세히보기"> -->
+											<button  class="detailBtn">자세히보기</button>
+										<!-- <label for="opendetail">자세히보기<label> -->
+										<!-- </spn> -->
+										<span class="delIcon">
+											<i class="fa-regular fa-trash-can"></i>
+										</span>
+									</div><!-- boxRight 끝 -->   
+									<!-- pop 영역 -->
+									<div class="popUp disN">
+										<div class="popBg">
+											<div class="popCon disF flexD">
+												<div class="popH">
+													<div class="popHLeft">
+														<div class="popH1">
+															<!-- <h3 class="notice_title">[Junion][경력] 백엔드 개발자 채용</h3> -->
+															<h3 class="notice_title">[${dto.notice_job}] [${dto.notice_career}] ${dto.notice_title}</h3>
+														</div>
+														<div class="popH2">
+															<h5 class="com_name">${dto.com_name}</h5>
+														</div>
+														<div class="popH3">
+															<span>
+																<h5>제안일</h5>
+																<h5>${dto.offer_date}</h5>
+															</span>
+															<span>
+																<h5>응답기한</h5>
+																<h5>${dto.notice_endDate}</h5>
+															</span>
+														</div>
+													</div><!-- popHLeft 끝 -->
+													<div class="popHRight" >
+														<span class="icon cancel fs24">
+															<i class="fa-solid fa-xmark"></i>
+														</span>
+													</div>
+												</div><!-- popH 끝 -->  
+												<div class="popM">
+													<div class="popM1">
+														<pre>${dto.offer_content}</pre><!-- 제안입력단 textarea 정보랑 일치시킬 것 -->
+														<!-- <pre>안녕하세요. 주니온 입니다.<br>저희가 찾고있는 포지션에 적합한 인재라고 생각되어 이렇게 제안 드립니다.<br>긍정적인 검토 부탁 드리며, 관련 자세한 내용이 궁금하시다면 응답기간 내 회신 부탁 드립니다.</pre>제안입력단 textarea 정보랑 일치시킬 것 -->
+														<!-- <textarea cols="50" rows="8"><c:out value="${content}" /></textarea>제안입력단 textarea 정보랑 일치시킬 것 -->
+													</div>
+													<div class="popM2">
+														<div class="popM2Left">
+															<h4 class="title">${dto.notice_title}</h4>
+															<div class="detail">
+																<p class="com_name">${dto.com_name}</p>
+																<p class="com_location">${dto.com_location}</p>
+															</div>
+														</div>
+														<div class="popM2Right">
+															<a href="/jobPostDetail?notice_num=${dto.notice_num}">
+																<i class="fa-solid fa-chevron-right"></i>
+															</a>
+														</div>
+													</div>
+													<div class="popM3">
+														<h4 class="popM3Con title">인사담당자 정보</h4>
+														<p class="popM3Con">${dto.com_person}</p>
+														<p class="popM3Con">${dto.com_tel}</p>
+														<p class="popM3Con">${dto.com_email}</p>
+													</div>
+													<div class="popM4">
+														<!-- <div class="logo">
+															<a href="#">
+																<img src="images/logo.svg" alt="#">
+															</a>
+														</div> -->
+														<div class="detail">
+															<h4 class="com_name">${dto.com_name}</h4>
+															<div class="detailB">
+																<label for="comInfo" class="com_info">기업정보 보러가기</label>
+																<div id="comInfo" class="chevron-right">
+																	<a href="/comDetail?com_email=${dto.com_email}">
+																		<i class="fa-solid fa-chevron-right"></i>
+																	</a>
+																</div>
+															</div>
+														</div>
 
-	                                             </div>
-	                                         </div><!-- popM 끝 --> 
-	                                         <div class="popB">
-	                                             <button class="submit tabBtn">거절</button>
-	                                             <button class="submit tabBtn">지원하기</button><!-- 이미지원했으면 지원완료로 떠야함 -->
-	                                         </div>    
-	                                     </div>
-	                                 </div> 
-	                             </div><!-- pop 영역 끝 -->   
-	                         </div><!-- postBox 하나의 제안 끝 --> 
-							 
-							 
-	                         <div class="postBox"><!-- 제안박스하나 시작 -->  
-	                             <div class="boxLeft">
-	                                 <input type="checkbox" id= "" class="normal">
-	                                 <p class="offer_date">2024.05.09 10:59</p><!--제안일 정보 가지고 와야--> 
-	                             </div><!-- boxLeft 끝-->
-	                             <div class="boxMiddle">
-	                                 <h4 class="com_name">(주)티오에스코리아</h4>
-	                                 <div class="comInfo">
-	                                     <p>서울 국내·외 교육 관련 마케팅 및 컨설팀 업무 바이럴 및 온라인 마케팅 / 키워드 광고 / 등</p>
-	                                 </div><!-- comInfo 끝-->
-	                             </div><!-- boxMiddle  끝-->
-	                             <div class="boxRight">
-	                                 <span class="offer_agree"> 
-	                                     <button onclick="location.href='#'">미응답</button><!-- 제안거절/지원완료/미응답-->
-	                                 </span>
-	                                 <spn class="open">
-	                                     <input type="button" id="opendetail" class="open" value="자세히보기">
-	                                 <!-- <label for="opendetail">자세히보기<label> -->
-	                                 </spn>
-	                                 <div class="delIcon">
-	                                     <i class="fa-regular fa-trash-can"></i>
-	                                 </div>
-	                             </div><!-- boxRight 끝 -->   
-	                             <!-- pop 영역 -->
-	                             <div class="popUp disN">
-	                                 <div class="popBg">
-	                                     <div class="popCon disF flexD">
-	                                         <div class="popH">
-	                                             <div class="popHLeft">
-	                                                 <div class="popH1">
-	                                                     <h3 class="notice_title">[Junion][경력] 백엔드 개발자 채용</h3>
-	                                                 </div>
-	                                                 <div class="popH2">
-	                                                     <h5 class="com_name">주니온</h5>
-	                                                 </div>
-	                                                 <div class="popH3">
-	                                                     <span>
-	                                                         <h5>제안일</h5>
-	                                                         <h5>2024.05.31</h5>
-	                                                     </span>
-	                                                     <span>
-	                                                         <h5>응답기한</h5>
-	                                                         <h5>2024.06.31</h5>
-	                                                     </span>
-	                                                 </div>
-	                                             </div><!-- popHLeft 끝 -->
-	                                             <div class="popHRight" >
-	                                                 <span class="icon cancel fs24">
-	                                                     <i class="fa-solid fa-xmark"></i>
-	                                                 </span>
-	                                             </div>
-	                                         </div><!-- popH 끝 -->  
-	                                         <div class="popM">
-	                                             <div class="popM1">
-	                                                 <pre>안녕하세요. 주니온 입니다.<br>저희가 찾고있는 포지션에 적합한 인재라고 생각되어 이렇게 제안 드립니다.<br>긍정적인 검토 부탁 드리며, 관련 자세한 내용이 궁금하시다면 응답기간 내 회신 부탁 드립니다.</pre><!-- 제안입력단 textarea 정보랑 일치시킬 것 -->
-	                                                 <!-- <textarea cols="50" rows="8"><c:out value="${content}" /></textarea>제안입력단 textarea 정보랑 일치시킬 것 -->
-	                                             </div>
-	                                             <div class="popM2">
-	                                                 <div class="popM2Left">
-	                                                     <h4 class="title">백엔드 개발자(경력) 채용</h4>
-	                                                     <div class="detail">
-	                                                         <p class="com_name">(주) 주니온</p>
-	                                                         <p class="com_location">부산광역시 부산진구 중앙대로 123-123</p>
-	                                                     </div>
-	                                                 </div>
-	                                                 <div class="popM2Right">
-	                                                     <a href="#">
-	                                                         <i class="fa-solid fa-chevron-right"></i>
-	                                                     </a>
-	                                                 </div>
-	                                             </div>
-	                                             <div class="popM3">
-	                                                 <h4 class="popM3Con title">인사담당자 정보</h4>
-	                                                 <p class="popM3Con">홍길동(총무부)</p>
-	                                                 <p class="popM3Con">010 - 0000 - 0000</p>
-	                                                 <p class="popM3Con">junion@junion.co.kr</p>
-	                                             </div>
-	                                             <div class="popM4">
-	                                                 <div class="logo">
-	                                                     <a href="#">
-	                                                         <img src="images/logo.svg" alt="#">
-	                                                     </a>
-	                                                 </div>
-	                                                 <div class="detail">
-	                                                     <h4 class="com_name">(주) 주니온</h4>
-	                                                     <div class="detailB">
-	                                                         <label for="comInfo" class="com_info">기업정보 보러가기</label>
-	                                                         <div id="comInfo" class="chevron-right">
-	                                                             <a href="#">
-	                                                                 <i class="fa-solid fa-chevron-right"></i>
-	                                                             </a>
-	                                                         </div>
-	                                                     </div>
-	                                                 </div>
-
-	                                             </div>
-	                                         </div><!-- popM 끝 --> 
-	                                         <div class="popB">
-	                                             <button class="submit tabBtn">거절</button>
-	                                             <button class="submit tabBtn">지원하기</button><!-- 이미지원했으면 지원완료로 떠야함 -->
-	                                         </div>    
-	                                     </div>
-	                                 </div> 
-	                             </div><!-- pop 영역 끝 -->   
-	                         </div><!-- postBox 하나의 제안 끝 --> 
-	                         
+													</div>
+												</div><!-- popM 끝 --> 
+												<div class="popB">
+													<!-- <button class="submit tabBtn">거절</button> -->
+													<!-- <button class="submit tabBtn">지원하기</button>이미지원했으면 지원완료로 떠야함 -->
+													<c:choose>
+														<c:when test="${dto.offer_agree == 미응답}">
+															<input type="button" value="거절">
+															<!-- offer_num 가져갈 수 있도록 hidden -->
+															<input type="hidden"id="noticeNum" value="${dto.offer_num}">  
+															<c:choose>
+																<c:when test="${dto.resume_submitDate == null}">
+																	<input type="button" class="submitResume" value="지원하기">
+																	<!-- offer_num 가져갈 수 있도록 hidden -->
+																	<input type="hidden"id="noticeNum" value="${dto.offer_num}">  
+																</c:when>
+																<c:otherwise>
+																	<button>지원완료</button>
+																</c:otherwise>
+															</c:choose>
+														</c:when>
+														<c:otherwise>
+															<button>${dto.offer_agree}</button>
+														</c:otherwise>
+													</c:choose>
+												</div>    
+											</div>
+										</div> 
+									</div><!-- pop 영역 끝 -->   
+								</div><!-- postBox 하나의 제안 끝 --> 
+							</c:forEach> 
 	                     </div><!-- offerList 끝 -->    
 	                 </div><!-- listTable 끝 --> 
-	                 <div class="listPaging">
-	                     <h5> 1  2  3  4  5  6  7  8 </h5>
-	                 </div><!-- listPaging 끝 -->    
-	             </div> <!-- mainContainer -->
+					 <div class="div_page">
+						<!-- <h5> 1  2  3  4  5  6  7  8 </h5> -->
+						<ul>
+						  <c:if test="${pageMaker.prev}">
+							<!-- <li>Previous</li> -->
+							<li class="paginate_button">
+							  <a href="${pageMaker.startpage - 1}">
+								Previous
+							  </a>
+							</li>
+						  </c:if>
+						  <c:forEach var="num" begin="${pageMaker.startpage}" end="${pageMaker.endpage}">
+							<!-- <li>${num}</li> -->
+							<!-- <li ${pageMaker.cri.pageNum == num ? "style='color:#f00; font-weight: 600';'" : ""}>${num}</li> -->
+							<!-- <li ${pageMaker.cri.pageNum == num ? "style='color:#f00; font-weight: 600';'" : ""}> -->
+							<li class="paginate_button" ${pageMaker.cri.pageNum == num ? "style='border:2px solid #FFA500; font-weight: 900';'" : ""}>
+							  <a href="/individualNoticeScrap?pageNum=${num}">
+								${num}
+							  </a>
+							</li>
+						  </c:forEach>
+						  <c:if test="${pageMaker.next}">
+							<!-- <li>next</li> -->
+							<li class="paginate_button"><input type="hidden" name="">
+							  <a href="${pageMaker.endpage + 1}">
+								Next
+							  </a>
+							</li>
+						  </c:if>
+						</ul>
+								</div><!-- div_page 끝 -->   
+					  <!-- 데이터를 가지고 컨트롤러단으로 가기때문에 -->
+						<!-- <form action="listWithPaging" method="get" id="actionForm"> -->
+						<!-- <form action="list" method="get" id="actionForm"> -->
+					  <form method="get" id="actionForm">
+						<!-- 페이지 번호를 "pageNum" 이라는 이름으로 가져감 이건 굳이 보일필요는없기때문에 hidden type-->
+						<input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+						<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+						<!-- 페이지 검색시 페이지번호 클릭할 때 필요한 파라미터 -->
+						<input type="hidden" name="keyword" value="${pageMaker.cri.keyword}">
+					  </form> 
+				  </div> <!-- mainContainer -->
 	         </main>
 	     </div><!-- mainContent-->
 	 </div><!-- container 끝 -->
@@ -940,11 +911,11 @@ gap: 40px 0;
 	    });
 	
 	    /*
-	        2024-07-03 서연주
+	        2024-08-01 서연주
 	     
-	        자세히보기 
+	        자세히보기 누르면 팝업열리기
 	    */
-	    $("input.open").on("click",function(e){
+	    $("button.detailBtn").on("click",function(e){
 	
 	        e.preventDefault();
 	        $(this).parents().siblings(".popUp").css({"display":"flex"});
@@ -963,81 +934,144 @@ gap: 40px 0;
 	
 	
 	
-	     /*
-	    2024-07-04 서연주 
-	    휴지통 누르고 그 박스만 삭제하기
-	    <휴지통아이콘 누른 그 박스를 선택하는 걸 못하겠음..>
 	
-	    */
-	
-	    $(".delIcon i").on("click",function(e){
-	        e.preventDefault();
-	        console.log("휴지통클릭");
-	        
-	        var this_checkbox =  document.getElementById('com_name');
-	        // var this_checkbox =  $(this).parents('.boxLeft').children('#com_name');
-	        // var this_checkbox =  $(this).parents('.boxLeft').children();
-	        console.log(this_checkbox);
-	        var checked= this_checkbox.checked;
-	        
-	        // var checked = this_checkbox.checked;
-	        console.log(checked);
-	
-	        if(!checked){
-	            alert("삭제할 공고를 선택해주세요.");
-	        }else{
-	            if(confirm("정말삭제하시겠습니까?") == true){
-	            }else{
-	                return;
-	            }
-	        }
-	       
-	
-	    });
+    /*
+		2024-07-27 서연주 
+		체크박스 누르고 삭제하기(휴지통버튼이나, 삭제하기 버튼 누르면)
+		*/
+		$(".selectDel").on("click", deleteValue);//삭제버튼 누르면 function 호출
+		$("span.delIcon").on("click", deleteValue);//삭제버튼 누르면 function 호출
 
+		function deleteValue() { //function 정의
+			var cnt = $("input[name='offerListRow']:checked").length;
+			var arr = new Array();
+			$("input[name='offerListRow']:checked").each(function() {
+				arr.push($(this).attr('id'));
+			});
+			//alert(arr);//com_email이 배열로 잘 담기는지 확인
+			if(cnt == 0){
+				alert("선택된 항목이 없습니다.");
+			}
+			else{
+				var chk = confirm("정말 삭제하시겠습니까?");
+				if (chk) {
+					$.ajax
+					({
+						url:"offerDelete",
+						type:'POST',
+						traditional : true, //배열로 보내는 방법
+						// dataType: 'json',
+						data:{"arrStr" : arr},
+						success: function(data) {
+							if (data != 1) {
+								alert("삭제성공");
+								location.href = "individualJobOffer";
+							} else {
+								alert("삭제에 실패했습니다.");
+							}
+						},
+						error: function() {
+							alert("삭제를 완료하지 못했습니다. 다시 시도해주세요."); // 오류 시 알림
+						}
+					});// ajax 끝
+				}
+			}
+		}// function deleteValue 끝
 
-
-
-		/*
-    2024-07-02 서연주 
-    체크박스 누르고 삭제하기(체크한 그 목록이 없어지는지는 데이터넣고 확인!)
+ /*
+    2024-07-31 서연주 
+    기업이름 누르면 기업정보 상세페이지로 새창(기업이메일 값 가지고 새 탭으로 이동)
     */
-    $(".selectDel").on("click",function(){
-        var cnt = $("input[name='offerListRow']:checked").length;
-        var arr = new Array();
-        $("input[name='offerListRow']:checked").each(function() {
-            arr.push($(this).attr('id'));
-        });
-        if(cnt == 0){
-            alert("선택된 항목이 없습니다.");
-        }
-        else{
-            alert("삭제되었습니다.")//데이터받아서 넘기고 받아야
-            // $.ajax = {
-            //     type: "POST"
-            //     url: "OOOO.do"
-            //     data: "RPRT_ODR=" + arr + "&CNT=" + cnt,
-            //     dataType:"json",
-            //     success: function(jdata){
-            //         if(jdata != 1) {
-            //             alert("삭제 오류");
-            //         }
-            //         else{
-            //             alert("삭제 성공");
-            //         }
-            //     },
-            //     error: function(){alert("서버통신 오류");}
-            // };
-        }
+    $('.com_name').click(function(e){
+      console.log("기업명 클릭 click");
+      // window.open('/comDetail?com_email=${dto.com_email}','com_detail','top=100, left=200, width=1200, height=800, status=no, menubar=no, toolbar=no, resizable=yes, channelmode=yes');
+      window.open('/comDetail?com_email=${dto.com_email}');//새 탭으로 이동으로 변경
+    });
+
+    /*
+    2024-07-31 서연주 
+    공고명 누르면 공고 상세페이지로 새창(공고번호 값 가지고 새 탭으로 이동)
+    */
+    // $('.jobPostTitle').click(function(e){
+    //   console.log("공고명 클릭 click");
+    //   // hidden input의 값(공고번호)를 가져옴
+    //   // var noticeNumStr = $(this).siblings('.noticeNum').find('input[type="hidden"]').val(); // hidden input의 값(공고번호)를 가져옴
+    //   var noticeNumStr = $(this).siblings('.noticeNum').val(); // hidden input의 값(공고번호)를 가져옴
+    //   // alert(noticeNumStr);
+      
+    //   // noticeNumStr 값을 정수로 파싱합니다.
+    //   var noticeNum = parseInt(noticeNumStr, 10);
+    //   var url = '/jobPostDetail?notice_num=' + noticeNum; // url도 변수로 받음
+      
+    //   //새창으로 열기
+    //   // window.open(url, 'notice_detail', 'top=100, left=200, width=1200, height=800, status=no, menubar=no, toolbar=no, resizable=yes');
+    //   //새 탭으로 열기
+    //   window.open(url);
+      
+    // });
+    
+    /*
+    2024-07-31 서연주 
+    지원하기 누르면 지원하기 페이지 새창(공고번호 가지고 새 창으로 /profileInfo매핑)
+    */
+   
+    $('.submitResume').click(function(e){
+      console.log("지원하기 클릭 click");
+      // hidden input의 값(공고번호)를 가져옴
+      // var noticeNumStr = $(this).siblings('.noticeNum').val(); // hidden input의 값(공고번호)를 가져옴
+      var noticeNumStr = $(this).siblings('input[type="hidden"]').val(); // hidden input의 값(공고번호)를 가져옴
+      // alert(noticeNumStr);
+
+      // noticeNumStr 값을 정수로 파싱합니다.
+      var noticeNum = parseInt(noticeNumStr, 10);
+      var url = '/profileInfo?notice_num=' + noticeNum; // url도 변수로 받음
+      //새창으로 열기
+      window.open(url,'profileInfo','top=150, left=600, width=560, height=440, resizable = no, scrollbars = no');
+      // window.open('/profileInfo?notice_num=${dto.notice_num}','profileInfo','top=100, left=200,width=500, height=270, resizable = no, scrollbars = no');
+    });
+    
 
 
-// 	 최신순오래된순 구현하는 스크립트 노션에 참고자료있음 java단도 만들어야 
-// 
-//     document.querySelector('#orderBy').addEventListener('change', function() {
-//         var orderBy = document.querySelector('#orderBy').value;
-//         window.location.href = '/board/view?id=' + id + '&orderBy=' + orderBy;
-//     });
 
+    /*
+    2024-07-29 서연주 
+    필터링 선택하면 목록다시 조회(이벤트 리스너)
+    */
+    $('select#orderBy').on('change', function(event) {
+      // alert("정렬버튼 누름")
+        switchTab(this.value);
+    });
+    
+    function switchTab(value) {
+      // 선택된 값을 가진 새로운 폼을 동적으로 생성
+      var form = $('<form>', {
+          method: 'get',
+          action: $('#searchForm').attr('action')
+      });
+  
+      // 선택된 옵션값을 폼 데이터로 추가
+      form.append($('<input>', {
+          type: 'hidden',
+          name: 'orderBy',
+          value: value
+      }));
+  
+      // 기존의 숨겨진 필드들을 폼에 추가
+      form.append($('<input>', {
+          type: 'hidden',
+          name: 'pageNum',
+          value: $('input[name="pageNum"]').val()
+      }));
+  
+      form.append($('<input>', {
+          type: 'hidden',
+          name: 'amount',
+          value: $('input[name="amount"]').val()
+      }));
+  
+      // 폼을 바디에 추가하고 제출
+      form.appendTo('body').submit();
+  }
 
 
 	});
