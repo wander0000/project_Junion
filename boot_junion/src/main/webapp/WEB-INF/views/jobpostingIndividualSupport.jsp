@@ -184,7 +184,8 @@
 										<div class="buttbox2">
 											<h5 class="b2">
 												<button type="button" class="view_resume"
-													onclick="location.href='resumeInfo?resume_num=${sup.resume_num}'">
+												onclick="location.href='resumeInfo?resume_num=${sup.resume_num}'">
+												<!-- onclick="location.href='resumeInfo'"> -->
 													이력서열람
 												</button>
 											</h5>
