@@ -138,6 +138,11 @@ section
     font-size: var(--font-size14);
     font-weight: 300;
 }
+.board .lastline .r22,
+.board .lastline .r1
+{
+	color: #FFA500;
+}
 
 
 
@@ -215,6 +220,7 @@ section
 	height: 38px;
 	border: 1px solid var(--input-gray);
 	border-radius: 6px;
+	padding-left: 12px;
 }
 .board .buttonbox .button
 {
@@ -226,6 +232,7 @@ section
     {
         background: var(--main-color);
         color: #fff;
+		border: 1px solid var(--main-color);
     }
 }
 .board .buttonbox2 .button
@@ -238,6 +245,7 @@ section
     {
         background: var(--main-color);
         color: #fff;
+		border: 1px solid var(--main-color);
     }
 }
 
@@ -287,7 +295,7 @@ section
 .divcom1 .comh2
 {
 	font-weight: 300;
-	font-size: var(--font-size14);
+	font-size: var(--font-size16);
 	margin-bottom: 5px;
 }
 
