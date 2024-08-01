@@ -36,96 +36,6 @@
 
 
 
-/* 네비게이션 */
-.navigation
-{
-  position:relative;
-  width: 260px;
-  min-height: 100vh;
-  background: #fff;
-  overflow: hidden;
-  box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-  transition: 0.5s;
-}
-
-/* 로고 */
-
-.navigation .logo 
-{
-  list-style:none;
-  padding: 30px 20px;
-}
-
-.navigation .logo a {
-  color: var(--main-color);
-  position: relative;
-  width: 100%;
-  display: flex;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-/* 메뉴 */
-
-.navigation .navMenu {
-  position: relative;
-  height: calc( 100vh - 163px);
-}
-
-.navigation ul
-{
-  position: absolute;
-  top:0;
-  left:0;
-  width: 100%;
-}
-
-.navigation ul li
-{
-  position:relative;
-  list-style:none;
-  width: 100%;
-}
-
-.navigation ul li.active
-{
-  background:rgba(255,165,0,0.3);
-}
-
-.navigation ul li a
-{
-  position:relative;
-  display:block;
-  width: 100%;
-  display:flex;
-  color: var(--color-black);
-  font-weight: 500;
-  font-size: 16px;
-}
-
-.navigation ul li a .icon
-{
-  position: relative;
-  display:block;
-  min-width: 80px;
-  height:60px;
-  line-height: 60px;
-  text-align: center;
-}
-
-.navigation ul li a .icon i
-{
-  font-size: var(--font-size24);
-}
-
-.navigation ul li a .title
-{
-  position:relative;
-  display:block;
-  height: 60px;
-  line-height: 60px;
-  white-space: nowrap;
-}
 
 
 /* 드롭다운 메뉴 */
@@ -167,52 +77,34 @@
 	font-size: var(--color-black);
 	}
 
-  
-
-/* 네비게이션 옆 컨텐츠 영역 */
-.mainContent 
-{
-  width: calc( 100% - 260px);
-  min-height: 100vh;
-}
-
-/* 헤더 */
-.mainContent header 
-{
-  width: 100%;
-  height: 90px;
-  border-bottom: 1px solid var(--input-gray);
-  padding: 0 40px;
-  display: flex;
-  align-items: center;
-  box-sizing: border-box;
-}
-
-/* 헤더 아이디 영역 */
-.mainContent header .userWrapper
-{
-  display: flex;
-  white-space: nowrap;
-  margin-left: auto;
-  align-items: center;
-}
-
-.mainContent header .userWrapper img
-{
-  margin-right: 12px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;   
-}
-
-.mainContent header .userWrapper h4.name 
-{
-  font-size: var(--font-size14);
-  margin-right: 12px;
-}
 
 
 
+	/* 메인 */
+	
+
+	/* 프로필 : 사진 + 이름 */
+	main .mainContainer .memberInfo 
+	{
+	display: flex;
+	align-items: center;
+	margin-bottom: 40px;
+	}
+
+	main .mainContainer .memberInfo img.memberImg 
+	{
+	width:64px;
+	height: 64px;
+	margin-right: 20px;
+	}
+
+	main .mainContainer .memberInfo .memberName 
+	{
+	font-size: var(--font-size32);
+	font-weight: 600;
+	} 
+
+ 
 
 /* 메인 */
 main 
@@ -226,7 +118,7 @@ main
 	{
 		display: flex;
 		flex-direction: column; 
-		max-width:1200px;
+		min-width:1200px;
 		gap: 40px 0;
 	}
 

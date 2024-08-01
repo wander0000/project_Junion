@@ -20,4 +20,16 @@ public class OfferInfoDTO {
 	private String notice_pay1;
 	private int notice_pay2;
 	private String com_name;
+	
+	//0801연주 추가
+	private String notice_endDate; 
+	private String offer_no;
+	private String offer_date;
+	private String offer_agree;
+	private String resume_agree;
+	private String resume_submitDate;
+	private String com_tel;
+	private String com_location;
+	private String com_person;
+	
 }

@@ -77,50 +77,30 @@
 
 
 
-	/* 네비게이션 옆 컨텐츠 영역 */
-	.mainContent 
-	{
-	width: calc( 100% - 260px);
-	min-height: 100vh;
-	}
+	
 
-	/* 헤더 */
-	.mainContent header 
-	{
-	width: 100%;
-	height: 90px;
-	border-bottom: 1px solid var(--input-gray);
-	padding: 0 40px;
-	display: flex;
-	align-items: center;
-	box-sizing: border-box;
-	}
 
-	/* 헤더 아이디 영역 */
-	.mainContent header .userWrapper
+
+	/* 프로필 : 사진 + 이름 */
+	main .mainContainer .memberInfo 
 	{
 	display: flex;
-	white-space: nowrap;
-	margin-left: auto;
 	align-items: center;
+	margin-bottom: 40px;
 	}
 
-	.mainContent header .userWrapper img
+	main .mainContainer .memberInfo img.memberImg 
 	{
-	margin-right: 12px;
-	width: 36px;
-	height: 36px;
-	border-radius: 50%;   
+	width:64px;
+	height: 64px;
+	margin-right: 20px;
 	}
 
-	.mainContent header .userWrapper h4.name 
+	main .mainContainer .memberInfo .memberName 
 	{
-	font-size: var(--font-size14);
-	margin-right: 12px;
-	}
-
-
-
+	font-size: var(--font-size32);
+	font-weight: 600;
+	} 
 
 	/* 메인 */
 	main 
@@ -134,7 +114,7 @@
 	{
 		display: flex;
 		flex-direction: column; 
-		max-width:1200px;
+		min-width:1200px;
 		gap: 40px 0;
 	}
 
