@@ -794,21 +794,12 @@ console.log("user_type = "+user_type);
 if (!user_type || user_type == 1) {
         // 24-07-09 임하진 : 외부 팝업
         function resume() {
-            // $(".pos .box3").add(".active");
-            // var com_name = "${company.com_name}";
-            // var notice_title = "${company.notice_title}";
-          // URLSearchParams 객체
-          
-          //   const currentUrl =window.location.href;
-            // // const urlParams = new url.searchParams(window.location.href);
-
-			$("#user_resume").toggleClass("active");// 내부 팝업이었으면 addClass로 설정하고 팝업 종료시 removieClass로 처리하면 되는데...아깝다.
+  
+			$("#user_resume").toggleClass("active");
             const urlParams = new URLSearchParams(location.search);
             // const urlParams = new URLSearchParams(currentUrl);
             var notice_num = urlParams.get('notice_num');
             console.log(notice_num);
-            // var popupProperties = "width=600, height=400, resizable = no, scrollbars = no";
-            // var popupProperties = "width=500, height=270, resizable = no, scrollbars = no";
             var popupProperties = "width=560, height=440, resizable = no, scrollbars = no";
             window.open("/profileInfo?notice_num="+notice_num,"profileInfo.jsp", popupProperties);
             // document.location.href="/profileInfo?"+notice_num;

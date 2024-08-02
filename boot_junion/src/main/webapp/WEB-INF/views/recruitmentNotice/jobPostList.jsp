@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -459,48 +460,56 @@ display:inline-block;
                 <div class="mtlist"> <!--  mtlist 시작-->
 
 					<c:forEach var="dto" items="${jobPost}">
-                    <div class="menutitle"> 
-                        <div class="menubox">
-                            <a href="/jobPostDetail?notice_num=${dto.notice_num}" class="tag" data-notice-num="${dto.notice_num}">
-                            <!-- <a href="/jobPostDetail" class="tag"> -->
-                                <div class="img" >
-                                    <div class="uploadResult">
-                                        <ul>
+                        <div class="menutitle"> 
+                            <div class="menubox">
+                                <!-- ${dto.notice_num} --><!--공고 번호를 출력해 봄-->
+                                <a href="/jobPostDetail?notice_num=${dto.notice_num}" class="tag" data-notice-num="${dto.notice_num}">
+                                <!-- <a href="/jobPostDetail" class="tag"> -->
+                                    <div class="img" >
+                                        <div class="uploadResult">
+                                            <ul>
 
-                                        </ul>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </a>
+                                <div class="scrap">
+                                    <div class="s1">
+                                        <!-- noticeList : ${noticeList} --><!--해당 유저의 관심 공고 목록을 출력해 봄-->
+                                        <c:choose>
+                                            <c:when test="${fn:contains(noticeList, dto.notice_num)}">
+                                                <i id="bookmark${dto.notice_num}" class="fa-solid fa-bookmark active"></i>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <i id="bookmark${dto.notice_num}" class="fa-solid fa-bookmark"></i>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </div>
-                            </a>
-                            <div class="scrap">
-                                <div class="s1">
-                                    <!-- <a href="jobPostDetail?notice_num=${dto.notice_num}"  class="fa-solid fa-bookmark" style= "font-size: 20px; color: #e5e5ec;"></a> -->
-                                    <i class="fa-solid fa-bookmark"></i>
-                                </div>
-                            </div>
-                        </div> 
+                            </div> 
 
-                        <div class="titlebox">
-                            <a href="/jobPostDetail?notice_num=${dto.notice_num}">
-                                <div class="title">
-                                    <h5 class="t1">
-                                        ${dto.notice_title}
-                                    </h5>
-                                </div>
-<!--                            </a>-->
-<!--                            <a href="연동 채용상세/index.html">-->
-                                <div class="company">
-                                    <h5 class="c1">                                
-                                        ${dto.com_name}
-                                    </h5>
-                                </div>
-                                <div class="location">
-                                    <h5 class="l1">
-                                         ${dto.notice_area1} · ${dto.notice_career}
-                                    </h5>
-                                </div>
-                            </a>
-                        </div> 
-                    </div>  
+                            <div class="titlebox">
+                                <a href="/jobPostDetail?notice_num=${dto.notice_num}">
+                                    <div class="title">
+                                        <h5 class="t1">
+                                            ${dto.notice_title}
+                                        </h5>
+                                    </div>
+    <!--                            </a>-->
+    <!--                            <a href="연동 채용상세/index.html">-->
+                                    <div class="company">
+                                        <h5 class="c1">                                
+                                            ${dto.com_name}
+                                        </h5>
+                                    </div>
+                                    <div class="location">
+                                        <h5 class="l1">
+                                            ${dto.notice_area1} · ${dto.notice_career}
+                                        </h5>
+                                    </div>
+                                </a>
+                            </div> 
+                        </div>  
 					</c:forEach>
                     
 
@@ -556,28 +565,51 @@ display:inline-block;
 </body>
 </html>
 <script>
+
 $(document).ready(function() {
-    //버튼 클릭시 활성화
-    $(".scrap .fa-bookmark").click(function() {
-        
-        var noticeNum = $this.data('notice_num');
+  //버튼 클릭시 활성화
+
+  var user_type = "${login_usertype}";
+  console.log("user_type = "+user_type);
+
+  $(".scrap .fa-bookmark").click(function() {
+          if(user_type == 1){
+          
+            const user_email = "${login_email}";
+            const href = $(this).parents().siblings().closest("a").prop("href");
+            // console.log("해당 공고의 href는 "+href);
+            const url = new URL(href);
+            const searchParams = new URLSearchParams(url.search);
+            const noticeNum = searchParams.get('notice_num');
+            // console.log("해당 공고의 noticeNum은 "+noticeNum);
+
+
         $.ajax({
             type : "POST",
             url : "/scrapNotice",
-            data : {notice_num : noticeNum},
+            data : {notice_num : noticeNum, 
+                    user_email : user_email
+                },
                 // success : function(response){ 
-                success : function(){ 
-                    // if (response.success) {
-                    $this.toggleClass('active');
+                success : function(result){ 
+                    if (result == true) {
+                        alert("관심 공고 목록에 추가되었습니다.");
+                        console.log("class"+$(this));
+
+                        $("#bookmark"+noticeNum).addClass('active');
+                    }else{
+                        alert("관심 공고에서 삭제되었습니다.");
+                        $("#bookmark"+noticeNum).removeClass('active');
+                    }
                 }
-                //  else {
-                //     alert('이미 스크랩한 공고입니다.');
-                // }
-            // }
-        });
+            });
+        }else if(!user_type){
+        location.href="/login";
+        }
     });
 });//document).ready(function()
 
+// 페이징 관련 로직
     var actionForm = $("#actionForm");
     $(".paginate_button a").on("click", function(e){
         e.preventDefault();//기본 동작을 막음 : 페이지 링크를 통해서 이동

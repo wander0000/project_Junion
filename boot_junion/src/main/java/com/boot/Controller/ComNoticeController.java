@@ -61,12 +61,18 @@ public class ComNoticeController {
 	
 
 	@RequestMapping("/jobPostList")
+//	public String jobPost(Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
 	public String jobPost(Model model) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
 		log.info("jobPost");
 		
 		
 		ArrayList<ComNoticeDTO> dto = postService.JobPostCard();
 		model.addAttribute("jobPost", dto);
+		
+//		 String user_email = (String) session.getAttribute("login_email");//세션에 저장된 사용자이메일 가져오기
+//		 log.info("@# jobPost user_email => "+user_email);
+//		 ArrayList<Integer> noticeList = scrapService.getScrapNoticeNum(user_email);
+//		 model.addAttribute("noticeList", noticeList);
 		
 		return "/recruitmentNotice/jobPostList";
 	}
@@ -142,20 +148,15 @@ public class ComNoticeController {
 		log.info("profileInfo");
 		
 		int notice_num = Integer.parseInt(request.getParameter("notice_num"));// 공고 번호를 얻음
-//		log.info(notice_num);
 		ComNoticeDTO dto =postService.getNoticeInfo(notice_num);//공고 번호를 기반으로 notice_tb의 정보를 가져옴
 		model.addAttribute("notice", dto);
 		
 		HttpSession session = request.getSession();
-//		String login_name = (String) session.getAttribute("login_name");//session에서 얻은 name 값을 모델에 실어 보냄(쿼리 : 타입 오류 발생)
-//		model.addAttribute("user_name", login_name);
 		
 		String login_email = (String) session.getAttribute("login_email");
 		ArrayList<ResumeDTO> dtos = postService.getProfileList(login_email);
 		log.info("profileInfo dtos==>"+dtos);
 		model.addAttribute("userProfile", dtos);
-//		24.07.28 하진 : test 결과, 값을 가져가지 않고 세션의 email 값을 JS단에 바로 보낼 수 있음
-//		model.addAttribute("user_email", login_email);//session에서 얻은 값을 모델에 실어 보냄(쿼리 : 타입 오류 발생)
 
 		return "/recruitmentNotice/profileInfo";
 	}

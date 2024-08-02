@@ -21,18 +21,29 @@ public class ScrapController {
 	private ScrapService scrapService;
 
 	
-@RequestMapping("/uploadcomScrap")
-//public void comScrap(HashMap<String, String> param){//관심기업 스크랩
-public ResponseEntity<Boolean> uploadcomScrap(@RequestParam HashMap<String, String> param){//관심기업 스크랩
-	log.info("uploadcomScrap controller!!!");
-	log.info("uploadcomScrap controller param!!! "+param);
-
+	@RequestMapping("/uploadcomScrap")
+	//public void comScrap(HashMap<String, String> param){//관심기업 스크랩
+	public ResponseEntity<Boolean> uploadcomScrap(@RequestParam HashMap<String, String> param){//관심기업 스크랩
+		log.info("uploadcomScrap controller!!!");
+		log.info("uploadcomScrap controller param!!! "+param);
 	
-	boolean result = scrapService.uploadcomScrap(param);
-	return new ResponseEntity<Boolean>(result, HttpStatus.OK);
-}
+		
+		boolean result = scrapService.uploadcomScrap(param);
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
 
 
+	@RequestMapping("/scrapNotice")
+	//public boolean scrapNotice(@RequestParam HashMap<String, String> param){
+	public ResponseEntity<Boolean> scrapNotice(@RequestParam HashMap<String, String> param){// 관심 공고 스크랩
+		log.info("scrapNotice!!!");
+		log.info("scrapNotice param!!!"+param);
+		
+		boolean result = scrapService.checkScrapNotice(param);
+		
+//		return result;
+		return new ResponseEntity<Boolean>(result, HttpStatus.OK);
+	}
 
 
 

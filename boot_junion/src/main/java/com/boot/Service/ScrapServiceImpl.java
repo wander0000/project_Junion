@@ -1,5 +1,6 @@
 package com.boot.Service;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.apache.ibatis.session.SqlSession;
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.boot.DAO.ScrapDAO;
+import com.boot.DTO.ScrapDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -42,23 +44,57 @@ public class ScrapServiceImpl implements ScrapService{
 			
 		return result;
 	}
-//	@Override
-//	public String getnNoticeScrapArray(String user_email) {//개인회원 정보에 저장된 스크랩공고 arr 가져오기
-//		ScrapDAO dao = sqlSession.getMapper(ScrapDAO.class);
-//		String noticeScrapArray = dao.getnNoticeScrapArray(user_email);
-//		log.info("@# getnNoticeScrapArray noticeScrapArray=>"+noticeScrapArray);	
+	@Override
+	public ArrayList<Integer> getScrapNoticeNum(String user_email){//관심 공고 목록을 가져옴
+		log.info("scrap serviceimpl getScrapNoticeNum method!!!");
+		ScrapDAO dao = sqlSession.getMapper(ScrapDAO.class);
+		ArrayList<Integer> list = dao.getScrapNoticeNum(user_email);
+		
+		
+		return list;
+	}
+	
+	
+	@Override
+	public boolean checkScrapNotice(HashMap<String, String> param){//관심 공고 스크랩
+		log.info("checkScrapNotice!!!");
+		
+		ScrapDAO dao = sqlSession.getMapper(ScrapDAO.class);
+		
+		ScrapDTO check = dao.checkNoticeNum(param);
+//		int notice_num = Integer.parseInt(param.get("notice_num"));
+//		String user_email = param.get("user_email");
+//		ArrayList<Integer> list = dao.getScrapNoticeNum(user_email);
+//		log.info("list -->" +list);
+		boolean result = false;	
+		
+//		if(list.size()>0) {
+//			for (int i = 0; i < list.size(); i++) {
+//				int getNotice = list.get(i).intValue();
+//				log.info("getScrapNotice"+getNotice);
+//				if (getNotice == notice_num) {
+//					
+//					log.info("01");
+//					dao.deleteScrapNotice(param);
+//					result = false;
+//				}
+//			}
+//		}else {
+//			log.info("03");
+//			result = true;
+//		}
 //		
-//		return noticeScrapArray;
-//	}
-//
-//	@Override
-//	public ComNoticeDTO getScrapNotice(int noticeNum) {//공고번호로 공고조회하기
-//		ScrapDAO dao = sqlSession.getMapper(ScrapDAO.class);
-//		ComNoticeDTO dto = dao.getScrapNotice(noticeNum);
-//		log.info("@# getScrapNotice dto=>"+dto);
+//		log.info("결과 !! "+result);
+		if(check == null) {
+			dao.addScrapNotice(param);
+			result = true;
+		}else {
+			dao.deleteScrapNotice(param);
+			result = false;
+		}
 //		
-//		return dto;
-//	}
+		return result;
+	}
 	
 	
 
