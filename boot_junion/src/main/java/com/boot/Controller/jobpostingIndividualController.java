@@ -119,6 +119,11 @@ public class jobpostingIndividualController {
 	    	ArrayList<jobpostingIndividualDTO> jobpostingIndividualSupport = jobpostingIndividualService.jobpostingIndividualSupport(orderType, cri);
 //	    	ArrayList<jobpostingIndividualDTO> jobpostingIndividualSupport = jobpostingIndividualService.jobpostingIndividualSupport(cri);
 	    	
+	    	for (int i = 0; i < jobpostingIndividualSupport.size(); i++) {
+	    		int resumeNum = jobpostingIndividualSupport.get(i).getResume_num();
+	    		int check_offer = jobpostingIndividualService.checkOffer(login_email, resumeNum);
+				jobpostingIndividualSupport.get(i).setCheck_offer(check_offer);
+			}
 	    	
 	    	// @@@@@@@@@@@@@@@@@ 페이징 total 사이즈 잘못들어오는거 cri 파라미터로 xml에 where조건 달아서 수정 @@@@@@@@@@@@@@@@@@@@@@@@@@
 //	    	int total = jobpostingIndividualService.getTotalCount();
@@ -148,7 +153,7 @@ public class jobpostingIndividualController {
     }
     
     
-    // =============================  jobpostingIndividual 끝  ==========================
+    // =============================  인재풀 끝  ==========================
     
     
     
@@ -192,4 +197,6 @@ public class jobpostingIndividualController {
 		
 		return "resumeInfo";
 	}
+    
+    // =============================  이력서 열람 끝  ==========================
 }

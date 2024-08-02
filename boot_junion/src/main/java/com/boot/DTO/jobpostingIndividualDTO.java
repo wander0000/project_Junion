@@ -24,6 +24,7 @@ public class jobpostingIndividualDTO {
 	private int korean_age; // 
 	private int resume_age; // 
 	private int career_years; // 
+	private int check_offer; // 
 	private Timestamp resume_writeDate; // 
 	
 // ===================================== jobpostingOffer 끝 ================================

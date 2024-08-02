@@ -40,5 +40,7 @@ public interface jobpostingIndividualDAO {
 	public ResumeDTO resumeInfo(int resumeNum);// 이력서 열람(이력서 정보)
 	
 	public UserDTO userInfo(String user_email);// 이력서 열람(유저 정보)
+	
+	public int checkOffer(@Param("login_email") String login_email,@Param("resumeNum") int resumeNum);// 오퍼 유무확인
 }
 

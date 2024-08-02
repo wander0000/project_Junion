@@ -70,8 +70,8 @@
 								<!-- selectbox 끝  -->
 
 								<div class="sbox">
-									<!-- <select class="select1" id="locationselect" name="locationType" onchange="selectSearchBox()"> -->
-									<select class="select1" id="locationselect" name="locationType">
+									<!-- <select class="select1" id="locationSelect" name="locationType" onchange="selectSearchBox()"> -->
+									<select class="select1" id="locationSelect" name="locationType">
 										<option value="" <c:out value="${pageMaker.cri.locationType == null ? 'selected':''}"/>>지역 무관</option>
 										<c:forEach var="location" items="${locationList}">
 											<option value="${location}" <c:out value="${pageMaker.cri.locationType eq location ? 'selected':''}"/>>${location}</option>
@@ -91,7 +91,16 @@
 									</select>
 								</div>
 								<!-- selectbox 끝  -->
-
+								
+								<div class="left">
+									<button class="fil2" type="button" onclick="setAllToNone()">
+										<div class="f1">
+											<h5 class="but1">
+												전체 무관
+											</h5>
+										</div>
+									</button>
+								</div>
 							</div>
 							<!-- 레프트 끝 -->
 
@@ -106,15 +115,6 @@
 								</button>
 							</div>
 
-							<!-- <div class="right">
-								<button class="fil2" onclick="setAllToNone()">
-									<div class="f1">
-										<h5 class="but1">
-											전체 무관
-										</h5>
-									</div>
-								</button>
-							</div> -->
 
 							<input type="hidden" name="pageNum" value="1">
 							<input type="hidden" name="amount" value="${pageMaker.cri.amount}">
@@ -192,9 +192,16 @@
 										<div class="buttbox2">
 											<h5 class="b2">
 												<!-- <button type="button" class="proposalbutt" style="display:none;" onclick="setUserEmail('${sup}')"> -->
-												<button type="button" class="proposalbutt" style="display:none;"
+												<button type="button" class="proposalbutt" style="display:none;" <c:if test="${sup.check_offer > 0}">disabled</c:if>
 														onclick="setUserEmail('${sup.user_email}'); setResumeNum('${sup.resume_num}')">
-													제안하기
+													<c:choose>
+														<c:when test="${sup.check_offer > 0}">
+															제안완료
+														</c:when>
+														<c:otherwise>
+															제안하기
+														</c:otherwise>
+													</c:choose>
 												</button>
 											</h5>
 										</div>
@@ -244,7 +251,7 @@
 												<span class="close">&times;</span>
 												<form method="get" action="sendOffer">
 													<div class="popTitle" style="text-align: center;">
-														<h3>포지션 제안</h3>
+														<p><h3>포지션 제안</h3></p>
 													</div>
 													<hr>
 													<div>
@@ -257,7 +264,7 @@
 													</div>
 													<hr>
 													<div>
-														<h4>채용 포지션</h4>
+														<p><h4>채용 포지션</h4></p>
 														<p>직무&emsp;<span id="selectedJob"></span></p>
 														<p>경력&emsp;<span id="selectedCareer"></span></p>
 														<p><span id="selectedPay1">급여</span>&emsp;<span id="selectedPay2"></span><span>만원</span></p>
@@ -413,26 +420,20 @@
 	});
 
 
-	/*
-    // 폼이 프로그램적으로 변경 중인지를 나타내는 플래그 변수
-    var isProgrammaticChange = false;
-
 	function setAllToNone() {
 		// 모든 select 요소를 "무관" 옵션으로 설정
-        isProgrammaticChange = true; // 프로그램적 변경 시작
         document.getElementById('stackSelect').value = "";
         document.getElementById('jobSelect').value = "";
         document.getElementById('locationSelect').value = "";
-        isProgrammaticChange = false; // 프로그램적 변경 종료
+        document.getElementById('careerselect').value = "";
+		document.getElementById('searchForm').submit();
 	}
-
-	
+		
+		
+	/*
 	// 드롭박스 선택만 하면 바로 서치되도록 함
 	function selectSearchBox() {
-        // 프로그램적으로 변경 중이 아닌 경우에만 실행
-        if (!isProgrammaticChange) {
-            document.getElementById('searchForm').submit();
-        }
+		document.getElementById('searchForm').submit();
     }
 	*/
 
@@ -440,37 +441,15 @@
 	function switchTab(tab, event) {
 		// event.preventDefault(); // 기본 동작 방지
 
-		// 모든 form-box와 tab-btn에서 'active' 클래스를 제거
-		// document.querySelectorAll('.form-box').forEach(function (el) {
-		// 	el.classList.remove('active');
-		// });
 		document.querySelectorAll('.tab-btn').forEach(function (el) {
 			el.classList.remove('active');
 		});
-
-		// 선택된 탭과 관련된 콘텐츠에 'active' 클래스 추가
-		// document.getElementById(tab).classList.add('active');
-		// event.currentTarget.classList.add('active');
 
 		// 'orderType' 히든 필드의 값을 설정하고 폼을 제출
 		document.getElementById('orderType').value = tab;
     	document.getElementById('searchForm').submit();
 	}
 
-
-
-    var alreadyProposedList; /* 제안 여부를 확인하는 논리나 데이터 */
-	
-    // 'proposalbutt' 클래스를 가진 모든 버튼 선택
-    var proposalButtons = document.querySelectorAll(".proposalbutt");
-	
-	// 제안 완료한 제안버튼 비활성화
-    proposalButtons.forEach(function(button, index) {
-        if (alreadyProposedList[index]) {  // alreadyProposedList 배열의 값이 true인 경우
-            button.disabled = true;
-            button.textContent = "제안 완료";
-        }
-    });
 
 
 
@@ -491,11 +470,11 @@
 
 
     function updateOfferInfo() {
-        // 선택된 옵션을 가져옵니다.
+        // 선택된 옵션을 가져옴
         var select = document.getElementById('titleSelect');
         var selectedOption = select.options[select.selectedIndex];
 
-        // data-* 속성을 사용하여 관련 정보를 가져옵니다.
+        // data 속성을 사용하여 관련 정보 가져옴.
         var noticeTitle = selectedOption.value;
         var comName = selectedOption.getAttribute('data-com-name');
         var job = selectedOption.getAttribute('data-job');
