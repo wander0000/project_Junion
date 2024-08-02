@@ -161,6 +161,13 @@ public class jobpostingIndividualServiceImpl implements jobpostingIndividualServ
 		UserDTO dto = dao.userInfo(user_email);
 		return dto;
 	}
+
+	@Override
+	public int checkOffer(String login_email, int resumeNum) {
+		jobpostingIndividualDAO dao = sqlSession.getMapper(jobpostingIndividualDAO.class);
+		int check_offer = dao.checkOffer(login_email, resumeNum);
+		return check_offer;
+	}
 }
 
 
