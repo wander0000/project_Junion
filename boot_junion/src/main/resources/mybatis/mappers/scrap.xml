@@ -25,20 +25,31 @@
 		delete from com_scrap where com_email = #{com_email} and user_email = #{user_email}
 	</delete>
 
-<!--  	 user_email로 noticeScrapArray을 가져오는 쿼리 -->
-<!--    <select id="getnNoticeScrapArray" resultType="String">-->
-<!--        SELECT noticeScrapArray-->
-<!--        FROM USER_TB-->
-<!--        WHERE user_email = #{user_email}-->
-<!--    </select>-->
+
+
+<!--24.08.01 하진-->
+<!--24.08.02 하진 : 채용공고 목록 페이지에서 스크랩 기능을 위한 쿼리-->
+<!-- 1. user_email로 공고 번호를 가져옴 -->
+    <select id="getScrapNoticeNum" resultType="int">
+        select notice_num from notice_scrap where user_email =#{user_email}
+    </select>
   
-<!--  recent_noticeNumArray로 최근본 채용공고를 가져오는 쿼리 -->
-<!--    <select id="getScrapNotice" parameterType="int" resultType="com.boot.DTO.ComNoticeDTO">-->
-<!--	  SELECT notice_num, com_email, notice_title, notice_career, notice_area1, notice_area2, notice_startDate, notice_endDate-->
-<!--	       	FROM notice_tb-->
-<!--			where notice_num=#{notice_num}-->
-<!--	</select>-->
-<!--지수-->
+  
+<!--  2. 기존 관심 공고인지 확인-->
+  	<select id="checkNoticeNum" resultType="com.boot.DTO.ScrapDTO">
+  		select notice_num from notice_scrap 
+  		where notice_num=#{notice_num} and user_email = #{user_email}
+  	</select>
+  
+<!--  3. 서비스단의 로직 결과, 일치값이 없을 경우, 해당 공고 번호를 DB에 추가-->
+  <insert id="addScrapNotice">
+  	insert into notice_scrap values(#{notice_num},#{user_email})
+  </insert>
+
+<!-- 4. 서비스단의 로직 결과, 일치값이 있을 경우, 해당 공고를 DB에서 삭제-->
+	<delete id="deleteScrapNotice">
+		delete from notice_scrap where notice_num=#{notice_num} and user_email = #{user_email}
+	</delete>
 
 <!--	공고등록 쿼리-->
 <!--	<insert id="registerNotice" parameterType="com.boot.DTO.ComNoticeDTO">-->
