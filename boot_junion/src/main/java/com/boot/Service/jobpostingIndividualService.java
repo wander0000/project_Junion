@@ -30,9 +30,9 @@ public interface jobpostingIndividualService {
 	
 	public void insertOffer(OfferInfoDTO offer); // offer 정보 insert
 	
-	public ResumeDTO resumeInfo(int resumeNum);// 이력서 열람(이력서 정보)
+	public ResumeDTO resumeInfo(int resumeNum); // 이력서 열람(이력서 정보)
 	
-	public UserDTO userInfo(String user_email);// 이력서 열람(유저 정보)
+	public UserDTO userInfo(String user_email); // 이력서 열람(유저 정보)
 	
-	public int checkOffer(String login_email, int resumeNum);// 오퍼 유무확인
+	public int checkOffer(String login_email, int resumeNum); // 오퍼 유무확인
 }
