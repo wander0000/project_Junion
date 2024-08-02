@@ -257,12 +257,16 @@ public class ComNoticeController {
 		    model.addAttribute("com_name", session.getAttribute("login_name"));
 
 		    ComNoticeDTO dto = service.JobPost(notice_num);
+		    dto.setNotice_num(notice_num); // @@@@@@ 여기에 notice_num을 넣어야 getNoticeStack()에서 dto.notice_num 사용할 수 있음 -깡아지- @@@@@@
 		    model.addAttribute("notice", dto);
 		    model.addAttribute("noticeNumber", notice_num);
 
 		    // 스택 리스트를 가져와서 모델에 추가
+		    log.info("@# dto=>"+dto);
 		    List<String> stackList = service.getNoticeStack(dto);
+		    log.info("@# stackList=>"+stackList);
 		    String stackListString = String.join(",", stackList);
+		    log.info("@# stackListString=>"+stackListString);
 		    model.addAttribute("stackListString", stackListString);
 
 		    return "comRegistModify";
