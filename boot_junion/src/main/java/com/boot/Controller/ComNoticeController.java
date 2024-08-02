@@ -242,28 +242,33 @@ public class ComNoticeController {
 			
 		}
 		
-		//2024-08-01 지수
+		//2024-08-02 지수
 		//채용공고 수정 페이지
 		@RequestMapping("/comRegistModify")
-		public String comRegistModify(ComNoticeDTO comNoticeDTO, HttpServletRequest httpServletRequest, Model model, int notice_num) {
-			log.info("@# comRegistModify");
-			
-			HttpSession session = httpServletRequest.getSession();
-			session.getAttribute("login_email");
-			session.getAttribute("login_name");
-			log.info("@# session  =>"+(String) session.getAttribute("login_email"));
-			
-			model.addAttribute("com_email",session.getAttribute("login_email"));
-			model.addAttribute("com_name", session.getAttribute("login_name"));
-			
-			ComNoticeDTO dto = service.JobPost(notice_num);
-			
-			model.addAttribute("notice", dto);
-//			model.addAttribute("noticeNumber",notice_num);
-			
-			
-			return "comRegistModify";
+		public String comRegistModify(int notice_num, HttpServletRequest httpServletRequest, Model model) {
+		    log.info("@# comRegistModify");
+
+		    HttpSession session = httpServletRequest.getSession();
+		    session.getAttribute("login_email");
+		    session.getAttribute("login_name");
+		    log.info("@# session  =>" + (String) session.getAttribute("login_email"));
+
+		    model.addAttribute("com_email", session.getAttribute("login_email"));
+		    model.addAttribute("com_name", session.getAttribute("login_name"));
+
+		    ComNoticeDTO dto = service.JobPost(notice_num);
+		    model.addAttribute("notice", dto);
+		    model.addAttribute("noticeNumber", notice_num);
+
+		    // 스택 리스트를 가져와서 모델에 추가
+		    List<String> stackList = service.getNoticeStack(dto);
+		    String stackListString = String.join(",", stackList);
+		    model.addAttribute("stackListString", stackListString);
+
+		    return "comRegistModify";
 		}
+
+
 		
 	
 	@PostMapping("/registUploadAjaxAction")

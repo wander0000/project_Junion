@@ -28,7 +28,7 @@
 		SELECT n.notice_title, n.com_email, c.com_name, n.notice_jobInfo, n.notice_job, c.com_location, 
 				n.notice_condition, n.notice_prefer, n.notice_benefit, nt.notice_stack, 
 				n.notice_startDate, n.notice_endDate, n.notice_area1, n.notice_area2, 
-				n.notice_career, n.notice_department, n.notice_position, n.notice_recruitNum, 
+				n.notice_career, n.notice_contactType, n.notice_department, n.notice_position, n.notice_recruitNum, 
 				n.notice_pay1, n.notice_pay2 
 			FROM notice_tb n JOIN (SELECT com_email, GROUP_CONCAT(stack SEPARATOR ', ') AS notice_stack 
 			FROM notice_stack WHERE notice_num = #{notice_num} GROUP BY com_email) nt ON n.com_email = nt.com_email 
@@ -109,7 +109,10 @@
     </update>
     
 <!--공고수정-->
-    
+    <select id="getNoticeStack" parameterType="com.boot.DTO.ComNoticeDTO" resultType="String">
+	    select stack from notice_stack 
+	    where notice_num = #{notice_num} and com_email = #{com_email}
+	</select>
     
     
 	<!--이미지 업로드-->

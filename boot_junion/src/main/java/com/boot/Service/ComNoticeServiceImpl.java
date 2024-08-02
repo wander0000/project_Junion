@@ -6,7 +6,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -162,6 +161,11 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 		dao.noticeStauts(comNoticeDTO);
 	}
 
+	@Override
+	 public List<String> getNoticeStack(ComNoticeDTO comNoticeDTO) {
+        ComNoticeDAO dao = sqlSession.getMapper(ComNoticeDAO.class);
+        return dao.getNoticeStack(comNoticeDTO);
+    }
 	
 	//파일 업로드
 	@Override
