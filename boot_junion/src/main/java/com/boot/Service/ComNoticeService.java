@@ -8,7 +8,6 @@ import com.boot.DTO.ComNoticeAttachDTO;
 import com.boot.DTO.ComNoticeDTO;
 import com.boot.DTO.RecentNoticeDTO;
 import com.boot.DTO.ResumeDTO;
-import com.boot.DTO.SubmitDTO;
 
 public interface ComNoticeService {
 	public ArrayList<ComNoticeDTO> JobPostCard();//채용공고목록 가져오기
@@ -29,6 +28,8 @@ public interface ComNoticeService {
 	public void registerNotice(ComNoticeDTO comNoticeDTO); //공고등록
 	public void noticeInsertStack(ComNoticeDTO comNoticeDTO); //공고등록-스택테이블에 insert
 	public void noticeStauts(ComNoticeDTO comNoticeDTO); //공고 상태 업데이트
+	
+	public List<String> getNoticeStack(ComNoticeDTO comNoticeDTO); //공고수정-스택 테이블 select
 	
 	public List<ComNoticeAttachDTO> registGetFileList(int notice_num); // int타입 notice_num파라미터를 list타입 <ComRegisterUploadDTO> getFileList로 사용하려함 / 파일열람
 	public void registDeleteFile(List<ComNoticeAttachDTO> fileList);  // notice_num 맞춰서 파일삭제로직 / 파일삭제

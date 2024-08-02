@@ -31,7 +31,7 @@ main .mainInner
     max-width: 1200px;
 }
 
-main .mainInner .post .comImage
+/* main .mainInner .post .comImage
 {
     width: 730px;
     height: 500px;
@@ -50,7 +50,7 @@ main .mainInner .post .comImage
         background-color: var(--color-gray);
     }
     
-}
+} */
 
 #file
 {

@@ -38,6 +38,8 @@ public interface ComNoticeDAO {
 	public void noticeInsertStack(ComNoticeDTO comNoticeDTO); //공고등록-스택 테이블 insert
 	public void noticeStauts(ComNoticeDTO comNoticeDTO); //공고 상태 업데이트
 	
+	public List<String> getNoticeStack(ComNoticeDTO comNoticeDTO); //공고수정-스택 테이블 select
+	
 //	파일업로드는 파라미터를 DTO 사용
 	public void registInsertFile(ComNoticeAttachDTO vo);  // 파라미터가 ComNoticeAttachDTO / 파일추가
 	public List<ComNoticeAttachDTO> registGetFileList(int notice_num); // int타입 notice_num파라미터를 list타입 <ComNoticeAttachDTO> getFileList로 사용하려함 / 파일열람

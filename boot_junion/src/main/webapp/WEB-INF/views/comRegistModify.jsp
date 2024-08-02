@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>    
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!-- <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>     -->
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -17,7 +19,6 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <!-- import js -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-
 </head>
 <body>
 	<div class="container">
@@ -26,8 +27,9 @@
             <div class="mainInner">
                 <!-- <form id="registUpload" method="post" action="registerNotice" class="post" name="notice"> -->
                 <form id="registUpload" method="post" action="registerNotice" class="post" name="notice">
-                    <div class="noitceImage">
-                        <input type="file" name="uploadFile" id="file">
+					<input type="hidden" name="notice_num" value="${noticeNumber}">
+                    <div class="noitceImage" data-notice-num="${noticeNumber}">
+                        <!-- <input type="file" name="uploadFile" id="file"> -->
 						<div class="uploadResult">
 							<ul class="comNoticeImage">
 							</ul>
@@ -37,29 +39,29 @@
 								<div class="building">
 								</div>                                
                             </div>
-							<h3 style="cursor: pointer;">이미지 등록</h3>
+							<!-- <h3 style="cursor: pointer;">이미지 등록</h3> -->
                         </label>
                     </div>
 					
                     <div class="postContainer">
                         <div class="postValue">
                             <h5 class="value">공고명 </h5>
-                            <input type="text" class="postTitle" name="notice_title" placeholder=${notice.notice_title} value=${notice.notice_title}>
+                            <input type="text" class="postTitle" name="notice_title" placeholder="${notice.notice_title}" value="${notice.notice_title}">
                         </div>
                         <div class="postValue">
                             <h5 class="value">기업명 </h5>
-                            <input type="text" class="postCompany" name="com_name" placeholder=${com_name} disabled>
+                            <input type="text" class="postCompany" name="notice.com_name" placeholder="${notice.com_name}" disabled>
                         </div>
 
                         <div class="postValue">
                             <h5 class="value">포지션 </h5>
-                            <input type="text" class="postPosition" name="notice_job" placeholder=${notice.notice_job} value=${notice.notice_job}>
+                            <input type="text" class="postPosition" name="notice_job" placeholder="${notice.notice_job}" value="${notice.notice_job}">
                         </div>
 
                         <div class="postValue">
                             <h5 class="value">모집 인원 </h5>
                             <span>
-                                <input type="number" class="people" name="notice_recruitNum" placeholder=${notice.notice_recruitNum} value=${notice.notice_recruitNum}>
+                                <input type="number" class="people" name="notice_recruitNum" placeholder="${notice.notice_recruitNum}" value="${notice.notice_recruitNum}">
                             </span>
                         </div>
 
@@ -118,7 +120,7 @@
                                 </select>
                             </span>
                             <span class="none" id="payInptutId">
-                                <input type="number" class="postPay" name="notice_pay2" placeholder="급여를 입력해주세요." id="payInput"> 만원
+                                <input type="number" class="postPay" name="notice_pay2" placeholder="${notice.notice_pay2}" value="${notice.notice_pay2}" id="payInput"> 만원
 							</span>
                             <div class="lowPay">(2024년 최저시급 9,860원)</div>
                         </div><!--salay-->
@@ -131,7 +133,7 @@
                                 </span>
                                 ~
                                 <span>
-                                    <input type="date" id="endDate" class="date" name="notice_endDate">
+                                    <input type="date" id="endDate" class="date" name="notice_endDate" value="${notice.notice_endDate}">
                                 </span>
                             </div>
                         </div><!--accept-->
@@ -148,13 +150,13 @@
                         <div class="workDepart">
                             <h5 class="value"> 근무 부서 </h5>
                             <span>
-                                <input type="text" class="department" name="notice_department" placeholder="근무 부서를 입력해주세요.">
+                                <input type="text" class="department" name="notice_department" placeholder="${notice.notice_department}" value="${notice.notice_department}">
                             </span>
                         </div>
                         <div class="postValue">
                             <h5 class="value"> 직책 </h5>
                             <span>
-                                <input type="text" class="job" name="notice_position" placeholder="직책을 입력해주세요.">
+                                <input type="text" class="job" name="notice_position" placeholder="${notice.notice_position}" value="${notice.notice_position}">
                             </span>
                         </div>
 
@@ -212,23 +214,23 @@
                         <!--상세 기술 영역-->
                         <div class="postValue">
                             <h5 class="value">주요 업무</h5>
-                            <textarea class="workDesc" name="notice_jobInfo" placeholder="주요 업무를 입력해주세요." onkeyup="autoResize(this)" onkeydown="autoResize(this)" rows="3" style="overflow:hidden;"></textarea>
+                            <textarea class="workDesc" name="notice_jobInfo" placeholder="${notice.notice_jobInfo}" onkeyup="autoResize(this)" onkeydown="autoResize(this)" rows="3" style="overflow:hidden;">${notice.notice_jobInfo}</textarea>
                         </div>
                         <div class="postValue">
                             <h5 class="value">자격 요건</h5>
-                            <textarea class="workRight" name="notice_condition" placeholder="자격 요건을 입력해주세요." onkeyup="autoResize(this)" onkeydown="autoResize(this)" rows="3" style="overflow:hidden;"></textarea>
+                            <textarea class="workRight" name="notice_condition" placeholder="${notice.notice_condition}" onkeyup="autoResize(this)" onkeydown="autoResize(this)" rows="3" style="overflow:hidden;">${notice.notice_condition}</textarea>
                         </div>
                         <div class="postValue">
                             <h5 class="value">우대사항</h5>
-                            <textarea class="workGive" name="notice_prefer" placeholder="우대사항을 입력해주세요." onkeyup="autoResize(this)" onkeydown="autoResize(this)" rows="3" style="overflow:hidden;"></textarea>
+                            <textarea class="workGive" name="notice_prefer" placeholder="${notice.notice_prefer}" onkeyup="autoResize(this)" onkeydown="autoResize(this)" rows="3" style="overflow:hidden;">${notice.notice_prefer}</textarea>
                         </div>
                         <div class="postValue">
                             <h5 class="value">혜택 및 복지</h5>
-                            <textarea class="workBenefit" name="notice_benefit" placeholder="혜택 및 복지를 입력해주세요." onkeyup="autoResize(this)" onkeydown="autoResize(this)" rows="3" style="overflow:hidden;"></textarea>
+                            <textarea class="workBenefit" name="notice_benefit" placeholder="${notice.notice_benefit}" onkeyup="autoResize(this)" onkeydown="autoResize(this)" rows="3" style="overflow:hidden;">${notice.notice_benefit}</textarea>
                         </div><!--상세 기술 영역-->
                     </div><!--postContainer-->
                     <div class="ok">
-                        <input type="submit" value="등록" class="posting">
+                        <input type="submit" value="수정" class="posting">
                     </div>
 					<input type="hidden" name="com_email" value="${com_email}">
                 </form><!--form-->
@@ -238,6 +240,7 @@
 	<%@ include file="footer.jsp" %>
 </body>
 </html>
+
 <script>
 	$(document).ready(function() {
 	    //버튼 클릭시 활성화
@@ -253,6 +256,7 @@
 	        $(this).toggleClass("active");
 
 	    });
+		
 	});//document).ready(function()
 
 	function categoryChange(e) {
@@ -377,11 +381,16 @@
 	document.addEventListener('DOMContentLoaded', function () {
 
 	/*
-		2024-07-16 하지수 
-		접수기간 시작 날짜 오늘, + 이전 날짜는 선택할 수 없음
+		2024-08-02 하지수 
+		접수기간 시작 날짜 notice_startDate + 이전 날짜는 선택할 수 없음
 	*/
 
-		var today = new Date();
+		// ${notice.notice_startDate}에서 날짜 문자열을 받아오기 (예: '2024-08-02')
+		var todayString = "${notice.notice_startDate}";
+
+		// todayString을 날짜 객체로 변환
+		var today = new Date(todayString);
+
 		var year = today.getFullYear();
 		var month = today.getMonth() + 1; // 월은 0부터 시작하므로 +1을 해줌
 		var day = today.getDate();
@@ -403,10 +412,25 @@
 		endDateInput.min = dateString; //날짜 설정 끝
 
 
+		// stackListString을 자바스크립트 변수로 변환
+		var stackListString = "${stackListString}";
+		var stackList = stackListString.split(",");
+
+		// 스택 버튼 활성화
+		const techButtons = document.querySelectorAll('.tech');
+		techButtons.forEach(button => {
+			if (stackList.includes(button.getAttribute('data-tech'))) {
+				button.classList.add('active');
+			}
+		});
+
+
+
 	/*
-		2024-07-16 하지수 
-		체크박스 필수로 하나만 선택, 기본으로 첫번째 체크박스 자동체크 
+		2024-08-02 하지수 
+		체크박스 필수로 하나만 선택, 기본으로 저장된 값 자동체크 
 	*/
+
 		const careerCheckboxes = document.querySelectorAll('.checkboxCarrer');
 		const contactCheckboxes = document.querySelectorAll('.checkboxContact');
 
@@ -416,7 +440,7 @@
 			});
 		}
 
-		function handleCheckboxChange(checkboxes) {
+		function handleCheckboxChange(checkboxes, defaultValue) {
 			checkboxes.forEach((checkbox) => {
 				checkbox.addEventListener('change', function () {
 					if (checkbox.checked) {
@@ -432,12 +456,19 @@
 
 			const isAnyChecked = Array.from(checkboxes).some((item) => item.checked);
 			if (!isAnyChecked) {
-				checkboxes[0].checked = true;
-			} // 첫번째 체크박스 자동 체크
+				checkboxes.forEach((checkbox) => {
+					if (checkbox.value === defaultValue) {
+						checkbox.checked = true;
+					}
+				});
+			}
 		}
 
-		handleCheckboxChange(careerCheckboxes);
-		handleCheckboxChange(contactCheckboxes); //체크박스 끝
+		// ${notice.notice_career}와 ${notice.notice_contactType}의 값을 사용하여 기본 체크박스 설정
+		handleCheckboxChange(careerCheckboxes, "${notice.notice_career}");
+		handleCheckboxChange(contactCheckboxes, "${notice.notice_contactType}");
+		// 체크박스 끝
+
 	});
 
 	// 2024-08-01 하지수
@@ -460,244 +491,102 @@
 
 </script>
 
-
 <script>
-	// 이미지 업로드 + input 유효성 검사
-	$(document).ready(function (e){
-		var formObj = $("form[id='registUpload']");
+$(document).ready(function (e){
+	 // noticeNum 변수 가져오기
+	 var noticeNum = $(".noitceImage").data('notice-num'); // 여기서 notice_num을 가져옴
+        console.log("noticeNum:", noticeNum);
+        
+        var uploadResultContainer = $(".noitceImage").find('.uploadResult ul');
 
-		$("input[type='submit']").on("click", function(e){
-			e.preventDefault();
-			console.log("submit clicked");
-
-
-			/*
-				2024-07-24 하지수 
-				유효성 검사
-			*/
-            var requiredFields = [
-                {name: "notice_title", message: "공고명을 입력해주세요."},
-                {name: "notice_job", message: "포지션을 입력해주세요."},
-                {name: "notice_recruitNum", message: "모집 인원을 입력해주세요."},
-                {name: "notice_area1", message: "근무 지역을 선택해주세요."},
-                {name: "notice_area2", message: "군/구를 선택해주세요."},
-                {name: "notice_pay2", message: "급여를 입력해주세요."},
-                // {name: "notice_startDate", message: "접수 시작 날짜를 선택해주세요."},
-                {name: "notice_endDate", message: "접수 종료 날짜를 선택해주세요."},
-                {name: "notice_department", message: "근무 부서를 입력해주세요."},
-                {name: "notice_position", message: "직책을 입력해주세요."},
-
-				{name: "tech", message: "스택을 선택해주세요.",
-						validate: function() {
-							return $(".tech.active").length > 0;
-						}
-					},
-
-                {name: "notice_jobInfo", message: "주요 업무를 입력해주세요."},
-                {name: "notice_condition", message: "자격 요건을 입력해주세요."},
-                {name: "notice_prefer", message: "우대사항을 입력해주세요."},
-                {name: "notice_benefit", message: "혜택 및 복지를 입력해주세요."}
-            ];
-
-			// 유효성 반복 + 포커스 이동
-            for (var i = 0; i < requiredFields.length; i++) {
-                var field = requiredFields[i];
-
-                // 일반 필드와 특별한 기술 스택 필드를 구분
-                if (field.name === "tech") {
-                    if (!field.validate()) {
-                        alert(field.message);
-                        $(".tech").first().focus(); // 'tech' 버튼 중 첫 번째에 포커스를 이동
-                        return;
-                    }
-                } else {
-                    var fieldValue = $("[name='" + field.name + "']").val().trim();
-                    if (fieldValue === "") {
-                        alert(field.message);
-                        $("[name='" + field.name + "']").focus();
-                        return;
-                    }
+        if (noticeNum) {
+            $.ajax({
+                url: '/registGetFileList',
+                type: 'GET',
+                data: { notice_num: noticeNum },
+                dataType: 'json',
+                success: function(data) {
+                    console.log("Ajax success:", data);
+                    showUploadResult(data, uploadResultContainer);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching file list for notice_num ' + noticeNum + ':', error);
                 }
-            } //유효성 검사 끝 --
+            });
+        } 
 
+        function showUploadResult(uploadResultArr, uploadResultContainer){
+            if (!uploadResultArr || uploadResultArr.length == 0) {
+                return;
+            }
 
-			var str="";
+            var str = "";
 
-			$(".uploadResult ul li").each(function (i, obj){
-				console.log("@# obj=>"+$(obj));
-				console.log("@# obj=>"+$(obj).data());
-				console.log("@# obj=>"+$(obj).data("filename"));
-				// return;
+            $(uploadResultArr).each(function (i, obj) {
+                var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 
-				var jobj = $(obj);
-				// JavaScript개체의 속성에 대한 목록을 표시
-				console.dir(jobj);
-				console.log("================================");
-				console.log(jobj.data("filename"));
-				console.log(jobj.data("uuid"));
-				console.log(jobj.data("path"));
-				console.log(jobj.data("type"));
+                str += "<li data-path='" + obj.uploadPath + "'";
+                str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+                str += "<div>";
+                str += "<span style='display:none;'>" + obj.fileName + "</span>";
+                str += "<img src='/registDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+                str += "</div></li>";
+            });
 
-				str += "<input type='hidden' name='comNoticeAttachList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
-				str += "<input type='hidden' name='comNoticeAttachList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
-				str += "<input type='hidden' name='comNoticeAttachList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
-				str += "<input type='hidden' name='comNoticeAttachList["+i+"].image' value='"+jobj.data("type")+"'>";
-			});//end of uploadResult ul li
+            uploadResultContainer.empty().append(str);
+        }
+    $("input[type='submit']").on("click", function(e){
+        e.preventDefault();
+        console.log("submit clicked");
 
-			console.log(str);
-			// return;
-			// formObj.append(str).submit();
-			formObj.append(str);
-       	 	formObj[0].submit(); // 폼을 정상적으로 제출
-		});//end of button submit
+        /*
+            2024-07-24 하지수 
+            유효성 검사
+        */
+        var requiredFields = [
+            {name: "notice_title", message: "공고명을 입력해주세요."},
+            {name: "notice_job", message: "포지션을 입력해주세요."},
+            {name: "notice_recruitNum", message: "모집 인원을 입력해주세요."},
+            {name: "notice_area1", message: "근무 지역을 선택해주세요."},
+            {name: "notice_area2", message: "군/구를 선택해주세요."},
+            {name: "notice_pay2", message: "급여를 입력해주세요."},
+            // {name: "notice_startDate", message: "접수 시작 날짜를 선택해주세요."},
+            {name: "notice_endDate", message: "접수 종료 날짜를 선택해주세요."},
+            {name: "notice_department", message: "근무 부서를 입력해주세요."},
+            {name: "notice_position", message: "직책을 입력해주세요."},
+            {name: "tech", message: "스택을 선택해주세요.",
+                validate: function() {
+                    return $(".tech.active").length > 0;
+                }
+            },
+            {name: "notice_jobInfo", message: "주요 업무를 입력해주세요."},
+            {name: "notice_condition", message: "자격 요건을 입력해주세요."},
+            {name: "notice_prefer", message: "우대사항을 입력해주세요."},
+            {name: "notice_benefit", message: "혜택 및 복지를 입력해주세요."}
+        ];
 
-		//확장자(exe, sh, alz), 파일크기(5MB 미만) 조건
-		//확장자가 exe|sh|alz 업로드 금지하기 위한 정규식
-		var regex = new RegExp("(.*?)\.(exe|sh|alz)$");
-		var maxSize = 5242880;//5MB
+        // 유효성 검사
+        for (var i = 0; i < requiredFields.length; i++) {
+            var field = requiredFields[i];
 
-		function checkExtension(fileName, fileSize){
-			if(fileSize >= maxSize){
-				alert("파일 사이즈 초과");
-				return false;
-			}
-			if(regex.test(fileName)){
-				alert("해당 종류의 파일은 업로드할 수 없습니다.");
-				return false;
-			}
-			return true;
-		}
+            if (field.name === "tech") {
+                if (!field.validate()) {
+                    alert(field.message);
+                    $(".tech").first().focus();
+                    return;
+                }
+            } else {
+                var fieldValue = $("[name='" + field.name + "']").val().trim();
+                if (fieldValue === "") {
+                    alert(field.message);
+                    $("[name='" + field.name + "']").focus();
+                    return;
+                }
+            }
+        }
 
-		$("input[type='file']").change(function (e){
-			// 이미 업로드된 파일이 있는지 확인
-			if ($(".uploadResult ul li").length > 0) {
-				alert("하나의 파일만 업로드할 수 있습니다. 삭제하고 다시 업로드 해주세요.");
-				$("input[type='file']").val(""); // 파일 입력 초기화
-				return false;
-			}
+       
+    });
+});
 
-			var formData = new FormData();
-			var inputFile = $("input[name='uploadFile']");
-			//files : 파일정보
-			var files = inputFile[0].files;
-
-			if(files.length > 1) {
-				alert("하나의 파일만 업로드할 수 있습니다.");
-				$("input[type='file']").val(""); // 파일 입력 초기화
-				return false;
-			}
-
-			for(var i=0; i<files.length; i++){
-				console.log("@# files=>"+files[i].name);
-
-				//파일크기와 종류중에서 거짓이면 리턴
-				if(!checkExtension(files[i].name, files[i].size)){
-					$("input[type='file']").val(""); // 파일 입력 초기화
-					return false;
-				}
-
-				//파일 정보를 formData에 추가
-				formData.append("uploadFile",files[i]);
-			}
-
-			$.ajax({
-				 type: "post"
-				,data: formData
-				//컨트롤러단 호출
-				,url: "registUploadAjaxAction"
-                //processData : 기본은 key/value 를 Query String 으로 전송하는게 true
-                //(파일 업로드는 false)
-				,processData: false
-                //contentType : 기본값 : "application / x-www-form-urlencoded; charset = UTF-8"
-                //첨부파일은 false : multipart/form-data로 전송됨
-				,contentType: false
-				,success: function(result){
-					alert("사진 업로드 완료");
-					console.log(result);
-					//파일정보들을 함수로 보냄
-					showUploadResult(result);//업로드 결과 처리 함수 
-				}
-			});//end of ajax
-
-			function showUploadResult(uploadResultArr){
-				if(!uploadResultArr || uploadResultArr.length == 0){
-					return;
-				}
-
-				var uploadUL = $(".uploadResult ul");
-				uploadUL.empty(); // 기존 업로드된 파일 정보 제거
-				var str="";
-
-				$(uploadResultArr).each(function (i, obj){
-					//image type
-					if (obj.image) {
-						console.log("@# obj.uploadPath=>"+obj.uploadPath);
-						console.log("@# obj.uuid=>"+obj.uuid);
-						console.log("@# obj.fileName=>"+obj.fileName);
-
-						// var fileCallPath = obj.uploadPath + obj.uuid + "_" + obj.fileName;
-						// var fileCallPath = encodeURIComponent(obj.uploadPath +"/"+ obj.uuid + "_" + obj.fileName);
-						var fileCallPath = encodeURIComponent(obj.uploadPath +"/s_"+ obj.uuid + "_" + obj.fileName);
-						// str += "<li><div>";
-
-						str += "<li data-path='" + obj.uploadPath + "'";
-						str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>"
-						str + "<div>";
-
-						str += "<span style='display:none;'>"+obj.fileName+"</span>";
-						str += "<img src='/registDisplay?fileName="+fileCallPath+"'>";//이미지 출력 처리(컨트롤러단)
-						str += "</div>";
-						str += "<div class='imgDelete'>";
-						// str += "<span data-file=\'"+ fileCallPath +"\'data-type='image'><i class='fa-regular fa-trash-can'></i></span>";
-						str += "<span style='cursor: pointer;' data-file=\'"+ fileCallPath +"\'data-type='image'>이미지 삭제</span>";
-						str += "</div></li>";
-					} else {
-						// var fileCallPath = obj.uploadPath + obj.uuid + "_" + obj.fileName;
-						var fileCallPath = encodeURIComponent(obj.uploadPath +"/"+ obj.uuid + "_" + obj.fileName);
-						// str += "<li><div>";
-
-						str += "<li data-path='" + obj.uploadPath + "'";
-						str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'"
-						str + " ><div>";
-
-						str += "<span>"+obj.fileName+"</span>";
-						// str += "<img src='./resources/img/attach.png'>";
-						str += "<span data-file=\'"+ fileCallPath +"\'data-type='file'> [삭제] </span>";
-						str += "</div></li>";
-					}
-				});//end of each
-
-				//div class 에 파일 목록 추가
-				uploadUL.append(str);
-				$('.comImage').css({"display":"none"});
-			}
-
-			// $(".uploadResult").on("click","span",function(){
-			$(".uploadResult").on("click","span[data-file]",function(){
-				var targetFile = $(this).data("file");
-				var type = $(this).data("type");
-				var uploadResultItem = $(this).closest("li");
-
-				console.log("@# targetFile=>"+targetFile);
-				console.log("@# type=>"+type);
-				console.log("@# uploadResultItem=>"+uploadResultItem);
-
-				//컨트롤러 단에서 업로드된 실제파일 삭제
-				$.ajax({
-					 type: "post"
-					,data: {fileName: targetFile, type: type}
-					,url: "registDeleteFile"
-					,success: function(result){
-						alert("삭제 완료");
-						//브라우저에서 해당 썸네일이나 첨부파일이미지 제거
-						uploadResultItem.remove();
-
-						if($(".uploadResult ul li").length === 0){
-							$('.comImage').css({"display":"block"}); // 모든 파일이 삭제되면 보이기
-						}
-					}
-				});//end of ajax
-			});//end of click
-		});//end of change 
-	});//end of ready // 이미지 업로드 끝
 </script>
