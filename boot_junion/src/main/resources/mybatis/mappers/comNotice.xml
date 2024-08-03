@@ -62,14 +62,13 @@
 		select user_email from submit_tb where notice_num=#{notice_num}
 	</select>
 
-<!-- 	버튼 클릭, 이력서 번호 비교를 위한 쿼리 -->
-<!-- 	<select id="getCompareList" resultType="com.boot.DTO.SubmitDTO"> -->
-<!-- 	 	update notice_tb set resume_num=#{resume_num} where notice_num=#{notice_num} -->
-<!-- 	</select> -->
+<!-- 	지원 버튼 클릭시, 포지션 제안을 받은 회원인지 확인하는 쿼리 -->
+ 	<select id="findOfferUser" resultType="boolean"> 
+ 	 	select notice_num from offer where notice_num=#{notice_num} and user_email=#{user_email}
+ 	</select> 
 
 <!-- 	이력서 제출시  submit테이블에 정보 추가 -->
 <!-- 	24.07.25  하진 : result type 변경 -->
-<!-- 	<insert id="updateSubmitData" parameterType="com.boot.DTO.SubmitDTO"> -->
 	<insert id="updateSubmitData">
 		insert into submit_tb(notice_num, resume_num, user_email, com_email) 
 			values(#{notice_num}, #{resume_num}, #{user_email}, #{com_email})

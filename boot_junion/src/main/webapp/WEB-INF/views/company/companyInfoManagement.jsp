@@ -20,6 +20,9 @@
     <!-- import js -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="js/index.js"></script>
+    <!--kakao map -->
+    <!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=48ca63ceb0746787c922c8da8f33b705&libraries=services"></script>
 <style>
     /* 드롭다운 메뉴 */
     .dorpdowmMain
@@ -156,7 +159,9 @@
                                             <h5 class="title">회사 위치</h5>
                                         </div>
                                         <div class="columnBB">
-                                            <h5 class="comloc">${companyInfo.com_location}</h5>
+                                            <!--지도가 들어갈 위치-->
+                                            <div id="map" clss="map"></div>
+                                            <h5 class="comloc" id="comAddress">${companyInfo.com_location}</h5>
                                         </div>
                                     </div>
                 
@@ -323,11 +328,55 @@
                 $("#stack").html(str);
         
         }
-
+        //현재 날짜를 구함.
         var years = new Date();
         var nowYear = years.getFullYear();
         console.log(nowYear);
         $('.nowYear').text(nowYear);
+
+
+
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+    mapOption = {
+        center: new kakao.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+        level: 4 // 지도의 확대 레벨
+    };
+
+    //지도를 미리 생성
+    // var map = new daum.maps.Map(mapContainer, mapOption);
+    var map = new kakao.maps.Map(mapContainer, mapOption);
+    //주소-좌표 변환 객체를 생성
+    var geocoder = new kakao.maps.services.Geocoder();
+   
+    // var getlocation = document.getElementById("comAddress").value;
+    var getlocation = "${companyInfo.com_location}";
+    console.log("회사의 위치는요"+getlocation);
+    
+    // 주소로 좌표를 검색합니다
+    // geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+    geocoder.addressSearch(getlocation, function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+    if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // 인포윈도우로 장소에 대한 설명을 표시합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            content: '<div style="width:150px;text-align:center;padding:6px 0;">회사 위치</div>'
+        });
+        infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+    });    
 
     });//end of ready
      // 24-07-09 하진

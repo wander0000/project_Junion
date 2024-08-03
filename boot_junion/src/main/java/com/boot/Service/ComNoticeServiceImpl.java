@@ -93,8 +93,9 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 		String user_email = param.get("user_email");
 		log.info("값을 잘 들고왔나요??"+user_email);
 		boolean result = false;
+		boolean offer = false;
 		
-		if ( list.size()>0) {
+		if ( list.size()>0) {//해당 공고의 이력서 지원정보가 있으면 비교 로직 수행
 			for (int i = 0; i < list.size(); i++) {
 				if (user_email.equals(list.get(i).getUser_email())) {
 					
@@ -104,12 +105,18 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 				}
 			}
 			if (result == false) {
-				log.info("경로 확인용 false = "+user_email);
-				dao.updateSubmitData(param);			
+//				log.info("경로 확인용 false = "+user_email);
+				dao.updateSubmitData(param);
+				offer = dao.findOfferUser(param);
+				log.info("포지션 제안을 받았나요? "+offer);
+				if(offer) {
+					
+				}
 			}
 		}else {
 			log.info("경로 확인용 size=0 -> "+user_email);
 			dao.updateSubmitData(param);
+			log.info("포지션 제안을 받았나요? "+offer);
 		}
 		
 		return result;

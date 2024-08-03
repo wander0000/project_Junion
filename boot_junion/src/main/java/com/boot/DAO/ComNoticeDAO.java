@@ -26,7 +26,7 @@ public interface ComNoticeDAO {
 	
 	//공고 지원 처리
 	public ArrayList<SubmitDTO> getResumeNum(int notice_num);//이력서 선택, 지원 완료시 submit 테이블에 이력서 배열값 가져오기
-//	public void insertResumNum(HashMap<String, String> param);//이력서 선택, 지원 완료시 공고 테이블에 이력서 번호 추가
+	public boolean findOfferUser(HashMap<String, String> param);//지원 버튼 클릭시, 포지션 제안을 받은 회원인지 확인
 	
 
 	public void updateSubmitData(HashMap<String, String> param);//이력서지원정보 저장
