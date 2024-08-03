@@ -860,11 +860,11 @@
           if(user_type == 1){
           
 			var getid = $(this).attr("id");//해당 북마크의 id를 찾음
-			console.log("찾은 id값은? "+getid);
+			// console.log("찾은 id값은? "+getid);
 			const regex = /[^0-9]/g;// 정규표현식 : 숫자가 아닌 수들을 찾음
 			const result = getid.replace(regex,"");//replace(regex,"") -> regex에 해당하는 패턴을 모두 ""으로 변환 = 숫자가 아닌 문자 제거(형은 string임)
 			const notice_num = parseInt(result);//casting
-			console.log("찾았나요 공고번호? "+notice_num);
+			// console.log("찾았나요 공고번호? "+notice_num);
             const user_email = "${login_email}";
 
 			$.ajax({

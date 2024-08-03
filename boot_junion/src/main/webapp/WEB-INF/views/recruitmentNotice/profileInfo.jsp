@@ -233,11 +233,11 @@ $(".rewirte").click(function () {
 // 이력서 제출 기능
 function resumeOK(){
     var notice_num = document.getElementById("notice_num").value;
-    console.log("submit!! notice_num->"+notice_num);
+    // console.log("submit!! notice_num->"+notice_num);
     var resume_num = document.getElementById("resume_num").value;
-    console.log("submit!! resume_num ->"+resume_num);
+    // console.log("submit!! resume_num ->"+resume_num);
     var com_email = "${notice.com_email}";
-    console.log("submit com_email!!"+com_email);
+    // console.log("submit com_email!!"+com_email);
 
     // var user_email = "${user_email}";//controller에서 user_email이란 이름으로 model에 보낸 값을 받는 변수
     var user_email = "${login_email}";// session 값을 직접 가져오도록 로직 수정
@@ -254,7 +254,12 @@ function resumeOK(){
         $.ajax({
                 type : "POST",
                 url : "/resumeUser",
-                data : {notice_num : notice_num, resume_num : resume_num, com_email : com_email, user_email : user_email},
+                data : {
+                    notice_num : notice_num, 
+                    resume_num : resume_num, 
+                    com_email : com_email, 
+                    user_email : user_email
+                },
                 success : function(result){
                     if(result == false){
                     alert("지원이 완료되었습니다!");

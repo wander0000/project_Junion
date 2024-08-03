@@ -193,12 +193,14 @@ main .toptitle
 main .toptitle .toptitle1
 {
   margin-right: 40px;
+  font-size: var(--font-size32);
   cursor: pointer;
 }
 
 main .toptitle .toptitle2
 {
   margin-right: 40px;
+  font-size: var(--font-size32);
   cursor: pointer;
 }
 
@@ -403,18 +405,6 @@ section
   line-height :1.5;/* 글자 위아래 간격 조절 (1.5배) */
 }
 
-/* .ageSex 
-{
-  display: flex;
-  align-items: center;
-  margin-top: 8px;
-}
-
-.ageSex .age 
-{
-  margin-right: 12px;
-} */
-
 
 .wrap .main .sub1 .name,
 .wrap .main .sub1 .locationC
@@ -446,15 +436,6 @@ section
 }
 
 
-/* .wrap .main .sub2 .icon
-{
-    font-size:20px;
-} */
-
-
-
-
-
 
 .wrap .column
 {
@@ -484,6 +465,17 @@ section
     font-size: var(--font-size16);
     color: var(--color-gray);
     margin-top: 40px;
+}
+
+
+/* 지도  */
+#map
+{
+    /* width: 1200px;
+    height: 500px; */
+    width:730px;
+    height:250px;
+    margin-bottom: 20px;
 }
 
 
@@ -567,12 +559,6 @@ section
     margin-left: auto;
 }
 
-/* .wrap
-{
-    min-width: 1200px;
-    padding: 50px 0;
-    box-sizing: border-box;
-} */
 
 .wrap .left
 {
@@ -582,14 +568,6 @@ section
     
 }
 
-
-/* .wrap .left .company
-{
-    display: flex;
-    align-items: flex-start;
-    margin-bottom: 32px;
-
-} */
 
 /* 라이트 시작 */
 
