@@ -68,11 +68,7 @@ public class ComNoticeController {
 		
 		ArrayList<ComNoticeDTO> dto = postService.JobPostCard();
 		model.addAttribute("jobPost", dto);
-		
-//		 String user_email = (String) session.getAttribute("login_email");//세션에 저장된 사용자이메일 가져오기
-//		 log.info("@# jobPost user_email => "+user_email);
-//		 ArrayList<Integer> noticeList = scrapService.getScrapNoticeNum(user_email);
-//		 model.addAttribute("noticeList", noticeList);
+
 		
 		return "/recruitmentNotice/jobPostList";
 	}
@@ -80,7 +76,6 @@ public class ComNoticeController {
 	
 	@RequestMapping("/jobPostDetail")
 	public String JobPost(HttpSession session, int notice_num, Model model) {//채용공고 목록 -> 채용공고 상세 이동
-//		public String JobPost(int notice_num, Model model, @RequestParam HashMap<String, String> param) {//채용공고 상세
 		log.info("jobPostDetail");
 		log.info("notice_num!!!"+notice_num);
 		
@@ -124,19 +119,22 @@ public class ComNoticeController {
         
 	   		
 		ComNoticeDTO dto = postService.JobPost(notice_num);
-		postService.hitUP(notice_num);
-		model.addAttribute("company", dto);
-		model.addAttribute("noticeNumber",notice_num);
+		postService.hitUP(notice_num);// 조회수를 증가
+		model.addAttribute("company", dto);//공고 정보를 모델에 실어 보냄
+		model.addAttribute("noticeNumber",notice_num);//공고 번호를 모델에 실어서 보냄
 		
-		ArrayList<ComNoticeDTO> list = postService.otherJobPost(notice_num);
+		ArrayList<ComNoticeDTO> list = postService.otherJobPost(notice_num);//해당 기업의 다른 공고를 검색해 옴
 		int postNum = list.size();
 		model.addAttribute("otherPost", list);
 		model.addAttribute("postNum", postNum);
 		
 //		log.info("user_email");
 		if(user_email != null) {//session의 이메일 정보를 얻어, 값이 있을 경우 로직 수행
-			String com_email = scrapService.existingCompany(user_email, notice_num);
+			String com_email = scrapService.existingCompany(user_email, notice_num);// 관심 기업
 			model.addAttribute("com_email", com_email);
+			
+			ArrayList<Integer> ScrapComList = scrapService.getScrapNoticeNum(user_email);// 스크랩 공고
+			model.addAttribute("ScrapComList", ScrapComList);
 		}
 		
 		return "/recruitmentNotice/jobPostDetail";

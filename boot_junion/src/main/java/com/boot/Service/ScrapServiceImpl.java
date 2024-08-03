@@ -22,18 +22,19 @@ public class ScrapServiceImpl implements ScrapService{
 	@Override
 	public String existingCompany(String user_email, int notice_num){//기존 관심기업 스크랩 정보를 가져옴
 		ScrapDAO dao = sqlSession.getMapper(ScrapDAO.class);
-		String com_email = dao.existingCompany(user_email, notice_num);
+		String com_email = dao.existingCompany(user_email, notice_num);// session, 페이지에서 각각 값을 가져옴
 		return com_email;	
 	}
 	
 	@Override
 	public boolean uploadcomScrap(HashMap<String, String> param){//관심기업 스크랩
 		ScrapDAO dao = sqlSession.getMapper(ScrapDAO.class);
-		String user_email = param.get("user_email");
-		int notice_num = Integer.parseInt(param.get("notice_num"));
+//		String user_email = param.get("user_email");
+//		int notice_num = Integer.parseInt(param.get("notice_num"));
 		boolean result = false;
 		
-		String check = dao.existingCompany(user_email, notice_num);
+//		String check = dao.existingCompany(user_email, notice_num);
+		String check = dao.existingCompany(param);//파라미터를 달리 해서 같은 메소드를 날림
 		if(check == null) {//관심 기업에 추가되지 않았다면 관심 기업 목록에 추가
 			dao.uploadcomScrap(param);
 			result = true;
@@ -44,12 +45,12 @@ public class ScrapServiceImpl implements ScrapService{
 			
 		return result;
 	}
+	
 	@Override
 	public ArrayList<Integer> getScrapNoticeNum(String user_email){//관심 공고 목록을 가져옴
 		log.info("scrap serviceimpl getScrapNoticeNum method!!!");
 		ScrapDAO dao = sqlSession.getMapper(ScrapDAO.class);
 		ArrayList<Integer> list = dao.getScrapNoticeNum(user_email);
-		
 		
 		return list;
 	}
@@ -59,32 +60,10 @@ public class ScrapServiceImpl implements ScrapService{
 	public boolean checkScrapNotice(HashMap<String, String> param){//관심 공고 스크랩
 		log.info("checkScrapNotice!!!");
 		
-		ScrapDAO dao = sqlSession.getMapper(ScrapDAO.class);
-		
+		ScrapDAO dao = sqlSession.getMapper(ScrapDAO.class);	
 		ScrapDTO check = dao.checkNoticeNum(param);
-//		int notice_num = Integer.parseInt(param.get("notice_num"));
-//		String user_email = param.get("user_email");
-//		ArrayList<Integer> list = dao.getScrapNoticeNum(user_email);
-//		log.info("list -->" +list);
 		boolean result = false;	
 		
-//		if(list.size()>0) {
-//			for (int i = 0; i < list.size(); i++) {
-//				int getNotice = list.get(i).intValue();
-//				log.info("getScrapNotice"+getNotice);
-//				if (getNotice == notice_num) {
-//					
-//					log.info("01");
-//					dao.deleteScrapNotice(param);
-//					result = false;
-//				}
-//			}
-//		}else {
-//			log.info("03");
-//			result = true;
-//		}
-//		
-//		log.info("결과 !! "+result);
 		if(check == null) {
 			dao.addScrapNotice(param);
 			result = true;

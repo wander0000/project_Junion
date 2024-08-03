@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -165,11 +166,20 @@
 		font-size: var(--font-size20);
 	}
 
+	/* .fa-solid .fa-bookmark .active : css 안먹음*/
+	/* .fa-solid.fa-bookmark.active */
+	.fa-bookmark.active
+	{
+		color: var(--main-color);
+		font-size: 22px;
+		/* border: none; */
+	}
+
 	#heart.active /*조건 만족시 CSS - 크기가 작아 보여 크기를 키움*/
 	{
 		width: 100%;
 		height: 100%;
-    color : red;
+    	color : red;
 		font-size: 22px;
 	}
 
@@ -551,7 +561,7 @@
                         <div class="sub2">
 							<!-- <button class="icon"> -->
 							<span class="icon">
-								<i class="fa-regular fa-bookmark"></i>
+								<i class="fa-regular fa-bookmark" id="mainBookMark"></i>
 							<!-- </button> -->
 							</span>
 							<span class="icon">
@@ -578,7 +588,7 @@
                         <div class="columnAA">
                             <!-- <div class="detail"> -->
                                 <p>
-                                급   여 : ${company.notice_pay1} ${company.notice_pay2} 만원<br>
+                                급   여 : ${company.notice_pay1} <span class="case">${company.notice_pay2} 만원</span><br>
                             <!-- </div> -->
                             <!-- <div class="detail"> -->
                                 근무 부서 :${company.notice_department}<br>
@@ -700,7 +710,6 @@
                 <div class="right">
                     
                     <div class="box1">
-                        <!-- <h5 class="t">채용중인 다른 포지션</h5> -->
                         <h5 class="t">이 기업에서 진행중인 다른 공고</h5>
                     </div>
 
@@ -710,14 +719,21 @@
 							<a href="/jobPostDetail?notice_num=${dto.notice_num}">
 								<div class="box2">
 									<div class="box">
-										<!-- <div class="t1">개발</div>--><!--여기 들어갈 후보 : 근무 조건, 직책, 부서 -->
 										<div class="t1">${dto.notice_department} ∙ ${dto.notice_contactType}</div><!--여기 들어갈 후보 : 부서, 근무 조건으로 -->
 										<h5 class="t2"> ${dto.notice_title}</h5>
 										<h5 class="t3">${dto.notice_area1} ${dto.notice_area2} ∙ <span class="career">경력</span><span class="noticeCareer">${dto.notice_career}</span> ∙ ${dto.notice_endDate}</h5>
 									</div>
 									<div class="boxbox">
 										<button class="iconn">
-											<i class="fa-regular fa-bookmark" style = font-size:20px;></i>
+											<!-- <i class="fa-regular fa-bookmark" style = font-size:20px;></i> -->
+											<c:choose>
+												<c:when test="${fn:contains(ScrapComList, dto.notice_num)}">
+													<i id="bookmark${dto.notice_num}" class="fa-solid fa-bookmark active"></i>
+												</c:when>
+												<c:otherwise>
+													<i id="bookmark${dto.notice_num}" class="fa-regular fa-bookmark"></i>
+												</c:otherwise>
+											</c:choose>
 										</button>
 									</div>
 								</div>
@@ -766,112 +782,123 @@
 
 			2024-07-24 임하진 : 스택 출력 문제로 span으로 태그 변경
             */
-    //  const noticeStack = "<c:out value='${company.notice_stack}'/>";
-    //  const noticeStack = "<c:out value='${company.notice_stack}'/>";
      var noticeStack = "${company.notice_stack}";
+	 console.log(noticeStack);
 	 console.log(noticeStack.length);
 	 if(noticeStack.length > 0){
-	 		console.log(noticeStack);
             const stacks = noticeStack.split(','); // 콤마로 나눠서 배열로 저장
-            console.log(stacks);
             let output = "";
             for (let i = 0; i < stacks.length; i++) {
                 // output += "<span class='mm1'>" + stacks[i].trim() + "</span>"; 통일성을 위해 button으로 변경
                 output += "<button class='mm1'>" + stacks[i].trim() + "</button>";
             }
-            console.log("@# output=>" + output);
             $('.col6 .tech').html(output);
 		}			
-			
+	
+		
+	// 관심 기업 DB 정보가 있을 경우, 해당 이미지 활성화
+	let scrap_email = "${com_email}";//스크랩 DB에서 얻는 com_meail
+	// console.log("scrap_email!!"+scrap_email);
+		if (scrap_email) {
+			// $("#heart").replace(".fa-solid fa-heart").addClass("active");
+			document.getElementById("heart").className ="fa-solid fa-heart";
+			// $(".fa-regular fa-heart").replace(".fa-solid fa-heart");
+			$("#heart").addClass("active");
+		}
+
+
+		// 24.08.02 하진
+		// 급여 형태가 면접 후 결정일 경우, notice_pay2 값이 나오는 부분을 숨김 처리 로직
+		const notice_pay1 = "${company.notice_pay1}";
+		if(notice_pay1 == "면접 후 결정"){
+			$(".case").css("display","none");
+		}
+
+		const scrap = "${ScrapComList}";
+		let list = scrap.split(',');
+		console.log("배열 타입은?"+Array.isArray(list));
+		console.log("스크랩 공고?"+list);
+		// list.to
+		let urlParams = new URLSearchParams(location.search);
+		// var notice_num = parseInt(urlParams.get('notice_num'));
+		var notice_num = urlParams.get('notice_num');
+		console.log("현재 공고의 번호는!!"+notice_num);
+		
+		if (list.toString().includes(nutice_num)) {
+			console.log("성공!");
+			$(".mainBookMark").addClass("active");
+		}
+		console.log("실패?");
+
 	});
 
-// 24.07.29 하진
-// : 기업 회원의 경우 버튼 비활성화
-// : 개인이나 비회원의 경우, 버튼 활성화 및 외부팝업 발생
-var user_type = "${login_usertype}";
-console.log("user_type = "+user_type);
-// if (user_type == null || user_type == 1) {
-if (!user_type || user_type == 1) {
-        // 24-07-09 임하진 : 외부 팝업
-        function resume() {
-  
-			$("#user_resume").toggleClass("active");
-            const urlParams = new URLSearchParams(location.search);
-            // const urlParams = new URLSearchParams(currentUrl);
-            var notice_num = urlParams.get('notice_num');
-            console.log(notice_num);
-            var popupProperties = "width=560, height=440, resizable = no, scrollbars = no";
-            window.open("/profileInfo?notice_num="+notice_num,"profileInfo.jsp", popupProperties);
-            // document.location.href="/profileInfo?"+notice_num;
-            
-    }
-}else{
-	$("#user_resume").css("display","none");
-}
+	// 24.07.29 하진
+	// : 기업 회원의 경우 버튼 비활성화
+	// : 개인이나 비회원의 경우, 버튼 활성화 및 외부팝업 발생
+	var user_type = "${login_usertype}";
+	// console.log("user_type = "+user_type);
+	if (!user_type || user_type == 1) {
+			// 24-07-09 임하진 : 외부 팝업
+			function resume() {
+				$("#user_resume").toggleClass("active");
+				const urlParams = new URLSearchParams(location.search);
+				var notice_num = urlParams.get('notice_num');
+				var popupProperties = "width=560, height=440, resizable = no, scrollbars = no";
+				window.open("/profileInfo?notice_num="+notice_num,"profileInfo.jsp", popupProperties);
+		}
+	}else{
+		$("#user_resume").css("display","none");
+	}
 
-// 관심 기업 DB 정보가 있을 경우, 해당 이미지 활성화
-let scrap_email = "${com_email}";//스크랩 DB에서 얻는 com_meail
-console.log("scrap_email!!"+scrap_email);
-if (scrap_email) {
-	// $("#heart").replace(".fa-solid fa-heart").addClass("active");
-	document.getElementById("heart").className ="fa-solid fa-heart";
-	// $(".fa-regular fa-heart").replace(".fa-solid fa-heart");
-	$("#heart").addClass("active");
-}
 
-// 관심 기업 추가 로직
-const user_email = "${login_email}";
-console.log("user_email = " + user_email);
-const com_email = "${company.com_email}";
-console.log("com_email = " + com_email);
-if (user_type == 1) {
- $(".fa-heart").on("click", function () {
-	var urlParams = new URLSearchParams(location.search);
-            // const urlParams = new URLSearchParams(currentUrl);
-    var notice_num = urlParams.get('notice_num');
-	console.log("this is notice_num = "+notice_num);
-	 $.ajax({
-			type : "POST",
-			url : "/uploadcomScrap",				
-			data : {
-				user_email : user_email,
-				com_email : com_email,
-				notice_num : notice_num
-				},
-			success : function(response){
-					if(response == true){
-						console.log("success");
-						alert("관심 기업으로 등록되었습니다.");
-						document.getElementById("heart").className ="fa-solid fa-heart";
-						$("#heart").addClass("active");
-						// }else if(response == false){
-						}else{
-						console.log("remove");
-						alert("관심 기업에서 삭제되었습니다.");
-						document.getElementById("heart").className ="fa-regular fa-heart";
-						$(".fa-heart").removeClass("active");
+
+	// 관심 기업 추가 로직
+	const user_email = "${login_email}";
+	const com_email = "${company.com_email}";
+	if (user_type == 1) {
+	$(".fa-heart").on("click", function () {
+		var urlParams = new URLSearchParams(location.search);
+		var notice_num = urlParams.get('notice_num');
+		// console.log("this is notice_num = "+notice_num);
+		$.ajax({
+				type : "POST",
+				url : "/uploadcomScrap",				
+				data : {
+					user_email : user_email,
+					com_email : com_email,
+					notice_num : notice_num
+					},
+				success : function(response){
+						if(response == true){
+							alert("관심 기업으로 등록되었습니다.");
+							document.getElementById("heart").className ="fa-solid fa-heart";
+							$("#heart").addClass("active");
+							}else{
+							alert("관심 기업에서 삭제되었습니다.");
+							document.getElementById("heart").className ="fa-regular fa-heart";
+							$(".fa-heart").removeClass("active");
+						}
 					}
-                }
-	});//end of ajax
- });//end of fa-heart clcik function
-}
+		});//end of ajax
+	});//end of fa-heart clcik function
+	}
 
 
 
-
-$(".fa-share-from-square").click(function(){
-	const url = window.location.href;
-	// 현재 페이지의 url을 가져오는 속성
-      
-	var textarea = document.createElement("textarea");
-      	document.body.appendChild(textarea);
-      textarea.value = url;
-      textarea.select();
-      document.execCommand("copy");
-      document.body.removeChild(textarea);
-      
-      alert("URL이 복사되었습니다.")//완료시 alert 발생
-});//end of fa-share-from-square click function
+	// 현제 페이지의 URL 복사 로직
+	$(".fa-share-from-square").click(function(){
+		const url = window.location.href;
+		// 현재 페이지의 url을 가져오는 속성
+		
+		var textarea = document.createElement("textarea");
+			document.body.appendChild(textarea);
+			textarea.value = url;
+			textarea.select();
+			document.execCommand("copy");
+			document.body.removeChild(textarea);
+		
+		alert("URL이 복사되었습니다.")//완료시 alert 발생
+	});//end of fa-share-from-square click function
 
 
 // 24.07.28 side 부분 구현 -> 다른 채용 공고가 없을 경우의 로직
@@ -888,11 +915,10 @@ $(".fa-share-from-square").click(function(){
 	// 24.07.29 하진
 	// 사이드 채용공고의 값이 신입이나 경력무관이면 .career class의 경력 문구 숨기기
 	var career =  document.querySelectorAll(".noticeCareer");
-	console.log("career.length = "+career.length);
 		for (let i = 0; i < career.length ; i++) {
 			var element = career[i];
 			var careerValue = element.textContent.trim();  // 요소의 텍스트 내용을 가져옴
-			console.log(careerValue);
+			// console.log(careerValue);
 			// if (career[i] == "경력무관" || career[i] == "신입") {
 			if (careerValue == "경력무관" || careerValue == "신입") {
 				$(".career").css("display","none");

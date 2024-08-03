@@ -572,17 +572,15 @@ $(document).ready(function() {
   var user_type = "${login_usertype}";
   console.log("user_type = "+user_type);
 
+  //공고 스크랩 관련 로직
   $(".scrap .fa-bookmark").click(function() {
           if(user_type == 1){
           
             const user_email = "${login_email}";
             const href = $(this).parents().siblings().closest("a").prop("href");
-            // console.log("해당 공고의 href는 "+href);
             const url = new URL(href);
             const searchParams = new URLSearchParams(url.search);
             const noticeNum = searchParams.get('notice_num');
-            // console.log("해당 공고의 noticeNum은 "+noticeNum);
-
 
         $.ajax({
             type : "POST",
@@ -590,12 +588,9 @@ $(document).ready(function() {
             data : {notice_num : noticeNum, 
                     user_email : user_email
                 },
-                // success : function(response){ 
                 success : function(result){ 
                     if (result == true) {
                         alert("관심 공고 목록에 추가되었습니다.");
-                        console.log("class"+$(this));
-
                         $("#bookmark"+noticeNum).addClass('active');
                     }else{
                         alert("관심 공고에서 삭제되었습니다.");
@@ -603,10 +598,10 @@ $(document).ready(function() {
                     }
                 }
             });
-        }else if(!user_type){
+        }else if(!user_type){//user_type이 없으면 login 페이지로 이동
         location.href="/login";
         }
-    });
+    });//end of fa-bookmark click function
 });//document).ready(function()
 
 // 페이징 관련 로직
@@ -618,6 +613,7 @@ $(document).ready(function() {
         actionForm.attr("action","cardPageList").submit();
         
     });
+
 
 
 </script>
