@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CompanyInfoDetailUpdate</title>
+    <title>기업 마이페이지 - 상세정보 수정</title>
 <!--    <link rel="stylesheet" href="css/default.css">-->
 <!--    <link rel="stylesheet" href="css/company_InfoDetailUpdate.css">-->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">

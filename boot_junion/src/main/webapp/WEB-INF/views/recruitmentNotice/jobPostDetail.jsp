@@ -561,7 +561,18 @@
                         <div class="sub2">
 							<!-- <button class="icon"> -->
 							<span class="icon">
-								<i class="fa-regular fa-bookmark" id="mainBookMark"></i>
+								<!-- ${company.notice_num} -->
+								<c:choose>
+									<c:when test="${fn:contains(ScrapComList, noticeNumber)}">
+										<i id="bookmark${noticeNumber}" class="fa-solid fa-bookmark active"></i>
+										<!-- <i id="bookmark" class="fa-solid fa-bookmark active"></i> -->
+									</c:when>
+									<c:otherwise>
+										<!-- <i id="bookmark<span class='urlNotice'></span>" class="fa-regular fa-bookmark"></i> -->
+										<i id="bookmark${noticeNumber}" class="fa-regular fa-bookmark"></i>
+									</c:otherwise>
+								</c:choose>
+								<!-- <i id="bookmark" class="fa-regular fa-bookmark"></i> -->
 							<!-- </button> -->
 							</span>
 							<span class="icon">
@@ -728,10 +739,10 @@
 											<!-- <i class="fa-regular fa-bookmark" style = font-size:20px;></i> -->
 											<c:choose>
 												<c:when test="${fn:contains(ScrapComList, dto.notice_num)}">
-													<i id="bookmark${dto.notice_num}" class="fa-solid fa-bookmark active"></i>
+													<i id="bookmark${dto.notice_num}" class="fa-solid fa-bookmark active" onclick="return false;"></i>
 												</c:when>
 												<c:otherwise>
-													<i id="bookmark${dto.notice_num}" class="fa-regular fa-bookmark"></i>
+													<i id="bookmark${dto.notice_num}" class="fa-regular fa-bookmark" onclick="return false;"></i>
 												</c:otherwise>
 											</c:choose>
 										</button>
@@ -783,8 +794,8 @@
 			2024-07-24 임하진 : 스택 출력 문제로 span으로 태그 변경
             */
      var noticeStack = "${company.notice_stack}";
-	 console.log(noticeStack);
-	 console.log(noticeStack.length);
+	//  console.log(noticeStack);
+	//  console.log(noticeStack.length);
 	 if(noticeStack.length > 0){
             const stacks = noticeStack.split(','); // 콤마로 나눠서 배열로 저장
             let output = "";
@@ -813,22 +824,16 @@
 		if(notice_pay1 == "면접 후 결정"){
 			$(".case").css("display","none");
 		}
-
-		const scrap = "${ScrapComList}";
-		let list = scrap.split(',');
-		console.log("배열 타입은?"+Array.isArray(list));
-		console.log("스크랩 공고?"+list);
-		// list.to
+		/*
+		필요 없어진 부분 : 해당 페이지의 URL에서 쿼리스트링 값으로 notice_num을 찾아옴
 		let urlParams = new URLSearchParams(location.search);
 		// var notice_num = parseInt(urlParams.get('notice_num'));
 		var notice_num = urlParams.get('notice_num');
 		console.log("현재 공고의 번호는!!"+notice_num);
-		
-		if (list.toString().includes(nutice_num)) {
-			console.log("성공!");
-			$(".mainBookMark").addClass("active");
-		}
-		console.log("실패?");
+		const urlNotice = notice_num;
+		$(".urlNotice").text(urlNotice);
+		*/
+
 
 	});
 
@@ -840,7 +845,7 @@
 	if (!user_type || user_type == 1) {
 			// 24-07-09 임하진 : 외부 팝업
 			function resume() {
-				$("#user_resume").toggleClass("active");
+				$("#user_resume").addClass("active");
 				const urlParams = new URLSearchParams(location.search);
 				var notice_num = urlParams.get('notice_num');
 				var popupProperties = "width=560, height=440, resizable = no, scrollbars = no";
@@ -850,7 +855,38 @@
 		$("#user_resume").css("display","none");
 	}
 
+// 24.08.03 하진
+	$(".fa-bookmark").click(function() {//관심 공고 추가/삭제 로직
+          if(user_type == 1){
+          
+			var getid = $(this).attr("id");//해당 북마크의 id를 찾음
+			console.log("찾은 id값은? "+getid);
+			const regex = /[^0-9]/g;// 정규표현식 : 숫자가 아닌 수들을 찾음
+			const result = getid.replace(regex,"");//replace(regex,"") -> regex에 해당하는 패턴을 모두 ""으로 변환 = 숫자가 아닌 문자 제거(형은 string임)
+			const notice_num = parseInt(result);//casting
+			console.log("찾았나요 공고번호? "+notice_num);
+            const user_email = "${login_email}";
 
+			$.ajax({
+				type : "POST",
+				url : "/scrapNotice",
+				data : {notice_num : notice_num, 
+						user_email : user_email
+					},
+					success : function(result){ 
+						if (result == true) {
+							alert("관심 공고 목록에 추가되었습니다.");
+							$("#bookmark"+notice_num).removeClass('fa-regular fa-bookmark').addClass('fa-solid fa-bookmark active');				
+						}else{
+							alert("관심 공고에서 삭제되었습니다.");
+							$("#bookmark"+notice_num).removeClass('fa-solid fa-bookmark active').addClass('fa-regular fa-bookmark');
+						}
+					}
+				});
+			}else if(!user_type){//user_type이 없으면 login 페이지로 이동
+			location.href="/login";
+			}
+    });//end of fa-bookmark click function
 
 	// 관심 기업 추가 로직
 	const user_email = "${login_email}";
