@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>채용 정보 목록</title>
+    <title>채용 공고 목록</title>
 <!-- <link rel="stylesheet" href="css/default.css">
 <link rel="stylesheet" href="css/posting_list.css"> -->
 <link rel="stylesheet" href="css/default.css">
@@ -212,7 +212,10 @@ display:inline-block;
 .menutitle .scrap .fa-bookmark
 {
     font-size: 20px;
-    color: var(--input-gray);
+    /* color: var(--input-gray); */
+    color: var(--color-gray);
+    cursor: pointer;
+
 }
 
 .menutitle .scrap .fa-bookmark.active

@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>기업-마이페이지-메인</title>
+<title>기업 마이페이지 - 메인</title>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
 <!--<link rel="stylesheet" href="src/main/resources/static/css/style.css">-->
 <!-- import font-awesome, line-awesome -->
@@ -45,7 +45,7 @@
 	width: 160px;
 	background-color: var(--color-white);
 	border-radius: 5px;
-	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+	/* box-shadow: 0 2px 5px rgba(0,0,0,0.2); */
 	right: 11px;
 }
 
