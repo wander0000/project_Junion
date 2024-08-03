@@ -5,14 +5,14 @@ import java.util.HashMap;
 
 public interface ScrapService {
 
-//	하진 : 관심 기업 설정을 위한 메소드
-//	public ScrapDTO existingCompany(String user_email, int notice_num);//기존 관심기업 스크랩 정보를 가져옴
+// 하진
+//	관심 기업 설정을 위한 메소드
 	public String existingCompany(String user_email, int notice_num);//기존 관심기업 스크랩 정보를 가져옴
 //	public String comScrap(HashMap<String, String> param);//관심기업 스크랩
 	public boolean uploadcomScrap(HashMap<String, String> param);//관심기업 스크랩
 
 
-// 하진 : 공고 스크랩을 위한 메소드
+// 공고 스크랩을 위한 메소드
 	public ArrayList<Integer> getScrapNoticeNum(String user_email);//관심 공고 목록을 가져옴
 	public boolean checkScrapNotice(HashMap<String, String> param);//관심 공고 스크랩
 	

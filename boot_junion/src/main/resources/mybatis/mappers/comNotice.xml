@@ -14,7 +14,6 @@
 	</select>
 	
 <!-- 	채용공고 클릭, 상세페이지 이동시 조회수 증가 -->
-<!-- 24.07.28 하진 : 조회수가 1에서 더이상 증가하지 않아 쿼리 확인, 쿼리 수정함 -->
 	<update id="hitUP">
 		update notice_tb set notice_hit = notice_hit+1
 			where notice_num=#{notice_num}
