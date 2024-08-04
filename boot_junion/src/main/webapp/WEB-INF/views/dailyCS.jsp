@@ -44,7 +44,7 @@
 						</form>
 					</div>
 				</div>
-				<div class="questionCardWrap">					
+				<div class="questionCardWrap">								
 					<c:forEach var="item" items="${list}">
 					    <div class="card">
 					        <div class="cardH">
@@ -53,12 +53,13 @@
 					            </h3>
 					        </div>
 					        <div class="cardB">
-					            ${item.cs_question_title}
+					            ${item.cs_question_title}								
 					        </div>
 					        <div class="cardF">
-					            <div class="check">
+					            <div class="check">																
 					                <i class="fa-solid fa-circle-check"></i>
-					                ${item.cs_user_check}
+					                <c:if test="${not empty item.user_email and item.user_email == session_email}">참여</c:if>
+					                <c:if test="${empty item.user_email or item.user_email != session_email}">미참여</c:if>
 					            </div>
 					            <button type="button" class="popOpen" onclick="questionPop(${item.cs_num})">문제풀기</button>
 					        </div>

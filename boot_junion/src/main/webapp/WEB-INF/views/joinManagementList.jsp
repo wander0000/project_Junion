@@ -164,8 +164,17 @@
 											<button class="noticeStatus" <c:if test="${dto.notice_status == '공고중'}">style='background-color: #FFA500; color:white; border:0;'</c:if>>
 												${dto.notice_status}
 											</button>
-											<button class="noticeCheck">${dto.noticeCheck}</button>
-											<button class="noticeEstimate">평가하기</button>
+											<button class="noticeCheck">${dto.noticeCheck}</button>											
+											<button class="noticeEstimate" <c:if test="${dto.hasRated > 0}">disabled</c:if>>
+											    <c:choose>
+											        <c:when test="${dto.hasRated > 0}">
+											            평가완료
+											        </c:when>
+											        <c:otherwise>
+											            평가하기
+											        </c:otherwise>
+											    </c:choose>
+											</button>
 										</div>
 										<span class="icon delete">
 											<i class="fa-regular fa-trash-can" ></i>

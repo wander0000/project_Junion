@@ -48,6 +48,7 @@
 	    transform: translateY(-50%);
 	    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
 	    width: 54px;
+		z-index: 9;
 	}
 	
 	.scrollTop  
@@ -64,6 +65,8 @@
 	    display: flex;
 	    justify-content: center;
 	    align-items: center;
+		cursor:pointer;
+		z-index: 9;
 	}
 	
 	.quickMenuCon 
@@ -113,7 +116,7 @@
 				</a>
 			</li>
 			<li class="quickMenuCon">
-				<a class="menuCon" href="boardList">
+				<a class="menuCon" href="boardCommunity">
 					<span class="icon">
 						<i class="fa-regular fa-comments"></i>
 					</span>

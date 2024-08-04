@@ -51,13 +51,13 @@
     
 <select id="questionList" resultType="com.boot.DTO.DailyCSDTO">
 		<![CDATA[
-         select 	rownum, cs_num, cs_type, cs_question_title, cs_user_check
-				from( select 	rownum, cs_num, cs_type, cs_question_title, cs_user_check  
+         select 	rownum, cs_num, cs_type, cs_question_title, cs_user_check, user_email
+				from( select 	rownum, cs_num, cs_type, cs_question_title, cs_user_check, user_email  
 				from (select row_number() over(order by cs_num desc) as rownum,
-							cs.cs_num, cs.cs_type, csq.cs_question_title, csu.cs_user_check 
+							cs.cs_num, cs.cs_type, csq.cs_question_title, csu.cs_user_check, csu.user_email 
 			                from  cs_tb cs 
 							left join cs_question_tb csq ON cs.cs_num = csq.cs_num 
-							left join cs_user csu ON cs.cs_num = csu.cs_num							
+							left join cs_user csu ON cs.cs_num = csu.cs_num					
 			                order by cs_num desc) a
 			where rownum <= (#{pageNum} * #{amount})
 			) aa
