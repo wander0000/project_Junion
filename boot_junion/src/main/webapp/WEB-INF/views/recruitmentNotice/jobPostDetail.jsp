@@ -19,7 +19,9 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <!-- import js -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<script src="js/index.js"></script>   
+<script src="js/index.js"></script>
+<!-- 지도 API -->
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=48ca63ceb0746787c922c8da8f33b705&libraries=services"></script>   
 </head>
 <style>
 	    :root 
@@ -124,6 +126,7 @@
 	.wrap .main .sub1 .name
 	{
 	    padding-bottom: 10px;
+		color: var(--color-black);
 	}
 
 	.wrap .main .sub1 .name,
@@ -554,7 +557,7 @@
                     </div>
                     <div class="main">
                         <div class="sub1">
-                            <h5 class="name">${company.com_name}</h5>
+                            <a href="comDetail?com_email=${company.com_email}"><h5 class="name">${company.com_name}</h5></a>
                             <h5 class="locationC">${company.notice_area1}${company.notice_area2} · ${company.notice_career}</h5>
                             <h5 class="title">${company.notice_title}</h5>
                         </div>
@@ -708,8 +711,7 @@
                                         var map = new kakao.maps.Map(container, options);
                                     </script>
                                 </div> -->
-                                <!--<h5 class="loc">${com_location}</h5>-->
-                                <!-- <h5 class="loc">${com_location}</h5> -->
+								<div id="map" style="width:100%;height:350px;"></div>
                                 <h5 class="loc">${company.com_location}</h5>
                             <!-- </h5> -->
                         </div>
@@ -824,18 +826,51 @@
 		if(notice_pay1 == "면접 후 결정"){
 			$(".case").css("display","none");
 		}
-		/*
-		필요 없어진 부분 : 해당 페이지의 URL에서 쿼리스트링 값으로 notice_num을 찾아옴
-		let urlParams = new URLSearchParams(location.search);
-		// var notice_num = parseInt(urlParams.get('notice_num'));
-		var notice_num = urlParams.get('notice_num');
-		console.log("현재 공고의 번호는!!"+notice_num);
-		const urlNotice = notice_num;
-		$(".urlNotice").text(urlNotice);
-		*/
 
 
-	});
+
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+    mapOption = {
+        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+        level: 3 // 지도의 확대 레벨
+    };  
+
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+
+	// 주소로 좌표를 검색합니다
+
+	var getlocation ="${company.com_location}";
+	console.log("회사 주소는 잘 가져왔나요? "+getlocation);
+	// geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
+	geocoder.addressSearch(getlocation, function(result, status) {
+
+    // 정상적으로 검색이 완료됐으면 
+     if (status === kakao.maps.services.Status.OK) {
+
+        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+        // 결과값으로 받은 위치를 마커로 표시합니다
+        var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords
+        });
+
+        // // 인포윈도우로 장소에 대한 설명을 표시합니다
+        // var infowindow = new kakao.maps.InfoWindow({
+        //     content: '<div style="width:150px;text-align:center;padding:6px 0;">회사 위치</div>'
+        // });
+        // infowindow.open(map, marker);
+
+        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+        map.setCenter(coords);
+    } 
+});   
+
+	});//end of document ready function
 
 	// 24.07.29 하진
 	// : 기업 회원의 경우 버튼 비활성화

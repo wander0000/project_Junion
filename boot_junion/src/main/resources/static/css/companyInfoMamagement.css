@@ -471,10 +471,9 @@ section
 /* 지도  */
 #map
 {
-    /* width: 1200px;
-    height: 500px; */
-    width:730px;
-    height:250px;
+    /* width:730px; */
+    width: 100%;
+    height:350px;
     margin-bottom: 20px;
 }
 
@@ -485,6 +484,16 @@ section
     font-size: var(--font-size20);
 
 }
+
+/* .wrap .column .col7 .columnBB .comloc
+{
+    /* font-weight: 100;
+    font-size: var(--font-size16);
+    color: black; */
+    /* margin-top: 20px;
+
+} */
+
 .wrap .column .columnAA .detail,
 .wrap .column .col7 .columnBB .comloc,
 .wrap .column .col8 .comname1 .name,
