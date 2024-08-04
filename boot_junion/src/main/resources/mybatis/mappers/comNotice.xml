@@ -61,6 +61,20 @@
 	<select id="getResumeNum" resultType="com.boot.DTO.SubmitDTO">
 		select user_email from submit_tb where notice_num=#{notice_num}
 	</select>
+	
+	
+<!-- 	지원 버튼 클릭시, offer 테이블에서 notice_num과 user_email확인(연주0804)  -->
+	<select id="getOfferNum" resultType="int">
+		SELECT COUNT(*) from offer where notice_num=#{notice_num} and user_email=#{user_email}
+	</select>
+	
+<!-- 	지원 버튼 클릭시, offer 테이블에서 notice_num과 user_email으로 해당Data 찾아서 offer_agree=지원완료, resume_submitDate=현재날짜 저장(연주0804)  -->
+	<update id="updateOfferStatus">
+		update offer set offer_agree='지원완료',resume_submitDate=now() where notice_num=#{notice_num} and user_email=#{user_email}
+    </update>
+	
+	
+	
 
 <!-- 	지원 버튼 클릭시, 포지션 제안을 받은 회원인지 확인하는 쿼리 -->
  	<select id="findOfferUser" resultType="boolean"> 

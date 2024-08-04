@@ -20,6 +20,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -116,7 +117,7 @@ public class ComNoticeController {
 	   
      // 24.07.30 연주  끝================================================================================
         
-        
+     
 	   		
 		ComNoticeDTO dto = postService.JobPost(notice_num);
 		postService.hitUP(notice_num);// 조회수를 증가
@@ -166,6 +167,26 @@ public class ComNoticeController {
 	public boolean resumeUser(@RequestParam HashMap<String, String> param, HttpServletRequest request, Model moedel) {
 		log.info("resumeUser!!!");
 		log.info("resumeUser!!! param" +param);
+		
+		// 24.08.04 연주 : 지원하기 누르면 해당공고로 제안한 이력확인 하고 offer_agree=지원완료, resume_submitDate=현재날짜 offer테이블에 저장하기==========================================================
+        
+		//offer 테이블에서 notice_num과 user_email 값이 있는지 확인
+		int notice_num = Integer.parseInt(param.get("notice_num"));
+		String user_email = param.get("user_email");
+		log.info("resumeUser!!! notice_num=" +notice_num+"user_email="+user_email);
+		
+		
+		int offer_exist = postService.getOfferNum(notice_num,user_email);//offer 테이블 조회
+		log.info("제안한적 있으면 1, 없으면 0 ->>"+offer_exist);
+		
+		if(offer_exist == 1) {
+			log.info("제안한적 있어서 offer테이블 정보저장으로 분기 탐 ->>");
+			postService.updateOfferStatus(notice_num, user_email);//offer 테이블에 정보저장
+		}
+		
+		
+	     // 24.08.04 연주  끝================================================================================
+		
 		
 		
 //		postService.updateSubmitData(dto);//submit 테이블에 정보저장

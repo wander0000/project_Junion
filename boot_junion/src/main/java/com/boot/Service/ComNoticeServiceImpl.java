@@ -122,6 +122,23 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 		return result;
 	}
 	
+	@Override
+	public int getOfferNum(int notice_num, String user_email) {//지원하기 누르면 offer한 적 있는지 확인
+		ComNoticeDAO dao = sqlSession.getMapper(ComNoticeDAO.class);
+		int offer_exist = dao.getOfferNum(notice_num, user_email);//제안한 공고면 1, 아니면 0
+		
+		return offer_exist;
+	}
+	
+	@Override
+	public void updateOfferStatus(int notice_num, String user_email) {
+		log.info("@# ComNoticeServiceImpl updateOfferStatus");
+		ComNoticeDAO dao = sqlSession.getMapper(ComNoticeDAO.class);
+		dao.updateOfferStatus(notice_num,user_email);//offer_agree=지원완료, resume_submitDate=현재날짜 offer테이블에 저장하기 0804 연주
+		
+	}
+
+	
 	
 	
 //	지수
@@ -219,6 +236,8 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 			dao.updateRecentNotice(dto);//최근본공고테이블에 저장
 		}
 	}
+
+	
 	
 
 

@@ -164,21 +164,22 @@
 }
 
 
-
 /*삭제버튼*/
-.mainContainer .searchWrap .optionSortLeft button
-{
-  width: 65px;
-  /* height: 36px; */
-  background-color: var(--color-white);
+.selectDel {
+  padding: 8px 20px;
   border: 1px solid var(--input-gray);
-  color: #777;
   font-size: var(--font-size14);
   border-radius: 6px;
-  align-items:center;
-  justify-content:center;
-  padding: 8px 10px;
+  background-color: var(--color-white);
   cursor: pointer;
+  color: #777;
+}
+
+.selectDel:hover
+{
+  border: 1px solid var(--main-color);
+  background-color: var(--main-color);
+  color: var(--color-white);
 }
 
 
@@ -237,7 +238,7 @@
     border: 1px solid var(--main-color);
     background-color: var(--main-color);
     color: var(--color-white);
-	}
+}
 
 
 /*공고 박스 리스트*/
@@ -512,12 +513,10 @@ button.postStatus
                                     <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
                                 </div><!-- optionSortLeft 끝 -->
                                 <div class="optionSorRight">
-                                   
-                                        <input type="text" id="keyword" name="keyword" placeholder="기업명, 채용공고제목" value="${pageMaker.cri.keyword}">
-                                        <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
-                                        <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
-                                        <button class="searchBtn" type="submit">검색하기</button>
-                                   
+                                  <input type="text" id="keyword" name="keyword" placeholder="기업명, 채용공고제목" value="${pageMaker.cri.keyword}">
+                                  <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}">
+                                  <input type="hidden" name="amount" value="${pageMaker.cri.amount}">
+                                  <button class="searchBtn" type="submit">검색하기</button>
                                 </div> <!-- optionSortBtn right 끝 -->                  
                               </div><!-- searchWrap 끝 -->  
                             </form><!-- searchForm  끝 --> 
