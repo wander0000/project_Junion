@@ -21,7 +21,6 @@
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
     <script src="js/index.js"></script>
     <!--kakao map -->
-    <!-- <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script> -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=48ca63ceb0746787c922c8da8f33b705&libraries=services"></script>
 <style>
     /* 드롭다운 메뉴 */
@@ -95,8 +94,8 @@
                 
                 
                 <div class="toptitle">
-                    <h3 class="toptitle1" >기업 기본 정보</h3>
-                    <h3 class="toptitle2" >기업 상세 정보</h3>
+                    <h3 class="toptitle1" style="font-size: 32px;" >기업 기본 정보</h3>
+                    <h3 class="toptitle2" style="font-size: 32px;" >기업 상세 정보</h3>
                 </div>
                 
                     <div class="tabCon common">
@@ -160,7 +159,9 @@
                                         </div>
                                         <div class="columnBB">
                                             <!--지도가 들어갈 위치-->
-                                            <div id="map" clss="map"></div>
+                                            <!-- <div id="map" clss="map"></div> -->
+                                            <div id="map" style="width:100%;height:350px;"></div>
+                                            <!-- <div id="map"></div> -->
                                             <h5 class="comloc" id="comAddress">${companyInfo.com_location}</h5>
                                         </div>
                                     </div>
@@ -261,6 +262,7 @@
                     
                     <div class="tabCon detail">
                         <table class="tabCon detail disB" width="1200px" height="300px">
+                        <!-- <table class="tabCon detail disB" width="1000px" height="300px"> -->
                             <tr>
                                 <th>기업이메일</th>
                                 <td>${companyInfo.com_email}</td>
@@ -312,10 +314,6 @@
     //    const comStack = "<c:out value='${companyInfo.com_stack}'/>";
         console.log(comStack);
                 const stacks = comStack.split(",");//배열로 만듦
-                // console.log("@@###=>1"+stacks[0]);
-                // console.log("@@###=>2"+stacks[1]);
-                // console.log("@@###=>3"+stacks[2]);
-                // console.log("@@###=>4"+stacks[3]);
                 let str = "";
                 for( let i=0; i < stacks.length; i++) 
                 // for( let i=0; i < comStack.length; i++) 
@@ -328,19 +326,20 @@
                 $("#stack").html(str);
         
         }
+    
         //현재 날짜를 구함.
-        var years = new Date();
-        var nowYear = years.getFullYear();
-        console.log(nowYear);
-        $('.nowYear').text(nowYear);
+    var years = new Date();
+    var nowYear = years.getFullYear();
+    console.log(nowYear);
+    $('.nowYear').text(nowYear);
 
 
 
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-    mapOption = {
-        center: new kakao.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-        level: 4 // 지도의 확대 레벨
-    };
+    var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+        mapOption = {
+            center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표(상세정보 수정시와 다른 좌표를 써야 함)
+            level: 4 // 지도의 확대 레벨(높을수록 확대가 많이 됨)
+            };  
 
     //지도를 미리 생성
     // var map = new daum.maps.Map(mapContainer, mapOption);
@@ -348,9 +347,8 @@
     //주소-좌표 변환 객체를 생성
     var geocoder = new kakao.maps.services.Geocoder();
    
-    // var getlocation = document.getElementById("comAddress").value;
-    var getlocation = "${companyInfo.com_location}";
-    console.log("회사의 위치는요"+getlocation);
+    var getlocation = "${companyInfo.com_location}";//화면에 출력된 값을 변수로 받아 사용
+    // console.log("회사의 위치는요"+getlocation);
     
     // 주소로 좌표를 검색합니다
     // geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {

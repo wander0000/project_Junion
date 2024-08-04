@@ -108,28 +108,30 @@
                                 <div class="Bodycon tech">
                                     <input type="hidden" class="techValue" id="techValue" name="com_stack"> <!-- com_stack value 저장장소-->
                                     <div class="comadress">
-                                        <div class="buttonTitle">기술</div>
-                                        <div class="buttonWrap">	                                    
-                                            <c:forEach var="dto" items="${stack_name}">
-                                                <input type="button" class="tech" name="com_stack" value="${dto.stack_name}">
-                                            </c:forEach>
+                                        <div class="techCon">
+                                            <div class="buttonTitle">기술</div>
+                                            <div class="buttonWrap">	                                    
+                                                <c:forEach var="dto" items="${stack_name}">
+                                                    <input type="button" class="tech" name="com_stack" value="${dto.stack_name}">
+                                                </c:forEach>
+                                            </div>
+                                        </div>    
+                                        <div class="techCon">
+                                            <div class="buttonTitle">디자인</div>
+                                            <div class="buttonWrap">
+                                                <c:forEach var="dto" items="${stack_name2}">
+                                                    <input type="button" class="tech" name="com_stack" value="${dto.stack_name}">
+                                                </c:forEach>
+                                            </div>
                                         </div>
-                                    </div>    
-                                    <div class="techCon">
-                                        <div class="buttonTitle">디자인</div>
-                                        <div class="buttonWrap">
-                                            <c:forEach var="dto" items="${stack_name2}">
-                                                <input type="button" class="tech" name="com_stack" value="${dto.stack_name}">
-                                            </c:forEach>
-                                        </div>
-                                    </div>
-                                    <div class="techCon">
-                                        <div class="buttonTitle">기획</div>
-                                        <div class="buttonWrap">
-                                            <c:forEach var="dto" items="${stack_name3}">
-                                                <input type="button" class="tech" name="com_stack" value="${dto.stack_name}">
-                                            </c:forEach>
-                                        </div>
+                                        <div class="techCon">
+                                            <div class="buttonTitle">기획</div>
+                                            <div class="buttonWrap">
+                                                <c:forEach var="dto" items="${stack_name3}">
+                                                    <input type="button" class="tech" name="com_stack" value="${dto.stack_name}">
+                                                </c:forEach>
+                                            </div>
+                                        </div>                        
                                     </div>                        
                                 </div>                        
                             </div> <!-- sectionConBody 끝 -->

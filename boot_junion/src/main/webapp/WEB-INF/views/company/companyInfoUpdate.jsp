@@ -89,7 +89,7 @@
                 
                 
                 <div class="toptitle">
-                    <h3 class="toptitle1" style="font-size: var(--font-size32);" >기업 기본 수정</h3>
+                    <h3 class="toptitle1" >기업 기본 수정</h3>
                     
                 </div>
                      

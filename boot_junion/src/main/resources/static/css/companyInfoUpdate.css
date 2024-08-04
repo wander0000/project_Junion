@@ -194,13 +194,14 @@ main .toptitle .toptitle1
 {
   margin-right: 40px;
   cursor: pointer;
+  font-size: var(--font-size32);
 }
 
-main .toptitle .toptitle2
+/* main .toptitle .toptitle2
 {
   margin-right: 40px;
   cursor: pointer;
-}
+} */
 
 .disF 
 {
