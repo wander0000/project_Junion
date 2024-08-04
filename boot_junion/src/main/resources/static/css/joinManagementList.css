@@ -474,3 +474,12 @@ input.com_star
 {
 	display: none;
 }
+
+button.noticeEstimate:disabled, button.noticeEstimate:disabled:hover 
+{
+	background: #777!important;
+	color: #fff !important;
+	cursor: initial !important;
+	border: 1px solid #777 !important;
+}
+

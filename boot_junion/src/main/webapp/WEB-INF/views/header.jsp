@@ -81,7 +81,12 @@
 	{
 	    font-size: var(--font-size16);
 	    color: var(--color-black);
-	    font-weight: 500;
+	    font-weight: 400;
+	}
+	
+	.headerInner ul.menu li a:hover, .headerInner ul.rightMenu li a:hover 
+	{
+		color: var(--main-color);
 	}
 
 	.rightMenu 

@@ -31,4 +31,7 @@ public interface joinManagementPageDAO {
 	// 별점
 	public void comStar(StarDTO stardto);
 	
+	// 별점중복체크
+	public int doublecomStarCheck(@Param("user_email") String user_email, @Param("notice_num") int notice_num);
+	
 }

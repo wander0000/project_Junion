@@ -28,4 +28,6 @@ public interface JoinManagementPageService {
 	// 별점
 	public void comStar(StarDTO stardto);
 	
+	public int doublecomStarCheck(String user_email, int notice_num );
+	
 }
