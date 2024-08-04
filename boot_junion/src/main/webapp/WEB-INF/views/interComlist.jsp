@@ -207,21 +207,22 @@
 	}
 
 	/*삭제버튼*/
-	.mainContainer .searchWrap .optionSortLeft button
-	{
-		width: 65px;
-		/* height: 36px; */
-		background-color: var(--color-white);
+	.selectDel {
+		padding: 8px 20px;
 		border: 1px solid var(--input-gray);
-		color: #777;
 		font-size: var(--font-size14);
 		border-radius: 6px;
-		align-items:center;
-		justify-content:center;
-		padding: 8px 10px;
+		background-color: var(--color-white);
 		cursor: pointer;
+		color: #777;
 	}
 
+	.selectDel:hover
+	{
+		border: 1px solid var(--main-color);
+		background-color: var(--main-color);
+		color: var(--color-white);
+	}
 
 
 	/*sort tab 오른쪽 검색하기*/
@@ -235,32 +236,47 @@
 	gap : 10px;
 	}
 
-	/* 검색창*/
-	.mainContainer .searchWrap .optionSorRight input
-	{
-	width: 240px;
-	border:1px solid var(--input-gray);
-	font-size: var(--font-size14);
-	border-radius: 6px;
-	padding-left: 15px;
-	color: #777;
-	padding: 8px 10px;
-	cursor: pointer;
-	}
+	/*sort tab 오른쪽 검색하기*/
+.mainContainer .searchWrap .optionSorRight
+{
+  margin-left: auto ;
+  display: flex;
+  gap : 10px;
+}
 
-	/*검색하기 버튼*/
-	.mainContainer .searchWrap .optionSorRight button
-	{
-		width: 78px;
-		/* height: 36px; */
-		border:1px solid var(--input-gray);
-		font-size: var(--font-size14);
-		border-radius: 6px;
-		padding-left: 15px;
-		color: #777;
-		padding: 8px 10px;
-		cursor: pointer;
-	}
+
+/* 검색창*/
+.mainContainer .searchWrap .optionSorRight input
+{
+  width: 240px;
+  border:1px solid var(--input-gray);
+  font-size: var(--font-size14);
+  border-radius: 6px;
+  color: #777;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+/*검색하기 버튼*/
+.searchBtn
+{
+  /* width: 78px; */
+  background-color: var(--color-white);
+  border: 1px solid var(--input-gray);
+  color: #777;
+  font-size: var(--font-size14);
+  border-radius: 6px;
+  padding: 8px 10px;
+  cursor: pointer;
+}
+
+.searchBtn:hover
+{
+    border: 1px solid var(--main-color);
+    background-color: var(--main-color);
+    color: var(--color-white);
+}
+
 
 
 
@@ -348,16 +364,7 @@
 	gap: 20px;
 	}
 
-	/*자세히보기 버튼*/
-	.boxRight .detailTab
-	{
-	/* display: flex; */
-	/* width: 135px; */
-	/* height: 32px; */
-	/* box-sizing: ; */
-	/* cursor: pointer; */
-
-	}
+	
 	/*자세히보기 버튼*/
 	.boxRight button
 	{
@@ -464,7 +471,7 @@
                                 <button class="selectDel">삭제</button>
                             </div><!-- optionSortLeft 끝 -->
                             <div class="optionSorRight">
-                                <form method="get" id="searchForm">
+								<form method="get" id="searchForm">
                                     <div class="search_Form">
                                         <input type="text" id="keyword" name="keyword" placeholder="기업명, 기업소개"  value="${pageMaker.cri.keyword}" >
                                         <!-- <input type="hidden" name="pageNum" value="${pageMaker.cri.pageNum}"> -->
@@ -585,6 +592,7 @@
 			var keyword = document.getElementById('keyword');
 			console.log(keyword);
 			var searchForm = $("#searchForm");
+			// alert(searchForm);
 			// var keyword1 =searchForm.find(keyword).val();
 			if( keyword.value.length == 0){
 				alert("키워드를 입력하세요.");

@@ -43,7 +43,9 @@ public interface PageDAO {
 	public ArrayList<OfferInfoDTO> offerListWithPaging(Criteria2 cri2);
 	//연주  받은제안 총 갯수
 	public int offerListTotalCount(Criteria2 cri2);
-		
+	//연주  받은제안 거절하기
+	public void rejectOffer(@Param("user_email") String user_email, @Param("offer_no") int offer_no);
+			
 	
 	
 }// public class BoardDAO 끝 

@@ -166,19 +166,21 @@
 
 
 /*삭제버튼*/
-.mainContainer .searchWrap .optionSortLeft button
+.selectDel {
+					padding: 8px 20px;
+					border: 1px solid var(--input-gray);
+					font-size: var(--font-size14);
+					border-radius: 6px;
+					background-color: var(--color-white);
+					cursor: pointer;
+					color: #777;
+				}
+
+.selectDel:hover
 {
-  width: 65px;
-  /* height: 36px; */
-  background-color: var(--color-white);
-  border: 1px solid var(--input-gray);
-  color: #777;
-  font-size: var(--font-size14);
-  border-radius: 6px;
-  align-items:center;
-  justify-content:center;
-  padding: 8px 10px;
-  cursor: pointer;
+  border: 1px solid var(--main-color);
+  background-color: var(--main-color);
+  color: var(--color-white);
 }
 
 

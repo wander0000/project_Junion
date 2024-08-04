@@ -55,7 +55,7 @@ public class individualController {
 		return "individualMain";
 	}
 	
-	@RequestMapping("/individualJobOffer")//받은 제안
+	@RequestMapping("/individualJobOffer")//받은 제안 목록으로
 	public String individualJobOffer(HttpServletRequest request, Model model, Criteria2 cri2){
 		log.info("@# individualJobOffer");	
 		
@@ -86,6 +86,41 @@ public class individualController {
 		return "individualJobOffer";
 	}
 		
+	
+	@RequestMapping("/rejectOffer")//제안 거절하기
+//	public String rejectOffer(HashMap<String, String> param, HttpServletRequest request) {
+	public String rejectOffer(@RequestParam("offer_no") int offer_no, HttpServletRequest request) {
+		log.info("@# rejectOffer");		
+		HttpSession session = request.getSession();
+		String user_email = (String)session.getAttribute("login_email");
+		
+		OfferInfoDTO dto = new OfferInfoDTO();
+//		int offer_no=Integer.parseInt(param.get("offer_no"));
+                	
+		pageService.rejectOffer(user_email, offer_no);
+		
+		return "redirect:/individualJobOffer";
+	}
+	
+	
+	@RequestMapping("/offerDelete")// 받은제안 삭제
+	public String offerDelete(HashMap<String, String> param, HttpServletRequest request) {
+	
+		log.info("@# offerDelete");		
+//		HttpSession session = request.getSession();
+//		String user_email = (String)session.getAttribute("login_email");
+		
+		String [] arrStr = request.getParameterValues("arrStr");//offer_no배열
+        int size = arrStr.length;
+        for(int i=0; i<size; i++) {
+        	      	
+        	service.offerDelete(Integer.parseInt(arrStr[i]));
+        }
+        
+	
+		return "redirect:/individualrecentNotice";
+	}
+	
 	
 	@RequestMapping("/individualrecentNotice")//최근 본 공고 목록보기
 	public String individualrecentNotice(HttpServletRequest request, Model model, Criteria2 cri2) {

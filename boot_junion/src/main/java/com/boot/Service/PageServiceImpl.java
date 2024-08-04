@@ -162,13 +162,24 @@ public class PageServiceImpl implements PageService{
 
 	@Override
 	public int offerListTotalCount(Criteria2 cri2) {
-log.info("@# PageServiceImpl offerListTotalCount");
+		log.info("@# PageServiceImpl offerListTotalCount");
 		
 		PageDAO dao = sqlSession.getMapper(PageDAO.class);
 		int total = dao.offerListTotalCount(cri2);
 		
 		return total;
 	}
+
+	@Override
+//	public void rejectOffer(@Param("user_email") String user_email, @Param("offer_no") int offer_no) {
+	public void rejectOffer(String user_email, int offer_no) {
+		log.info("@# PageServiceImpl rejectOffer");
+		
+		PageDAO dao = sqlSession.getMapper(PageDAO.class);
+		dao.rejectOffer(user_email, offer_no);
+	}
+
+	
 
 	
 	

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.boot.DTO.ComNoticeAttachDTO;
 import com.boot.DTO.ComNoticeDTO;
 import com.boot.DTO.RecentNoticeDTO;
@@ -22,6 +24,8 @@ public interface ComNoticeService {
 	//지원하기 팝업 발생
 	public ComNoticeDTO getNoticeInfo(int notice_num);//지원하기 클릭, 공고 정보 가져오기
 	public ArrayList<ResumeDTO> getProfileList(String user_email);//지원하기 클릭, 이력서 정보 가져오기
+	public int getOfferNum(int notice_num, String user_email );//지원하기 클릭, 제안한 내용이 있는지 확인 0804연주
+	public void updateOfferStatus(@Param("notice_num") int notice_num, @Param("user_email") String user_email);//offer_agree=지원완료, resume_submitDate=현재날짜 offer테이블에 저장하기 0804 연주
 	
 	//공고 지원 처리
 	public boolean updateSubmitData(HashMap<String, String> param);//이력서지원정보 저장

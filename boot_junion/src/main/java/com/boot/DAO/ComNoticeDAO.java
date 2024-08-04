@@ -23,6 +23,8 @@ public interface ComNoticeDAO {
 	// 지원하기 팝업 발생
 	public ComNoticeDTO getNoticeInfo(int notice_num);//지원하기 클릭, 팝업창에 공고 정보 가져오기
 	public ArrayList<ResumeDTO> getProfileList(String user_email);//지원하기 클릭, 팝업창에 이력서 정보 가져오기
+	public int getOfferNum(@Param("notice_num") int notice_num, @Param("user_email") String user_email);//지원하기 클릭, 제안한 내용이 있는지 확인 0804연주
+	public void updateOfferStatus(@Param("notice_num") int notice_num, @Param("user_email") String user_email);//offer_agree=지원완료, resume_submitDate=현재날짜 offer테이블에 저장하기 0804 연주
 	
 	//공고 지원 처리
 	public ArrayList<SubmitDTO> getResumeNum(int notice_num);//이력서 선택, 지원 완료시 submit 테이블에 이력서 배열값 가져오기

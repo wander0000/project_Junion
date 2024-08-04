@@ -23,7 +23,7 @@ public class OfferInfoDTO {
 	
 	//0801연주 추가
 	private String notice_endDate; 
-	private String offer_no;
+	private int offer_no;
 	private String offer_date;
 	private String offer_agree;
 	private String resume_agree;

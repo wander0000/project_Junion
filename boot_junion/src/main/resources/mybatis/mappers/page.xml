@@ -208,14 +208,14 @@
 	<select id="offerListWithPaging" resultType="com.boot.DTO.OfferInfoDTO">
 	<![CDATA[ 
 		Select notice_num, notice_job, notice_title, notice_career, notice_endDate, offer_no, offer_content, offer_date, 
-			offer_agree, resume_agree, resume_submitDate, com_tel, com_location, com_person, com_name, com_email
+			offer_agree, resume_submitDate, com_tel, com_location, com_person, com_name, com_email
 		from( Select rownum, notice_num, notice_job, notice_title, notice_career, notice_endDate, offer_no, offer_content, offer_date, 
-					offer_agree, resume_agree, resume_submitDate, com_tel, com_location, com_person, com_name, com_email
+					offer_agree, resume_submitDate, com_tel, com_location, com_person, com_name, com_email
 				from( SELECT row_number() over(order by nt.update_date desc) as rownum, 
 							nt.notice_num as notice_num, nt.notice_job as notice_job, nt.notice_title as notice_title , 
 							nt.notice_career as notice_career, nt.notice_endDate as notice_endDate,
-							ot.offer_no as offer_no, ot.offer_content as offer_content, ot.offer_date as offer_date, ot.offer_agree as offer_agree,
-							ot.resume_agree as resume_agree, ot.resume_submitDate as resume_submitDate,
+							ot.offer_no as offer_no, ot.offer_content as offer_content, DATE_FORMAT(ot.offer_date, '%Y-%m-%d %H:%i') as offer_date, ot.offer_agree as offer_agree,
+							ot.resume_submitDate as resume_submitDate,
 							ct.com_tel as com_tel, ct.com_location as com_location, ct.com_person as com_person, ct.com_name as com_name, ct.com_email as com_email
 						FROM offer ot 
 						left outer join notice_tb nt ON ot.notice_num = nt.notice_num
@@ -240,7 +240,10 @@
 		<include refid="orderBy"/>
 	</select>
 	
-	
+	<!-- 제안거절하기 update-->
+    <update id="rejectOffer">
+		update offer set offer_agree ='제안거절' where offer_no = #{offer_no} and user_email=#{user_email}
+	</update>
 	
     
 </mapper>
