@@ -3,24 +3,18 @@ package com.boot.Controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.URLDecoder;
-import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -35,16 +29,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.boot.DAO.ComNoticeDAO;
 import com.boot.DTO.ComNoticeAttachDTO;
 import com.boot.DTO.ComNoticeDTO;
-import com.boot.DTO.ComScrapDTO;
 import com.boot.DTO.RecentNoticeDTO;
 import com.boot.DTO.ResumeDTO;
-import com.boot.DTO.SubmitDTO;
-import com.boot.DTO.UserDTO;
 import com.boot.Service.ComNoticeService;
-import com.boot.Service.IndividualService;
 import com.boot.Service.ScrapService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -229,7 +218,6 @@ public class ComNoticeController {
 		model.addAttribute("com_email",session.getAttribute("login_email"));
 		model.addAttribute("com_name", session.getAttribute("login_name"));
 		
-		
 		return "comRegistUpload";
 	}
 	
@@ -246,13 +234,14 @@ public class ComNoticeController {
 			model.addAttribute("com_email",session.getAttribute("login_email"));
 			model.addAttribute("com_name", session.getAttribute("login_name"));
 			
-
 			log.info("@# comNoticeDTO=>"+comNoticeDTO);
 			
 			if (comNoticeDTO.getComNoticeAttachList() != null) {
 				comNoticeDTO.getComNoticeAttachList().forEach(attach -> log.info("@# attach=>"+attach));
 			}
+			
 			service.registerNotice(comNoticeDTO);
+			
 			service.noticeInsertStack(comNoticeDTO);
 			service.noticeStauts(comNoticeDTO);
 			
@@ -277,9 +266,11 @@ public class ComNoticeController {
 		    model.addAttribute("com_name", session.getAttribute("login_name"));
 
 		    ComNoticeDTO dto = service.JobPost(notice_num);
+		    
 		    dto.setNotice_num(notice_num); // @@@@@@ 여기에 notice_num을 넣어야 getNoticeStack()에서 dto.notice_num 사용할 수 있음 -깡아지- @@@@@@
 		    model.addAttribute("notice", dto);
 		    model.addAttribute("noticeNumber", notice_num);
+		    log.info("@#notice_num=>"+notice_num);
 
 		    // 스택 리스트를 가져와서 모델에 추가
 		    log.info("@# dto=>"+dto);
@@ -290,6 +281,27 @@ public class ComNoticeController {
 		    model.addAttribute("stackListString", stackListString);
 
 		    return "comRegistModify";
+		}
+		
+		// 공고 수정 후 저장
+		@PostMapping("/updateRegisterNotice")
+		public String updateRegisterNotice(ComNoticeDTO comNoticeDTO, HttpServletRequest httpServletRequest) {
+		    log.info("@# updateRegisterNotice");
+		    
+		    HttpSession session = httpServletRequest.getSession();
+		    String loginEmail = (String) session.getAttribute("login_email");
+		    log.info("@# session login_email => " + loginEmail);
+		    
+		    comNoticeDTO.setCom_email(loginEmail);
+		    
+		    service.updateRegisterNotice(comNoticeDTO); //공고 수정 update
+		    service.noticeDeleteStack(comNoticeDTO.getNotice_num()); //스택 삭제 후
+		    service.noticeInsertStack(comNoticeDTO); // 스택 저장
+		    
+		    httpServletRequest.setAttribute("msg", "공고를 수정하였습니다.");
+			httpServletRequest.setAttribute("url", "/companyMain");
+			
+		    return "/alert";
 		}
 
 

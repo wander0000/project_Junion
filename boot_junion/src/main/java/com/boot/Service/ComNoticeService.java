@@ -34,6 +34,8 @@ public interface ComNoticeService {
 	public void noticeStauts(ComNoticeDTO comNoticeDTO); //공고 상태 업데이트
 	
 	public List<String> getNoticeStack(ComNoticeDTO comNoticeDTO); //공고수정-스택 테이블 select
+	public void updateRegisterNotice(ComNoticeDTO comNoticeDTO); //공고 수정
+	public void noticeDeleteStack(int notice_num); //공고수정- 스택 삭제
 	
 	public List<ComNoticeAttachDTO> registGetFileList(int notice_num); // int타입 notice_num파라미터를 list타입 <ComRegisterUploadDTO> getFileList로 사용하려함 / 파일열람
 	public void registDeleteFile(List<ComNoticeAttachDTO> fileList);  // notice_num 맞춰서 파일삭제로직 / 파일삭제

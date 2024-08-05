@@ -191,6 +191,13 @@ public class ComNoticeServiceImpl implements ComNoticeService{
         return dao.getNoticeStack(comNoticeDTO);
     }
 	
+	@Override
+	public void updateRegisterNotice(ComNoticeDTO comNoticeDTO) {
+		ComNoticeDAO dao = sqlSession.getMapper(ComNoticeDAO.class);
+		dao.updateRegisterNotice(comNoticeDTO);
+	}
+
+	
 	//파일 업로드
 	@Override
 	public List<ComNoticeAttachDTO> registGetFileList(int notice_num) {
@@ -236,6 +243,13 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 			dao.updateRecentNotice(dto);//최근본공고테이블에 저장
 		}
 	}
+
+	@Override
+	public void noticeDeleteStack(int notice_num) {
+		ComNoticeDAO dao = sqlSession.getMapper(ComNoticeDAO.class);
+		dao.noticeDeleteStack(notice_num);
+	}
+
 
 	
 	
