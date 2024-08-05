@@ -118,7 +118,10 @@
 
 
 					/* 버튼시작 */
-
+					/* 
+					240801 버튼 css수정
+					민중
+					 */
 					.right .fil2 {
 						margin-left: 8px;
 						border: 1px solid var(--input-gray);
@@ -128,6 +131,8 @@
 						width: 80px;
 						height: 40px;
 						cursor: pointer;
+						background: #111;
+						color: #fff;
 
 						&:hover {
 							background: var(--main-color);
@@ -200,10 +205,15 @@
 
 					}
 
-					/* .latest 추가 */
+					/* 
+					240801 기업이름 css수정
+					민중
+					 */
 					.menutitle .title .t1 {
 						font-size: var(--font-size16);
 						font-weight: 600;
+						/* 추가 */
+						color: #111;
 					}
 
 					.menubox {
@@ -212,15 +222,31 @@
 						position: relative;
 					}
 
-					.menubox .img {
+					/*
+					24/08/05
+					민중 기업목록 이미지
+					css 수정 시작
+					*/
+					.menubox .con .image {
 						width: 270px;
 						height: 180px;
-						background-image: url(../images/company.svg);
+						/* background-image: url(../images/company.svg); */
+						background-color: #dad1d1;
 						background-position: center;
 						background-size: cover;
 						border-radius: 10px;
 
 					}
+					.con .uploadResult img {
+						width: 270px;
+						height: 180px;
+						border-radius: 10px;
+					}
+										/*
+					24/08/05
+					민중 기업목록 이미지
+					css 수정 끝
+					*/
 
 					.menubox .scrap {
 						position: absolute;
@@ -344,14 +370,14 @@
 
 											<div class="right">
 												<div class="f1">
+													<button id="tab-btn ${orderType == 'latest' ? 'active' : ''}"
+														class="fil2" onclick="switchTab('latest', event)">최신순</button>
+												</div>
+												<div class="f1">
 													<button
 														id="tab-btn ${orderType == 'recommendation' ? 'active' : ''}"
 														class="fil2"
 														onclick="switchTab('recommendation', event)">추천순</button>
-												</div>
-												<div class="f1">
-													<button id="tab-btn ${orderType == 'latest' ? 'active' : ''}"
-														class="fil2" onclick="switchTab('latest', event)">최신순</button>
 												</div>
 												${orderType}
 											</div>
@@ -381,8 +407,15 @@
 										<c:forEach var="dto" items="${comList}">
 											<div class="menutitle">
 												<div class="menubox">
-													<a href="/comDetail?com_email=${dto.com_email}" class="tag">
-														<div class="img"></div>
+													<a class="con" href="/comDetail?com_email=${dto.com_email}"
+														data-com-email="${dto.com_email}">
+														<div class="image">
+															<div class="uploadResult">
+																<ul>
+
+																</ul>
+															</div>
+														</div>
 													</a>
 													<div class="scrap">
 														<div class="s1">
@@ -418,7 +451,7 @@
 									</div> <!--  mtlist 끝-->
 
 									<!-- 페이징 기능 시작-->
-<!--									<h3>${pageMaker}</h3>-->
+									<!--									<h3>${pageMaker}</h3>-->
 									<div class="div_page">
 										<ul>
 											<c:if test="${pageMaker.prev}">
@@ -470,62 +503,88 @@
 
 				</html>
 				<script>
-					document.addEventListener("DOMContentLoaded", function () {
+					$(document).ready(function () {
 						// 검색 버튼 클릭 이벤트
-						document.querySelector(".fa-magnifying-glass").addEventListener("click", function () {
-							document.getElementById("searchForm").submit();
+						$(".fa-magnifying-glass").on("click", function () {
+							$("#searchForm").submit();
 						});
 
 						// 필터 버튼 클릭 이벤트
-						document.querySelector(".fil2").addEventListener("click", function () {
-							document.getElementById("searchForm").submit();
+						$(".fil2").on("click", function () {
+							$("#searchForm").submit();
 						});
 
 						// 추천순/최신순 탭 클릭 이벤트
-						document.querySelectorAll("#tab-btn").forEach(function (tab) {
-							tab.addEventListener("click", function (event) {
-								event.preventDefault();
-								switchTab(tab, tab.innerText.trim() === "추천순" ? "recommendation" : "latest");
-							});
+						$("#tab-btn").on("click", function (event) {
+							event.preventDefault();
+							switchTab(this, this.innerText.trim() === "추천순" ? "recommendation" : "latest");
 						});
 
 						// 페이지 버튼 클릭 이벤트
-						document.querySelectorAll(".paginate_button a").forEach(function (pageLink) {
-							pageLink.addEventListener("click", function (event) {
-								event.preventDefault();
-								var form = document.createElement("form");
-								form.method = "get";
-								//form.action = "companyPageList";
-								form.action = "comList";
-								var pageNumInput = document.createElement("input");
-								pageNumInput.type = "hidden";
-								pageNumInput.name = "pageNum";
-								pageNumInput.value = this.getAttribute("href");
-								form.appendChild(pageNumInput);
-								document.body.appendChild(form);
-								form.submit();
-							});
+						$(".paginate_button a").on("click", function (event) {
+							event.preventDefault();
+							var form = $('<form>', {
+								method: 'get',
+								action: 'comList'
+							}).append($('<input>', {
+								type: 'hidden',
+								name: 'pageNum',
+								value: $(this).attr("href")
+							}));
+							$('body').append(form);
+							form.submit();
+						});
+
+						// con 클래스 반복하면서 데이터 가져옴
+						$('.con').each(function () {
+							var comEmail = $(this).data('com-email');
+							var uploadResultContainer = $(this).find('.uploadResult ul');
+
+							if (comEmail) {
+								$.ajax({
+									url: '/comFileList',
+									type: 'GET',
+									data: { com_email: comEmail },
+									dataType: 'json',
+									success: function (data) {
+										showUploadResult(data, uploadResultContainer);
+									},
+									error: function (xhr, status, error) {
+										console.error('Error fetching file list for com_email ' + comEmail + ':', error);
+									}
+								});
+							}
 						});
 					});
 
 					// 다른 탭 눌렀을 때 input 정보 삭제
-					function switchTab(tab, event) {
-						// event.preventDefault(); // 기본 동작 방지
-
-						// 모든 form-box와 tab-btn에서 'active' 클래스를 제거
-						// document.querySelectorAll('.form-box').forEach(function (el) {
-						// 	el.classList.remove('active');
-						// });
-						document.querySelectorAll('#tab-btn').forEach(function (el) {
-							el.classList.remove('active');
-						});
-
-						// 선택된 탭과 관련된 콘텐츠에 'active' 클래스 추가
-						// document.getElementById(tab).classList.add('active');
-						// event.currentTarget.classList.add('active');
+					function switchTab(tab, type) {
+						// 모든 tab-btn에서 'active' 클래스를 제거
+						$('#tab-btn').removeClass('active');
+						$(tab).addClass('active');
 
 						// 'orderType' 히든 필드의 값을 설정하고 폼을 제출
-						document.getElementById('orderType').value = tab;
-						document.getElementById('searchForm').submit();
+						$('#orderType').val(type);
+						$('#searchForm').submit();
 					}
+
+					function showUploadResult(uploadResultArr, uploadResultContainer) {
+						if (!uploadResultArr || uploadResultArr.length === 0) {
+							return;
+						}
+
+						var str = "";
+						$(uploadResultArr).each(function (i, obj) {
+							var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+							str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+							str += "<div>";
+							str += "<span style='display:none;'>" + obj.fileName + "</span>";
+							str += "<img src='/comListDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";
+							str += "</div></li>";
+						});
+
+						uploadResultContainer.empty().append(str);
+					}
+
 				</script>

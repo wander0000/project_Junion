@@ -659,7 +659,7 @@ font-weight: 200; */
 						</div>
 						<div class="comname2">
 							<h5 class="name">
-								10년 (${company.com_year}년 설립)
+								${company.experience_years}년 (${company.com_year}년 설립)
 							</h5>
 						</div>
 						<div class="comname1">
