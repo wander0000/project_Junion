@@ -282,10 +282,12 @@ main .tabWrap .tabNum a
   font-size: var(--font-size12);
 }
 
-.box .job-title 
+
+.box .job-title .titlebb
 {
-  font-weight: bold;
-  font-size: var(--font-size24);
+	font-weight: 600;
+	font-size: var(--font-size24);
+	color: #111;
 }
 
 .box .dates 

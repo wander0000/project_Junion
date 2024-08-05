@@ -36,4 +36,9 @@ public interface jobpostingService {
     
     
     
+    // 업데이트 합격, 불합격, 보류
+    void updateStatus(@Param("resumeNum") int resumeNum, @Param("noticeNum") int noticeNum, @Param("updateStatus") String updateStatus);
+    
+    
+    
 }

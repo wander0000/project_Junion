@@ -38,6 +38,10 @@ public interface jobpostingDAO {
     
     // 이력서 열람시 상태값 "열람" 변경
     void updateSubmitCheck(@Param("resumeNum") int resumeNum, @Param("noticeNum") int noticeNum, @Param("status") String status);
+    
+    
+    // 업데이트 합격, 불합격, 보류
+    void updateStatus(@Param("resumeNum") int resumeNum, @Param("noticeNum") int noticeNum, @Param("updateStatus") String updateStatus);
 
 
 }
