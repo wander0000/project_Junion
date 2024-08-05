@@ -22,18 +22,30 @@ public class CardPageServiceImpl implements CardPageService{
 	private SqlSession sqlSession;
 	
 	@Override
-	public ArrayList<ComNoticeDAO> cardPageList(Standard std) {
+	public ArrayList<ComNoticeDAO> cardPageList(Standard std) {//페이징을 위한 메소드
 //	public ArrayList<ComNoticeDAO> cardPageList(CardPageDAO dao) {
 		log.info("CardPageServiceImpl");
+		log.info("std 확인용 ->"+std);
 		
 		CardPageDAO dao = sqlSession.getMapper(CardPageDAO.class);
 //		CardPageDAO daos = sqlSession.getMapper(CardPageDAO.class);
-		ArrayList <ComNoticeDAO> list = dao.cardPageList(std);
+		ArrayList <ComNoticeDAO> list = dao.cardPageList(std);// 진행중인 공고를 얻음
 //		ArrayList <ComNoticeDAO> list = daos.cardPageList(dao);
 		
 		return list;
 	}
+	
 
+	@Override
+	public int getTotalCount(){//전체 공고 수 구하기
+		
+		
+	CardPageDAO dao= sqlSession.getMapper(CardPageDAO.class);
+	int total = dao.getTotalCount();
+	log.info("전체 공고 수는? "+total);
+	
+	return total;
+	}
 	
 	// 2024-08-01 지수 (공고 목록 사진 들고오기)
 	@Override

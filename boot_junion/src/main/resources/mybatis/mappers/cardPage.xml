@@ -4,6 +4,35 @@
 
 <mapper namespace="com.boot.DAO.CardPageDAO">
 
+<!--	<sql id="orderType">-->
+<!--		<if test='(orderType == "latest")'>-->
+<!--			ORDER BY update_date DESC-->
+<!--		</if>-->
+<!--		<if test='(orderType == "recommendation")'>-->
+<!--			ORDER BY com_star DESC-->
+<!--		</if>-->
+<!--	</sql>-->
+	
+<!--	검색 관련-->
+<!--	<sql id="std">-->
+<!--		<where>-->
+<!--	        <if test='cri.keyword != null and cri.keyword != ""'>-->
+<!--	            com_name LIKE concat('%', #{cri.keyword}, '%')-->
+<!--	        </if>-->
+<!--	        <if test='cri.stackType != null and cri.stackType != ""'>-->
+<!--	            <if test='cri.keyword != null and cri.keyword != ""'>-->
+<!--	                AND-->
+<!--	            </if>-->
+<!--	            com_email IN (SELECT com_email FROM com_stack WHERE stack = #{cri.stackType})-->
+<!--	        </if>-->
+<!--	        <if test='cri.locationType != null and cri.locationType != ""'>-->
+<!--	            <if test='(cri.keyword != null and cri.keyword != "") or (cri.stackType != null and cri.stackType != "")'>-->
+<!--	                AND-->
+<!--	            </if>-->
+<!--	            SUBSTRING(com_location, 1, 2) = SUBSTRING(#{cri.locationType}, 1, 2)-->
+<!--	        </if>-->
+<!--	    </where>-->
+<!--	</sql>-->
 	<select id="cardPageList" resultType="com.boot.DTO.ComNoticeDTO">
 <!-- 	페이징을 위한 쿼리 -->
 	   <![CDATA[ 
@@ -14,10 +43,17 @@
 	            FROM notice_tb n join com_tb c on n.com_email = c.com_email 
 	            where notice_endDate >= now()
 	            order by notice_num desc) a 
-	         where row_noticeNum<= (#{pageNum} * #{amount}) )aa where row_noticeNum > (#{pageNum}-1)* #{amount}
+	         where row_noticeNum<= (#{pageNum} * #{amount}) 
+	         )aa 
+	         where row_noticeNum > (#{pageNum}-1)* #{amount}
 	   ]]>
 	</select>
 	
+	
+<!--	총 진행중인 공고 수를 가져오는 쿼리-->
+	<select id="getTotalCount" resultType="int"> 
+		select count(*) from notice_tb n join com_tb c on n.com_email = c.com_email where notice_endDate >= now()
+	</select>
 	
 <!--2024-08-01 지수 (공고 목록 사진 불러오기)-->
 	<select id="cardPageFileList" resultType="com.boot.DTO.ComNoticeAttachDTO">

@@ -27,7 +27,7 @@ section
     justify-content: center;
     padding-top: 90px;
     /* align-items: center; */
-    padding-top: 90px; /* style 안먹음*/
+    /* padding-top: 90px; style 안먹음 */
 } 
 
 .wrap
@@ -53,7 +53,7 @@ section
     /* display: flex;
     justify-content: center;
 } */
-
+/* 
 .toptitle
 {
   font-size: var(--font-size32);
@@ -61,7 +61,7 @@ section
   width: 100%;
   margin-bottom: 75px;
   /* margin-right: 40px; */
-} 
+/* }  */
 
 /* .wrap .left .company */
 .wrap .company
@@ -79,8 +79,8 @@ section
     display: flex;
     justify-content: center;
     align-items: center;
-    /* width: 1200px; */
     width: 730px;
+    /* width: 100%; */
     /* height: 657px; */
     height: 500px;
     border-radius: 20px;
@@ -95,8 +95,9 @@ section
 .wrap .main
 {
     display: flex;
-    align-items: flex-start;
-    margin: 52px 0 58px 0;
+    align-items: flex;
+    /* align-items: flex-start; */
+    /* margin: 52px 0 58px 0; */
 }
 
 
@@ -110,10 +111,24 @@ section
 
 
 /* company 1(text 입력 메인) 시작 */
+/* 지도 부분 */
+
+#map
+{
+    /* width: 1200px;
+    height: 500px; */
+    width:730px;
+    /* width:100%; */
+    height:350px;
+    margin-bottom: 20px;
+}
+
 .mapLocation
 {
-    row-gap: 30px;
+    display: flex;
+    gap : 20px; /*display:flex가 없을 경우, 안 먹음*/
     margin-bottom: 20px;
+    align-items: center;
 }
 
 
@@ -122,25 +137,30 @@ section
     /* width: 1200px; */
     width: 650px;
     /* height: 55px; */
-    height: 50px;
+    height: 40px;
     border: 1px solid var(--border-color-gray);
     border-radius: 6px;
     align-content: center;
     padding: 0 15px;
     font-size: var(--font-size16);
-    margin-top: 20px;
     box-sizing: border-box;
 }
 
 .mapLocation .searchButton
 {
-    padding: 10px 15px;
-    width: 80px;  
+    padding: 10px 20px;
+    width: 100px;
+    height: 40px;
     border-radius: 6px;
     border: 1px solid var(--border-color-gray);
+    font-size: var(--font-size14);
+    box-sizing: border-box;
     cursor: pointer;
     
 }
+
+
+
 
 .comname
 {
@@ -179,16 +199,16 @@ section
 .wrap .main .sub1 .name
 {
     font-size: var(--font-size20);
-    font-weight: 200;
+    font-weight: 400;
 }
 
-.location
+/* .location
 {
     display: flex;
     align-content : center;
     gap: 30px;
     margin-top: 40px;
-}
+} */
 
 .comadd
 {
@@ -198,17 +218,17 @@ section
     margin-top: 40px;
 }
 
-.location .value
+/* .location .value
 {
     font-weight: bold;
     font-size: var(--font-size24);
     align-content: center;
-}
+} */
 
 .wrap .main .namaing .title,
 .wrap .column .columnA .title
 {
-    /* margin: 20px 0 20px 0; */
+    margin: 20px 0 20px 0;
     margin-bottom: 20px;
     font-weight: bold;
     font-size: var(--font-size20);
@@ -283,7 +303,7 @@ section
 
 .wrap .column .col8 .comname1 .name
 {
-    font-weight: 100;
+    font-weight: 300;
     font-size: var(--font-size16);
     color: var(--color-gray);
 }
@@ -346,12 +366,8 @@ button.saveTech
   gap: 20px 0;
 }
 
-.sectionConBody .Bodycon.tech .techCon 
-{
-  display: flex;
-  align-items: center;
-  width: 100% !important;
-}
+
+
 .sectionConBody .Bodycon.tech .techCon .buttonTitle 
 {
   min-width: 50px;
@@ -363,10 +379,19 @@ button.saveTech
   /* display: grid; */
   display: flex;
   max-width: 730px;
+  align-items: center;
+  /* width: 100% !important; */
+  width: 100%;
+  margin-bottom: 20px;
   /* margin: 10px; */
   /* width: calc(100% - 60px); */
   /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; */
-  gap: 20px;
+  gap: 10px;
+}
+
+.sectionConBody .Bodycon.tech .techCon:last-child
+{
+    margin-bottom: 0;
 }
 
 .sectionConBody .Bodycon.tech input.tech 
@@ -402,14 +427,6 @@ button.saveTech
     padding: 0 20px;
 }
 
-#map
-{
-    /* width: 1200px;
-    height: 500px; */
-    width:730px;
-    height:250px;
-    margin-bottom: 20px;
-}
 
 .wrap .column .col8 .content
 {

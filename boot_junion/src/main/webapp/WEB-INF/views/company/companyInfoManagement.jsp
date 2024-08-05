@@ -159,9 +159,7 @@
                                         </div>
                                         <div class="columnBB">
                                             <!--지도가 들어갈 위치-->
-                                            <!-- <div id="map" clss="map"></div> -->
                                             <div id="map" style="width:100%;height:350px;"></div>
-                                            <!-- <div id="map"></div> -->
                                             <h5 class="comloc" id="comAddress">${companyInfo.com_location}</h5>
                                         </div>
                                     </div>
@@ -262,7 +260,6 @@
                     
                     <div class="tabCon detail">
                         <table class="tabCon detail disB" width="1200px" height="300px">
-                        <!-- <table class="tabCon detail disB" width="1000px" height="300px"> -->
                             <tr>
                                 <th>기업이메일</th>
                                 <td>${companyInfo.com_email}</td>
@@ -365,11 +362,11 @@
             position: coords
         });
 
-        // 인포윈도우로 장소에 대한 설명을 표시합니다
-        var infowindow = new kakao.maps.InfoWindow({
-            content: '<div style="width:150px;text-align:center;padding:6px 0;">회사 위치</div>'
-        });
-        infowindow.open(map, marker);
+        // // 인포윈도우로 장소에 대한 설명을 표시합니다
+        // var infowindow = new kakao.maps.InfoWindow({
+        //     content: '<div style="width:150px;text-align:center;padding:6px 0;">회사 위치</div>'
+        // });
+        // infowindow.open(map, marker);
 
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
