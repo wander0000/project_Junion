@@ -164,6 +164,17 @@
                         </div>                        
         			</div> <!-- sectionConBody 끝 -->
             	</div> <!-- introduceWrap 끝 -->
+				
+				
+				<div class="buttonboxx">
+				    <button id="wri" class="button">
+				        <h5 class="but1">목록	</h5>
+				    </button>
+				</div><!--버튼 끝 -->
+				
+				
+				
+				
             </div> <!-- sectionInner 끝 : 전체 1200 영역-->
     	</section>
 		<%@ include file="footer.jsp" %>
@@ -173,6 +184,12 @@
 <script>
 	$(document).ready(function()
 	{		
+		
+		
+		// 목록 버튼 클릭 시 이전 페이지로 돌아가기
+		$('#wri').click(function() {
+		    window.history.back();
+		});
 			
 		/*
 	        2024-06-25 이재원 

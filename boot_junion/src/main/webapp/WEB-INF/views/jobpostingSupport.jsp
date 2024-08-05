@@ -352,20 +352,20 @@
 	
 	
 	function updateStatus(resumeNum, noticeNum) {
-	    var status = $('#statusFilter_' + resumeNum).val();
+	    var updateStatus = $('#statusFilter_' + resumeNum).val();
 
 	    $.ajax({
 	        type: 'POST',
-	        url: '${pageContext.request.contextPath}/updateSubmitCheck',
+	        url: '${pageContext.request.contextPath}/updateStatus',
 	        data: {
 	            resume_num: resumeNum,
 	            notice_num: noticeNum,
-	            status: status
+	            updateStatus: updateStatus
 	        },
 	        success: function(response) {
-	            console.log('상태 업데이트 완료');
+	            alert('변경되었습니다'); // 변경 메시지 팝업
 	        },
-	        error: function(xhr, status, error) {
+	        error: function(xhr, updateStatus, error) {
 	            console.error('상태 업데이트 오류:', error);
 	        }
 	    });

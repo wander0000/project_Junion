@@ -126,10 +126,19 @@ WHERE
 </select>
 
 
-    <!-- 상태 업데이트 쿼리 -->
+    <!-- 이력서 누를 시 열람, 미열람 -->
     <update id="updateSubmitCheck">
         UPDATE submit_tb
         SET submit_check = #{status}
+        WHERE notice_num = #{noticeNum}
+          AND resume_num = #{resumeNum}
+    </update>
+    
+    
+    <!-- 공고목록 > 지원자목록 : 합격,불합격,보류 여부 -->
+    <update id="updateStatus">
+        UPDATE submit_tb
+        SET submit_status = #{updateStatus}
         WHERE notice_num = #{noticeNum}
           AND resume_num = #{resumeNum}
     </update>
