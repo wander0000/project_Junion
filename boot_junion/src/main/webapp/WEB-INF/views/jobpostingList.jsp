@@ -161,7 +161,7 @@
 				                    </div>
 				                    <div class="deletejobp">
 				                        <a href="#" onclick="deleteJobPosting('${dto.notice_num}')" class="jobjob">
-				                            <h5 class="carh5">삭제</h5>
+				                            <h5 class="carh5">삭제</h5> ${dto.notice_num}
 				                        </a>
 				                    </div>
 									<a class="applicant-count" href="jobpostingSupport?notice_num=${dto.notice_num}">
