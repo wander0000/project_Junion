@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Company_InfoUpdate</title>
+    <title>기업 마이페이지 - 인사담당자 사항 수정</title>
 <!--    <link rel="stylesheet" href="css/default.css">-->
 <!--    <link rel="stylesheet" href="css/style.css">-->
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
@@ -89,7 +89,7 @@
                 
                 
                 <div class="toptitle">
-                    <h3 class="toptitle1" style="font-size: var(--font-size32);" >기업 기본 수정</h3>
+                    <h3 class="toptitle1" >기업 기본 수정</h3>
                     
                 </div>
                      

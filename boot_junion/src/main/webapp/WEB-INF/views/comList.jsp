@@ -418,7 +418,7 @@
 									</div> <!--  mtlist 끝-->
 
 									<!-- 페이징 기능 시작-->
-									<h3>${pageMaker}</h3>
+<!--									<h3>${pageMaker}</h3>-->
 									<div class="div_page">
 										<ul>
 											<c:if test="${pageMaker.prev}">

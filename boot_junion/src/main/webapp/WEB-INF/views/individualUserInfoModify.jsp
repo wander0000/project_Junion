@@ -77,22 +77,55 @@
 
 
 
+	
 
-	/*메인콘텐츠 전체*/
 
-	.sectionInner
+
+	/* 프로필 : 사진 + 이름 */
+	main .mainContainer .memberInfo 
+	{
+	display: flex;
+	align-items: center;
+	margin-bottom: 40px;
+	}
+
+	main .mainContainer .memberInfo img.memberImg 
+	{
+	width:64px;
+	height: 64px;
+	margin-right: 20px;
+	}
+
+	main .mainContainer .memberInfo .memberName 
+	{
+	font-size: var(--font-size32);
+	font-weight: 600;
+	} 
+
+	/* 메인 */
+	main 
 	{
 	display: flex;
 	justify-content: center;
-	min-width: 1200px;
+	padding: 50px 0 120px;  
 	}
+
+	.infoWrap
+	{
+		display: flex;
+		flex-direction: column; 
+		min-width:1200px;
+		gap: 40px 0;
+	}
+
 
 	/*회원정보수정 타이틀*/
 
 	.infoTitle
 	{
 	font-size: var(--font-size32);
-	margin-top: 70px;
+	color: var(--color-black);
+	/* margin-top: 70px; */
 	}
 
 	/*회원사진 + 테이블*/
@@ -100,7 +133,7 @@
 	{
 	display : flex;
 	gap: 50px;
-	margin-top: 80px;
+	/* margin-top: 80px; */
 	
 	
 	}
@@ -121,7 +154,9 @@
 	{
 	border: 1px solid var(--input-gray);
 	border-radius: 10x;
+	box-sizing: border-box;
 	border-collapse: collapse;
+	font-size: var(--font-size16);
 	}
 	.userInfoTable th
 	{
@@ -248,6 +283,7 @@
 	display: flex;
 	justify-content: center;
 	}
+
 	.buttonModify
 	{
 	background-color: #999;
@@ -256,7 +292,7 @@
 	border-radius: 6px;
 	width: 240px;
 	height: 56px;
-	margin: 40px auto;
+	/* margin: 40px auto; */
 	font-size: 16px;
 	color: var(--color-white);
 	cursor: pointer;
@@ -292,8 +328,8 @@
 				</div>
 			</header>  
 
-            <section>
-                <div class="sectionInner">
+            <main>
+                <div class="mainContainer">
 
                     <div class="infoWrap">
                         <h2 class="infoTitle">회원 정보 수정</h2>
@@ -302,7 +338,7 @@
                             <div class="infoConWrap">
                                 <div class="infoCon left">
 									<div class="uploadResult">
-<!--                                    <img src="images/people.svg" alt="#" class="resumeImage">-->
+                                  		 <img src="images/people.svg" alt="#" class="resumeImage">
 									</div>
                                 </div>
                                 <div class="infoCon right">
@@ -402,8 +438,8 @@
 					
                         <!-- </form> -->
                     </div> <!--infoWrap끝 : 개인정보  -->
-                </div> <!-- sectionInner 끝 : 전체 1200 영역-->
-            </section>
+                </div> <!-- mainContainer 끝 : 전체 1200 영역-->
+            </main>
         </div><!-- mainContent-->
     </div>    
 	<%@ include file="footer.jsp" %>

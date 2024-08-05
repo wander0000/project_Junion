@@ -81,7 +81,12 @@
 	{
 	    font-size: var(--font-size16);
 	    color: var(--color-black);
-	    font-weight: 500;
+	    font-weight: 400;
+	}
+	
+	.headerInner ul.menu li a:hover, .headerInner ul.rightMenu li a:hover 
+	{
+		color: var(--main-color);
 	}
 
 	.rightMenu 
@@ -103,6 +108,7 @@
 <body>
 	<header>
         <div class="headerInner">
+<!--        <div class="headerInner">-->
             <h5 class="logo">
                 <a href="main">
                     <img src="${pageContext.request.contextPath}/images/logo.svg" alt="#">
@@ -113,7 +119,9 @@
                 <li><a href="jobpostingIndividualSupport">인재풀</a></li>
                 <li><a href="comList">기업정보</a></li>
                 <li><a href="boardCommunity">커뮤니티</a></li>
-                <li><a href="noticeBoardList">Q&A</a></li> 
+                <li><a href="noticeCommunity">Q&A</a></li> 
+                <li><a href="dailyCS">DailyCS</a></li>
+                <!-- <li><a href="#">공지사항</a></li> -->
             </ul>
             <ul class="rightMenu">
                 <li id="login"><a href="login">로그인</a></li>
