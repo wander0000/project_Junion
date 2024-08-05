@@ -155,7 +155,7 @@
 				                </div>
 				                <div class="right">
 				                    <div class="deletejobp">
-										<a href="#" class="jobjob">
+										<a href="comRegistModify?notice_num=${dto.notice_num}" class="jobjob">
 										    <h5 class="carh5" >공고수정</h5>
 										</a>
 				                    </div>
