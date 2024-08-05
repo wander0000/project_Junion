@@ -102,10 +102,11 @@ public class jobpostingServiceImpl implements jobpostingService{
     }
 
     @Override
-    public void updateSubmitStatus(int resume_num, int notice_num, String status) {
-        jobpostingDAO.updateSubmitStatus(resume_num, notice_num, status);
-        log.info("Updated submit_status to {} for resume_num {} and notice_num {}", status, resume_num, notice_num);
+    public void updateSubmitCheck(int resumeNum, int noticeNum, String status) {
+    	jobpostingDAO.updateSubmitCheck(resumeNum, noticeNum, status);
     }
+
+
 }
 
 

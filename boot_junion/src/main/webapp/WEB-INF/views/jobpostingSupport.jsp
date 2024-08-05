@@ -325,42 +325,30 @@
 	
 	
 	function handleClick(resumeNum, noticeNum) {
-	      const pfnameDiv = document.getElementById('pfname_' + resumeNum);
+	    const pfnameDiv = document.getElementById('pfname_' + resumeNum);
 
-	      // 이미 클릭된 경우 페이지 이동만 수행
-	      if (pfnameDiv.classList.contains('clicked')) {
-	          location.href = 'resumeInfo?resume_num=' + resumeNum;
-	          return;
-	      }
-
-	      // 상태를 현재 시각으로 업데이트
-	      const currentTime = new Date().toISOString();
-
-	      fetch('/updateSubmitCheck', {
-	          method: 'POST',
-	          headers: {
-	              'Content-Type': 'application/x-www-form-urlencoded'
-	          },
-	          body: new URLSearchParams({
-	              resume_num: resumeNum,
-	              notice_num: noticeNum,
-	              status: currentTime // 현재 시각을 ISO 포맷으로 전달
-	          })
-	      })
-	      .then(response => response.text())
-	      .then(data => {
-	          if (data === '상태 업데이트 성공') {
-	              pfnameDiv.classList.add('clicked'); // 클릭 상태 기록
-	              location.href = 'resumeInfo?resume_num=' + resumeNum; // 페이지 이동
-	          } else {
-	              console.error('상태 업데이트 실패');
-	          }
-	      })
-	      .catch(error => {
-	          console.error('Error:', error);
-	      });
-	  }
-
+	    // 상태를 '열람'으로 업데이트
+	    $.ajax({
+	        type: 'POST',
+	        url: '${pageContext.request.contextPath}/updateSubmitCheck', // 서버에서 상태를 업데이트할 URL
+	        data: {
+	            resume_num: resumeNum,
+	            notice_num: noticeNum,
+	            status: '열람'
+	        },
+	        success: function(response) {
+	            if (response === '상태 업데이트 성공') {
+	                pfnameDiv.classList.add('clicked'); // 클릭 상태 기록
+	                location.href = 'resumeInfo2?resumeNum=' + resumeNum; // 페이지 이동
+	            } else {
+	                console.error('상태 업데이트 실패');
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            console.error('상태 업데이트 오류:', error);
+	        }
+	    });
+	}
 	
 	
 	function updateStatus(resumeNum, noticeNum) {
