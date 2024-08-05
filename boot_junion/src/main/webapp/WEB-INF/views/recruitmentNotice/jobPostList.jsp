@@ -370,7 +370,7 @@ display:inline-block;
 
                 <div class="selectbox">
                     <div class="select">
-                        <input class="title" type="text" placeholder="검색어를 입력해 주세요">
+                        <input class="title" type="text" name="keyword" placeholder="검색어를 입력해 주세요">
                     </div> <!-- 콘텐트박스 끝-->
                     <div class="icon">
                         <div class="i1">
@@ -567,6 +567,11 @@ display:inline-block;
         <form id="actionForm" method="get" action="jobPostList">
             <input type="hidden" name="pageNum" value="${paging.std.pageNum}">
             <input type="hidden" name="amount" value="${paging.std.amount}">
+            
+            <!-- Standard 를 이용해서 키워드 값을 넘김 -->
+             <!-- 페이징 검색 페이지 번호를 클릭할 때 필요한 파라미터 -->
+            <!-- <input type="hidden" name="stackType" value="${paging.std.stackType}">
+            <input type="hidden" name="locationType" value="${paging.std.locationType}"> -->
         </form>
 </body>
 </html>
@@ -574,10 +579,9 @@ display:inline-block;
 
 $(document).ready(function() {
   //버튼 클릭시 활성화
-
+  
   var user_type = "${login_usertype}";
-  console.log("user_type = "+user_type);
-
+//   console.log("user_type = "+user_type);
   //공고 스크랩 관련 로직
   $(".scrap .fa-bookmark").click(function() {
           if(user_type == 1){
@@ -609,6 +613,8 @@ $(document).ready(function() {
         }
     });//end of fa-bookmark click function
 });//document).ready(function()
+
+
 
 // 페이징 관련 로직
     var actionForm = $("#actionForm");
