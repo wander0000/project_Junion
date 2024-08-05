@@ -519,7 +519,9 @@ display:inline-block;
                    
                 </div> <!-- milist 끝-->
                 <div class="pagingbox">
-                    <!-- <h3>${paging}</h3> -->
+                    <!-- <h3>${paging}</h3>
+                    ${paging.startpage}
+                    ${paging.endpage} -->
                     <div class="paging">
                         <ul>
                             <c:if test="${paging.prev}">
@@ -561,7 +563,8 @@ display:inline-block;
     
     <%@ include file="../footer.jsp" %>
 </div>
-        <form id="actionForm" method="get" action="cardPageList">
+        <!-- <form id="actionForm" method="get" action="cardPageList"> -->
+        <form id="actionForm" method="get" action="jobPostList">
             <input type="hidden" name="pageNum" value="${paging.std.pageNum}">
             <input type="hidden" name="amount" value="${paging.std.amount}">
         </form>
@@ -611,9 +614,11 @@ $(document).ready(function() {
     var actionForm = $("#actionForm");
     $(".paginate_button a").on("click", function(e){
         e.preventDefault();//기본 동작을 막음 : 페이지 링크를 통해서 이동
+        // console.log("@# href =>"+$(this).attr("href"));
 
         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
-        actionForm.attr("action","cardPageList").submit();
+        // actionForm.attr("action","cardPageList").submit();
+        actionForm.attr("action","jobPostList").submit();
         
     });
 

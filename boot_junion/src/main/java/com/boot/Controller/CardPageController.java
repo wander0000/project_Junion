@@ -33,68 +33,68 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class CardPageController {// 카드 형태 목록 페이징 처리를 위한 컨트롤러
 	
-	@Autowired
-	private CardPageService pageService;
-	
-	@Autowired
-	private ScrapService scrapService;
-	
-	@RequestMapping("/cardPageList")
-//	@RequestMapping("/jobPostList")
-	public String cardPageList(Standard std,Model model, HttpSession session) {
-		log.info("@# cardPage controller");
-		log.info("@# cardPage controller std!!=>"+std);
-		
-		ArrayList<ComNoticeDAO> list = pageService.cardPageList(std);
-		model.addAttribute("jobPost", list);
-		model.addAttribute("paging", new CardPageDTO(123, std));
-
-		
-		 String user_email = (String) session.getAttribute("login_email");//세션에 저장된 사용자이메일 가져오기
-		 log.info("@# jobPost user_email => "+user_email);
-		 
-		 if(user_email != null) {// 세션에 이메일 값이 있다면 해당 사용자의 이메일을 기반으로 관심 공고 목록을 가져옴
-			 ArrayList<Integer> noticeList = scrapService.getScrapNoticeNum(user_email);
-			 
-			 model.addAttribute("noticeList", noticeList);
-			 }
-		 
-		return "/recruitmentNotice/jobPostList";
-	}
-	
-	
-// 2024-08-01 지수 (공고 목록 사진 들고오기)
-//	이미지파일을 받아서 화면에 출력(byte 배열타입)
-	@GetMapping("/cardPageDisplay")
-	public ResponseEntity<byte[]> getFile(String fileName) {
-		log.info("@# display fileName=>"+fileName);
-		
-//		업로드 파일경로+이름
-		File file = new File("C:\\devv\\upload\\"+fileName);
-		log.info("@# file=>"+file);
-		
-		ResponseEntity<byte[]> result=null;
-		HttpHeaders headers=new HttpHeaders();
-		
-		try {
-//			파일타입을 헤더에 추가
-			headers.add("Content-Type", Files.probeContentType(file.toPath()));
-//			파일정보를 byte 배열로 복사+헤더정보+http상태 정상을 결과에 저장
-			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-		
-		return result;
-	}
-	
-	@GetMapping(value = "/cardPageFileList")
-	public ResponseEntity<List<ComNoticeAttachDTO>> cardPageFileList(@RequestParam HashMap<String, String> param) {
-		log.info("@# cardPageFileList()");
-		log.info("@# param=>"+param);
-		log.info("@# param=>"+param.get("notice_num"));
-		
-		return new ResponseEntity<>(pageService.cardPageFileList(Integer.parseInt(param.get("notice_num"))), HttpStatus.OK);
-	}
+//	@Autowired
+//	private CardPageService pageService;
+//	
+//	@Autowired
+//	private ScrapService scrapService;
+//	
+//	@RequestMapping("/cardPageList")
+////	@RequestMapping("/jobPostList")
+//	public String cardPageList(Standard std,Model model, HttpSession session) {
+//		log.info("@# cardPage controller");
+//		log.info("@# cardPage controller std!!=>"+std);
+//		
+//		ArrayList<ComNoticeDAO> list = pageService.cardPageList(std);
+//		model.addAttribute("jobPost", list);
+//		model.addAttribute("paging", new CardPageDTO(123, std));
+//
+//		
+//		 String user_email = (String) session.getAttribute("login_email");//세션에 저장된 사용자이메일 가져오기
+//		 log.info("@# jobPost user_email => "+user_email);
+//		 
+//		 if(user_email != null) {// 세션에 이메일 값이 있다면 해당 사용자의 이메일을 기반으로 관심 공고 목록을 가져옴
+//			 ArrayList<Integer> noticeList = scrapService.getScrapNoticeNum(user_email);
+//			 
+//			 model.addAttribute("noticeList", noticeList);
+//			 }
+//		 
+//		return "/recruitmentNotice/jobPostList";
+//	}
+//	
+//	
+//// 2024-08-01 지수 (공고 목록 사진 들고오기)
+////	이미지파일을 받아서 화면에 출력(byte 배열타입)
+////	@GetMapping("/cardPageDisplay")
+//	public ResponseEntity<byte[]> getFile(String fileName) {
+//		log.info("@# display fileName=>"+fileName);
+//		
+////		업로드 파일경로+이름
+//		File file = new File("C:\\devv\\upload\\"+fileName);
+//		log.info("@# file=>"+file);
+//		
+//		ResponseEntity<byte[]> result=null;
+//		HttpHeaders headers=new HttpHeaders();
+//		
+//		try {
+////			파일타입을 헤더에 추가
+//			headers.add("Content-Type", Files.probeContentType(file.toPath()));
+////			파일정보를 byte 배열로 복사+헤더정보+http상태 정상을 결과에 저장
+//			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
+//		
+//		return result;
+//	}
+//	
+////	@GetMapping(value = "/cardPageFileList")
+//	public ResponseEntity<List<ComNoticeAttachDTO>> cardPageFileList(@RequestParam HashMap<String, String> param) {
+//		log.info("@# cardPageFileList()");
+//		log.info("@# param=>"+param);
+//		log.info("@# param=>"+param.get("notice_num"));
+//		
+//		return new ResponseEntity<>(pageService.cardPageFileList(Integer.parseInt(param.get("notice_num"))), HttpStatus.OK);
+//	}
 
 }

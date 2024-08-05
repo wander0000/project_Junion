@@ -76,7 +76,7 @@
                                 <div class="comadd">
                                     <h5 class="title">창립일 </h5>
                                     <div class="comadressyear">
-                                        <input  type="date" id="Date" name="com_year" class="comadress">
+                                        <input  type="date" id="Date" name="com_year" class="comadress" value="${companyInfo.com_year}">
                                         <!-- <input  type="date" name="com_year" class="comadress"> -->
                                     </div>
                                 </div>
@@ -144,17 +144,6 @@
                             <!-- <div class="columnBB"> -->
                                 <!-- <div class="detail"> -->
                                     <div id="map" clss="map"></div>
-                                    <!-- <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=de7cac757fedb4da8958fa692849033d"></script>
-                                    <script>
-                                        var container = document.getElementById('map');
-                                        var options = {
-                                            center: new kakao.maps.LatLng(33.450701, 126.570667),
-                                            level: 3
-                                        };
-                                        
-                                        var map = new kakao.maps.Map(container, options);
-                                    </script>
-                                </div> -->
                                     <div class="mapLocation">
                                         <!-- <input  type="" name="com_location" class="maptext" placeholder="${companyInfo.com_location}"> -->
                                         <input  type="text" name="com_location" id="sample5_address" class="maptext" value="${companyInfo.com_location}">
@@ -190,12 +179,25 @@
                                         </div>
                                         <div class="comname2">
                                             <select name="com_type" id="com_type" class="cominfotext">
-                                                <option name="com_type" value="" selected>유형을 선택해주세요</option>
-                                                <option name="com_type" value="합명회사">합명회사</option>
-                                                <option name="com_type" value="합자회사">합자회사</option>
-                                                <option name="com_type" value="유한책임회사">유한책임회사</option>
-                                                <option name="com_type" value="주식회사">주식회사</option>
-                                                <option name="com_type" value="유한회사">유한회사</option>
+                                                <c:choose>
+                                                    <c:when test="${companyInfo.com_type != null}">
+                                                        <option value="${companyInfo.com_type}" selected>${companyInfo.com_type}</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option value="" selected>유형을 선택해주세요</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <!-- <option name="com_type" value="" selected>유형을 선택해주세요</option> -->
+                                                <!-- <option name="com_type" value="합명회사">합명회사</option> -->
+                                                <option value="합명회사">합명회사</option>
+                                                <!-- <option name="com_type" value="합자회사">합자회사</option> -->
+                                                <option value="합자회사">합자회사</option>
+                                                <!-- <option name="com_type" value="유한책임회사">유한책임회사</option> -->
+                                                <option value="유한책임회사">유한책임회사</option>
+                                                <!-- <option name="com_type" value="주식회사">주식회사</option> -->
+                                                <option value="주식회사">주식회사</option>
+                                                <!-- <option name="com_type" value="유한회사">유한회사</option> -->
+                                                <option value="유한회사">유한회사</option>
                                             </select>
                                         </div>
                                     </div>
@@ -251,7 +253,7 @@
                                 <input type="button" value="수정 취소" class="ytn" onclick="location.href='companyInfoManagement'">
                                 <!-- <input type="submit" class="btn" value="수정 완료"> -->
                                 <!-- <input type="button" class="btn" value="수정 완료" onclick="valuecheck()"> -->
-                                <input type="submit" class="btn" value="수정 완료" onclick="valuecheck()">
+                                <input type="submit" class="btn" value="수정 완료">
                             </div>
                                 
                         </div><!--col8-->
@@ -539,48 +541,102 @@ document.getElementById("Date").setAttribute("max", today);
 
 $("span").text(now.getFullYear());
 
+		
+// =============================================================================
 
-function valuecheck(){
-    var com_name = $(".comname").val();
-    console.log(com_name);
-    if (com_name.length == 0) {
-        $(".comname").focus();
-        // $(".message").addClass("active").text("기업명을 확인해주세요")
-        alert("기업명을 확인해주세요")
-       return false; // form 제출 막기
-    }
-    var com_year = $(".comadress").val();
-    if (com_year.length == 0) {
-        $(".comadress").focus();
-        alert("창립일이 선택되지 않았습니다.")
-       return false; // form 제출 막기
-    }
-    var detailtext = $(".detailtext").val();
-    if (detailtext.length < 5) {
-        $(".detailtext").focus();
-        alert("회사 소개를 입력해주세요")
-       return false; // form 제출 막기
-    }
-    var com_stack = $(".techValue").val();
-    if (com_stack.length == 0) {
-        $(".saveTech").focus();
-        alert("하나 이상의 스택을 선택해주세요.")
-       return false; // form 제출 막기
-    }
-    var cominfotext = $(".cominfotext").val();
-    if (cominfotext.length == 0) {
-        $(".cominfotext").focus();
-        // $(".message").addClass("active").text("기업명을 확인해주세요")
-        alert("매출액을 입력해주세요")
-       return false; // form 제출 막기
-    }
-    var com_type = $(".com_type").val();
-    if (com_type.length <4) {
-        $(".com_type").focus();
-        // $(".message").addClass("active").text("기업명을 확인해주세요")
-        alert("기업 유형을 선택해주세요.")
-       return false; // form 제출 막기
-    }
-    $("#comInfoUpdate").submit();
-}
+    // var formObj = $("form[id='comInfoUpdate']");
+
+    //     $("input[type='submit']").on("click", function(e){
+    //         e.preventDefault();
+    //         console.log("submit clicked");
+
+    //         /*
+    //             2024-07-24 하지수 
+    //             유효성 검사
+    //         */
+    //         var requiredFields = [
+    //             {name: "com_name", message: "기업명을 입력해주세요."},
+    //             {name: "com_name", message: "창립일을 입력해주세요."},
+    //             {name: "com_content", message: "회사 소개를 입력해주세요."},
+    //             {name: "com_sale", message: "매출액을 입력해주세요."},
+    //             {name: "com_type", message: "회사 유형을 선택해주세요."},
+    //             {name: "com_salary", message: "평균 연봉을 입력해주세요."},
+    //             {name: "com_CEO", message: "대표자명을 입력해주세요."},
+    //             {name: "com_site", message: "회사 홈페이지의 주소를 입력해주세요."},
+    //             {name: "com_employee", message: "사원수를 입력해주세요."},
+                
+    //             {name: "com_stack_", message: "스택을 선택해주세요.",
+    //                     validate: function() {
+    //                         return $(".tech.active").length > 0;
+    //                     }
+    //                 },
+    //         ];
+
+    //         // 유효성 반복 + 포커스 이동
+    //         for (var i = 0; i < requiredFields.length; i++) {
+    //             var field = requiredFields[i];
+
+    //             // 일반 필드와 특별한 기술 스택 필드를 구분
+    //             if (field.name === "com_stack") {
+    //                 if (!field.validate()) {
+    //                     alert(field.message);
+    //                     $(".tech").first().focus(); // 'tech' 버튼 중 첫 번째에 포커스를 이동
+    //                     return;
+    //                 }
+    //             } else {
+    //                 var fieldValue = $("[name='" + field.name + "']").val().trim();
+    //                 if (fieldValue === "") {
+    //                     alert(field.message);
+    //                     $("[name='" + field.name + "']").focus();
+    //                     return;
+    //                 }
+    //             }
+    //         } //유효성 검사 끝 --
+    //         // return;
+    //     formObj.submit();
+	// });//end of button submit
+		
+// function valuecheck(){
+//     var com_name = $(".comname").val();
+//     console.log(com_name);
+//     if (com_name.length == 0) {
+//         $(".comname").focus();
+//         // $(".message").addClass("active").text("기업명을 확인해주세요")
+//         alert("기업명을 확인해주세요")
+//        return false; // form 제출 막기
+//     }
+//     var com_year = $(".comadress").val();
+//     if (com_year.length == 0) {
+//         $(".comadress").focus();
+//         alert("창립일이 선택되지 않았습니다.")
+//        return false; // form 제출 막기
+//     }
+//     var detailtext = $(".detailtext").val();
+//     if (detailtext.length < 5) {
+//         $(".detailtext").focus();
+//         alert("회사 소개를 입력해주세요")
+//        return false; // form 제출 막기
+//     }
+//     var com_stack = $(".techValue").val();
+//     if (com_stack.length == 0) {
+//         $(".saveTech").focus();
+//         alert("하나 이상의 스택을 선택해주세요.")
+//        return false; // form 제출 막기
+//     }
+//     var cominfotext = $(".cominfotext").val();
+//     if (cominfotext.length == 0) {
+//         $(".cominfotext").focus();
+//         // $(".message").addClass("active").text("기업명을 확인해주세요")
+//         alert("매출액을 입력해주세요")
+//        return false; // form 제출 막기
+//     }
+//     var com_type = $(".com_type").val();
+//     if (com_type.length <4) {
+//         $(".com_type").focus();
+//         // $(".message").addClass("active").text("기업명을 확인해주세요")
+//         alert("기업 유형을 선택해주세요.")
+//        return false; // form 제출 막기
+//     }
+//     $("#comInfoUpdate").submit();
+// }
 </script>

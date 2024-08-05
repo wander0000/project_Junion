@@ -115,7 +115,8 @@
                 </a>
             </h5>
             <ul class="menu">
-                <li><a href="cardPageList">채용</a></li>
+                <!-- <li><a href="cardPageList">채용</a></li> -->
+                <li><a href="jobPostList">채용</a></li>
                 <li><a href="jobpostingIndividualSupport">인재풀</a></li>
                 <li><a href="comList">기업정보</a></li>
                 <li><a href="boardCommunity">커뮤니티</a></li>

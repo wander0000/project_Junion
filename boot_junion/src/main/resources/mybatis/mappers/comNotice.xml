@@ -22,7 +22,6 @@
 <!--  채용공고 클릭시 상세정보 페이지 이동, 정보 뿌리기 -->
 <!--  2024-07-24 하진 : 테이블 정규화로 인해 쿼리 수정 -> join  -->
 <!--  2024-07-24 하진 : 재수정...join 오류 -->
-
 	<select id="JobPost" resultType="com.boot.DTO.ComNoticeDTO">
 		SELECT n.notice_title, n.com_email, c.com_name, n.notice_jobInfo, n.notice_job, c.com_location, 
 				n.notice_condition, n.notice_prefer, n.notice_benefit, nt.notice_stack, 

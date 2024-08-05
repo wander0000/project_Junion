@@ -415,7 +415,7 @@ main .subContainer .resume .resumeBody .people .resumeDate
 								<a href="#">마감된 공고</a>
 							</h3>
 							<h3 class="tabNum">
-								<a href="#">${endNum}</a>
+								<a href="#" class="endDate">${endNum}</a>
 							</h3>
 						</div>
 					</div><!--memberInfo-->
@@ -558,7 +558,8 @@ main .subContainer .resume .resumeBody .people .resumeDate
 									<a href="jobPostDetail?notice_num=${dtod.notice_num}">
 										<div class="cardConTop">
 											<h5 class="type">마감된 공고</h5>
-											<h5 class="date">${dtod.notice_endDate}</h5>
+											<!-- <h5 class="date">${dtod.notice_endDate}</h5> -->
+											<h5 class="date"></h5>
 										</div>
 										<div class="cardConBottom">
 											<h3 class="title">${dtod.notice_title}</h3>
@@ -743,6 +744,15 @@ main .subContainer .resume .resumeBody .people .resumeDate
 	console.log(endlist);
 	var end = endlist.split("[");
 	console.log(end);
+
+	console.log("마감된공고 수 테스트!! ->"+'${dtod.notice_endDate}');
+	var endDate = "${dtod.notice_endDate}";
+	if(!endDate){
+		endDate = 0;
+		console.log("마감된공고 수 테스트!! ->"+endDate);
+	}
+	var endDateElement = document.querySelector('.endDate');
+	endDateElement.textContent = endDate;
 
 });
 </script>

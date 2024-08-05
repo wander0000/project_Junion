@@ -197,6 +197,7 @@
 
 	{
 	    font-size: var(--font-size20);
+		font-weight: 400;
 	    padding-bottom: 10px;
 	    border-bottom: 1px solid var(--input-gray);
 
@@ -558,7 +559,7 @@
                     <div class="main">
                         <div class="sub1">
                             <a href="comDetail?com_email=${company.com_email}"><h5 class="name">${company.com_name}</h5></a>
-                            <h5 class="locationC">${company.notice_area1}${company.notice_area2} · ${company.notice_career}</h5>
+                            <h5 class="locationC">${company.notice_area1} ${company.notice_area2} · ${company.notice_career}</h5>
                             <h5 class="title">${company.notice_title}</h5>
                         </div>
                         <div class="sub2">
@@ -695,7 +696,7 @@
 
                     <div class="col7">
                         <div class="columnA">
-                            <h5 class="title">지도</h5>
+                            <h5 class="title">회사 위치</h5>
                         </div>
                         <div class="columnBB">
                             <!-- <h5 class="detail">/// -->

@@ -24,7 +24,7 @@
 			                order by resume_num desc) a
 			where rownum <= (#{pageNum} * #{amount})
 			) aa
-			where rownum > (#{pageNum}-1)*#{amount};    
+			where rownum > (#{pageNum}-1)*#{amount}  
 	    ]]>
     </select>    
     <select id="getTotalCount" resultType="int">
