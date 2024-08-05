@@ -143,9 +143,9 @@
 									<div class="imgbox">
 										<div class="uploadResult">
                                             <ul>
+												<img src="images/people.svg" alt="#" class="img">
                                             </ul>
                                         </div>
-										<!-- <img src="images/people.svg" alt="#" class="img"> -->
 									</div>
 									<div class="tt">
 										<h5 class="t1">

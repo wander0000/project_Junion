@@ -212,8 +212,12 @@ display:inline-block;
     border-radius: 10px;
     border: solid 1px var(--input-gray);
     margin-bottom: 20px;
-    
+    /* padding: 0 2px; */
 }
+/* .pplist .pp .buttbox1 .b1
+{
+    padding: 0 10px;
+} */
 .pplist .pp .uploadResult img
 {
     width: 64px;
@@ -226,29 +230,38 @@ display:inline-block;
 }
 
 .right,
-.buttbox1,
+/* .buttbox1, */
 .buttbox2
 {
     display: flex;
     font-size: var(--font-size14);
+    /* padding: 0 2px; */
 }
 .stack-item {
     display: inline-block;
+    /* display: flex; */
+    /* flex-direction: row; */
     font-size: var(--font-size14);
     padding: 8px 20px;
     border: 1px solid var(--border-color-gray);
     border-radius: 5px;
     color: var(--color-gray);
     background-color: var(--button-gray);
+    /* margin: 0 4px; */
+    margin-right: -5px;
 }
 .job-item {
     display: inline-block;
+    /* display: flex; */
+    /* flex-direction: row; */
     font-size: var(--font-size14);
     padding: 8px 20px;
     border: 1px solid var(--border-color-gray);
     border-radius: 5px;
     color: var(--color-gray);
     background-color: var(--button-gray);
+    /* margin: 0 4px; */
+    margin-right: -5px;
 }
 .buttbox2 .b2 .view_resume
 {
@@ -312,10 +325,10 @@ display:inline-block;
 {
     margin-left: 20px;
 }
-.pplist .pp .buttbox1 .b1
+/* .pplist .pp .buttbox1 .b1
 {
     margin-right: 12px;
-}
+} */
 .sbox .select1, .sbox1 .select1, .sbox2 .select1
 {
     width: 240px;
