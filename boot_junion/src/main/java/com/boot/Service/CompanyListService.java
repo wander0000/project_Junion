@@ -1,9 +1,11 @@
 package com.boot.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.boot.DTO.CompanyAttachDTO;
 import com.boot.DTO.CompanyListDTO;
 import com.boot.DTO.Criteria4;
 
@@ -21,4 +23,5 @@ public interface CompanyListService {
 	
 	public int getTotalCount(@Param("cri") Criteria4 cri);
 	
+	public List<CompanyAttachDTO> comFileList(String com_email); // 기업 사진 들고오기
 }

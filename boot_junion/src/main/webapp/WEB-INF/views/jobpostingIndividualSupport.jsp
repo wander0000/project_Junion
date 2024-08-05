@@ -139,14 +139,13 @@
 					<!-- <div id="recommendation" class="form-box active"> -->
 						<c:forEach items="${jobpostingIndividualSupport}" var="sup">
 							<div class="pplist"> <!--  pplist 시작-->
-								<div class="pp">
-									<div class="imgbox" data-resumeNum="${sup.resume_num}">
+								<div class="pp" data-resume-num="${sup.resume_num}">
+									<div class="imgbox">
 										<div class="uploadResult">
                                             <ul>
-
+												<img src="images/people.svg" alt="#" class="img">
                                             </ul>
                                         </div>
-										<img src="images/people.svg" alt="#" class="img">
 									</div>
 									<div class="tt">
 										<h5 class="t1">
@@ -426,7 +425,7 @@
 		// 이미지 가져오는 함수
 		$('.pp').each(function () {
 			// con클래스 data-resumeNum 속성에서 값을 가져옴
-			var resumeNum = $(this).data('resumeNum');
+			var resumeNum = $(this).data('resume-num');
 			
 			// 현재 con클래스 .uploadResult 요소를 선택
 			var uploadResultContainer = $(this).find('.uploadResult ul');
@@ -438,6 +437,7 @@
 					data: { resume_num: resumeNum },
 					dataType: 'json',
 					success: function(data) {
+						console.log('Data fetched for resume_num ' + resumeNum + ':', data); // 확인용 콘솔 로그
 						showUploadResult(data, uploadResultContainer);
 					},
 					error: function(xhr, status, error) {
@@ -451,6 +451,7 @@
 	// 이미지 가져옴
 	function showUploadResult(uploadResultArr, uploadResultContainer){
 		if (!uploadResultArr || uploadResultArr.length == 0) {
+			console.log('No upload results found.'); // 확인용 콘솔 로그
 			return;
 		}
 
@@ -467,6 +468,7 @@
 			str += "</div></li>";
 		});
 
+		console.log('Appending upload results:', str); // 확인용 콘솔 로그
 		uploadResultContainer.empty().append(str);
 	}
 
@@ -504,9 +506,9 @@
 
 
 
-    if (true) {
-        disableButton(proposalButton);
-    }
+    // if (true) {
+    //     disableButton(proposalButton);
+    // }
 
     function setUserEmail(userEmail) {
         // userEmail 값을 설정

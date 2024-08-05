@@ -101,9 +101,16 @@ public class jobpostingServiceImpl implements jobpostingService{
         return jobpostingSupport;
     }
 
+    // 열람, 미열람
     @Override
     public void updateSubmitCheck(int resumeNum, int noticeNum, String status) {
     	jobpostingDAO.updateSubmitCheck(resumeNum, noticeNum, status);
+    }
+    
+    // 합격, 불합격, 보류
+    @Override
+    public void updateStatus(int resumeNum, int noticeNum, String updateStatus) {
+    	jobpostingDAO.updateStatus(resumeNum, noticeNum, updateStatus);
     }
 
 

@@ -194,17 +194,24 @@
                     <c:choose>
                         <c:when test="${not empty jobpostingSupport}">
                             <c:forEach items="${jobpostingSupport}" var="sup">
-                                <div class="box" data-birth="${sup.calculated_age}">
+                                <div class="box" data-birth="${sup.calculated_age}" data-resume-num="${sup.resume_num}">
                                     <div class="left">
 										<div class="le">
-	                                        <img class="profile" src="images/people.svg">
+
+											<div class="uploadResult">
+	                                            <ul>
+
+	                                            </ul>
+	                                        </div>
 	                                        <div id="pfname_${sup.resume_num}" class="pfname" onclick="handleClick(${sup.resume_num}, ${sup.notice_num})">${sup.user_name}</div>
-	                                        <div class="pfage">${sup.user_gender} ${sup.calculated_age}세</div>
+	                                        <div class="pfage">${sup.user_gender}</div>
+	                                        <div class="pfage">${sup.calculated_age}세</div>
+	                                        <div class="ppfage">${sup.notice_career}</div>
 										</div>
                                         <div class="pfEntry">${sup.career_month}</div>
                                         <c:if test="${not empty sup.stack_names}">
                                             <c:forEach var="stackName" items="${sup.stack_names}">
-                                                <button class="leftbtn">${stackName}</button>
+                                                <button class="leftbtn"><h5 class = lele>${stackName}</h5></button>
                                             </c:forEach>
                                         </c:if>
                                     </div>
@@ -352,20 +359,20 @@
 	
 	
 	function updateStatus(resumeNum, noticeNum) {
-	    var status = $('#statusFilter_' + resumeNum).val();
+	    var updateStatus = $('#statusFilter_' + resumeNum).val();
 
 	    $.ajax({
 	        type: 'POST',
-	        url: '${pageContext.request.contextPath}/updateSubmitCheck',
+	        url: '${pageContext.request.contextPath}/updateStatus',
 	        data: {
 	            resume_num: resumeNum,
 	            notice_num: noticeNum,
-	            status: status
+	            updateStatus: updateStatus
 	        },
 	        success: function(response) {
-	            console.log('상태 업데이트 완료');
+	            alert('변경되었습니다'); // 변경 메시지 팝업
 	        },
-	        error: function(xhr, status, error) {
+	        error: function(xhr, updateStatus, error) {
 	            console.error('상태 업데이트 오류:', error);
 	        }
 	    });
@@ -438,9 +445,52 @@
 	    }); 
 
 
+		//파일 가져오기
+		// box클래스 반복하면서 데이터 가져옴
+		    $('.box').each(function () {
+		        // con클래스 data-notice-num 속성에서 값을 가져옴
+		        var resumeNum = $(this).data('resume-num');
+		        
+		        // 현재 con클래스 .uploadResult 요소를 선택
+		        var uploadResultContainer = $(this).find('.uploadResult ul');
+
+		        if (resumeNum) {
+		            $.ajax({
+		                url: '/resumeGetFileList',
+		                type: 'GET',
+		                data: { resume_num: resumeNum },
+		                dataType: 'json',
+		                success: function(data) {
+		                    showUploadResult(data, uploadResultContainer);
+		                },
+		                error: function(xhr, status, error) {
+		                    console.error('Error fetching file list for notice_num ' + noticeNum + ':', error);
+		                }
+		            });
+		        } 
+		    });
 	});
 	    
-	    
+	function showUploadResult(uploadResultArr, uploadResultContainer){
+	    if (!uploadResultArr || uploadResultArr.length == 0) {
+	        return;
+	    }
+
+	    var str = "";
+
+	    $(uploadResultArr).each(function (i, obj) {
+	        var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+	        str += "<li data-path='" + obj.uploadPath + "'";
+	        str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+	        str += "<div>";
+	        str += "<span style='display:none;'>" + obj.fileName + "</span>";
+	        str += "<img src='/resumeDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+	        str += "</div></li>";
+	    });
+
+	    uploadResultContainer.empty().append(str);
+	}    
 	    
 
 

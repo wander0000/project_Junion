@@ -25,8 +25,8 @@ public interface jobpostingIndividualService {
 //	public int getTotalCount(); 
 	public int getTotalCount(@Param("cri") Criteria3 cri); 
 	
-//	public ArrayList<OfferInfoDTO> getOfferInfo(@Param("login_email") String login_email); // 
-	public ArrayList<OfferInfoDTO> getOfferInfo(String login_email); // 
+//	public ArrayList<OfferInfoDTO> getOfferInfo(@Param("login_email") String login_email);
+	public ArrayList<OfferInfoDTO> getOfferInfo(String login_email); //  offer 보내기 위한 개인회원 정보
 	
 	public void insertOffer(OfferInfoDTO offer); // offer 정보 insert
 	

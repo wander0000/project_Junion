@@ -117,6 +117,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 		
 		
+		// 열람, 미열람
 		@PostMapping("/updateSubmitCheck")
 		public ResponseEntity<String> updateSubmitCheck(@RequestParam("resume_num") int resumeNum,
 		                                                @RequestParam("notice_num") int noticeNum,
@@ -128,6 +129,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
 		    } catch (Exception e) {
 		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("상태 업데이트 실패");
 		    }
+		}
+		
+		
+		// 업데이트 합격,불합격,보류
+		@PostMapping("/updateStatus")
+		public ResponseEntity<String> updateStatus(@RequestParam("resume_num") int resumeNum,
+				@RequestParam("notice_num") int noticeNum,
+				@RequestParam("updateStatus") String updateStatus) {
+			try {
+				// submit_tb 테이블의 submit_check 필드를 '열람'으로 업데이트
+				jobpostingService.updateStatus(resumeNum, noticeNum, updateStatus);
+				return ResponseEntity.ok("상태 업데이트 성공");
+			} catch (Exception e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("상태 업데이트 실패");
+			}
 		}
 		
 		

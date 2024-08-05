@@ -122,6 +122,12 @@
 		<include refid="criteria4"></include>
 	</select>
 	
+	<!--기업 사진 불러오기-->
+    <select id="comFileList" resultType="com.boot.DTO.CompanyAttachDTO">
+		select uuid, uploadPath, fileName, image, com_email
+			from com_attach where com_email=#{com_email}
+    </select>
+	
 </mapper>
 
 

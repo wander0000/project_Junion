@@ -41,6 +41,8 @@ public interface ComNoticeDAO {
 	public void noticeStauts(ComNoticeDTO comNoticeDTO); //공고 상태 업데이트
 	
 	public List<String> getNoticeStack(ComNoticeDTO comNoticeDTO); //공고수정-스택 테이블 select
+	public void updateRegisterNotice(ComNoticeDTO comNoticeDTO); //공고 수정
+	public void noticeDeleteStack(int notice_num); //공고수정- 스택 삭제
 	
 //	파일업로드는 파라미터를 DTO 사용
 	public void registInsertFile(ComNoticeAttachDTO vo);  // 파라미터가 ComNoticeAttachDTO / 파일추가

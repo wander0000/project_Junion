@@ -1,15 +1,25 @@
 package com.boot.Controller;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.boot.DTO.CompanyAttachDTO;
 import com.boot.DTO.CompanyInfoDTO;
 import com.boot.DTO.CompanyListDTO;
 import com.boot.DTO.CompanyPageDTO;
@@ -84,6 +94,39 @@ public class CompanyListController {
 		model.addAttribute("company", dto);
 		
 		return "/comDetail";
+	}
+	
+//	이미지파일을 받아서 화면에 출력(byte 배열타입)
+	@GetMapping("/comListDisplay")
+	public ResponseEntity<byte[]> getFile(String fileName) {
+		log.info("@# display fileName=>"+fileName);
+		
+//		업로드 파일경로+이름
+		File file = new File("C:\\devv\\upload\\"+fileName);
+		log.info("@# file=>"+file);
+		
+		ResponseEntity<byte[]> result=null;
+		HttpHeaders headers=new HttpHeaders();
+		
+		try {
+//			파일타입을 헤더에 추가
+			headers.add("Content-Type", Files.probeContentType(file.toPath()));
+//			파일정보를 byte 배열로 복사+헤더정보+http상태 정상을 결과에 저장
+			result = new ResponseEntity<>(FileCopyUtils.copyToByteArray(file), headers, HttpStatus.OK);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+	}
+	
+	@GetMapping(value = "/comFileList")
+	public ResponseEntity<List<CompanyAttachDTO>> comFileList(@RequestParam HashMap<String, String> param) {
+		log.info("@# comFileList()");
+		log.info("@# param=>"+param);
+		log.info("@# param=>"+param.get("com_email"));
+		
+		return new ResponseEntity<>(companyListService.comFileList(param.get("com_email")), HttpStatus.OK);
 	}
 	
 }
