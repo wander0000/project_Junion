@@ -58,37 +58,33 @@ public class ComNoticeController {
 	private ScrapService scrapService;
 	
 	@Autowired
-	private CardPageService cardPageService;
+	private CardPageService pageService;
 	
 
 	@RequestMapping("/jobPostList")
 //	public String jobPost(Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
 //	public String jobPost(Model model) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
-		public String jobPost(Standard std, Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
-
+		public String jobPost(Standard std,Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
+//		log.info("jobPost");
+//		
+//		
+//		ArrayList<ComNoticeDTO> dto = postService.JobPostCard();
+//		model.addAttribute("jobPost", dto);
+		
 		
 		log.info("@# cardPage controller");
 		log.info("@# cardPage controller std!!=>"+std);
 		
-		ArrayList<ComNoticeDAO> list = cardPageService.cardPageList(std);//현재 진행중인 공고를 가져옴
-//		int total = pageService.getTotalCount();
-		int total = cardPageService.getTotalCount(std);
+		ArrayList<ComNoticeDAO> list = pageService.cardPageList(std);//현재 진행중인 공고를 가져옴
+		int total = pageService.getTotalCount();
+		log.info("총 게시글 수는??"+total);
 		
-		model.addAttribute("jobPost", list);//현재 진행중인 공고를 실어 보냄
+		model.addAttribute("jobPost", list);
 		model.addAttribute("paging", new CardPageDTO(total, std));
 
-////    	기술/스택 리스트
-//    	ArrayList<String> stackList = cardPageService.getStackList();//스택값을 가져옴
-//    	model.addAttribute("stackList",stackList);
-//
-////    	지역 리스트
-//    	ArrayList<String> locationList = cardPageService.getLocationList();//지역을 가져옴
-//    	model.addAttribute("locationList",locationList);
-//		
-//		
 		
 		 String user_email = (String) session.getAttribute("login_email");//세션에 저장된 사용자이메일 가져오기
-//		 log.info("@# jobPost user_email => "+user_email);
+		 log.info("@# jobPost user_email => "+user_email);
 		 
 		 if(user_email != null) {// 세션에 이메일 값이 있다면 해당 사용자의 이메일을 기반으로 관심 공고 목록을 가져옴
 			 ArrayList<Integer> noticeList = scrapService.getScrapNoticeNum(user_email);
@@ -132,7 +128,7 @@ public class ComNoticeController {
 			log.info("@# param=>"+param);
 			log.info("@# param=>"+param.get("notice_num"));
 			
-			return new ResponseEntity<>(cardPageService.cardPageFileList(Integer.parseInt(param.get("notice_num"))), HttpStatus.OK);
+			return new ResponseEntity<>(pageService.cardPageFileList(Integer.parseInt(param.get("notice_num"))), HttpStatus.OK);
 		}
 
 	

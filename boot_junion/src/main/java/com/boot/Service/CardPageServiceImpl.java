@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 
 import com.boot.DAO.CardPageDAO;
 import com.boot.DAO.ComNoticeDAO;
-import com.boot.DAO.CompanyListDAO;
 import com.boot.DTO.ComNoticeAttachDTO;
 import com.boot.DTO.Standard;
 
@@ -38,8 +37,7 @@ public class CardPageServiceImpl implements CardPageService{
 	
 
 	@Override
-//	public int getTotalCount(){//전체 공고 수 구하기
-	public int getTotalCount(Standard std){//전체 공고 수 구하기
+	public int getTotalCount(){//전체 공고 수 구하기
 		
 		
 	CardPageDAO dao= sqlSession.getMapper(CardPageDAO.class);
@@ -48,23 +46,6 @@ public class CardPageServiceImpl implements CardPageService{
 	
 	return total;
 	}
-	
-	@Override
-	public ArrayList<String> getStackList() {
-		log.info("@# getStackList");
-		CompanyListDAO dao = sqlSession.getMapper(CompanyListDAO.class);
-		ArrayList<String> list = dao.getStackList();
-		return list;
-	}
-
-	@Override
-	public ArrayList<String> getLocationList() {
-		log.info("@# getLocationList");
-		CompanyListDAO dao = sqlSession.getMapper(CompanyListDAO.class);
-		ArrayList<String> list = dao.getLocationList();
-		return list;
-	}
-	
 	
 	// 2024-08-01 지수 (공고 목록 사진 들고오기)
 	@Override
