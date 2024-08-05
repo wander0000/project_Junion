@@ -33,7 +33,7 @@ public interface jobpostingIndividualDAO {
 	
 	public ArrayList<String> getStackNames(@Param("login_email") String login_email); // 기업회원 추천순에 필요한 정보
 	
-	public ArrayList<OfferInfoDTO> getOfferInfo(@Param("login_email") String login_email); //
+	public ArrayList<OfferInfoDTO> getOfferInfo(@Param("login_email") String login_email); // offer 보내기 위한 개인회원 정보
 	
 	public void insertOffer(@Param("offer") OfferInfoDTO offer); // offer 정보 insert
 	
