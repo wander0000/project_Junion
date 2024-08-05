@@ -122,7 +122,7 @@
 					240801 버튼 css수정
 					민중
 					 */
-					.right .fil2 {
+					.right .f1 .tab-btn.fil2{
 						margin-left: 8px;
 						border: 1px solid var(--input-gray);
 						background-color: var(--color-white);
@@ -131,16 +131,18 @@
 						width: 80px;
 						height: 40px;
 						cursor: pointer;
-						background: #111;
-						color: #fff;
+						background: #fff;
+						color: #111;
 
 						&:hover {
 							background: var(--main-color);
 							color: #fff;
 						}
 					}
-
-
+					.right .f1 .tab-btn.fil2.active {
+					background: #111;
+					color: #fff;
+				}
 
 
 					/* 버튼 끝 */
@@ -370,14 +372,13 @@
 
 											<div class="right">
 												<div class="f1">
-													<button id="tab-btn ${orderType == 'latest' ? 'active' : ''}"
-														class="fil2" onclick="switchTab('latest', event)">최신순</button>
+													<button
+														class="tab-btn fil2 ${orderType == 'recommendation' ? 'active' : ''}"
+														onclick="switchTab('recommendation', event)">추천순</button>
 												</div>
 												<div class="f1">
-													<button
-														id="tab-btn ${orderType == 'recommendation' ? 'active' : ''}"
-														class="fil2"
-														onclick="switchTab('recommendation', event)">추천순</button>
+													<button class="tab-btn fil2 ${orderType == 'latest' ? 'active' : ''}"
+														onclick="switchTab('latest', event)">최신순</button>
 												</div>
 												${orderType}
 											</div>
@@ -515,7 +516,7 @@
 						});
 
 						// 추천순/최신순 탭 클릭 이벤트
-						$("#tab-btn").on("click", function (event) {
+						$(".tab-btn").on("click", function (event) {
 							event.preventDefault();
 							switchTab(this, this.innerText.trim() === "추천순" ? "recommendation" : "latest");
 						});
@@ -560,7 +561,7 @@
 					// 다른 탭 눌렀을 때 input 정보 삭제
 					function switchTab(tab, type) {
 						// 모든 tab-btn에서 'active' 클래스를 제거
-						$('#tab-btn').removeClass('active');
+						$('.tab-btn').removeClass('active');
 						$(tab).addClass('active');
 
 						// 'orderType' 히든 필드의 값을 설정하고 폼을 제출
@@ -587,4 +588,4 @@
 						uploadResultContainer.empty().append(str);
 					}
 
-				</script>
+				</script>			
