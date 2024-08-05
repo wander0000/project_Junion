@@ -299,7 +299,7 @@ public class ComNoticeController {
 		    service.noticeInsertStack(comNoticeDTO); // 스택 저장
 		    
 		    httpServletRequest.setAttribute("msg", "공고를 수정하였습니다.");
-			httpServletRequest.setAttribute("url", "/companyMain");
+			httpServletRequest.setAttribute("url", "/jobpostingList");
 			
 		    return "/alert";
 		}

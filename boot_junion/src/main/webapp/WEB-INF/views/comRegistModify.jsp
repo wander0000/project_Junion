@@ -413,16 +413,21 @@
 
 
 		// stackListString을 자바스크립트 변수로 변환
-		var stackListString = "${stackListString}";
-		var stackList = stackListString.split(",");
+        var stackListString = "${stackListString}";
+        var stackList = stackListString.split(",");
+        
+        // 스택 버튼 활성화
+        const techButtons = document.querySelectorAll('.tech');
+        const noticeStackInput = document.getElementById('notice_stack');
 
-		// 스택 버튼 활성화
-		const techButtons = document.querySelectorAll('.tech');
-		techButtons.forEach(button => {
-			if (stackList.includes(button.getAttribute('data-tech'))) {
-				button.classList.add('active');
-			}
-		});
+        techButtons.forEach(button => {
+            if (stackList.includes(button.getAttribute('data-tech'))) {
+                button.classList.add('active');
+            }
+        });
+
+        // hidden input 필드에 초기 스택 값 설정
+        noticeStackInput.value = stackList.join(',');
 
 
 
