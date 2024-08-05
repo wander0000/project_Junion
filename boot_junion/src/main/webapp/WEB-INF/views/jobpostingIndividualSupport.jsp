@@ -140,7 +140,12 @@
 						<c:forEach items="${jobpostingIndividualSupport}" var="sup">
 							<div class="pplist"> <!--  pplist 시작-->
 								<div class="pp">
-									<div class="imgbox">
+									<div class="imgbox" data-resumeNum="${sup.resume_num}">
+										<div class="uploadResult">
+                                            <ul>
+
+                                            </ul>
+                                        </div>
 										<img src="images/people.svg" alt="#" class="img">
 									</div>
 									<div class="tt">
@@ -417,7 +422,53 @@
 		// 	}
 		// });
 
+
+		// 이미지 가져오는 함수
+		$('.pp').each(function () {
+			// con클래스 data-resumeNum 속성에서 값을 가져옴
+			var resumeNum = $(this).data('resumeNum');
+			
+			// 현재 con클래스 .uploadResult 요소를 선택
+			var uploadResultContainer = $(this).find('.uploadResult ul');
+
+			if (resumeNum) {
+				$.ajax({
+					url: '/resumeGetFileList',
+					type: 'GET',
+					data: { resume_num: resumeNum },
+					dataType: 'json',
+					success: function(data) {
+						showUploadResult(data, uploadResultContainer);
+					},
+					error: function(xhr, status, error) {
+						console.error('Error fetching file list for notice_num ' + resumeNum + ':', error);
+					}
+				});
+			} 
+		});
 	});
+
+	// 이미지 가져옴
+	function showUploadResult(uploadResultArr, uploadResultContainer){
+		if (!uploadResultArr || uploadResultArr.length == 0) {
+			return;
+		}
+
+		var str = "";
+
+		$(uploadResultArr).each(function (i, obj) {
+			var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+			str += "<li data-path='" + obj.uploadPath + "'";
+			str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+			str += "<div>";
+			str += "<span style='display:none;'>" + obj.fileName + "</span>";
+			str += "<img src='/resumeDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+			str += "</div></li>";
+		});
+
+		uploadResultContainer.empty().append(str);
+	}
 
 
 	function setAllToNone() {

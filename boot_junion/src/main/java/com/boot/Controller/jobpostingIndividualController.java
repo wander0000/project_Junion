@@ -195,7 +195,7 @@ public class jobpostingIndividualController {
         
 		
 		
-		return "resumeInfo";
+		return "resumeInfo2";
 	}
     
     // =============================  이력서 열람 끝  ==========================
