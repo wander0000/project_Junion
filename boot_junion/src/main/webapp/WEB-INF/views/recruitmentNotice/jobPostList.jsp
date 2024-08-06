@@ -367,98 +367,92 @@ display:inline-block;
     <section> 
         <div class="wrap">     
             <div class="devlist">
-
-                <div class="selectbox">
-                    <div class="select">
-                        <input class="title" type="text" name="keyword" placeholder="검색어를 입력해 주세요">
-                    </div> <!-- 콘텐트박스 끝-->
-                    <div class="icon">
-                        <div class="i1">
-                            <a href="#" class="fa-solid fa-magnifying-glass" style="color: #ffa500;"></a>
+                <form method="get" id="searchForm">
+                    <div class="selectbox">
+                        <div class="select">
+                            <input class="title" type="text" name="keyword" value="${paging.std.keyword}" placeholder="검색어를 입력해 주세요">
+                        </div> <!-- 콘텐트박스 끝-->
+                        <div class="icon">
+                            <div class="i1">
+                                <a href="#" class="fa-solid fa-magnifying-glass" style="color: #ffa500;"></a>
+                            </div>
                         </div>
-                    </div>
-                </div> <!-- selectbox 끝-->
+                    </div> <!-- selectbox 끝-->
 
 
 
 
-                <div class="filterbox">
-                    <div class="left">
-						
-                        <div class="sbox">
-                            <form>
-                                <select class="select1" id="select" name="select">
-                                  <option value="">직군 · 직무</option>
-                                    <option value="s1">공지사항</option>
-                                    <option value="s1">이벤트</option>
-                                </select>
-                              </form>
-                        </div> <!-- selectbox 끝 -->
-                        <div class="sbox">
-                            <form>
-                                <select class="select1" id="select" name="select">
-                                  <option value="">경력</option>
-                                    <option value="s1">공지사항</option>
-                                    <option value="s1">이벤트</option>
-                                </select>
-                              </form>
-                        </div> <!-- selectbox 끝 -->
-                        <div class="sbox">
-                            <form>
-                                <select class="select1" id="select" name="select">
-                                  <option value="">기술스택</option>
-                                    <option value="s1">공지사항</option>
-                                    <option value="s1">이벤트</option>
-                                </select>
-                              </form>
-                        </div> <!-- selectbox 끝 -->
-                        <div class="sbox">
-                            <form>
-                                <select class="select1" id="select" name="select">
-                                  <option value="">지역</option>
-                                    <option value="s1">공지사항</option>
-                                    <option value="s1">이벤트</option>
-                                </select>
-                              </form>
-                        </div> <!-- selectbox 끝 -->
+                    <div class="filterbox">
+                        <div class="left">
+                            <div class="sbox">
+                                <!-- <form> -->
+                                    <select class="select1" id="select" name="select">
+                                        <option value="">경력</option>
+                                        <c:forEach var="dto" items="${careerList}">
+                                            <option value="${dto}">${dto}</option>
+                                        </c:forEach>
+                                    </select>
+                                <!-- </form> -->
+                            </div> <!-- selectbox 끝 -->
+                            <div class="sbox">
+                                <!-- <form> -->
+                                    <select class="select1" id="select" name="select">
+                                        <option value="" selected>기술스택</option>
+                                        <c:forEach var="dto" items="${stackList}">
+                                            <option value="${dto}">${dto}</option>
+                                        </c:forEach>
+                                    </select>
+                                <!-- </form> -->
+                            </div> <!-- selectbox 끝 -->
+                            <div class="sbox">
+                                <!-- <form> -->
+                                    <select class="select1" id="select2" name="select">
+                                    <option value="">지역</option>
+                                    <c:forEach var="dto" items="${locationList}">
+                                            <option value="${dto}">${dto}</option>
+                                        </c:forEach>
+                                    </select>
+                                <!-- </form> -->
+                            </div> <!-- selectbox 끝 -->
 
 
-                        <button class="fil2">
-                            <div class="f1">
-                                <h5 class="but1">
-                                    마감임박
-                                </h5>
-                            </div>
-                        </button> <!-- 마감임박 버튼 끝-->
+                            <button class="fil2" onclick="sortList()">
+                                <div class="f1">
+                                    <h5 class="but1">
+                                        마감임박
+                                    </h5>
+                                </div>
+                            </button> <!-- 마감임박 버튼 끝-->
 
-                    </div> <!-- 레프트 끝-->
+                        </div> <!-- 레프트 끝-->
 
-                    <div class="right">
-                        <button class="fil2" id="firstButton">
-                            <div class="f1">
-                                <h5 class="but1">
-                                    추천순
-                                </h5>
-                            </div>
-                        </button>
-                        <button class="fil2" id="secondButton">
-                            <div class="f1">
-                                <h5 class="but1">
-                                    최신순
-                                </h5>
-                            </div>
-                        </button>
-                        <button class="fil2" id="thirdButton">
-                            <div class="f1">
-                                <h5 class="but1">
-                                    조회순
-                                </h5>
-                            </div>
-                        </button>
-                    </div>  <!-- 라이트 끝-->
-
-                </div> <!-- filterbox 끝 -->
-
+                        <div class="right">
+                            <button class="fil2" id="firstButton">
+                                <div class="f1">
+                                    <h5 class="but1">
+                                        추천순
+                                    </h5>
+                                </div>
+                            </button>
+                            <button class="fil2" id="secondButton">
+                                <div class="f1">
+                                    <h5 class="but1">
+                                        최신순
+                                    </h5>
+                                </div>
+                            </button>
+                            <button class="fil2" id="thirdButton">
+                                <div class="f1">
+                                    <h5 class="but1">
+                                        조회순
+                                    </h5>
+                                </div>
+                            </button>
+                        </div>  <!-- 라이트 끝-->
+                        <input type="hidden" name="pageNum" value="1">
+                        <input type="hidden" name="amount" value="${paging.std.amount}">
+                    </div> <!-- filterbox 끝 -->
+                </form>
 
                 <div class="mtlist"> <!--  mtlist 시작-->
 
@@ -567,11 +561,6 @@ display:inline-block;
         <form id="actionForm" method="get" action="jobPostList">
             <input type="hidden" name="pageNum" value="${paging.std.pageNum}">
             <input type="hidden" name="amount" value="${paging.std.amount}">
-            
-            <!-- Standard 를 이용해서 키워드 값을 넘김 -->
-             <!-- 페이징 검색 페이지 번호를 클릭할 때 필요한 파라미터 -->
-            <!-- <input type="hidden" name="stackType" value="${paging.std.stackType}">
-            <input type="hidden" name="locationType" value="${paging.std.locationType}"> -->
         </form>
 </body>
 </html>
@@ -620,7 +609,6 @@ $(document).ready(function() {
     var actionForm = $("#actionForm");
     $(".paginate_button a").on("click", function(e){
         e.preventDefault();//기본 동작을 막음 : 페이지 링크를 통해서 이동
-        // console.log("@# href =>"+$(this).attr("href"));
 
         actionForm.find("input[name='pageNum']").val($(this).attr("href"));
         // actionForm.attr("action","cardPageList").submit();
@@ -660,7 +648,15 @@ $(document).ready(function() {
            } 
        });
        
-   });
+   });//end of document ready
+
+
+   var searchForm = $("#searchForm");
+
+   $(".fa-magnifying-glass").on("click",function () {
+        $("#searchForm").submit();
+   })
+
    
    function showUploadResult(uploadResultArr, uploadResultContainer){
        if (!uploadResultArr || uploadResultArr.length == 0) {

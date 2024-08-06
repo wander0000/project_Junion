@@ -64,9 +64,8 @@ public class ComNoticeController {
 	@RequestMapping("/jobPostList")
 //	public String jobPost(Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
 //	public String jobPost(Model model) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
-		public String jobPost(Standard std, Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
-
-		
+		public String jobPost(Standard std, Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동
+//		public String jobPost(@RequestParam(name = "orderType", required = false, defaultValue = "latest") String orderType, Standard std, Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동
 		log.info("@# cardPage controller");
 		log.info("@# cardPage controller std!!=>"+std);
 		
@@ -77,15 +76,13 @@ public class ComNoticeController {
 		model.addAttribute("jobPost", list);//현재 진행중인 공고를 실어 보냄
 		model.addAttribute("paging", new CardPageDTO(total, std));
 
-////    	기술/스택 리스트
-//    	ArrayList<String> stackList = cardPageService.getStackList();//스택값을 가져옴
-//    	model.addAttribute("stackList",stackList);
-//
-////    	지역 리스트
-//    	ArrayList<String> locationList = cardPageService.getLocationList();//지역을 가져옴
-//    	model.addAttribute("locationList",locationList);
-//		
-//		
+		
+		ArrayList <String> careerList = cardPageService.getCareerList();
+		model.addAttribute("careerList", careerList);
+		ArrayList <String> stackList = cardPageService.getStackList();
+		model.addAttribute("stackList", stackList);
+		ArrayList <String> locationList = cardPageService.getLocationList();
+		model.addAttribute("locationList", locationList);
 		
 		 String user_email = (String) session.getAttribute("login_email");//세션에 저장된 사용자이메일 가져오기
 //		 log.info("@# jobPost user_email => "+user_email);
@@ -256,8 +253,6 @@ public class ComNoticeController {
 	     // 24.08.04 연주  끝================================================================================
 		
 		
-		
-//		postService.updateSubmitData(dto);//submit 테이블에 정보저장
 		boolean result = postService.updateSubmitData(param);//submit 테이블에 정보저장
 		log.info("지원 결과 ->>"+result);
 		

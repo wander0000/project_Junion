@@ -860,13 +860,6 @@
             position: coords
         });
 
-        // // 인포윈도우로 장소에 대한 설명을 표시합니다
-        // var infowindow = new kakao.maps.InfoWindow({
-        //     content: '<div style="width:150px;text-align:center;padding:6px 0;">회사 위치</div>'
-        // });
-        // infowindow.open(map, marker);
-
-        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     } 
 });   
@@ -878,7 +871,8 @@
 	// : 개인이나 비회원의 경우, 버튼 활성화 및 외부팝업 발생
 	var user_type = "${login_usertype}";
 	// console.log("user_type = "+user_type);
-	if (!user_type || user_type == 1) {
+	// if (!user_type || user_type == 1) {
+	if (user_type == 1) {
 			// 24-07-09 임하진 : 외부 팝업
 			function resume() {
 				$("#user_resume").addClass("active");
@@ -886,6 +880,11 @@
 				var notice_num = urlParams.get('notice_num');
 				var popupProperties = "width=560, height=440, resizable = no, scrollbars = no";
 				window.open("/profileInfo?notice_num="+notice_num,"profileInfo.jsp", popupProperties);
+		}
+	}else if(!user_type){
+		function resume() {
+		alert("지원하기 위해서 로그인이 필요합니다.");
+		location.href="login";
 		}
 	}else{
 		$("#user_resume").css("display","none");

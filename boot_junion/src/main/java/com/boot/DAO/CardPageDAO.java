@@ -14,8 +14,10 @@ import com.boot.DTO.Standard;
 public interface CardPageDAO {
 	public ArrayList<ComNoticeDAO> cardPageList(Standard std);// 페이징을 위한 메소드
 //	public ArrayList<ComNoticeDAO> cardPageList(CardPageDAO dao);// 페이징을 위한 메소드
-	public int getTotalCount();//전체 공고 수 구하기
+//	public int getTotalCount();//전체 공고 수 구하기
+	public int getTotalCount(Standard std);//전체 공고 수 구하기
 	
+	public ArrayList<String> getCareerList(); // 경력 리스트
 	public ArrayList<String> getStackList(); // 기술 스킬 리스트
 	public ArrayList<String> getLocationList(); // 지역 리스트
 	

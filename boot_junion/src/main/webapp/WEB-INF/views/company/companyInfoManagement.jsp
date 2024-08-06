@@ -266,7 +266,8 @@
                             </tr>
                             <tr>
                                 <th>사업자등록번호 </th>
-                                <td>${companyInfo.com_serial_number}</td>
+                                <!-- <td class="social_number">${companyInfo.com_serial_number}</td> -->
+                                <td class="social_number"></td>
                             </tr>
                             <tr>
                                 <th>이름</th>
@@ -301,14 +302,12 @@
 </html>
 <script>
     $(document).ready(function () {
-        // var comStack = "${companyInfo.com_stack}";
+
+        // 기업의 스택값을 받아 버튼으로 출력
         var comStack = "${companyInfo.com_stack}";
 
         if(comStack){
             // comStack.forEach(function(stack) {
-    //   alert('${comInfo.com_stack}');
-       // const comStack = "<c:out value='${comInfo.com_stack}'/>";
-    //    const comStack = "<c:out value='${companyInfo.com_stack}'/>";
         console.log(comStack);
                 const stacks = comStack.split(",");//배열로 만듦
                 let str = "";
@@ -324,14 +323,22 @@
         
         }
     
-        //현재 날짜를 구함.
+    //현재 년도를 구함.
     var years = new Date();
     var nowYear = years.getFullYear();
     console.log(nowYear);
     $('.nowYear').text(nowYear);
 
 
+ // 24.08.06 하진 : 사업자 번호 출력 형식 수정 
+  let serialNumber = "${companyInfo.com_serial_number}";
+  let getFormat = serialNumber.substring(0,3) + "-" + serialNumber.substring(3,5)+"-"+serialNumber.substring(5);
+  console.log(getFormat);
+  let socialNumberElement = document.querySelector('.social_number');
+  socialNumberElement.textContent = getFormat;
 
+
+    // 24.08.03 ~ 08.04 : 하진 - 지도 API 적용
     var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
         mapOption = {
             center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표(상세정보 수정시와 다른 좌표를 써야 함)
@@ -339,16 +346,13 @@
             };  
 
     //지도를 미리 생성
-    // var map = new daum.maps.Map(mapContainer, mapOption);
     var map = new kakao.maps.Map(mapContainer, mapOption);
     //주소-좌표 변환 객체를 생성
     var geocoder = new kakao.maps.services.Geocoder();
    
     var getlocation = "${companyInfo.com_location}";//화면에 출력된 값을 변수로 받아 사용
-    // console.log("회사의 위치는요"+getlocation);
     
     // 주소로 좌표를 검색합니다
-    // geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
     geocoder.addressSearch(getlocation, function(result, status) {
 
     // 정상적으로 검색이 완료됐으면 
@@ -362,12 +366,6 @@
             position: coords
         });
 
-        // // 인포윈도우로 장소에 대한 설명을 표시합니다
-        // var infowindow = new kakao.maps.InfoWindow({
-        //     content: '<div style="width:150px;text-align:center;padding:6px 0;">회사 위치</div>'
-        // });
-        // infowindow.open(map, marker);
-
         // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
         map.setCenter(coords);
     } 
@@ -379,10 +377,7 @@
             // window.name = "부모창 이름"; 
         
             var popupURL = "/companyPW";
-            // window.name = "company_InfoManagement";
-            // var popupProperties = "width=600, height=400, resizable = no, scrollbars = no";
             var popupProperties = "width=500, height=300, resizable = no, scrollbars = no";
-            // window.open("open할 window", "자식창 이름", "팝업창 옵션");
             window.open(popupURL, "companyPW.jsp", popupProperties);    
         }
 

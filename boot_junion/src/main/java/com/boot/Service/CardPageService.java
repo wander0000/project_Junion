@@ -13,6 +13,7 @@ public interface CardPageService {
 //	public int getTotalCount();//전체 공고 수 구하기
 	public int getTotalCount(Standard std);//전체 공고 수 구하기
 	
+	public ArrayList<String> getCareerList(); // 경력 리스트
 	public ArrayList<String> getStackList(); // 기술 리스트
 	public ArrayList<String> getLocationList(); // 지역 리스트
 	

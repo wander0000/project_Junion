@@ -14,7 +14,6 @@
 	            FROM notice_tb n join com_tb c on n.com_email = c.com_email 
 	            where notice_endDate >= now()
 	            order by notice_num desc
-
 	            ) a 
 	         where row_noticeNum<= (#{pageNum} * #{amount}) 
 	         )aa 
@@ -25,9 +24,18 @@
 	
 <!--	총 진행중인 공고 수를 가져오는 쿼리-->
 	<select id="getTotalCount" resultType="int"> 
-		select count(*) from notice_tb n join com_tb c on n.com_email = c.com_email where notice_endDate >= now()
+		select count(*) from notice_tb n join com_tb c 
+			on n.com_email = c.com_email where notice_endDate >= now()
 <!--		<include refid="std"></include>-->
 	</select>
+
+
+
+
+<!--career 조회 : 필터링 기능을 위함 -->
+    <select id="getCareerList" resultType="String"> 
+    	select career_name from career
+    </select>
 
 <!--stack 조회 : 필터링 기능을 위함 -->
     <select id="getStackList" resultType="String"> 
