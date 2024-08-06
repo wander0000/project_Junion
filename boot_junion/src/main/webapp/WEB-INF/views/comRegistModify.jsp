@@ -70,7 +70,16 @@
                             <div class="workLocation">
                                 <div class="search_box">
                                     <select onchange="categoryChange(this)" name="notice_area1" class="region">
-										<option value="" disabled selected>${notice.notice_area1}</option>
+                                        <c:choose>
+                                            <c:when test="${notice.notice_area1 != null}">
+                                                <option value="${notice.notice_area1}" selected>${notice.notice_area1}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value>시/도 선택</option>
+                                            </c:otherwise>
+                                        </c:choose>
+
+										<!-- <option value="" disabled selected>${notice.notice_area1}</option> -->
 									    <option value="강원">강원</option>
 									    <option value="경기">경기</option>
 									    <option value="경남">경남</option>
@@ -92,7 +101,16 @@
                                   </div>
                                   <div class="search_box">
                                     <select id="state" name="notice_area2" class="constituency" onchange="updateDistrict(this)">
-                                      <option  value="" disabled selected>${notice.notice_area2}</option>
+                                        <c:choose>
+                                            <c:when test="${notice.notice_area2 != null}">
+                                                <option value="${notice.notice_area2}" selected>${notice.notice_area2}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value>군/구 선택</option>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                      <!-- <option  value="" disabled selected>${notice.notice_area2}</option> -->
                                     </select>
 									<!-- <input type="hidden" name="notice_area2" id="notice_area2" > -->
                                   </div>
