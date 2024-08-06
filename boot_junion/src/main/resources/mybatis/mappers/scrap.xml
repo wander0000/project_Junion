@@ -51,15 +51,6 @@
 		delete from notice_scrap where notice_num=#{notice_num} and user_email = #{user_email}
 	</delete>
 
-
-<!--채용공고 상세 페이지-->
-<!--	<select id="getComNoticeScrap" resultType="int">-->
-<!--		select n.notice_num from notice_tb n -->
-<!--			join notice_scrap ns on n.notice_num = ns.notice_num-->
-<!--			where user_email =#{user_email} -->
-<!--			and com_email=(select com_email from notice_tb where notice_num=#{notice_num})-->
-<!--	</select>-->
-
 </mapper>
 
 

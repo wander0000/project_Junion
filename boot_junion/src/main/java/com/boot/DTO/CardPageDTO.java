@@ -8,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 //@Data
 //@AllArgsConstructor
 //@NoArgsConstructor
-@Slf4j
+//@Slf4j
 @Getter
 @ToString
 public class CardPageDTO {
@@ -48,9 +48,9 @@ public class CardPageDTO {
 	
 	}
 	
-//	public Standard getStd() {//카드 형식의 목록은 12개가 한 페이지 갯수
-//		return std;
-//	}
+	public Standard getStd() {//카드 형식의 목록은 12개가 한 페이지 갯수
+		return std;
+	}
 	
 	
 }
