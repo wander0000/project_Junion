@@ -127,15 +127,9 @@ section
     &:hover 
     {
         background: var(--main-color);
-        color: var(--color-white);
+        color: #fff;
     }
 }
-
-.right .fil2.active
-    {
-        background-color: var(--main-color);
-        border: 1px solid var(--main-color);
-    }
 
 .left .fil2
 {
@@ -149,12 +143,26 @@ section
     &:hover 
     {
         background: var(--main-color);
-        color: var(--color-white);
+        color: #fff;
     }
 }
 
+
+
+
 /* 버튼 끝 */
 
+
+/* .filterbox .fil
+{
+    margin: 0 14px 0 0;
+    border: 1px solid var(--input-gray);
+    border-radius: 10px;
+    padding: 14px 18px;
+    width: initial;
+    display: flex;
+    background-color: var(--color-white);
+} */
 
 
 .filterbox .fil .filter .last,
@@ -418,24 +426,22 @@ display:inline-block;
 
                         </div> <!-- 레프트 끝-->
 
-                        <input type="hidden" name="orderType" id="orderType" value="${orderType}">
                         <div class="right">
                             <button class="fil2" id="firstButton">
-                                <!-- <div class="f1"> -->
+                                <div class="f1">
                                     <h5 class="but1">
                                         추천순
                                     </h5>
-                                <!-- </div> -->
+                                </div>
                             </button>
-                            <button class="fil2 ${orderType == 'latest' ? 'active' : ''}" id="secondButton" onclick="switchTab('latest', event)">
+                            <button class="fil2" id="secondButton">
                                 <div class="f1">
                                     <h5 class="but1">
                                         최신순
                                     </h5>
                                 </div>
                             </button>
-                            <button class="fil2 ${orderType == 'recommendation' ? 'active' : ''}" id="thirdButton"  
-                                        onclick="switchTab('recommendation', event)">
+                            <button class="fil2" id="thirdButton">
                                 <div class="f1">
                                     <h5 class="but1">
                                         조회순
@@ -559,38 +565,14 @@ display:inline-block;
 </body>
 </html>
 <script>
-// 2024-08-01 지수 (공고 목록 사진 들고오기)
 
-    $(document).ready(function () {
-       // tag 반복하면서 데이터 가져옴
-       $('.tag').each(function () {
-           // tag data-notice-num 속성에서 값을 가져옴
-           var noticeNum = $(this).data('notice-num');
-           
-           // 현재 tag .uploadResult 요소를 선택
-           var uploadResultContainer = $(this).find('.uploadResult ul');
-   
-           if (noticeNum) {
-               $.ajax({
-                   url: '/cardPageFileList',
-                   type: 'GET',
-                   data: { notice_num: noticeNum },
-                   dataType: 'json',
-                   success: function(data) {
-                       showUploadResult(data, uploadResultContainer);
-                   },
-                   error: function(xhr, status, error) {
-                       console.error('Error fetching file list for notice_num ' + noticeNum + ':', error);
-                   }
-               });
-           } 
-       });
-       
-       
-       var user_type = "${login_usertype}";
-    //   console.log("user_type = "+user_type);
-    //공고 스크랩 관련 로직
-    $(".scrap .fa-bookmark").click(function() {
+$(document).ready(function() {
+  //버튼 클릭시 활성화
+  
+  var user_type = "${login_usertype}";
+//   console.log("user_type = "+user_type);
+  //공고 스크랩 관련 로직
+  $(".scrap .fa-bookmark").click(function() {
           if(user_type == 1){
           
             const user_email = "${login_email}";
@@ -619,35 +601,11 @@ display:inline-block;
         location.href="/login";
         }
     });//end of fa-bookmark click function
+});//document).ready(function()
 
 
 
-
-   });//end of document ready
-
-
-    // 추천순/최신순 탭 클릭 이벤트
-    // $(".tab-btn").on("click", function (event) {
-        $(".fil2").on("click", function (event) {
-        event.preventDefault();
-        switchTab(this, this.innerText.trim() === "추천순" ? "recommendation" : "latest");
-    });
-
-
-    // 다른 탭 눌렀을 때 input 정보 삭제
-        function switchTab(tab, type) {
-
-        // 모든 tab-btn에서 'active' 클래스를 제거
-        $('.fil2').removeClass('active');
-        $(tab).addClass('active');
-
-        // 'orderType' 히든 필드의 값을 설정하고 폼을 제출
-        $('#orderType').val(type);
-        $('#searchForm').submit();
-    }
-
-
-    // 페이징 관련 로직
+// 페이징 관련 로직
     var actionForm = $("#actionForm");
     $(".paginate_button a").on("click", function(e){
         e.preventDefault();//기본 동작을 막음 : 페이지 링크를 통해서 이동
@@ -659,7 +617,40 @@ display:inline-block;
     });
 
 
-// 검색 기능 초안
+
+</script>
+
+<script>
+// 2024-08-01 지수 (공고 목록 사진 들고오기)
+
+    $(document).ready(function () {
+       // tag 반복하면서 데이터 가져옴
+       $('.tag').each(function () {
+           // tag data-notice-num 속성에서 값을 가져옴
+           var noticeNum = $(this).data('notice-num');
+           
+           // 현재 tag .uploadResult 요소를 선택
+           var uploadResultContainer = $(this).find('.uploadResult ul');
+   
+           if (noticeNum) {
+               $.ajax({
+                   url: '/cardPageFileList',
+                   type: 'GET',
+                   data: { notice_num: noticeNum },
+                   dataType: 'json',
+                   success: function(data) {
+                       showUploadResult(data, uploadResultContainer);
+                   },
+                   error: function(xhr, status, error) {
+                       console.error('Error fetching file list for notice_num ' + noticeNum + ':', error);
+                   }
+               });
+           } 
+       });
+       
+   });//end of document ready
+
+
    var searchForm = $("#searchForm");
 
    $(".fa-magnifying-glass").on("click",function () {
