@@ -40,6 +40,8 @@
 		<mapper resource="mybatis/mappers/scrap.xml"/>
 <!--		<mapper resource="mybatis/mappers/scrapNotice.xml"/>-->
 		<mapper resource="mybatis/mappers/withdraw.xml"/>
+		<mapper resource="mybatis/mappers/announcementsTerms.xml"/>
+		<mapper resource="mybatis/mappers/announcementsBoard.xml"/>
 <!--		<mapper resource="mybatis/mappers/dailyCS.xml"/>		-->
 	</mappers>
 </configuration>
