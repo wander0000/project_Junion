@@ -39,6 +39,7 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 		return dto;
 	}
 	
+	@Override
 	public void hitUP(int notice_num){//채용공고 선택시 조회수 증가
 		log.info("hitUP!!!");
 		
@@ -47,6 +48,7 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 	}
 	
 	
+	@Override
 	public ComNoticeDTO JobPost(int notice_num) {//채용공고 상세
 		log.info("@# JobPostServiceImpl JobPost!!!");
 		
@@ -56,6 +58,7 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 		return dto;
 	}
 
+	@Override
 	public ArrayList<ComNoticeDTO> otherJobPost(int notice_num){//상세 채용공고, 해당 기업의 다른 공고 정보 가져오기
 	
 		ComNoticeDAO dao = sqlSession.getMapper(ComNoticeDAO.class);
@@ -64,7 +67,7 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 		return list;
 	}
 
-	
+	@Override
 	public ComNoticeDTO getNoticeInfo(int notice_num) {//지원하기 클릭, 지원 팝업에 공고 정보 가져오기
 	
 		ComNoticeDAO dao = sqlSession.getMapper(ComNoticeDAO.class);
@@ -73,6 +76,7 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 		return dto;
 	}
 	
+	@Override
 	public ArrayList<ResumeDTO> getProfileList(String user_email){//지원하기 클릭, 지원 팝업에이력서 정보 가져오기
 
 		ComNoticeDAO dao = sqlSession.getMapper(ComNoticeDAO.class);
@@ -81,6 +85,16 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 		return dto;
 	}
 		
+	@Override
+	public ArrayList<ComNoticeDTO> getNoticeLimit(String com_eamil){//기업정보 상세, 해당 기업의 다른 공고 정보 가져오기
+		
+		ComNoticeDAO dao = sqlSession.getMapper(ComNoticeDAO.class);
+		ArrayList<ComNoticeDTO> getSideNotice = dao.getNoticeLimit(com_eamil);
+		
+		return getSideNotice;
+	}
+	
+	
 	
 	@Override
 		public boolean updateSubmitData(HashMap<String, String> param){//이력서지원정보 저장
@@ -191,6 +205,13 @@ public class ComNoticeServiceImpl implements ComNoticeService{
         return dao.getNoticeStack(comNoticeDTO);
     }
 	
+	@Override
+	public void updateRegisterNotice(ComNoticeDTO comNoticeDTO) {
+		ComNoticeDAO dao = sqlSession.getMapper(ComNoticeDAO.class);
+		dao.updateRegisterNotice(comNoticeDTO);
+	}
+
+	
 	//파일 업로드
 	@Override
 	public List<ComNoticeAttachDTO> registGetFileList(int notice_num) {
@@ -236,6 +257,13 @@ public class ComNoticeServiceImpl implements ComNoticeService{
 			dao.updateRecentNotice(dto);//최근본공고테이블에 저장
 		}
 	}
+
+	@Override
+	public void noticeDeleteStack(int notice_num) {
+		ComNoticeDAO dao = sqlSession.getMapper(ComNoticeDAO.class);
+		dao.noticeDeleteStack(notice_num);
+	}
+
 
 	
 	

@@ -26,7 +26,7 @@
 			<main>
             <div class="mainInner">
                 <!-- <form id="registUpload" method="post" action="registerNotice" class="post" name="notice"> -->
-                <form id="registUpload" method="post" action="registerNotice" class="post" name="notice">
+                <form id="registModify" method="post" action="updateRegisterNotice" class="post" name="notice">
 					<input type="hidden" name="notice_num" value="${noticeNumber}">
                     <div class="noitceImage" data-notice-num="${noticeNumber}">
                         <!-- <input type="file" name="uploadFile" id="file"> -->
@@ -70,7 +70,16 @@
                             <div class="workLocation">
                                 <div class="search_box">
                                     <select onchange="categoryChange(this)" name="notice_area1" class="region">
-										<option value="" disabled selected>${notice.notice_area1}</option>
+                                        <c:choose>
+                                            <c:when test="${notice.notice_area1 != null}">
+                                                <option value="${notice.notice_area1}" selected>${notice.notice_area1}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value>시/도 선택</option>
+                                            </c:otherwise>
+                                        </c:choose>
+
+										<!-- <option value="" disabled selected>${notice.notice_area1}</option> -->
 									    <option value="강원">강원</option>
 									    <option value="경기">경기</option>
 									    <option value="경남">경남</option>
@@ -92,7 +101,16 @@
                                   </div>
                                   <div class="search_box">
                                     <select id="state" name="notice_area2" class="constituency" onchange="updateDistrict(this)">
-                                      <option  value="" disabled selected>${notice.notice_area2}</option>
+                                        <c:choose>
+                                            <c:when test="${notice.notice_area2 != null}">
+                                                <option value="${notice.notice_area2}" selected>${notice.notice_area2}</option>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <option value>군/구 선택</option>
+                                            </c:otherwise>
+                                        </c:choose>
+
+                                      <!-- <option  value="" disabled selected>${notice.notice_area2}</option> -->
                                     </select>
 									<!-- <input type="hidden" name="notice_area2" id="notice_area2" > -->
                                   </div>
@@ -413,16 +431,21 @@
 
 
 		// stackListString을 자바스크립트 변수로 변환
-		var stackListString = "${stackListString}";
-		var stackList = stackListString.split(",");
+        var stackListString = "${stackListString}";
+        var stackList = stackListString.split(",");
+        
+        // 스택 버튼 활성화
+        const techButtons = document.querySelectorAll('.tech');
+        const noticeStackInput = document.getElementById('notice_stack');
 
-		// 스택 버튼 활성화
-		const techButtons = document.querySelectorAll('.tech');
-		techButtons.forEach(button => {
-			if (stackList.includes(button.getAttribute('data-tech'))) {
-				button.classList.add('active');
-			}
-		});
+        techButtons.forEach(button => {
+            if (stackList.includes(button.getAttribute('data-tech'))) {
+                button.classList.add('active');
+            }
+        });
+
+        // hidden input 필드에 초기 스택 값 설정
+        noticeStackInput.value = stackList.join(',');
 
 
 
@@ -535,58 +558,65 @@ $(document).ready(function (e){
 
             uploadResultContainer.empty().append(str);
         }
-    $("input[type='submit']").on("click", function(e){
-        e.preventDefault();
-        console.log("submit clicked");
+        $("input[type='submit']").on("click", function(e){
+            e.preventDefault();  // 기본 폼 제출 동작 막기
+            console.log("submit clicked");
 
-        /*
-            2024-07-24 하지수 
-            유효성 검사
-        */
-        var requiredFields = [
-            {name: "notice_title", message: "공고명을 입력해주세요."},
-            {name: "notice_job", message: "포지션을 입력해주세요."},
-            {name: "notice_recruitNum", message: "모집 인원을 입력해주세요."},
-            {name: "notice_area1", message: "근무 지역을 선택해주세요."},
-            {name: "notice_area2", message: "군/구를 선택해주세요."},
-            {name: "notice_pay2", message: "급여를 입력해주세요."},
-            // {name: "notice_startDate", message: "접수 시작 날짜를 선택해주세요."},
-            {name: "notice_endDate", message: "접수 종료 날짜를 선택해주세요."},
-            {name: "notice_department", message: "근무 부서를 입력해주세요."},
-            {name: "notice_position", message: "직책을 입력해주세요."},
-            {name: "tech", message: "스택을 선택해주세요.",
-                validate: function() {
-                    return $(".tech.active").length > 0;
-                }
-            },
-            {name: "notice_jobInfo", message: "주요 업무를 입력해주세요."},
-            {name: "notice_condition", message: "자격 요건을 입력해주세요."},
-            {name: "notice_prefer", message: "우대사항을 입력해주세요."},
-            {name: "notice_benefit", message: "혜택 및 복지를 입력해주세요."}
-        ];
+            /*
+                2024-07-24 하지수 
+                유효성 검사
+            */
+            var requiredFields = [
+                {name: "notice_title", message: "공고명을 입력해주세요."},
+                {name: "notice_job", message: "포지션을 입력해주세요."},
+                {name: "notice_recruitNum", message: "모집 인원을 입력해주세요."},
+                {name: "notice_area1", message: "근무 지역을 선택해주세요."},
+                {name: "notice_area2", message: "군/구를 선택해주세요."},
+                {name: "notice_pay2", message: "급여를 입력해주세요."},
+                // {name: "notice_startDate", message: "접수 시작 날짜를 선택해주세요."},
+                {name: "notice_endDate", message: "접수 종료 날짜를 선택해주세요."},
+                {name: "notice_department", message: "근무 부서를 입력해주세요."},
+                {name: "notice_position", message: "직책을 입력해주세요."},
+                {name: "tech", message: "스택을 선택해주세요.",
+                    validate: function() {
+                        return $(".tech.active").length > 0;
+                    }
+                },
+                {name: "notice_jobInfo", message: "주요 업무를 입력해주세요."},
+                {name: "notice_condition", message: "자격 요건을 입력해주세요."},
+                {name: "notice_prefer", message: "우대사항을 입력해주세요."},
+                {name: "notice_benefit", message: "혜택 및 복지를 입력해주세요."}
+            ];
 
-        // 유효성 검사
-        for (var i = 0; i < requiredFields.length; i++) {
-            var field = requiredFields[i];
+            // 유효성 검사
+            for (var i = 0; i < requiredFields.length; i++) {
+                var field = requiredFields[i];
+                var fieldElement = $("[name='" + field.name + "']");
 
-            if (field.name === "tech") {
-                if (!field.validate()) {
-                    alert(field.message);
-                    $(".tech").first().focus();
-                    return;
-                }
-            } else {
-                var fieldValue = $("[name='" + field.name + "']").val().trim();
-                if (fieldValue === "") {
-                    alert(field.message);
-                    $("[name='" + field.name + "']").focus();
-                    return;
+                if (fieldElement.length > 0) {
+                    var fieldValue = fieldElement.val();
+
+                    if (fieldValue && typeof fieldValue.trim === 'function') {
+                        fieldValue = fieldValue.trim();
+                    } else {
+                        fieldValue = '';
+                    }
+
+                    if (fieldValue === "") {
+                        alert(field.message);
+                        fieldElement.focus();
+                        return;
+                    }
+                } else if (field.name === "tech") {
+                    if (!field.validate()) {
+                        alert(field.message);
+                        $(".tech").first().focus();
+                        return;
+                    }
                 }
             }
-        }
-
-       
-    });
+            $("#registModify").submit();
+        });
 });
 
 </script>

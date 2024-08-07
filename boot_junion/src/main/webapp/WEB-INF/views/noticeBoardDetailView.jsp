@@ -102,7 +102,7 @@
 								<div id="buttonbox" class="buttonbox">
 								    <!-- 여기에 동적으로 추가되는 버튼들이 위치하게 됩니다. -->
 
-								    <button type="submit" formaction="noticeBoardList" class="button">
+								    <button type="submit" formaction="noticeCommunity" class="button">
 								        <h5 class="but2">목록</h5>
 								    </button>
 								</div>
@@ -256,14 +256,14 @@
 		    
 		    if (loginUserType === "3" || login_email === authorEmail) {
 		        const commentBoxHtml = `
-		            <div id="commentBox" class="combox">
-		                <input type="text" id="commentContent" class="commentbox" placeholder="내용을 입력해주세요">
-		                <div class="buttonbox2">
-		                    <button onclick="commentWrite()" class="button">
-		                        <h5 class="but2">등록</h5>
-		                    </button>
-		                </div>
-		            </div>
+				<div id="commentBox" class="combox">
+				    <input type="text" id="commentContent" class="commentbox" placeholder="내용을 입력해주세요">
+				    <div class="buttonbox2">
+				        <button type="button" onclick="commentWrite()" class="button">
+				            <h5 class="but2">등록</h5>
+				        </button>
+				    </div>
+				</div>
 		        `;
 
 		        $('#buttonbox').after(commentBoxHtml);

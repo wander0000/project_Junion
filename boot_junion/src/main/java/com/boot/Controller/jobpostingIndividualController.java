@@ -178,7 +178,6 @@ public class jobpostingIndividualController {
 		
 		dto.setResume_age(user_birthdate);				
 		
-		
 		model.addAttribute("resumeInfo", dto);
 		model.addAttribute("user_gender", user_gender);
 		model.addAttribute("user_tel", user_tel);
@@ -195,7 +194,7 @@ public class jobpostingIndividualController {
         
 		
 		
-		return "resumeInfo";
+		return "resumeInfo2";
 	}
     
     // =============================  이력서 열람 끝  ==========================

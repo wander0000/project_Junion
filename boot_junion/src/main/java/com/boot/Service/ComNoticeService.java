@@ -20,6 +20,8 @@ public interface ComNoticeService {
 //	public String comLocation(String com_email);//상세 채용공고-회사 위치 가져오기
 	
 	
+	public ArrayList<ComNoticeDTO> getNoticeLimit(String com_eamil);//기업정보 상세, 해당 기업의 다른 공고 정보 가져오기
+	
 	//지원하기 팝업 발생
 	public ComNoticeDTO getNoticeInfo(int notice_num);//지원하기 클릭, 공고 정보 가져오기
 	public ArrayList<ResumeDTO> getProfileList(String user_email);//지원하기 클릭, 이력서 정보 가져오기
@@ -34,6 +36,8 @@ public interface ComNoticeService {
 	public void noticeStauts(ComNoticeDTO comNoticeDTO); //공고 상태 업데이트
 	
 	public List<String> getNoticeStack(ComNoticeDTO comNoticeDTO); //공고수정-스택 테이블 select
+	public void updateRegisterNotice(ComNoticeDTO comNoticeDTO); //공고 수정
+	public void noticeDeleteStack(int notice_num); //공고수정- 스택 삭제
 	
 	public List<ComNoticeAttachDTO> registGetFileList(int notice_num); // int타입 notice_num파라미터를 list타입 <ComRegisterUploadDTO> getFileList로 사용하려함 / 파일열람
 	public void registDeleteFile(List<ComNoticeAttachDTO> fileList);  // notice_num 맞춰서 파일삭제로직 / 파일삭제

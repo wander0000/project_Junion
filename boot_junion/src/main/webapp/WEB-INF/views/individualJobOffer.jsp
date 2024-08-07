@@ -710,7 +710,7 @@
 																	</div>
 																	<div class="popM2Right">
 																		<a href="/jobPostDetail?notice_num=${dto.notice_num}">
-																			<i class="fa-solid fa-chevron-right"></i>
+																			<i class="fa-solid fa-chevron-right" style="color: #222;"></i>
 																		</a>
 																	</div>
 																</div>
@@ -863,7 +863,7 @@
 				/*
 					2024-07-03 서연주
 				 
-					팝업의 취소아이콘이나, 취소버튼 누르면 팝업 끄기
+					팝업의 취소아이콘이나, 취소버튼 누르거나, 팝업 바깥창 팝업 끄기
 				*/
 				$('.popUp .icon.cancel').click(function () {
 					console.log("click");
@@ -872,6 +872,11 @@
 				});
 
 				$('button.cancel').click(function () {
+					console.log("click");
+					$(this).parents('.popUp').css({ "display": "none" });
+					// document.body.classList.remove('body-no-scroll');
+				});
+				$('.popBg').click(function () {
 					console.log("click");
 					$(this).parents('.popUp').css({ "display": "none" });
 					// document.body.classList.remove('body-no-scroll');

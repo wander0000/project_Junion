@@ -139,9 +139,13 @@
 					<!-- <div id="recommendation" class="form-box active"> -->
 						<c:forEach items="${jobpostingIndividualSupport}" var="sup">
 							<div class="pplist"> <!--  pplist 시작-->
-								<div class="pp">
+								<div class="pp" data-resume-num="${sup.resume_num}">
 									<div class="imgbox">
-										<img src="images/people.svg" alt="#" class="img">
+										<div class="uploadResult">
+                                            <ul>
+												<img src="images/people.svg" alt="#" class="img">
+                                            </ul>
+                                        </div>
 									</div>
 									<div class="tt">
 										<h5 class="t1">
@@ -408,6 +412,17 @@
 		// 팝업창 닫기
 		$('.close').click(function() {
 			$('#proposalPopup').css('display', 'none');
+			$('#offerMessage').val(''); // 텍스트 영역 초기화
+			$('#titleSelect').prop('selectedIndex', 0); // 드롭다운 초기화
+			$('#selectedTitle').text('공고 제목');
+			$('#selectedCompany').text('기업 이름');
+			$('#selectedJob').text('');
+			$('#selectedCareer').text('');
+			$('#selectedPay1').text('급여');
+			$('#selectedPay2').text('');
+			$('#noticeNum').val('');
+			$('#userEmail').val('');
+			$('#resumeNum').val('');
 		});
 
 		// 팝업창 외부 클릭 시 닫기
@@ -417,7 +432,56 @@
 		// 	}
 		// });
 
+
+		// 이미지 가져오는 함수
+		$('.pp').each(function () {
+			// con클래스 data-resumeNum 속성에서 값을 가져옴
+			var resumeNum = $(this).data('resume-num');
+			
+			// 현재 con클래스 .uploadResult 요소를 선택
+			var uploadResultContainer = $(this).find('.uploadResult ul');
+
+			if (resumeNum) {
+				$.ajax({
+					url: '/resumeGetFileList',
+					type: 'GET',
+					data: { resume_num: resumeNum },
+					dataType: 'json',
+					success: function(data) {
+						console.log('Data fetched for resume_num ' + resumeNum + ':', data); // 확인용 콘솔 로그
+						showUploadResult(data, uploadResultContainer);
+					},
+					error: function(xhr, status, error) {
+						console.error('Error fetching file list for notice_num ' + resumeNum + ':', error);
+					}
+				});
+			} 
+		});
 	});
+
+	// 이미지 가져옴
+	function showUploadResult(uploadResultArr, uploadResultContainer){
+		if (!uploadResultArr || uploadResultArr.length == 0) {
+			console.log('No upload results found.'); // 확인용 콘솔 로그
+			return;
+		}
+
+		var str = "";
+
+		$(uploadResultArr).each(function (i, obj) {
+			var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+			str += "<li data-path='" + obj.uploadPath + "'";
+			str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+			str += "<div>";
+			str += "<span style='display:none;'>" + obj.fileName + "</span>";
+			str += "<img src='/resumeDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+			str += "</div></li>";
+		});
+
+		console.log('Appending upload results:', str); // 확인용 콘솔 로그
+		uploadResultContainer.empty().append(str);
+	}
 
 
 	function setAllToNone() {
@@ -453,9 +517,9 @@
 
 
 
-    if (true) {
-        disableButton(proposalButton);
-    }
+    // if (true) {
+    //     disableButton(proposalButton);
+    // }
 
     function setUserEmail(userEmail) {
         // userEmail 값을 설정

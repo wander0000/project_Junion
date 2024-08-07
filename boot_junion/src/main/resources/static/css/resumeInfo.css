@@ -198,6 +198,44 @@ section
   padding: 12px 20px;
   width: initial;
 }
+
+
+.buttonboxx
+{
+    display: flex;
+	justify-content: center;
+	margin-top: 40px;
+}
+
+
+.buttonboxx .button
+{
+	width: 78px;
+	height: 36px;
+	border: 1px solid var(--input-gray);
+	border-radius: 6px;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/*margin-left: auto;*/
+	    &:hover 
+	    {
+	        background: var(--main-color);
+	        color: #fff;
+			border: 1px solid var(--main-color);
+	    }
+}
+.buttonboxx .but1
+{
+	justify-content: center;
+	font-weight: 500;
+
+}
+  
+
+
+
 .resumeCon.right .resumeImage
 {
 	width: 200px;

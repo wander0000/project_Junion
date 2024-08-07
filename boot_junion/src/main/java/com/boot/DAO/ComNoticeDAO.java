@@ -14,10 +14,15 @@ import com.boot.DTO.SubmitDTO;
 
 public interface ComNoticeDAO {
 	public ArrayList<ComNoticeDTO> JobPostCard();//채용공고(카드형) 목록 가져오기
+	
+	// 상세공고로 이동
 	public void hitUP(int notice_num);//채용공고 선택시 조회수 증가
 	public ComNoticeDTO JobPost(int notice_num);//상세 채용공고 정보 가져오기
 	public ArrayList<ComNoticeDTO> otherJobPost(int notice_num);//상세 채용공고, 해당 기업의 다른 공고 정보 가져오기
-//	public String comLocation(String com_email);//상세 채용공고-회사 위치 가져오기
+
+	
+	// 기업 상세페이지 : 사이드 공고 부분
+	public ArrayList<ComNoticeDTO> getNoticeLimit(String com_eamil);//기업정보 상세, 해당 기업의 다른 공고 정보 가져오기
 	
 	
 	// 지원하기 팝업 발생
@@ -41,6 +46,8 @@ public interface ComNoticeDAO {
 	public void noticeStauts(ComNoticeDTO comNoticeDTO); //공고 상태 업데이트
 	
 	public List<String> getNoticeStack(ComNoticeDTO comNoticeDTO); //공고수정-스택 테이블 select
+	public void updateRegisterNotice(ComNoticeDTO comNoticeDTO); //공고 수정
+	public void noticeDeleteStack(int notice_num); //공고수정- 스택 삭제
 	
 //	파일업로드는 파라미터를 DTO 사용
 	public void registInsertFile(ComNoticeAttachDTO vo);  // 파라미터가 ComNoticeAttachDTO / 파일추가

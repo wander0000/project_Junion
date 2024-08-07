@@ -26,8 +26,6 @@ section
     display: flex;
     justify-content: center;
     padding-top: 90px;
-    /* align-items: center; */
-    padding-top: 90px; /* style 안먹음*/
 } 
 
 .wrap
@@ -40,37 +38,23 @@ section
     max-width: 1200px;
 }
 
-/* #comInfoUpdate
-{
-    display: flex;
-    justify-content: center;
-} */
 
-
-/* .wrap .left
-{
-    /* min-width: 1200px; */
-    /* display: flex;
-    justify-content: center;
-} */
-
-.toptitle
-{
-  font-size: var(--font-size32);
-  display: flex;
-  width: 100%;
-  margin-bottom: 75px;
-  /* margin-right: 40px; */
-} 
-
-/* .wrap .left .company */
 .wrap .company
 {
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 32px;
+    position: relative;
+    min-height: 500px;
+}
 
+.wrap .company > label 
+{
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
 }
 
 
@@ -79,8 +63,7 @@ section
     display: flex;
     justify-content: center;
     align-items: center;
-    /* width: 1200px; */
-    width: 730px;
+    width: 100%;
     /* height: 657px; */
     height: 500px;
     border-radius: 20px;
@@ -95,8 +78,9 @@ section
 .wrap .main
 {
     display: flex;
-    align-items: flex-start;
-    margin: 52px 0 58px 0;
+    align-items: flex;
+    /* align-items: flex-start; */
+    /* margin: 52px 0 58px 0; */
 }
 
 
@@ -110,10 +94,24 @@ section
 
 
 /* company 1(text 입력 메인) 시작 */
+/* 지도 부분 */
+
+#map
+{
+    /* width: 1200px;
+    height: 500px; */
+    width:100%;
+    height:350px;
+    margin-bottom: 20px;
+}
+
 .mapLocation
 {
-    row-gap: 30px;
+    display: flex;
+    gap : 20px; /*display:flex가 없을 경우, 안 먹음*/
     margin-bottom: 20px;
+    align-items: center;
+    justify-content: space-between;
 }
 
 
@@ -128,24 +126,29 @@ section
     align-content: center;
     padding: 0 15px;
     font-size: var(--font-size16);
-    margin-top: 20px;
     box-sizing: border-box;
 }
 
 .mapLocation .searchButton
 {
-    padding: 10px 15px;
-    width: 80px;  
+    padding: 16px 20px;
+    width: calc(100% - 650px);
+    height: 40px;
     border-radius: 6px;
     border: 1px solid var(--border-color-gray);
+    font-size: var(--font-size14);
+    box-sizing: border-box;
     cursor: pointer;
     
 }
 
+
+
+
 .comname
 {
     /* width: 1200px; */
-    width: 730px;
+    width: 100%;
     /* height: 55px; */
     height: 50px;
     border: 1px solid var(--border-color-gray);
@@ -166,6 +169,12 @@ section
     margin-top: 40px;
     color: var(--color-grayblack);
     font-weight: 200;
+    width:100%;
+}
+
+.namaing ,.write
+{
+    width: 100%;
 }
 
 .wrap .main .comadress
@@ -179,15 +188,7 @@ section
 .wrap .main .sub1 .name
 {
     font-size: var(--font-size20);
-    font-weight: 200;
-}
-
-.location
-{
-    display: flex;
-    align-content : center;
-    gap: 30px;
-    margin-top: 40px;
+    font-weight: 400;
 }
 
 .comadd
@@ -196,19 +197,13 @@ section
     align-items : center;
     gap: 30px;
     margin-top: 40px;
-}
-
-.location .value
-{
-    font-weight: bold;
-    font-size: var(--font-size24);
-    align-content: center;
+    margin-bottom:20px;
 }
 
 .wrap .main .namaing .title,
 .wrap .column .columnA .title
 {
-    /* margin: 20px 0 20px 0; */
+    margin: 20px 0 20px 0;
     margin-bottom: 20px;
     font-weight: bold;
     font-size: var(--font-size20);
@@ -245,7 +240,7 @@ section
 .detailtext
 {
     /* width: 1200px; */
-    width: 730px;
+    width: 100%;
     min-height: 300px;
     resize: none;
     border: 1px solid var(--border-color-gray);
@@ -283,7 +278,7 @@ section
 
 .wrap .column .col8 .comname1 .name
 {
-    font-weight: 100;
+    font-weight: 300;
     font-size: var(--font-size16);
     color: var(--color-gray);
 }
@@ -297,7 +292,7 @@ section
     border-radius: 6px;
     box-sizing: border-box;
     font-size: var(--font-size16);
-    height: 30px;
+    height: 50px;
     padding: 5px 10px;
 
 } */
@@ -339,19 +334,22 @@ button.saveTech
 .sectionConBody .Bodycon.tech 
 {
   display: block;
-  /* max-width: 1200px; */
-  max-width: 730px;
+  max-width: 790px;
   display: flex;
   flex-direction: column;
   gap: 20px 0;
 }
 
-.sectionConBody .Bodycon.tech .techCon 
+.buttonWrap 
 {
-  display: flex;
-  align-items: center;
-  width: 100% !important;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    gap: 20px;
+    width: 100%;
 }
+
+
+
 .sectionConBody .Bodycon.tech .techCon .buttonTitle 
 {
   min-width: 50px;
@@ -362,11 +360,19 @@ button.saveTech
 {
   /* display: grid; */
   display: flex;
-  max-width: 730px;
+  align-items: center;
+  /* width: 100% !important; */
+  width: 100%;
+  margin-bottom: 20px;
   /* margin: 10px; */
   /* width: calc(100% - 60px); */
   /* grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; */
-  gap: 20px;
+  gap: 10px;
+}
+
+.sectionConBody .Bodycon.tech .techCon:last-child
+{
+    margin-bottom: 0;
 }
 
 .sectionConBody .Bodycon.tech input.tech 
@@ -374,7 +380,6 @@ button.saveTech
   border: 1px solid var(--input-gray);
   border-radius: 6px;
   padding: 12px 20px;
-  margin: 10px 12px 5px 0;
   /* min-width: 120px; */
   width: initial;
   cursor: pointer;
@@ -402,14 +407,6 @@ button.saveTech
     padding: 0 20px;
 }
 
-#map
-{
-    /* width: 1200px;
-    height: 500px; */
-    width:730px;
-    height:250px;
-    margin-bottom: 20px;
-}
 
 .wrap .column .col8 .content
 {

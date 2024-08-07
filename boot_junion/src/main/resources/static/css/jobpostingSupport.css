@@ -237,7 +237,7 @@ main .toptitle .toptitlehh
   justify-content: space-between;
   align-items: center;
   
-  
+  background-color: white;
   margin-bottom: 20px;
   
 }
@@ -253,20 +253,39 @@ main .toptitle .toptitlehh
 {
 	/*margin-right: 100px;*/
 	display: flex;
-	width: 220px;
+	width: 280px;
 }
 
-.box .left .le .pfname,
+.box .left .le .pfname
+{
+	display: flex;
+	text-align: center;
+	margin: auto 12px;
+}
 .box .left .le .pfage
 {
 	display: flex;
 	text-align: center;
-	margin: auto 10px;
+	margin: auto 2px;
+}
+.box .left .le .ppfage
+{
+	display: flex;
+	text-align: center;
+	margin: auto 12px;
 }
 
-.box .profile
+.box .uploadResult
 {
-  margin-right: 10px;
+	display: flex;
+  	margin-right: 10px;
+}
+.box .uploadResult img
+{
+
+	width: 64px;
+	height: 64px;
+ 	border-radius: 100px;
 }
 
 
@@ -288,11 +307,7 @@ main .toptitle .toptitlehh
 }
 
 
-.box .profile
-{
-  width: 64px;
-  height: 64px;
-}
+
 
 .box .job-title 
 {
@@ -303,12 +318,17 @@ main .toptitle .toptitlehh
 .box .left .leftbtn
 {
   border: 1px solid #E5E5EC;
-  background-color: white;
-  font-size: var(--font-size12);
   padding: 10px 20px;
   border-radius: 6px;
   margin-right: 10px;
+  background-color: #f7f7f7;
   
+}
+.box .left .leftbtn .lele
+{
+	color: #767676; 
+	font-size: var(--font-size12);
+	font-weight: 400;
 }
 
 .box .dates
@@ -320,8 +340,10 @@ main .toptitle .toptitlehh
 }
 .pname
 {
-  color: #888;
+  color: #555555;
   margin-top: 4px;
+  width: 50px;
+  
  
 }
 
@@ -406,10 +428,10 @@ main .toptitle .toptitlehh
 .box 
 {
     border: 1px solid #dadada;
-    background-color: #f7f7f7;
+	background-color: white;
     font-size: 16px;
     color: #111;
-    padding: 20px;
+    padding: 16px;
 }
 
 .tabBtn 
@@ -542,6 +564,7 @@ button.submit
     margin: 10px 0;
     display: flex;
     align-items: center;
+
 }
 
 .filterBox label {
@@ -550,9 +573,12 @@ button.submit
 }
 
 .filterBox select {
-    padding: 5px;
+    padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
+	font-size: 12px;
+
+
 }
 
 /* 지원자 정보 스타일 */
