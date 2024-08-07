@@ -4,6 +4,17 @@
 
 <mapper namespace="com.boot.DAO.CardPageDAO">
 	
+<!--	탭 클릭 : 정렬 -->
+	<sql id="orderType">
+<!--	마감기한순 정렬-->
+		<if test='(orderType == "latest")'>
+			order by notice_endDate DESC
+		</if>
+<!--		조회수 순 정렬-->
+		<if test='(orderType == "recommendation")'>
+			order by notice_hit DESC
+		</if>
+	</sql>
 	<select id="cardPageList" resultType="com.boot.DTO.ComNoticeDTO">
 <!-- 	페이징을 위한 쿼리 -->
 	   <![CDATA[ 
@@ -13,11 +24,13 @@
 	               c.com_name, notice_area1 , notice_area2, notice_career 
 	            FROM notice_tb n join com_tb c on n.com_email = c.com_email 
 	            where notice_endDate >= now()
-	            order by notice_num desc
+	            ]]>
+	            <include refid="orderType"></include>
+		  	<![CDATA[
 	            ) a 
-	         where row_noticeNum<= (#{pageNum} * #{amount}) 
+	         where row_noticeNum<= (#{std.pageNum} * #{std.amount}) 
 	         )aa 
-	         where row_noticeNum > (#{pageNum}-1)* #{amount}
+	         where row_noticeNum > (#{std.pageNum}-1)* #{std.amount}
 	   ]]>
 	</select>
 	

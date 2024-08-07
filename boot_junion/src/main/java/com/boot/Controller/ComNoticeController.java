@@ -64,12 +64,17 @@ public class ComNoticeController {
 	@RequestMapping("/jobPostList")
 //	public String jobPost(Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
 //	public String jobPost(Model model) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
-		public String jobPost(Standard std, Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동
+//		public String jobPost(Standard std, Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동
+		public String jobPost(@RequestParam(name = "orderType", required = false, defaultValue = "latest") String orderType,
+							Standard std, Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동
 //		public String jobPost(@RequestParam(name = "orderType", required = false, defaultValue = "latest") String orderType, Standard std, Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동
 		log.info("@# cardPage controller");
 		log.info("@# cardPage controller std!!=>"+std);
 		
-		ArrayList<ComNoticeDAO> list = cardPageService.cardPageList(std);//현재 진행중인 공고를 가져옴
+		model.addAttribute(orderType, orderType);
+		
+//		ArrayList<ComNoticeDAO> list = cardPageService.cardPageList(std);//현재 진행중인 공고를 가져옴
+		ArrayList<ComNoticeDAO> list = cardPageService.cardPageList(orderType, std);//현재 진행중인 공고를 가져옴
 //		int total = pageService.getTotalCount();
 		int total = cardPageService.getTotalCount(std);
 		
