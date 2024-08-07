@@ -20,6 +20,7 @@ public interface ScrapDAO {
 	//관심 기업 목록
 	public ArrayList<String> getScrapList(String user_email);//관심기업 목록에서 기업 리스트를 가져옴
 	public String getCheck(HashMap<String, String> param);//해당 기업이 스크랩 정보에 있는지 확인
+	public String getCheck(@Param("com_email") String com_email, @Param("user_email") String user_email);//해당 기업이 스크랩 정보에 있는지 확인
 	
 // 공고 스크랩을 위한 메소드
 	public ArrayList<Integer> getScrapNoticeNum(String user_email);//관심 공고 목록을 가져옴
