@@ -38,9 +38,10 @@
 		<mapper resource="mybatis/mappers/resumeUpload.xml"/>
 		<mapper resource="mybatis/mappers/scrap.xml"/>
 		<mapper resource="mybatis/mappers/withdraw.xml"/>
+<!--		<mapper resource="mybatis/mappers/dailyCS.xml"/>	-->
+		<mapper resource="mybatis/mappers/userImageUpload.xml"/>
 		<mapper resource="mybatis/mappers/announcementsTerms.xml"/>
 		<mapper resource="mybatis/mappers/announcementsBoard.xml"/>
-<!--		<mapper resource="mybatis/mappers/dailyCS.xml"/>		-->
 	</mappers>
 </configuration>
 
