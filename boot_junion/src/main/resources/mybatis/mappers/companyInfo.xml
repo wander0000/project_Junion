@@ -77,8 +77,8 @@
 
 <!-- 기업 정보(상세) 관리 페이지 뿌릴 내용  -->
 	<select id="companyInfoUpdate" resultType="com.boot.DTO.CompanyInfoDTO"> 
-		select com_name,com_person, com_content, com_location, com_sale, com_salary, com_CEO, 
-			com_site from com_tb where com_email=#{com_email} 
+		select com_name, com_year, com_content, com_location, com_sale, com_salary, com_CEO, com_type,
+			com_site, com_employee from com_tb where com_email=#{com_email} 
 	</select>
 	
 <!-- 기업 상세정보 수정  -->

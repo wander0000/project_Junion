@@ -66,7 +66,7 @@
 {
     display: flex;
     justify-content: center;
-    font-size: var(--font-size24);
+    font-size: var(--font-size32);
 }
 
 .popH .icon
@@ -123,11 +123,12 @@
     border-radius: 6px;
     padding: 10px 30px;
     border: none;
+    cursor: pointer;
 }
 
 .pwValue
 {
-    height: 30px;
+    height: 40px;
     width: 250px;
     border-radius: 6px;
     border: 1px solid var(--border-color-gray);

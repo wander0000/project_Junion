@@ -263,10 +263,12 @@ function resumeOK(){
                 success : function(result){
                     if(result == false){
                     alert("지원이 완료되었습니다!");
+                    window.opener.$("#user_resume").removeClass("active");
                     window.close();
                 }
                 else{
                     alert("이미 지원한 공고입니다.");
+                    window.opener.$("#user_resume").removeClass("active");
                     window.close();
                 }
             }    

@@ -7,11 +7,31 @@
 <!-- 하진 -->
 <!--  	대메뉴 : 채용, 이동. 정보 뿌리기   -->
 <!--  24.07.24(수) 하진 : 테이블 정규화로 인해 쿼리 수정  -> join  -->
-	<select id="JobPostCard" resultType="com.boot.DTO.ComNoticeDTO">
-		select notice_num, notice_title, c.com_name, notice_area1, notice_area2, 
-				notice_career from notice_tb n join com_tb c on n.com_email = c.com_email
-			where notice_endDate >= now()
+<!--	<select id="JobPostCard" resultType="com.boot.DTO.ComNoticeDTO">-->
+<!--		select notice_num, notice_title, c.com_name, notice_area1, notice_area2, -->
+<!--				notice_career from notice_tb n join com_tb c on n.com_email = c.com_email-->
+<!--			where notice_endDate >= now()-->
+<!--	</select>-->
+	
+<!--	stack table에서 stack_name 가져오기-->
+<!--	<select id="getStackList" resultType="String"> -->
+<!--    	SELECT stack_name FROM stack -->
+<!--    </select>-->
+	
+<!--	location table에서 location_name 가져오기-->
+<!--	<select id="getLocationList" resultType="String"> -->
+<!--		SELECT location_name FROM location-->
+<!--	</select>-->
+	
+<!--	기업정보 상세 페이지 : 해당 기업의 진행중인 공고를 가져옴-->
+	<select id="getNoticeLimit" resultType="com.boot.DTO.ComNoticeDTO">
+	select notice_num, notice_title, notice_area1, notice_area2, notice_career, notice_endDate, 
+				notice_department, notice_contactType
+			from notice_tb where notice_endDate >= now() 
+			and com_email=#{com_email} order by notice_hit desc  limit 2
 	</select>
+	
+	
 	
 <!-- 	채용공고 클릭, 상세페이지 이동시 조회수 증가 -->
 	<update id="hitUP">
@@ -22,7 +42,6 @@
 <!--  채용공고 클릭시 상세정보 페이지 이동, 정보 뿌리기 -->
 <!--  2024-07-24 하진 : 테이블 정규화로 인해 쿼리 수정 -> join  -->
 <!--  2024-07-24 하진 : 재수정...join 오류 -->
-
 	<select id="JobPost" resultType="com.boot.DTO.ComNoticeDTO">
 		SELECT n.notice_title, n.com_email, c.com_name, n.notice_jobInfo, n.notice_job, c.com_location, 
 				n.notice_condition, n.notice_prefer, n.notice_benefit, nt.notice_stack, 
@@ -38,7 +57,7 @@
 	<select id="otherJobPost" resultType="com.boot.DTO.ComNoticeDTO">
 		select notice_num, notice_title, notice_area1, notice_area2, notice_career, notice_endDate, 
 				notice_department, notice_contactType 
-			from notice_tb where notice_endDate > now() 
+			from notice_tb where notice_endDate >= now() 
 			and com_email=(select com_email from notice_tb where notice_num=#{notice_num}) 
 			and notice_num != #{notice_num} order by notice_hit desc
 	</select>
