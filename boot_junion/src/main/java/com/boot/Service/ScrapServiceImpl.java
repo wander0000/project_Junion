@@ -46,6 +46,20 @@ public class ScrapServiceImpl implements ScrapService{
 		return result;
 	}
 	
+	
+	
+	@Override
+	//관심 기업 목록
+		public ArrayList<String> getScrapList(String user_email){//관심기업 목록에서 기업 리스트를 가져옴
+	
+		ScrapDAO dao = sqlSession.getMapper(ScrapDAO.class);
+		ArrayList<String> list = dao.getScrapList(user_email);
+		
+		return list;
+	}
+	
+	
+		
 	@Override
 	public ArrayList<Integer> getScrapNoticeNum(String user_email){//관심 공고 목록을 가져옴
 		log.info("scrap serviceimpl getScrapNoticeNum method!!!");
@@ -72,6 +86,23 @@ public class ScrapServiceImpl implements ScrapService{
 			result = false;
 		}
 //		
+		return result;
+	}
+
+	@Override
+	public boolean comListScrap(HashMap<String, String> param) {// 관심 기업 목록에서 스크랩 처리
+		
+		ScrapDAO dao = sqlSession.getMapper(ScrapDAO.class);
+		String check = dao.getCheck(param);
+		boolean result = false;
+		
+		if(check == null) {
+			dao.uploadcomScrap(param);
+			result = true;
+		}else {
+			dao.deleteComScrap(param);
+			result = false;
+		}
 		return result;
 	}
 	
