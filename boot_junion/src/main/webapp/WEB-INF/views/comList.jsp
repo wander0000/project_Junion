@@ -156,7 +156,6 @@
 				.fa-bookmark.active
 				{
 					color: var(--main-color);
-					cursor: pointer;
 				}
 
 					/* 버튼 끝 */
@@ -434,10 +433,6 @@
 													</a>
 													<div class="scrap">
 														<div class="s1">
-															<!-- <a href="#" class="fa-solid fa-bookmark" -->
-															<!-- <span id="${dto.com_email}" class="fa-solid fa-bookmark"
-																style="font-size: 20px; color: #e5e5ec;"></span> -->
-
 															<c:choose>
 																<c:when test="${fn:contains(getScrapList, dto.com_email)}">
 																	<i id="bookmark${dto.com_email}" class="fa-solid fa-bookmark active"></i>
@@ -614,7 +609,7 @@
 
 
 
-					// 24.08.07 하진 : 관심 기업 정보 수정
+					// 24.08.07 하진 : 관심 기업 정보 기능 추가
 					var user_type = "${login_usertype}";
 					$(".fa-bookmark").click(function() {
 					if(user_type == 1){
@@ -622,28 +617,27 @@
 						let getid = $(this).attr("id");//해당 북마크의 id를 찾음
 						let com_email = getid.replace("bookmark","");
 						const user_email = "${login_email}";
+						var bookmark = document.getElementById(getid);
 
 						$.ajax({
-				type : "POST",
-				url : "/comListScrap",				
-				data : {
-					user_email : user_email,
-					com_email : com_email
-					},
-				success : function(response){
-						if(response == true){
-							alert("관심 기업으로 등록되었습니다.");//아예 class명을을 삭제, 변경이 아니고 추가일 경우
-							var bookmark = document.getElementById(getid);
-							bookmark.classList.add('active');
-							}else{
-							alert("관심 기업에서 삭제되었습니다.");
-							var bookmark = document.getElementById(getid);
-							bookmark.classList.remove('active');
+								type : "POST",
+								url : "/comListScrap",				
+								data : {
+									user_email : user_email,
+									com_email : com_email
+									},
+								success : function(response){
+										if(response == true){
+											alert("관심 기업으로 등록되었습니다.");//아예 class명을을 삭제, 변경이 아니고 추가일 경우
+											bookmark.classList.add('active');
+											}else{
+											alert("관심 기업에서 삭제되었습니다.");
+											bookmark.classList.remove('active');
 
+										}
+									}
+								});//end of ajax
 						}
-					}
-				});//end of ajax
-		}
-	});//end of fa-bookmark clcik function
+					});//end of fa-bookmark clcik function
 
 				</script>			

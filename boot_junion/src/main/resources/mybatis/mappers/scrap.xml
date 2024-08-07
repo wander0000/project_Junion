@@ -27,12 +27,12 @@
 
 
 <!--24.08.06 하진-->
-<!-- 기업 목록에 개인 회원일 경우, 관심 기업 목록을 가져옴 -->
+<!-- 1. 기업 목록에 개인 회원일 경우, 관심 기업 목록을 가져옴 -->
 	<select id="getScrapList" resultType="String">
 		select com_email from com_scrap where user_email=#{user_email}
 	</select>
 
-<!--해당 기업이 관심 공고에 있는지 확인-->
+<!-- 2. 해당 기업이 관심 공고에 있는지 확인-->
 	<select id="getCheck" resultType="String">
 		select com_email from com_scrap where user_email=#{user_email} and com_email =#{com_email}
 	</select>
