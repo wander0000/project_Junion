@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
@@ -26,6 +27,7 @@ import com.boot.DTO.CompanyPageDTO;
 import com.boot.DTO.Criteria4;
 import com.boot.Service.CompanyInfoService;
 import com.boot.Service.CompanyListService;
+import com.boot.Service.ScrapService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -37,6 +39,9 @@ public class CompanyListController {
 	
 	@Autowired
 	private CompanyListService companyListService;
+	
+	@Autowired
+	private ScrapService scrapService;
 	
 	@RequestMapping("/comList")
 //	public String comlist(HttpServletRequest request, Model model, Criteria4 cri) {
@@ -80,6 +85,16 @@ public class CompanyListController {
     	
     	log.info("@# companyPage controller cri!!=>"+cri);
 		
+    	
+    	//24.08.07 하진 : 관심 기업 설정을 위해 로직 추가
+    	HttpSession session = request.getSession();
+    	String user_email = (String) session.getAttribute("login_email");
+    	log.info("로직을 잘 타고 있나요??" + user_email);
+    	if(user_email != null) {
+    	ArrayList<String> list = scrapService.getScrapList(user_email);
+    	model.addAttribute("getScrapList", list);
+    	}
+    	
 		return "comList";
 	};
 	
