@@ -3,6 +3,7 @@ package com.boot.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,13 +24,14 @@ public class CardPageServiceImpl implements CardPageService{
 	private SqlSession sqlSession;
 	
 	@Override
-	public ArrayList<ComNoticeDAO> cardPageList(Standard std) {//페이징을 및 검색을 위한 메소드
+//	public ArrayList<ComNoticeDAO> cardPageList(Standard std) {//페이징을 및 검색을 위한 메소드
+	public ArrayList<ComNoticeDAO> cardPageList(String orderType, Standard std) {//페이징을 및 검색을 위한 메소드
 		log.info("CardPageServiceImpl");
 		log.info("std 확인용 ->"+std);
 		
 		CardPageDAO dao = sqlSession.getMapper(CardPageDAO.class);
 //		CardPageDAO daos = sqlSession.getMapper(CardPageDAO.class);
-		ArrayList <ComNoticeDAO> list = dao.cardPageList(std);// 진행중인 공고를 얻음
+		ArrayList <ComNoticeDAO> list = dao.cardPageList(orderType, std);// 진행중인 공고를 얻음
 //		ArrayList <ComNoticeDAO> list = dao.cardPageList(dao);
 		
 		return list;
