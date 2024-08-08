@@ -4,10 +4,10 @@
 
 <mapper namespace="com.boot.DAO.CardPageDAO">
 <sql id="std">
-	        <if test='std.keyword != null and std.keyword != ""'>
+	        <if test='std.keyword != null and std.keyword != ""'><!--keyword 검색시-->
 	            AND n.notice_title LIKE CONCAT('%', #{std.keyword}, '%')
 	        </if>
-	        <if test='std.careerType != null and std.careerType != ""'>
+	        <if test='std.careerType != null and std.careerType != ""'><!--경력 검색-->
 	            AND notice_career = #{std.careerType}
 	        </if>
 <!--	        <if test='std.stackType != null and std.stackType != ""'>-->
@@ -15,7 +15,7 @@
 <!--	                SELECT 1 FROM com_stack cs WHERE cs.com_email = n.com_email AND cs.stack = #{std.stackType}-->
 <!--	            )-->
 <!--	        </if>-->
-	        <if test='std.locationType != null and std.locationType != ""'>
+	        <if test='std.locationType != null and std.locationType != ""'><!--지역 검색-->
 	            AND CONCAT(notice_area1, notice_area2) LIKE CONCAT('%', #{std.locationType}, '%')
 	        </if>
 <!--	        <if test='std.email != null and std.email != ""'>-->
