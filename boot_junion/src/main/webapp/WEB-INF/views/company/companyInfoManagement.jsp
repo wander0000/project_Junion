@@ -111,7 +111,12 @@
                                     <!-- 컴퍼니 시작 -->
                 
                                     <div class="company">
-                                        <img class="imgg" src="../images/companyInfo.svg" alt="#">
+                                        <!-- <img class="imgg" src="../images/companyInfo.svg" alt="#"> -->
+                                        <div class="imgg uploadResult">
+                                            <ul>
+                
+                                            </ul>
+                                        </div>
                                     </div>
                                     <div class="main">
                                         <div class="sub1">
@@ -301,6 +306,50 @@
 <script>
     $(document).ready(function () {
 
+        var uploadResultContainer = $('.uploadResult ul');
+        console.log("uploadResultContainer~!!! "+uploadResultContainer);
+        var comEmail = "${companyInfo.com_email}";
+
+    if (comEmail) {
+        $.ajax({
+            url: '/mainComFileList',
+            type: 'GET',
+            data: { com_email: comEmail },
+            dataType: 'json',
+            success: function(data) {
+                showUploadResult(data, uploadResultContainer);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching file list for com_email ' + comEmail + ':', error);
+            }
+        });
+    } 
+    
+    function showUploadResult(uploadResultArr, uploadResultContainer){
+    if (!uploadResultArr || uploadResultArr.length == 0) {
+        var notImage = "<img class='imgg' src='../images/companyInfo.svg>'";
+        uploadResultContainer.empty().append(notImage);
+    }
+
+    var str = "";
+
+    $(uploadResultArr).each(function (i, obj) {
+        var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+        str += "<li data-path='" + obj.uploadPath + "'";
+        str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+        str += "<div>";
+        str += "<span style='display:none;'>" + obj.fileName + "</span>";
+        str += "<img src='/mainDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+        str += "</div></li>";
+    });
+
+    uploadResultContainer.empty().append(str);
+}   
+
+
+
+
         // 기업의 스택값을 받아 버튼으로 출력
         var comStack = "${companyInfo.com_stack}";
 
@@ -328,12 +377,12 @@
     $('.nowYear').text(nowYear);
 
 
- // 24.08.06 하진 : 사업자 번호 출력 형식 수정 
-  let serialNumber = "${companyInfo.com_serial_number}";
-  let getFormat = serialNumber.substring(0,3) + "-" + serialNumber.substring(3,5)+"-"+serialNumber.substring(5);
-  console.log(getFormat);
-  let socialNumberElement = document.querySelector('.social_number');
-  socialNumberElement.textContent = getFormat;
+    // 24.08.06 하진 : 사업자 번호 출력 형식 수정 
+    let serialNumber = "${companyInfo.com_serial_number}";
+    let getFormat = serialNumber.substring(0,3) + "-" + serialNumber.substring(3,5)+"-"+serialNumber.substring(5);
+    console.log(getFormat);
+    let socialNumberElement = document.querySelector('.social_number');
+    socialNumberElement.textContent = getFormat;
 
 
     // 24.08.03 ~ 08.04 : 하진 - 지도 API 적용

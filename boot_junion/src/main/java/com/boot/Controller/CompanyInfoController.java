@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.boot.DTO.ComNoticeDTO;
+import com.boot.DTO.CompanyAttachDTO;
 import com.boot.DTO.CompanyInfoDTO;
 import com.boot.DTO.JoinDTO;
 import com.boot.Service.CompanyInfoService;
 import com.boot.Service.JoinService;
+import com.boot.Service.MainService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -31,8 +33,11 @@ public class CompanyInfoController {
 	
 	@Autowired
 	private CompanyInfoService infoService;
+
 	@Autowired
 	private JoinService joinService;
+	@Autowired
+	private MainService mainService;
 
 	@RequestMapping("/companyMain")
 	public String companyMain(HttpServletRequest request, Model model) {//기업 마이페이지 메인
@@ -58,6 +63,11 @@ public class CompanyInfoController {
 		
 		HttpSession session = request.getSession();
 		String email = (String) session.getAttribute("login_email");
+		
+		
+//		List <CompanyAttachDTO> list = mainService.mainComFileList(email);
+//		log.info("자 파일의 경로는?"+list);
+//		model.addAttribute("fileLsit", list);// 기업 이미지를 가져옴
 		
 		CompanyInfoDTO dto = infoService.companyInfo(email);
 		model.addAttribute("companyInfo", dto);
