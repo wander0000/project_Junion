@@ -927,7 +927,9 @@ font-weight: 200; */
 						}
 					}
 				});//end of ajax
-		}
+			}else if(!user_type){//user_type이 없으면 login 페이지로 이동
+        location.href="/login";
+        }
 	});//end of mainBookmark clcik function
 
 // 	var actionForm = $("#actionForm");
