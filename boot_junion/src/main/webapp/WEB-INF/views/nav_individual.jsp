@@ -161,13 +161,32 @@
 	  width: 140px;
 	  align-items: center;
 	}
+	
+	/*드랍다운 회원사진*/
 	header .userWrapper img
 	{
-	  margin-right: 12px;
+	  /* margin-right: 12px;
 	  width: 36px;
 	  height: 36px;
-	  border-radius: 50%;   
+	  border-radius: 50%;    */
 	}
+
+	.userWrapper img 
+	{
+		margin-right: 12px;
+		width: 40px;
+		mask-image: url(images/circle36.png);
+		-webkit-mask-image: url(images/circle36.png);
+		mask-repeat: no-repeat;
+		-webkit-mask-repeat: no-repeat;
+		/* mask-position: center top; */
+		mask-position: 50% 25%;/*0% 0% 가 왼쪽상단 100% 100%가 오른쪽 하단*/
+		-webkit-mask-position: 50% 25%;
+		/* clip-path: circle(100px at center); */
+		overflow: hidden; /* 컨테이너 영역 밖 요소 숨김 */
+		position: relative;
+	}
+
 
 	header .userWrapper h4.name 
 	{
