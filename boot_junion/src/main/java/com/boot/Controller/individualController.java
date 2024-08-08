@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -298,14 +299,14 @@ public class individualController {
 		
 		
 		dto.setUserAttachList(uploadService.getUserImageList(user_email));
-		log.info("@# individualUserInfo jobdto=>"+uploadService.getUserImageList(user_email));
+		log.info("@# individualUserInfo AttachList=>"+uploadService.getUserImageList(user_email));
 		
 		
 		dto.setJobInfo(service.getUserJob(user_email));
-		log.info("@# individualUserInfo jobdto=>"+service.getUserJob(user_email));
+		log.info("@# individualUserInfo JobInfo=>"+service.getUserJob(user_email));
 		
 		dto.setStackInfo(service.getUserStack(user_email));
-		log.info("@# individualUserInfo jobdto=>"+service.getUserStack(user_email));
+		log.info("@# individualUserInfo StackInfo=>"+service.getUserStack(user_email));
 		
 		
 		model.addAttribute("userInfo", dto);
@@ -335,25 +336,23 @@ public class individualController {
 		UserDTO dto = service.getUserInfo(user_email);
 		log.info("@# individualModifyInfo dto=>"+dto);
 		
-		
-		
 		model.addAttribute("userInfo", dto);
 		
-//		List<UserJobDTO> jobdtos = service.getUserJob(user_email);
-//		// UserJobDTO의 job 필드의 값들을 가져와 ,로 구분된 문자열로 반환
-//	    String jobStr = jobdtos.stream()
-//					    		.map(UserJobDTO::getJob_name)
-//				                .collect(Collectors.joining(","));
-//	    log.info("@# individualModifyInfo jobStr => "+jobStr);
-//		model.addAttribute("user_job", jobStr);
-//		
-//		List<UserStackDTO> stackdtos = service.getUserStack(user_email);
-//		// 리스트를 쉼표로 구분된 문자열로 변환 > 쿼리를 통해 저장하려면 JSON형식이나 문자열로 반환해서 보내줘야 함
-//		 String stackStr = stackdtos.stream()
-//	                .map(UserStackDTO::getStack_name)
-//	                .collect(Collectors.joining(","));
-//	    log.info("@# individualModifyInfo stackStr => "+stackStr);
-//		model.addAttribute("user_stack", stackStr);
+		List<UserJobDTO> jobdtos = service.getUserJob(user_email);
+		// UserJobDTO의 job 필드의 값들을 가져와 ,로 구분된 문자열로 반환
+	    String jobStr = jobdtos.stream()
+					    		.map(UserJobDTO::getJob_name)
+				                .collect(Collectors.joining(","));
+	    log.info("@# individualModifyInfo jobStr => "+jobStr);
+		model.addAttribute("user_job", jobStr);
+		
+		List<UserStackDTO> stackdtos = service.getUserStack(user_email);
+		// 리스트를 쉼표로 구분된 문자열로 변환 > 쿼리를 통해 저장하려면 JSON형식이나 문자열로 반환해서 보내줘야 함
+		 String stackStr = stackdtos.stream()
+	                .map(UserStackDTO::getStack_name)
+	                .collect(Collectors.joining(","));
+	    log.info("@# individualModifyInfo stackStr => "+stackStr);
+		model.addAttribute("user_stack", stackStr);
 		
 		return "individualUserInfoModify";
 	}
@@ -404,7 +403,8 @@ public class individualController {
 	
 	@RequestMapping("/modifyInfo")//회원정보수정하기
 //	public String individualUserInfoModify(@RequestParam HashMap<String, String> param, HttpServletRequest request, Model model){ 
-	public String individualUserInfoModify(@ModelAttribute UserDTO dto,HttpServletRequest request, Model model){ //파일업로드 추가하면서 변경
+	public String individualUserInfoModify(@ModelAttribute UserDTO dto, @RequestParam String user_stack, @RequestParam String user_job, 
+											HttpServletRequest request, Model model){ //파일업로드 추가하면서 변경
 	
 		log.info("@# individualUserInfoModify");	
 //		log.info("@# individualUserInfoModify param =>" +param);	
@@ -418,8 +418,8 @@ public class individualController {
 		String user_email = (String)session.getAttribute("login_email");
 		String input_pw =dto.getUser_pw();
         
-		log.info("@# individualUserInfoModify session_pw =>"+input_pw);//세션 pw화인
-		log.info("@# individualUserInfoModify input_pw =>"+session_pw);//사용자가 입력한 pw화인
+		log.info("@# individualUserInfoModify session_pw =>"+input_pw);//세션 pw확인
+		log.info("@# individualUserInfoModify input_pw =>"+session_pw);//사용자가 입력한 pw확인
 		
 		
 		if (input_pw.equals(session_pw)) {//입력한 비번이 세션의 비번과 같으면
@@ -437,21 +437,34 @@ public class individualController {
 					uploadService.insertUserImage(attach);
 				});
 			}
-			if (dto.getStackInfo() != null) {//파일있으면
+			//user_job이 ,로 구분된 문자열로 넘어오기 때문에 분리해서 배열로 만들어 insert해 줌
+			if (user_job != null) {
+				service.deleteJob(user_email);//수정전 데이터 삭제
+				UserJobDTO jobDto = new UserJobDTO();
+				String arr [] = user_job.split(",");
+				for(int i = 0; i<arr.length; i++) {
+					jobDto.setJob_name(arr[i]);
+					jobDto.setUser_email(user_email);
+					service.insertJob(jobDto); 
+				}
+			}
+			//user_stack이 ,로 구분된 문자열로 넘어오기 때문에 분리해서 배열로 만들어 insert해 줌
+			if (user_stack != null) {
 				service.deleteStack(user_email);//수정전 데이터 삭제
-				dto.getStackInfo().forEach(attach ->{
-					log.info("@# 사용자 사진 업로드 Impl insertUserImage 호출");
-					service.insertStack(attach);
-				});
+				UserStackDTO dto2 = new UserStackDTO();
+				String arr2 [] = user_stack.split(",");
+				for(int i = 0; i<arr2.length; i++){
+					dto2.setUser_email(user_email);
+					dto2.setStack_name(arr2[i]);
+					service.insertStack(dto2); 
+				}	
 			}
 			
-			if (dto.getJobInfo() != null) {//파일있으면
-				service.deleteJob(user_email);//수정전 데이터 삭제
-				dto.getJobInfo().forEach(attach ->{
-					log.info("@# 사용자 사진 업로드 Impl insertUserImage 호출");
-					service.insertJob(attach);
-				});
-			}
+			newDTO.setUserAttachList(uploadService.getUserImageList(user_email));
+			newDTO.setJobInfo(service.getUserJob(user_email));
+			newDTO.setStackInfo(service.getUserStack(user_email));
+			
+			model.addAttribute("userInfo", newDTO);
 			
 			
 			log.info("@# individualUserInfoModify newDTO=>"+newDTO);

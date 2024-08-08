@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 		<!DOCTYPE html>
 		<html>
 
@@ -72,29 +73,6 @@
 					}
 
 
-
-
-
-
-
-					/* 프로필 : 사진 + 이름 */
-					main .mainContainer .memberInfo {
-						display: flex;
-						align-items: center;
-						margin-bottom: 40px;
-					}
-
-					main .mainContainer .memberInfo img.memberImg {
-						width: 64px;
-						height: 64px;
-						margin-right: 20px;
-					}
-
-					main .mainContainer .memberInfo .memberName {
-						font-size: var(--font-size32);
-						font-weight: 600;
-					}
-
 					/* 메인 */
 					main {
 						display: flex;
@@ -128,27 +106,45 @@
 					}
 
 					/*회원사진*/
-					.infoConLeft {
-						width: 100px;
+					.infoConLeft 
+					{
+						width: 120px;
+						display: flex;
+						align-items:center;
+						flex-direction: column;
+						/* justify-content:center;  */
+						overflow: hidden; /* 컨테이너 영역 밖 요소 숨김 */
+						position: relative;
 					}
 
+
+
+					/*회원사진*/
+					.userImage img
+					{
+						width: 120px;
+						mask-image: url(images/circle100.png);
+						-webkit-mask-image: url(images/circle100.png);
+						mask-repeat: no-repeat;
+						-webkit-mask-repeat: no-repeat;
+						/* mask-position: center top; */
+						mask-position: 50% 25%;/*0% 0% 가 왼쪽상단 100% 100%가 오른쪽 하단*/
+						-webkit-mask-position: 50% 25%;
+						/* clip-path: circle(100px at center); */
+						overflow: hidden; /* 컨테이너 영역 밖 요소 숨김 */
+						position: relative;
+					}
+
+					.userImage img::before 
+					{
+						content:"";
+					}
 
 
 					/*회원정보 테이블*/
-					.infoConRight {
-						width: 1050px;
-						/*border: 1px solid var(--input-gray);
-						border-radius: 10x;
-						box-sizing: border-box;
-						border-collapse: collapse;
-						font-size: var(--font-size16); */
-					}
-
 					.userInfoTable
-
-					/*th,td넣기전에 큰 사각형에는 radius먹힘*/
-						{
-						
+					{
+						width: 1030px;
 						border: 1px solid var(--input-gray);
 						border-radius: 10x;
 						box-sizing: border-box;
@@ -161,46 +157,39 @@
 						background-color: var(--button-gray);
 					}
 
-
-
+					
+					/*테이블의 행열*/
+					.userInfoTable th, td {
+						border: 1px solid var(--input-gray);
+						padding: 0 20px;
+						text-align: start;
+						height: 60px;
+					}
+					
 					/*수정내용 input박스*/
 					.userInfoTable .inputbox {
 						box-sizing: border-box;
 						height: 50px;
 						/* width: inherit; */
-						width: 750px;
+						/* width: 710px; */
+						width: 100%;
 						border: 1px solid var(--input-gray);
 						font-size: 16px;
 						border-radius: 6px;
 						padding: 0 10px;
+						color: #222;
 					}
 
 					.userInfoTable .readonly {
 						border: none;
 						color: var(--color-gray);
 					}
-
-					/*테이블의 행열*/
-					.userInfoTable th,
-					td {
-						border: 1px solid var(--input-gray);
-						padding: 0 20px;
-						text-align: start;
-						height: 60px;
-					}
-
 					/*유효성검사*/
 					.check_font {
 						display: none;
 					}
 
-					/*희망직무, 기술스택 버튼들 */
-					.userInfoTable .disF .position {
-						display: flex;
-						align-items: center;
-						gap: 20px;
-					}
-
+					
 					/*희망직무,기술스택 추가하기 버튼*/
 					.userInfoTable .disF .modify {
 						margin-left: auto;
@@ -222,38 +211,13 @@
 					}
 
 
-					.wishJob,
-					.myStack {
-						box-sizing: border-box;
-						height: 50px;
-						/* width: 750px; */
-						border: 1px solid var(--input-gray);
-						font-size: 16px;
-						border-radius: 6px;
-						padding: 0 10px;
-						cursor: pointer;
-					}
-
-
-					/*수정내용 input박스*/
-					input#stackInput,
-					input#jobInput {
-						box-sizing: border-box;
-						height: 50px;
-						/* width: inherit; */
-						width: 750px;
-						border: 1px solid var(--input-gray);
-						font-size: 16px;
-						border-radius: 6px;
-						padding: 0 10px;
-					}
-
 					.userInfoTable .disF .workLocation select {
 						width: 120px;
 						height: 44px;
 						border: 1px solid var(--input-gray);
-						color: #787878;
+						color: #222;
 						border-radius: 6px;
+						padding: 0 10px;
 						cursor: pointer;
 					}
 
@@ -299,7 +263,7 @@
 					<div class="mainContent">
 						<header>
 							<div class="userWrapper">
-								<img src="images/people.svg" alt="">
+								<!-- <img src="images/people.svg" alt=""> -->
 								<div class="dorpdowmMain">
 									<div class="dropdown">
 										<div class="dropdownSub" id="dropdownSub">
@@ -328,8 +292,8 @@
 						<main>
 							<div class="mainContainer">
 
-								<div class="infoWrap">
-									<form method="post" id="userInfoForm" name="userInfoForm" action="modifyInfo">
+								<form method="post" id="userInfoForm" name="userInfoForm" action="modifyInfo">
+									<div class="infoWrap">
 										<h2 class="infoTitle">회원 정보 수정</h2>
 										<!-- <form method="post" action="updateMemInfo.jsp"> -->
 										<!-- <form> -->
@@ -341,8 +305,8 @@
 													</ul>
 												</div>
 												<div class="uploadDiv">
-													<input type="file" name="uploadFile" id="fileUpload" multiple style="display: none;">
-													<label for="fileUpload" style="cursor: pointer;" class="uploadText" style="display: none;">이미지 등록</label>
+													<input type="file" name="uploadFile" id="fileUpload" multiple>
+													<label for="fileUpload" style="cursor: pointer;" class="uploadText">이미지 등록</label>
 												</div>
 												<!-- <input type="file" name="uploadFile" id="file" style="display: none;"> -->
 												<!-- <label for="file" class="imgAddLabel" >
@@ -368,8 +332,7 @@
 													<tr>
 														<th>생년월일</th>
 														<td>
-															<input class="inputbox" type="text" name="user_birthdate"
-																id="user_birthdate" value="${userInfo.user_birthdate}"
+															<input class="inputbox" type="text" name="user_birthdate" id="user_birthdate" value="${userInfo.user_birthdate}"
 																placeholder="생년월일을 1900-01-01형식으로 입력하세요" required>
 															<div class="check_font" id="birth_check"></div>
 														</td>
@@ -396,7 +359,7 @@
 														<th>희망직무</th>
 														<td class="disF wide">
 															<div class="position">
-																<input class="inputbox readonly" type="text" id="jobInput"
+																<input class="inputbox" type="text" id="jobInput"
 																	name="user_job" value="${user_job}"
 																	placeholder="희망직무를 선택해 주세요" onclick="openChild()"
 																	readonly>
@@ -408,7 +371,7 @@
 														<th>기술스택</th>
 														<td class="disF wide">
 															<div class="stack">
-																<input class="inputbox readonly" type="text" id="stackInput"
+																<input class="inputbox" type="text" id="stackInput"
 																	name="user_stack" value="${user_stack}"
 																	placeholder="주요기술을 선택해 주세요" onclick="openChild2()"
 																	readonly>
@@ -487,8 +450,8 @@
 													</tr>
 												</table>
 											</div><!-- infoCon right 끝 -->
-										</form><!-- userInfoForm 끝 -->
-									</div> <!-- infoConWrap 끝-->
+										</div> <!-- infoConWrap 끝-->
+									</form><!-- userInfoForm 끝 -->
 									<div class="modifyBtn">
 										<button class="buttonModify" type="submit">수정완료</button>
 									</div>
@@ -526,10 +489,8 @@
 						dataType: 'json',
 						success: function (data) {
 							console.log("Ajax success:", data);
-							if(!data || data.length == 0){
-								$(".uploadText").css('display', 'flex'); // 파일없으면 이미지등록 나타나게
-							}
 							showUploadResult(data);
+							$(".uploadDiv").css('display', 'none');
 						},
 						error: function (xhr, status, error) {
 							console.error('Error fetching file list for user_email ' + user_email + ':', error);
@@ -567,7 +528,7 @@
 						});//end of ajax
 
 						//3. 파일 업로드 입력 요소 트리거
-						$("#uploadtext").click();
+						$("input[type='file']").click();
 					}
 				});
 
@@ -599,6 +560,7 @@
 							alert("파일이 업로드 되었습니다.");
 							console.log(result);
 							showUploadResult(result); // 파일 업로드 결과 표시 함수 호출
+							$(".uploadDiv").css('display', 'none');
 						}
 					});
 				});
@@ -627,15 +589,17 @@
 					if (!uploadResultArr || uploadResultArr.length === 0) {
 						return;
 					}
-
+					//회원정보 부분에 사진 보이게
 					var uploadUL = $(".uploadResult ul");
 					var str = "";
+					var rootURL = "<%=request.getScheme()%>";
 
 					$(uploadResultArr).each(function (i, obj) {
 						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 
 						str += "<li data-path='" + obj.uploadPath + "'";
 						str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+						// str += "<div style='background:url("+rootURL+"/userImageDisplay?fileName=" + fileCallPath +")'>";
 						str += "<div>";
 						str += "<span style='display:none;'>" + obj.fileName + "</span>";
 						str += "<img src='/userImageDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
@@ -643,32 +607,46 @@
 					});
 
 					uploadUL.append(str);
+
+					//드랍다운 부분에 사진 보이게
+					var uploadUL2 = $(".userWrapper");
+					var str2 = "";
+
+					$(uploadResultArr).each(function (i, obj) {
+						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+						str2 += "<img src='/userImageDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
+					});
+
+					uploadUL2.prepend(str2);
+
+
 				}//showUploadResult function 끝
 
 
 
-				//span x 영역 누르면 이미지 삭제 실행
-				$(".uploadResult").on("click","span",function(){
-				var targetFile = $(this).data("file");
-				var type = $(this).data("type");
-				var uploadResultItem = $(this).closest("li");
+				// //span x 영역 누르면 이미지 삭제 실행
+				// $(".uploadResult").on("click","span",function(){
+				// var targetFile = $(this).data("file");
+				// var type = $(this).data("type");
+				// var uploadResultItem = $(this).closest("li");
 
-				console.log("@# targetFile=>"+targetFile);
-				console.log("@# type=>"+type);
-				console.log("@# uploadResultItem=>"+uploadResultItem);
+				// console.log("@# targetFile=>"+targetFile);
+				// console.log("@# type=>"+type);
+				// console.log("@# uploadResultItem=>"+uploadResultItem);
 
-					//컨트롤러 단에서 업로드된 실제파일 삭제
-					$.ajax({
-						type: "post"
-						,data: {fileName: targetFile, type: type}
-						,url: "deleteUserImage"
-						,success: function(result){
-							alert(result);
-							//브라우저에서 해당 썸네일이나 첨부파일이미지 제거
-							uploadResultItem.remove();
-						}
-					});//end of ajax
-				});//end of click  이미지 삭제 끝
+				// 	//컨트롤러 단에서 업로드된 실제파일 삭제
+				// 	$.ajax({
+				// 		type: "post"
+				// 		,data: {fileName: targetFile, type: type}
+				// 		,url: "deleteUserImage"
+				// 		,success: function(result){
+				// 			alert(result);
+				// 			//브라우저에서 해당 썸네일이나 첨부파일이미지 제거
+				// 			uploadResultItem.remove();
+				// 		}
+				// 	});//end of ajax
+				// });//end of click  이미지 삭제 끝
 
 
 
@@ -682,8 +660,6 @@
 				$("button.buttonModify").click(function (e) {
 					e.preventDefault(); // 기본 폼 제출 동작 방지
 					console.log("수정완료click");
-
-
 
 					//모든 입력폼을 채웠는지 유효성 검사!
 					var inval_Arr = new Array(7).fill(false);//모든 입력폼을 채웠는지 확인할 배열
@@ -769,66 +745,35 @@
 						return; // 함수 종료
 					}
 					
+					// 사용자 입력 비밀번호 가져오기
+					var input_pw = document.querySelector('input[name="user_pw"]').value;
+					var session_pw = document.querySelector('input[name="session_pw"]').value;
+					
+					// 비밀번호 비교
+					if (input_pw === session_pw) {
 
+						var formObj = $("form[id='userInfoForm']");
+						var user_email = "<c:out value='${userInfo.user_email}'/>"; //c:out으로
+						console.log(user_email)
+						//업로드된 파일정보 hidden타입 input으로 body에 추가하기
+						var str = "";
 
-					var formObj = $("form[id='userInfoForm']");
-					var user_email = "<c:out value='${userInfo.user_email}'/>"; //c:out으로
-					console.log(user_email)
-					//업로드된 파일정보 hidden타입 input으로 body에 추가하기
-					var str = "";
+						$(".uploadResult ul li").each(function (i, obj) {
+							var jobj = $(obj);
+							str += "<input type='hidden' name='userAttachList[" + i + "].fileName' value='" + jobj.data("filename") + "'>";
+							str += "<input type='hidden' name='userAttachList[" + i + "].uuid' value='" + jobj.data("uuid") + "'>";
+							str += "<input type='hidden' name='userAttachList[" + i + "].uploadPath' value='" + jobj.data("path") + "'>";
+							str += "<input type='hidden' name='userAttachList[" + i + "].image' value='" + jobj.data("type") + "'>";
+							str += "<input type='hidden' name='userAttachList[" + i + "].user_email' value='${userInfo.user_email}'>";
+						});//파일정보 추가 끝
+						formObj.append(str).submit();
 
-					$(".uploadResult ul li").each(function (i, obj) {
-						var jobj = $(obj);
-						str += "<input type='hidden' name='userAttachList[" + i + "].fileName' value='" + jobj.data("filename") + "'>";
-						str += "<input type='hidden' name='userAttachList[" + i + "].uuid' value='" + jobj.data("uuid") + "'>";
-						str += "<input type='hidden' name='userAttachList[" + i + "].uploadPath' value='" + jobj.data("path") + "'>";
-						str += "<input type='hidden' name='userAttachList[" + i + "].image' value='" + jobj.data("type") + "'>";
-						str += "<input type='hidden' name='userAttachList[" + i + "].user_email' value='${userInfo.user_email}'>";
-					});//파일정보 추가 끝
-					formObj.append(str).submit();
-
-					// let formData = new FormData();
-					// let inputs = $("input");  //document의 input element 전부
-					// let selects = $("select"); //document의 select element 전부
-
-					// for (let i = 0; i < inputs.length; i++) {// FormData에 input에 담긴 데이터 담기
-					// 	const name = inputs[i].name;
-					// 	const value = inputs[i].value;
-
-					// 	formData.append(name, value);
-					// }
-
-					// for (let i = 0; i < selects.length; i++) {// FormData에 select에 담긴 데이터 담기
-					// 	const name = selects[i].name;
-					// 	const value = selects[i].value;
-
-					// 	formData.append(name, value);
-					// }
-
-					// for (let pair of formData.entries()) {// FormData에 데이터가 제대로 담겼는지 확인
-					// 	console.log(pair[0] + ', ' + pair[1]);
-					// }
-
-					// // formData.submit(); 배열정보가 있어서 그냥 submit 은 안되는듯..
-					// // AJAX 요청 수행
-					// $.ajax({
-					// 	type: "post", // 요청 메소드 유형
-					// 	processData: false,  // 문자열화 방지
-					// 	contentType: false, //application/x-www 방지 ...
-					// 	// dataType : 'json',
-					// 	data: formData, // 전송할 데이터
-					// 	enctype: 'multipart/form-data',
-					// 	async: false,
-					// 	url: "/modifyInfo", // 요청을 보낼 URL
-					// 	success: function (data) {
-					// 		alert("수정 완료"); // 성공 시 알림
-					// 		location.href = "userInfo"; // 성공 시 페이지 리다이렉트
-					// 	},
-					// 	error: function () {
-					// 		alert("수정을 완료하지 못했습니다. 비밀번호를 확인해 주세요"); // 오류 시 알림
-					// 	}
-					// });//end of jax
-				});;//수정하기 버튼 클릭 function 끝
+					} else {
+						alert("비밀번호를 확인하세요");// 비밀번호가 일치하지 않으면 경고 메시지 표시
+						document.querySelector('input[name="user_pw"]').value = '';// 비밀번호 입력란 초기화
+						return false;// 원래 페이지로 되돌려보냄
+					}
+				});//수정하기 버튼 클릭 function 끝
 
 
 
