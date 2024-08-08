@@ -386,37 +386,44 @@ display:inline-block;
                         <div class="left">
                             <div class="sbox">
                                 <!-- <form> -->
-                                    <select class="select1" id="select" name="select">
-                                        <option value="">경력</option>
-                                        <c:forEach var="dto" items="${careerList}">
-                                            <option value="${dto}">${dto}</option>
+                                    <select class="select1" id="careerSelect" name="careerType">
+                                        <option value="" <c:out
+                                        value="${paging.std.careerType == null ? 'selected':''}" />>경력</option>
+                                        <c:forEach var="career" items="${careerList}">
+                                            <option value="${career}" <c:out
+                                            value="${paging.std.careerType eq career ? 'selected':''}" />>${career}</option>
                                         </c:forEach>
                                     </select>
                                 <!-- </form> -->
                             </div> <!-- selectbox 끝 -->
                             <div class="sbox">
                                 <!-- <form> -->
-                                    <select class="select1" id="select" name="select">
-                                        <option value="" selected>기술스택</option>
-                                        <c:forEach var="dto" items="${stackList}">
-                                            <option value="${dto}">${dto}</option>
+                                    <select class="select1" id="stackSelect" name="stackType">
+                                        <option value=""<c:out
+                                            value="${paging.std.stackType == null ? 'selected':''}" />>기술스택</option>
+                                        <c:forEach var="stack" items="${stackList}">
+                                            <option value="${stack}" <c:out
+                                            value="${paging.std.stackType eq stack ? 'selected':''}" />>${stack}</option>
                                         </c:forEach>
                                     </select>
                                 <!-- </form> -->
                             </div> <!-- selectbox 끝 -->
                             <div class="sbox">
                                 <!-- <form> -->
-                                    <select class="select1" id="select2" name="select">
-                                    <option value="">지역</option>
-                                    <c:forEach var="dto" items="${locationList}">
-                                            <option value="${dto}">${dto}</option>
+                                    <select class="select1" id="locationselect" name="locationType">
+                                        <option value="" <c:out value="${paging.std.locationType == null ? 'selected':''}" />>지역</option>
+                                        <c:forEach var="location" items="${locationList}">
+                                            <option value="${location}" <c:out
+                                            value="${paging.std.locationType eq location ? 'selected':''}" />>
+                                            ${location}</option>
                                         </c:forEach>
-                                    </select>
+                                        </select>
                                 <!-- </form> -->
                             </div> <!-- selectbox 끝 -->
 
 
                             <button class="fil2" onclick="sortList()">
+                            <input type="hidden" name="orderType" id="orderType" value="${orderType}">
                                 <div class="f1">
                                     <h5 class="but1">
                                         마감임박
@@ -434,19 +441,15 @@ display:inline-block;
                                     </h5>
                                 </div>
                             </button>
-                            <button class="fil2" id="secondButton">
-                                <div class="f1">
-                                    <h5 class="but1">
-                                        최신순
-                                    </h5>
-                                </div>
+                            <button class="tab-btn fil2 ${orderType == 'latest' ? 'active' : ''}" id="latestButton" onclick="switchTab('latest', event)">
+                                <h5 class="but1">
+                                    최신순
+                                </h5>
                             </button>
-                            <button class="fil2" id="thirdButton">
-                                <div class="f1">
-                                    <h5 class="but1">
-                                        조회순
-                                    </h5>
-                                </div>
+                            <button class="tab-btn fil2 ${hitType == 'view' ? 'active' : ''}" id="viewButton" onclick="switchTab('view', event)">
+                                <h5 class="but1">
+                                    조회순
+                                </h5>
                             </button>
                         </div>  <!-- 라이트 끝-->
                         <input type="hidden" name="pageNum" value="1">
@@ -561,6 +564,10 @@ display:inline-block;
         <form id="actionForm" method="get" action="jobPostList">
             <input type="hidden" name="pageNum" value="${paging.std.pageNum}">
             <input type="hidden" name="amount" value="${paging.std.amount}">
+            <!-- hidden 값 미스매치로 페이지가 나오지 않는 오류 있었음 -->
+            <input type="hidden" name="hitType" value="${paging.std.hitType}">
+            <input type="hidden" name="stackType" value="${paging.std.stackType}">
+            <input type="hidden" name="locationType" value="${paging.std.locationType}">
         </form>
 </body>
 </html>
@@ -602,6 +609,55 @@ $(document).ready(function() {
         }
     });//end of fa-bookmark click function
 });//document).ready(function()
+
+    // 다른 탭 눌렀을 때 input 정보 삭제
+    function switchTab(tab, type) {
+        // 모든 tab-btn에서 'active' 클래스를 제거
+        $('.tab-btn').removeClass('active');
+        $(tab).addClass('active');
+
+        // 'orderType' 히든 필드의 값을 설정하고 폼을 제출
+        $('#orderType').val(type);
+        $('#searchForm').submit();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+    // 각 버튼에 대한 이벤트 리스너 추가
+    const recentButton = document.getElementById('recentButton');
+    const latestButton = document.getElementById('latestButton');
+    const viewButton = document.getElementById('viewButton');
+
+    const orderTypeInput = document.getElementById('orderType');
+
+    // 마감임박 버튼 클릭 시
+    recentButton.addEventListener('click', function(event) {
+        event.preventDefault();  // 기본 동작 방지
+        orderTypeInput.value = 'recent';  // orderType 값을 'recent'로 설정
+        document.getElementById('searchForm').submit();  // 폼 제출
+    });
+
+    // 최신순 버튼 클릭 시
+    latestButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        orderTypeInput.value = 'latest';  // orderType 값을 'latest'로 설정
+        document.getElementById('searchForm').submit();
+    });
+
+    // 조회순 버튼 클릭 시
+    viewButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        orderTypeInput.value = 'view';  // orderType 값을 'view'로 설정
+        document.getElementById('searchForm').submit();
+    });
+});
+
+
+    // 검색 기능 초안
+    var searchForm = $("#searchForm");
+
+    $(".fa-magnifying-glass").on("click",function () {
+        $("#searchForm").submit();
+    })
 
 
 
