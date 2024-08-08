@@ -95,32 +95,44 @@
 
     <script>
         $(document).ready(function() {
+			
+			// 로그인 이메일을 가져옵니다.
+			var loginEmail = '${login_email}'; // JSP에서 서버 측 데이터 삽입
             // URL에서 board_no를 추출합니다.
             var boardNo = window.location.pathname.split('/').pop(); // 예: /announcementRest/1 -> 1
 
-            // AJAX 요청을 통해 공지사항 상세 정보를 가져옵니다.
-            $.ajax({
-                url: '/announcementRest/' + boardNo, // 데이터를 가져올 API URL
-                type: 'GET',
-                contentType: 'application/json',
-                dataType: 'json',
-                success: function(response) {
-                    if (response) {
-                        // 서버에서 받은 공지사항 데이터로 페이지 내용을 업데이트
-                        $('.title').text(response.board_title); // 제목
-                        $('.date').text(response.create_date); // 생성일
-                        $('.content').text(response.board_content); // 내용
-                    } else {
-                        alert("Failed to load data");
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.log("Error: " + error);
-                    console.log("Status: " + status);
-                    console.log(xhr.responseText);
-                    alert("An error occurred: " + error);
-                }
-            });
+			// AJAX 요청을 통해 공지사항 상세 정보를 가져옵니다.
+			       $.ajax({
+			           url: '/announcementRest/' + boardNo, // 데이터를 가져올 API URL
+			           type: 'GET',
+			           contentType: 'application/json',
+			           dataType: 'json',
+			           success: function(response) {
+			               if (response) {
+			                   // 서버에서 받은 공지사항 데이터로 페이지 내용을 업데이트
+			                   $('.title').text(response.board_title); // 제목
+			                   $('.date').text(response.create_date); // 생성일
+			                   $('.content').text(response.board_content); // 내용
+			                   
+			                   // 로그인 이메일에 따라 버튼 표시/숨기기
+			                   if (loginEmail === 'admin@admin.com') {
+			                       $('#editButton').show();
+			                       $('#deleteButton').show();
+			                   } else {
+			                       $('#editButton').hide();
+			                       $('#deleteButton').hide();
+			                   }
+			               } else {
+			                   alert("Failed to load data");
+			               }
+			           },
+			           error: function(xhr, status, error) {
+			               console.log("Error: " + error);
+			               console.log("Status: " + status);
+			               console.log(xhr.responseText);
+			               alert("An error occurred: " + error);
+			           }
+			       });
 
             // 수정 버튼 클릭 이벤트 처리
             $('#editButton').click(function() {

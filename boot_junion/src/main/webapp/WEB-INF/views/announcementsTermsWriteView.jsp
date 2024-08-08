@@ -33,7 +33,7 @@
 							
 		                    <div class="headbox">
 		                        <h5 class="head">
-		                            공지사항 작성${login_email}
+		                            회원약관 작성
 		                        </h5>
 								
 								
@@ -41,27 +41,27 @@
 		                    </div> 
 							
 							<div class="selectbox">
-							    <label for="term_type">분류:</label>
-							    <select id="term_type" name="term_type">
+							    <label for="term_type"></label>
+							    <select class="termtype" id="term_type" name="term_type">
 							        <option value="개인">개인</option>
 							        <option value="기업">기업</option>
 							    </select>
 							</div> <!-- 드롭박스 끝 -->
 							
 		                    <div class="titlebox">
-		                        <input class="title" type="text" placeholder="제목을 입력해 주세요" name="board_title">
+		                        <input id="board_title" class="title" type="text" placeholder="제목을 입력해 주세요" name="board_title">
 		                    </div> <!-- 콘텐트박스 끝-->
 	
 		                    
 		                    <div class="contentbox">
-		                        <textarea class="content" placeholder="내용을 입력해 주세요" name="board_content"></textarea>
+		                        <textarea id="board_content" class="content" placeholder="내용을 입력해 주세요" name="board_content"></textarea>
 		                    </div>
 	
 		                    <div class="buttonbox">
-		                        <button class="button" type="submit">
+		                        <button class="button" type="submit" id="submit_button">
 		                            <h5 class="but1">등록</h5>
 		                        </button>
-		                        <button class="button" formaction="announcementsTerms">
+		                        <button class="button" formaction="announcementsTerms" id="cancel_button">
 		                            <h5 class="but2">취소</h5>
 		                        </button>
 		                    </div><!--버튼 끝 -->
@@ -77,17 +77,25 @@
 </body>
 
 
-
-
-
-
-
 </html>
 <script>
+$(document).ready(function() {
+    $('#frm').on('submit', function(event) {
+        var title = $('#board_title').val().trim();
+        var content = $('#board_content').val().trim();
 
-	
+        // 취소 버튼이 클릭된 경우는 유효성 검사를 하지 않음
+        if ($(event.originalEvent.submitter).attr('id') === 'cancel_button') {
+            return; // 취소 버튼 클릭 시 유효성 검사 하지 않음
+        }
+
+        if (!title || !content) {
+            alert('제목과 내용을 모두 입력해 주세요.');
+            event.preventDefault(); // 폼 제출을 막음
+        }
+    });
+});
 </script>
-
 
 
 
