@@ -433,7 +433,7 @@
     // }
 // });
 
-			var str="";
+			var str="";//출력에 관한 로직?
 
 			$(".uploadResult ul li").each(function (i, obj){
 				console.log("@# obj=>"+$(obj));
@@ -463,7 +463,7 @@
 
 		//확장자(exe, sh, alz), 파일크기(5MB 미만) 조건
 		//확장자가 exe|sh|alz 업로드 금지하기 위한 정규식
-		var regex = new RegExp("(.*?)\.(exe|sh|alz)$");
+		var regex = new RegExp("(.*?)\.(exe|sh|alz)$");//파일 유효성 검사
 		var maxSize = 5242880;//5MB
 
 		function checkExtension(fileName, fileSize){
@@ -479,7 +479,7 @@
 		}
 
 		$("input[type='file']").change(function (e){
-			var formData = new FormData();
+			var formData = new FormData();// 파일 업로드를 위한 로직
 			var inputFile = $("input[name='uploadFile']");
 			//files : 파일정보
 			var files = inputFile[0].files;

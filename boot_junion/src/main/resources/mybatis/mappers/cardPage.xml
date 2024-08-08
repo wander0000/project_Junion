@@ -3,24 +3,77 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.boot.DAO.CardPageDAO">
-	
+<sql id="std">
+	        <if test='std.keyword != null and std.keyword != ""'><!--keyword 검색시-->
+	            AND n.notice_title LIKE CONCAT('%', #{std.keyword}, '%')
+	        </if>
+	        <if test='std.careerType != null and std.careerType != ""'><!--경력 검색-->
+	            AND notice_career = #{std.careerType}
+	        </if>
+<!--	        <if test='std.stackType != null and std.stackType != ""'>-->
+<!--	            AND EXISTS (-->
+<!--	                SELECT 1 FROM com_stack cs WHERE cs.com_email = n.com_email AND cs.stack = #{std.stackType}-->
+<!--	            )-->
+<!--	        </if>-->
+	        <if test='std.locationType != null and std.locationType != ""'><!--지역 검색-->
+	            AND CONCAT(notice_area1, notice_area2) LIKE CONCAT('%', #{std.locationType}, '%')
+	        </if>
+<!--	        <if test='std.email != null and std.email != ""'>-->
+<!--	            AND CONCAT(notice_area1, notice_area2) LIKE CONCAT('%', #{std.locationType}, '%')-->
+<!--	        </if>-->
+	</sql>
+
+	<sql id="orderType">
+	    <choose>
+	        <when test='orderType == "latest"'><!--최신순-->
+	            order by notice_num DESC
+	        </when>
+	        <otherwise>
+	            order by notice_num DESC   <!--기본 정렬 조건--> 
+	        </otherwise>
+	    </choose>
+	</sql>
+
+	<sql id="hitType">
+		<choose>
+			<when test='orderType == "recent"'><!--마감임박순-->
+	            order by notice_endDate asc
+	        </when>
+			<when test='orderType == "view"'><!--조회순-->
+	            order by notice_hit DESC
+	        </when>
+	        <otherwise>
+	            order by notice_num DESC   <!--기본 정렬 조건--> 
+	        </otherwise>
+	    </choose>
+	</sql>
+
 	<select id="cardPageList" resultType="com.boot.DTO.ComNoticeDTO">
 <!-- 	페이징을 위한 쿼리 -->
-	   <![CDATA[ 
 	   select row_noticeNum, notice_num, notice_title, aa.com_name, notice_area1, notice_area2, notice_career 
-	      FROM(select row_noticeNum, notice_num, notice_title, a.com_name, notice_area1, notice_area2, notice_career 
-	         FROM(select row_number() over(order by notice_num desc) as row_noticeNum , notice_num, notice_title, 
+	   		FROM
+	   		(
+			select row_noticeNum, notice_num, notice_title, a.com_name, notice_area1, notice_area2, notice_career 
+	         FROM
+	         (
+				select row_number() over(
+	            <include refid="hitType"/>
+		  	<![CDATA[
+		  		) as row_noticeNum , notice_num, notice_title, 
 	               c.com_name, notice_area1 , notice_area2, notice_career 
-	            FROM notice_tb n join com_tb c on n.com_email = c.com_email 
+	            FROM notice_tb n
+	            join com_tb c on n.com_email = c.com_email 
 	            where notice_endDate >= now()
-	            order by notice_num desc
+	            ]]>
+	            <include refid="std"/>
+		  	<![CDATA[
 	            ) a 
-	         where row_noticeNum<= (#{pageNum} * #{amount}) 
+	         where row_noticeNum<= (#{std.pageNum} * #{std.amount}) 
 	         )aa 
-	         where row_noticeNum > (#{pageNum}-1)* #{amount}
+	         where row_noticeNum > (#{std.pageNum}-1)* #{std.amount}
 	   ]]>
 	</select>
-	
+
 	
 <!--	총 진행중인 공고 수를 가져오는 쿼리-->
 	<select id="getTotalCount" resultType="int"> 
@@ -28,6 +81,7 @@
 			on n.com_email = c.com_email where notice_endDate >= now()
 <!--		<include refid="std"></include>-->
 	</select>
+
 
 
 

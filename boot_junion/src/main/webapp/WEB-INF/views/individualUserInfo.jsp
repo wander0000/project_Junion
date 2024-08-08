@@ -76,33 +76,8 @@
 	display: block;
 	font-size: var(--color-black);
 	}
-
-
-
-
-	/* 메인 */
-	
-
-	/* 프로필 : 사진 + 이름 */
-	main .mainContainer .memberInfo 
-	{
-	display: flex;
-	align-items: center;
-	margin-bottom: 40px;
-	}
-
-	main .mainContainer .memberInfo img.memberImg 
-	{
-	width:64px;
-	height: 64px;
-	margin-right: 20px;
-	}
-
-	main .mainContainer .memberInfo .memberName 
-	{
-	font-size: var(--font-size32);
-	font-weight: 600;
-	} 
+ 
+  
 
  
 
@@ -147,11 +122,6 @@ main
 	width: 120px;
 }
 
-/*회원정보 테이블*/
-.infoConRight 
-{
-  /* width: 1030px; */
-}
 
 
 /*회원사진*/
@@ -166,6 +136,8 @@ main
   mask-position: 50% 25%;/*0% 0% 가 왼쪽상단 100% 100%가 오른쪽 하단*/
   -webkit-mask-position: 50% 25%;
   /* clip-path: circle(100px at center); */
+  overflow: hidden; /* 컨테이너 영역 밖 요소 숨김 */
+    position: relative;
 }
 
 
@@ -193,7 +165,8 @@ main
 }
 .userInfoTable th, td
 {
-  border-bottom: 1px solid var(--input-gray);
+  /* border-bottom: 1px solid var(--input-gray); */
+  border: 1px solid var(--input-gray);
   padding: 0 20px;
   text-align: start;
   height: 60px;
@@ -260,7 +233,7 @@ main
 		<div class="mainContent">        
       <header>
         <div class="userWrapper">
-            <img src="images/people.svg"alt="">
+            <!-- <img src="images/people.svg"alt=""> -->
             <div class="dorpdowmMain">
                 <div class="dropdown">
                     <div class="dropdownSub" id="dropdownSub">
@@ -408,6 +381,18 @@ main
 					});
 
 					uploadUL.append(str);
+
+          //드랍다운 부분에 사진 보이게
+					var uploadUL2 = $(".userWrapper");
+					var str2 = "";
+
+					$(uploadResultArr).each(function (i, obj) {
+						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+						str2 += "<img src='/userImageDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
+					});
+
+					uploadUL2.prepend(str2);
 				}//showUploadResult function 끝
 
   });//document ready 끝

@@ -50,7 +50,7 @@
 	                            <div class="rightb2box">
 	                                <a href="#">
 	                                    <h5 class="r2">
-	                                        URL복사
+	                                        
 	                                    </h5>
 	                                </a>
 	                            </div>
@@ -68,11 +68,6 @@
 
 
 	                <div class="buttonbox">
-
-						<button class="button" onclick="window.location.href='${pageContext.request.contextPath}/announcementsTerms'">
-						    <h5 class="but2">목록</h5>
-						</button>
-						
 						<c:if test="${login_email == 'admin@admin.com'}"> <!-- '기업'인 항목만 -->
 							<form id="deleteForm" action="${pageContext.request.contextPath}/announcementsTermsDelete" method="post">
 							    <button type="button" class="button" onclick="validateAndSubmit('announcementsTermsDelete'); return false;">
@@ -84,6 +79,11 @@
 							    <input type="hidden" id="login_email" value="${login_email}">
 							</form>
 						</c:if>
+
+						<button class="button" onclick="window.location.href='${pageContext.request.contextPath}/announcementsTerms'">
+						    <h5 class="but2">목록</h5>
+						</button>
+						
 	                </div><!--버튼 끝 -->
 
 	                </div> <!--보드 끝-->
