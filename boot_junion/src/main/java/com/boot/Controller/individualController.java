@@ -470,32 +470,6 @@ public class individualController {
 			log.info("@# individualUserInfoModify newDTO=>"+newDTO);
 			model.addAttribute("userInfo", newDTO);//업데이트 한 새 정보를 다시 모델에 담아서 넘겨줌
 			
-//			String user_email = param.get("user_email");
-//			log.info("@# individualUserInfoModify user_email==>" + param.get("user_email"));
-//			log.info("@# individualUserInfoModify user_stack==>" + param.get("user_stack"));
-//			log.info("@# individualUserInfoModify user_job==>" + param.get("user_job"));
-//			
-//			service.deleteJob(user_email);//수정전 데이터 삭제
-//			UserJobDTO jobDto = new UserJobDTO();
-//			String arr [] = param.get("user_job").split(",");
-//			for(int i = 0; i<arr.length; i++) 
-//			{
-//				jobDto.setJob_name(arr[i]);
-//				jobDto.setUser_email(user_email);
-//				service.insertJob(jobDto); 
-//			}
-//			
-//			service.deleteStack(user_email);//수정전 데이터 삭제
-//			UserStackDTO dto2 = new UserStackDTO();
-//			String arr2 [] = param.get("user_stack").split(",");
-//			for(int i = 0; i<arr2.length; i++) 
-//			{
-//				dto2.setUser_email(user_email);
-//				dto2.setStack_name(arr2[i]);
-//				service.insertStack(dto2); 
-//			}	
-			
-			
 			return "individualUserInfo";
 		}else {//입력한 비번이 세션의 비번과 다르면 다시 회원정보 수정페이지로
 			log.info("@# 실패 ㅠㅠ");
@@ -504,30 +478,6 @@ public class individualController {
 		}
 	}
 		
-//	@RequestMapping("/insertJobStack")
-//	public String insertJobStack(@RequestParam String user_email, @RequestParam String user_stack, @RequestParam String user_job, 
-//							Model model, HttpServletRequest request) 
-//	{		
-//		log.info("@# insertJobStack로 넘어옴");		
-//		log.info("@# insertJobStack user_email==>" + user_email);
-//		log.info("@# insertJobStack user_stack==>" + user_stack);
-//		log.info("@# insertJobStack user_job==>" + user_job);
-//		
-//		String arr [] = user_job.split(",");
-//		for(int i = 0; i<arr.length; i++) 
-//		{
-//			service.insertJob(user_email, arr[i]); 
-//		}
-//		
-//		String arr2 [] = user_stack.split(",");
-//		for(int i = 0; i<arr2.length; i++) 
-//		{
-//			service.insertStack(user_email, arr2[i]); 
-//		}		     
-//		
-//		return "redirect:login";
-//	}
-	
 	
 	
 	

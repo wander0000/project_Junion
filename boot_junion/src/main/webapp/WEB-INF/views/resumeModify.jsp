@@ -383,8 +383,13 @@
 			formObj.submit();
 		});//end of button submit
 		
-// 즉시실행함수
-		(function(){
+
+
+		
+		/*
+			2024-8-06 서연주(comRegistModify 참고)
+			이미지 파일 로딩//즉시실행함수
+		*/
 			console.log("@# document ready");
 			var resume_num = "<c:out value='${resumeInfo.resume_num}'/>";
 			console.log("@# resume_num=>"+resume_num);
@@ -395,10 +400,16 @@
 						type: 'GET',
 						data: { resume_num: resume_num },
 						dataType: 'json',
-						success: function (data) {
-							console.log("Ajax success:", data);
-							showUploadResult(data);
-							$(".uploadDiv").css('display', 'none');
+						success: function (result) {
+							// console.log("Ajax success:", data);
+							// alert("업로드 파일있음");
+							// showUploadResult(data);
+							// $(".uploadDiv").css('display', 'none');
+
+							alert("파일이 업로드 되었습니다.");
+						console.log(result);
+						showUploadResult(result); // 파일 업로드 결과 표시 함수 호출
+						$(".uploadDiv").css('display', 'none');
 						},
 						error: function (xhr, status, error) {
 							console.error('Error fetching file list for resume_num ' + resume_num + ':', error);
@@ -406,86 +417,6 @@
 						}
 					});
 				}
-
-
-			
-			//컨트롤러단으로 연결				
-			// boardNo를 던지면 리턴되는값 : function(arr) => 컨트롤러에 있는 new ResponseEntity<> 객체 전부 가져옴
-			// $.getJSON("/resumeGetFileList", {resume_num: resume_num}, function(arr)
-			// { 
-			// 	console.log("@# arr=>"+arr);
-
-			// 	var str="";
-
-				
-			// 	$(arr).each(function(i, attach)
-			// 	{
-								
-			// 		//image type
-			// 		if(attach.image) 
-			// 		{
-			// 			var fileCallPath = encodeURIComponent(attach.uploadPath +"/s_"+ attach.uuid + "_" + attach.fileName);
-
-			// 			str += "<li data-path='" + attach.uploadPath + "'";
-			// 			str += " data-uuid='" + attach.uuid + "' data-filename='" + attach.fileName + "' data-type='" + attach.image + "'>";
-			// 			str + "<div>";						
-			// 			str +="<span style='display:none'>"+attach.fileName+"</span>";
-			// 			str +="<img src='/resumeDisplay?fileName="+fileCallPath+"'>"; // 이미지 출력 처리(컨트롤러단)
-			// 			str +="</div>";
-			// 			str +="<div class='imgController'>";
-			// 			str +="<span data-file=\'"+fileCallPath+"\'data-type='image' style='cursor:pointer'> X </span>";
-			// 			str +="</div>";
-			// 			str +="</li>";
-			// 		}
-			// 		else 
-			// 		{
-			// 			var fileCallPath = encodeURIComponent(attach.uploadPath +"/"+ attach.uuid + "_" + attach.fileName);
-					
-			// 			str += "<li data-path='" + attach.uploadPath + "'";
-			// 			str += " data-uuid='" + attach.uuid + "' data-filename='" + attach.fileName + "' data-type='" + attach.image + "'"
-			// 			str + " ><div>";
-			// 			str +="<span>"+attach.fileName+"</span>";
-			// 			str +="<img src='./resources/img/attach.png'>";		
-			// 			str +="<span data-file=\'"+fileCallPath+"\'data-type='file' style='cursor:pointer'> X </span>";				
-			// 			str +="</div>";
-			// 			str +="</li>";
-			// 		}
-
-			// 	}); // arr.each 끝
-			// 	console.log("@#str=======>"+str);
-			// 	$(".uploadResult ul").html(str);
-			}); // getJSON끝
-
-			// $(".uploadResult").on("click","li", function(e){
-			// 	console.log("@# uploadResult click");
-
-			// 	var liObj = $(this);
-			// 	console.log("@# liobj.path=>"+liObj.data("path"));
-			// 	console.log("@# liobj.uuid=>"+liObj.data("uuid"));
-			// 	console.log("@# liobj.fileName"+liObj.data("filename"));
-			// 	console.log("@# liobj.type"+liObj.data("type"));
-
-			// 	var path = encodeURIComponent(liObj.data("path") +"/"+ liObj.data("uuid") + "_" + liObj.data("filename"));
-			// 	console.log("@# var path=>"+path);
-
-			// 	if(liObj.data("type")) 
-			// 	{
-			// 		console.log("@# 01");
-			// 		console.log("@# view");
-
-			// 		showImage(path);
-			// 	}
-			// 	else 
-			// 	{
-			// 		console.log("@# 02");
-			// 		console.log("@# download");
-			// 		console.log("@# path=========>"+ path);
-			// 		// 컨트롤러의 download 호출
-			// 		//self.location="/download?fileName="+path;// 틀리면 download로 다시바꾸
-			// 		self.location="/resumeDownload?fileName="+path;
-					
-			// 	}
-			// }); // .uploadResult 클릭 끝
 
 			/*
 			2024-08-08 서연주
@@ -577,7 +508,7 @@
 						return;
 					}
 					//회원정보 부분에 사진 보이게
-					var uploadUL = $(".uploadResult ul");
+					// var uploadUL = $(".uploadResult ul");
 					var str = "";
 
 					$(uploadResultArr).each(function (i, obj) {
@@ -595,11 +526,91 @@
 						str +="</li>";
 
 					});
-
-					uploadUL.append(str);
+					$(".uploadResult ul").html(str);
+					// uploadUL.append(str);
 
 				}//showUploadResult function 끝
 
+			
+			//컨트롤러단으로 연결				
+			// boardNo를 던지면 리턴되는값 : function(arr) => 컨트롤러에 있는 new ResponseEntity<> 객체 전부 가져옴
+			// $.getJSON("/resumeGetFileList", {resume_num: resume_num}, function(arr)
+			// { 
+			// 	console.log("@# arr=>"+arr);
+
+			// 	var str="";
+
+				
+			// 	$(arr).each(function(i, attach)
+			// 	{
+								
+			// 		//image type
+			// 		if(attach.image) 
+			// 		{
+			// 			var fileCallPath = encodeURIComponent(attach.uploadPath +"/s_"+ attach.uuid + "_" + attach.fileName);
+
+			// 			str += "<li data-path='" + attach.uploadPath + "'";
+			// 			str += " data-uuid='" + attach.uuid + "' data-filename='" + attach.fileName + "' data-type='" + attach.image + "'>";
+			// 			str + "<div>";						
+			// 			str +="<span style='display:none'>"+attach.fileName+"</span>";
+			// 			str +="<img src='/resumeDisplay?fileName="+fileCallPath+"'>"; // 이미지 출력 처리(컨트롤러단)
+			// 			str +="</div>";
+			// 			str +="<div class='imgController'>";
+			// 			str +="<span data-file=\'"+fileCallPath+"\'data-type='image' style='cursor:pointer'> X </span>";
+			// 			str +="</div>";
+			// 			str +="</li>";
+			// 		}
+			// 		else 
+			// 		{
+			// 			var fileCallPath = encodeURIComponent(attach.uploadPath +"/"+ attach.uuid + "_" + attach.fileName);
+					
+			// 			str += "<li data-path='" + attach.uploadPath + "'";
+			// 			str += " data-uuid='" + attach.uuid + "' data-filename='" + attach.fileName + "' data-type='" + attach.image + "'"
+			// 			str + " ><div>";
+			// 			str +="<span>"+attach.fileName+"</span>";
+			// 			str +="<img src='./resources/img/attach.png'>";		
+			// 			str +="<span data-file=\'"+fileCallPath+"\'data-type='file' style='cursor:pointer'> X </span>";				
+			// 			str +="</div>";
+			// 			str +="</li>";
+			// 		}
+
+			// 	}); // arr.each 끝
+			// 	console.log("@#str=======>"+str);
+			// 	$(".uploadResult ul").html(str);
+			// }); // getJSON끝
+
+			// $(".uploadResult").on("click","li", function(e){
+			// 	console.log("@# uploadResult click");
+
+			// 	var liObj = $(this);
+			// 	console.log("@# liobj.path=>"+liObj.data("path"));
+			// 	console.log("@# liobj.uuid=>"+liObj.data("uuid"));
+			// 	console.log("@# liobj.fileName"+liObj.data("filename"));
+			// 	console.log("@# liobj.type"+liObj.data("type"));
+
+			// 	var path = encodeURIComponent(liObj.data("path") +"/"+ liObj.data("uuid") + "_" + liObj.data("filename"));
+			// 	console.log("@# var path=>"+path);
+
+			// 	if(liObj.data("type")) 
+			// 	{
+			// 		console.log("@# 01");
+			// 		console.log("@# view");
+
+			// 		showImage(path);
+			// 	}
+			// 	else 
+			// 	{
+			// 		console.log("@# 02");
+			// 		console.log("@# download");
+			// 		console.log("@# path=========>"+ path);
+			// 		// 컨트롤러의 download 호출
+			// 		//self.location="/download?fileName="+path;// 틀리면 download로 다시바꾸
+			// 		self.location="/resumeDownload?fileName="+path;
+					
+			// 	}
+			// }); // .uploadResult 클릭 끝
+
+			
 
 			// 썸네일이미지 눌렀을때 100%로 확대
 			function showImage(fileCallPath) 

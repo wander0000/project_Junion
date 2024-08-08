@@ -252,6 +252,10 @@ public class ResumeController {
 		log.info("@# resumeModify param======>"+dto.getResume_comPosition());
 		model.addAttribute("resumeInfo", dto);	
 		
+		// 파일 업로드 if문 시작
+		if (resumeDTO.getResumeUploadList() != null) {
+			resumeDTO.getResumeUploadList().forEach(attach -> log.info("@# 보드컨트롤러 write / attach 호출=>"+attach));
+		}
 		
 		resumeService.resumeModify(param);
 		int resume_num = resumeDTO.getResume_num();
