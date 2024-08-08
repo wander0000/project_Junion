@@ -2,6 +2,7 @@ package com.boot.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -20,7 +21,7 @@ public interface announcementsBoardService {  // 게시글 목록,작성버튼,�
 	public announcementsBoardDTO boardModifyView(HashMap<String, String> param);
 
 	public void boardWrite(announcementsBoardDTO boardDTO);
-	public void boardModify(HashMap<String, String> param);
-	public void boardDelete(HashMap<String, String> param);
+	public void boardModify(Map<String, String> param);
+	public void boardDelete(int boardNo);
 	
 }

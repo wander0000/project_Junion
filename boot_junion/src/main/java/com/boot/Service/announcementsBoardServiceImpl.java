@@ -2,6 +2,7 @@ package com.boot.Service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,10 +51,8 @@ public class announcementsBoardServiceImpl implements announcementsBoardService{
 //		dao.write(param);
 		dao.boardWrite(boardDTO);
 		log.info("@# 보드서비스임플 boardDTO=>"+boardDTO);
-		
 	}
 
-	
 	
 
 	@Override
@@ -80,7 +79,7 @@ public class announcementsBoardServiceImpl implements announcementsBoardService{
 	
 
 	@Override
-	public void boardModify(HashMap<String, String> param) {
+	public void boardModify(Map<String, String> param) {
 		log.info("@# 보드서비스임플 modify");
 		log.info("@# BoardServiceImpl modify");
 		
@@ -91,13 +90,12 @@ public class announcementsBoardServiceImpl implements announcementsBoardService{
 	
 	
 	@Override
-	public void boardDelete(HashMap<String, String> param) {
+	public void boardDelete(int boardNo) {
 		log.info("@# 보드서비스임플 delete");
-		log.info("@# param=>"+param);
 		
 		announcementsBoardDAO dao = sqlSession.getMapper(announcementsBoardDAO.class);
 		
-		dao.boardDelete(param);
+		dao.boardDelete(boardNo);
 	}
 
 
