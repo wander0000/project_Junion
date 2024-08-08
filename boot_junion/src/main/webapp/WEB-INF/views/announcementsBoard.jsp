@@ -27,7 +27,7 @@
                     <div class="headbox2">
                         <h5 class="head1">공지사항</h5>
                         <div class="hbox">
-                            <a class="hb1" id="writeButton">글쓰기</a>
+                            <a class="hb1" id="writeButton">+ 글쓰기</a>
                         </div>
                     </div>
                     <div class="secbox">

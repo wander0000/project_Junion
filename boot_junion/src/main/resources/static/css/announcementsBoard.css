@@ -126,6 +126,7 @@ section
     display: flex;
     margin-left: auto;
     margin-top: auto;
+	margin-right: 40px;
 }
 
 .hbox .hb1,
@@ -133,13 +134,19 @@ section
 {
     font-size: 20px;
     font-weight: 600;
-    color: #FFA500;
-    &:hover 
-    {
-        cursor: pointer;
-    }
+    color: #111;
+	&:hover 
+	{
+	    cursor: pointer;
+	    color: #FFA500;
+	}
 }
 
+.hbox .hb1
+{
+	font-size: 16px;
+	font-weight: 400;
+}
 
 
 .headbox
@@ -204,9 +211,10 @@ section
 .board .head,
 .board .head1
 {
-    font-size: var(--font-size32);
-    font-weight: 300;
-    /* line-height: 2; */
+	font-size: 24px;
+	font-weight: 500;
+
+	    color: #FFA500;
 }
 
 .listbox .list .l1,
@@ -282,13 +290,19 @@ section
 }
 .tdtd
 {
-	margin-top: 20px;
+	margin-bottom: 20px;
 }
 .aaaa
 {
 	font-size: 18px;
 	font-weight: 400;
+	/* line-height: 2; */
 	color: #111;
+	&:hover 
+	{
+	    cursor: pointer;
+	    color: #FFA500;
+	}
 }
 
 

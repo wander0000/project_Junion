@@ -148,6 +148,7 @@ section
     margin-left: auto;
     margin-top: auto;
     margin-right: 40px;
+	color: #111;
     &:hover 
     {
         cursor: pointer;
@@ -168,7 +169,7 @@ section
 .headbox .head2
 {
     font-size: 24px;
-    font-weight: 1000;
+    font-weight: 500;
 
         color: #FFA500;
     
@@ -191,6 +192,8 @@ section
     display: flex;
     flex-wrap: wrap;
 }
+
+
 
 
 
@@ -264,6 +267,8 @@ section
     font-weight: 200;
     /* line-height: 2; */
 }
+
+
 
 
 /* 페이징 시작*/
