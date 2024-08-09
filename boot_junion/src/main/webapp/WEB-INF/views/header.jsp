@@ -159,9 +159,9 @@
 				$(document).ready(function(){
 				         var mypageLink = document.getElementById('mypageLink')
 				         if('${login_usertype}'==1){
-				            mypageLink.href='individualMain';
+				            mypageLink.href='resumeList';
 				         }else if('${login_usertype}'==2){
-				            mypageLink.href='companyMain';
+				            mypageLink.href='jobpostingList';
 				         }
 				      })
 

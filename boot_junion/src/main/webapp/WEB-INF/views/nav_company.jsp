@@ -193,15 +193,7 @@
 	
 	    <div class="navMenu">
 	        <ul>
-	            <li>
-	                <a href="comRegistUpload">
-	                    <span class="icon">
-	                        <i class="fa-regular fa-pen-to-square"></i>
-	                    </span>
-	                    <span class="title">공고등록</span>
-	                </a>
-	            </li>
-	            <li>
+				<li>
 	                <a href="jobpostingList">
 	                    <span class="icon">
 	                        <i class="fa-regular fa-file-lines"></i>
@@ -210,13 +202,21 @@
 	                </a>
 	            </li>
 	            <li>
+	                <a href="comRegistUpload">
+	                    <span class="icon">
+	                        <i class="fa-regular fa-pen-to-square"></i>
+	                    </span>
+	                    <span class="title">공고등록</span>
+	                </a>
+	            </li>	            
+	            <!--<li>
 	                <a href="#">
 	                    <span class="icon">
 	                        <i class="fa-solid fa-users"></i>
 	                    </span>
 	                    <span class="title">인재풀</span>
 	                </a>
-	            </li>
+	            </li>-->
 	            <li>
 	                <a href="companyInfoManagement">
 	                    <span class="icon">

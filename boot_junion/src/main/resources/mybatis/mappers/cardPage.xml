@@ -57,7 +57,7 @@
 	         FROM
 	         (
 				select row_number() over(
-	            <include refid="hitType"/>
+	            
 		  	<![CDATA[
 		  		) as row_noticeNum , notice_num, notice_title, 
 	               c.com_name, notice_area1 , notice_area2, notice_career 
@@ -66,6 +66,7 @@
 	            where notice_endDate >= now()
 	            ]]>
 	            <include refid="std"/>
+	            <include refid="hitType"/>
 		  	<![CDATA[
 	            ) a 
 	         where row_noticeNum<= (#{std.pageNum} * #{std.amount}) 
