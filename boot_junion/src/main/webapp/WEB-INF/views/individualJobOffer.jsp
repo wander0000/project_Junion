@@ -221,7 +221,7 @@
 					box-sizing: border-box;
 					padding: 20px;
 					width: 1200px;
-					height: 140px;
+
 					justify-content: flex-start;
 				}
 
