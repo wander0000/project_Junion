@@ -41,9 +41,9 @@
 
                         <div class="headbox">
                             <div class="headbox">
-                                <h5 class="head2">
+                                <a class="head2" href="announcementRest">
                                     공지사항
-                                </h5>
+                                </a>
                             </div>
 
 
@@ -63,9 +63,9 @@
 
 
                                             <div class="title2">
-                                                <h5 class="l2">
+                                                <a class="l2" href="announcementRest">
                                                     + 모두 보기
-                                                </h5>
+                                                </a>
                                             </div>
 
                                         </div>
