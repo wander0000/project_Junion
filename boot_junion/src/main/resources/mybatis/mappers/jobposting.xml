@@ -32,10 +32,29 @@
     </select>
         
     <!-- 안전모드 켜져있으면 끄고 테스트하기 (delete구문 오류나면 확인하기)-->
- 	<delete id="jobpostingDelete"> <!-- notice_num 으로 공고번호 찾아서 삭제-->
+ 	<delete id="deleteNotice"> <!-- notice_num 으로 공고번호 찾아서 삭제-->
         delete from notice_tb where notice_num= #{notice_num}
     </delete>
-
+	
+	<!-- offer에서 데이터 삭제 -->
+	<delete id="deleteOffer">
+	    delete from offer where notice_num = #{notice_num}
+	</delete>
+	
+	<!-- notice_scrap에서 데이터 삭제 -->
+	<delete id="deleteNoticeScrap">
+	    delete from notice_scrap where notice_num = #{notice_num}
+	</delete>
+	
+	<!-- recent_notice에서 데이터 삭제 -->
+	<delete id="deleteRecentNotice">
+	    delete from recent_notice where notice_num = #{notice_num}
+	</delete>
+	
+	<!-- submit_tb에서 데이터 삭제 -->
+	<delete id="deleteSubmit">
+	    delete from submit_tb where notice_num = #{notice_num}
+	</delete>
 
     <!-- 공고목록 전체,진행중,마감 count 값 가져오는 쿼리 --> <!-- email값 추가해야됨-->
     <select id="jobpostingTotalCount" resultType="com.boot.DTO.jobpostingDTO">

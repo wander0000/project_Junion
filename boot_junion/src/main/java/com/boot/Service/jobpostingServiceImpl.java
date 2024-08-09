@@ -37,11 +37,39 @@ public class jobpostingServiceImpl implements jobpostingService{
 	}
 
 	
-	// 공고 삭제
-   @Override
-    public void jobpostingDelete(String notice_num) {
-        jobpostingDAO dao = sqlSession.getMapper(jobpostingDAO.class);
-        dao.jobpostingDelete(notice_num);	
+	@Override
+	public void deleteNotice(String notice_num) {
+		jobpostingDAO.deleteNotice(notice_num);
+	}
+
+	@Override
+	public void deleteOffer(String notice_num) {
+		jobpostingDAO.deleteOffer(notice_num);
+	}
+
+	@Override
+	public void deleteNoticeScrap(String notice_num) {
+		jobpostingDAO.deleteNoticeScrap(notice_num);
+	}
+
+	@Override
+	public void deleteRecentNotice(String notice_num) {
+		jobpostingDAO.deleteRecentNotice(notice_num);
+	}
+
+	@Override
+	public void deleteSubmit(String notice_num) {
+		jobpostingDAO.deleteSubmit(notice_num);
+	}
+	
+    // 5개의 삭제 메서드를 하나로 합친 메서드
+    @Override
+    public void deleteNoticeWithRelatedData(String notice_num) {
+        jobpostingDAO.deleteSubmit(notice_num);
+        jobpostingDAO.deleteOffer(notice_num);
+        jobpostingDAO.deleteNoticeScrap(notice_num);
+        jobpostingDAO.deleteRecentNotice(notice_num);
+        jobpostingDAO.deleteNotice(notice_num);
     }
    
     // 전체, 진행, 마감 공고 갯수
