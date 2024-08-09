@@ -246,14 +246,14 @@ main .toptitle .toptitlehh
 {
   display: flex;
   align-items: center;
-  width: 80%;
+  width: 84%;
 }
 
 .box .left .le
 {
 	/*margin-right: 100px;*/
 	display: flex;
-	width: 280px;
+	width: 260px;
 }
 
 .box .left .le .pfname
@@ -341,8 +341,9 @@ main .toptitle .toptitlehh
 .pname
 {
   color: #555555;
-  margin-top: 4px;
-  width: 50px;
+
+  
+  font-size: 14px;
   
  
 }
@@ -576,7 +577,7 @@ button.submit
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-	font-size: 12px;
+	font-size: 14px;
 
 
 }

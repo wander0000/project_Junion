@@ -111,7 +111,7 @@
 <!--        <div class="headerInner">-->
             <h5 class="logo">
                 <a href="main">
-                    <img src="${pageContext.request.contextPath}/images/logo.svg" alt="#">
+					<img src="${pageContext.request.contextPath}/images/logo.svg" alt="Logo">
                 </a>
             </h5>
             <ul class="menu">

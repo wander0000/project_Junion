@@ -109,7 +109,7 @@ section
 .listbox .list,
 .subbox
 {
-    margin-bottom: 20px;
+
     padding-bottom: 20px;
 
 }
@@ -167,7 +167,8 @@ section
 
 .title
 {
-    margin-bottom: 30px;
+    margin-bottom: 20px;
+
 
 }
 
@@ -192,7 +193,7 @@ section
 .subbox .s1
 {
     font-size: var(--font-size20);
-    font-weight: 400;
+	font-weight: 300;
     /* line-height: 2; */
     color: #111;
     &:hover 
@@ -208,8 +209,11 @@ section
 
 .listbox .list .l2
 {
-    margin-top: 40px;
+
     color: #FFA500;
+	font-size: 16px;
+	font-weight: 600;
+	
 }
 
 
