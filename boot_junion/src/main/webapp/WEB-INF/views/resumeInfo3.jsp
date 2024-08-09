@@ -167,7 +167,7 @@
 				
 				
 				<div class="buttonboxx">
-				    <button id="wri" class="button" onclick="location.href='jobpostingSupport?notice_num=${notice_num}';">
+				    <button id="wri" class="button" onclick="location.href='jobpostingIndividualSupport';">
 				        <h5 class="but1">목록	</h5>
 				    </button>
 
