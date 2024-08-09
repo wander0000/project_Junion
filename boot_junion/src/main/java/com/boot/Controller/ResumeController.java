@@ -293,6 +293,7 @@ public class ResumeController {
         for(int i=0; i<size; i++) {
         	resumeService.resumeDelete(ajaxMsg[i]);
         	resumeService.deleteResumeStack(ajaxMsg[i]);
+        	resumeService.deleteResumeInSubmit(ajaxMsg[i]);
         	List<ResumeUploadDTO> fileList = service.resumeGetFileList(Integer.parseInt(ajaxMsg[i]));
         	service.resumeDeleteFile(fileList);
         }        

@@ -97,6 +97,11 @@
         delete from RESUME_STACK where resume_num= #{resume_num}
     </delete>
     
+    <!-- 이력서 삭제시, 입사지원관리 리스트에도 같이 삭제 -->
+    <delete id="deleteResumeInSubmit">
+        delete from submit_tb where resume_num= #{resume_num}
+    </delete>
+    
 </mapper>
 
 

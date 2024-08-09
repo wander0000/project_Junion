@@ -126,6 +126,13 @@ public class ResumeServiceImpl implements ResumeService{
 		dao.deleteResumeStack(resume_num);		
 	}
 
+	@Override
+	public void deleteResumeInSubmit(String resume_num) {
+		log.info("@# deleteResumeStack resume_num==>" + resume_num);
+		ResumeDAO dao = sqlSession.getMapper(ResumeDAO.class);
+		dao.deleteResumeInSubmit(resume_num);		
+	}
+
 	
 
 	

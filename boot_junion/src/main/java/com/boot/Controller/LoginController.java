@@ -109,7 +109,7 @@ public class LoginController {
 		        model.addAttribute("pageName", "세션 로그인");
 		        
 		        session.setMaxInactiveInterval(1800); // Session이 30분동안 유지
-		        return "company/companyMain";
+		        return "company/jobpostingList";
 //		        return "redirect:company/companyMain";
 //				return "redirect:companyMain";
 			} else {

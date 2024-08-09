@@ -228,7 +228,7 @@
 	                    </div>                    
 	                    <div class="sectionConBody tech">
 	                        <div class="Bodycon tech">
-								<input type="text" class="techValue" id="techValue" name="stack_name"> <!-- resume_stack value 저장장소-->
+								<input type="hidden" class="techValue" id="techValue" name="stack_name"> <!-- resume_stack value 저장장소-->
 	                            <div class="techCon">
 	                                <div class="buttonTitle">기술</div>
 	                                <div class="buttonWrap">	                                    
@@ -308,8 +308,8 @@
 	        buttons.filter('.active').each(function() {
 	            buttonValues.push($(this).val());
 	        });
-			techValue.val(buttonValues.join(', '));	
-	        
+			techValue.val(buttonValues.join(','));	
+			alert("스택이 저장되었습니다.");
 	              		
 		}); // submit click 끝 
 		

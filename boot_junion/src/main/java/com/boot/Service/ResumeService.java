@@ -34,4 +34,7 @@ public interface ResumeService {
 	
 	// 회원가입-개인 stack 삭제
 	public void deleteResumeStack(String resume_num);
+
+	// 회원가입-개인 stack 삭제
+	public void deleteResumeInSubmit(String resume_num);
 }
