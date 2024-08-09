@@ -140,6 +140,15 @@
 						content:"";
 					}
 
+					.uploadText {
+						color: #222; /* 기본 텍스트 색상 */
+						cursor: pointer;
+					}
+
+					.uploadText:hover {
+						color: var(--main-color);
+					}
+
 
 					/*회원정보 테이블*/
 					.userInfoTable
@@ -305,7 +314,7 @@
 													</ul>
 												</div>
 												<div class="uploadDiv">
-													<input type="file" name="uploadFile" id="fileUpload" multiple>
+													<input type="file" name="uploadFile" id="fileUpload" multiple style="display: none;">
 													<label for="fileUpload" style="cursor: pointer;" class="uploadText">이미지 등록</label>
 												</div>
 												<!-- <input type="file" name="uploadFile" id="file" style="display: none;"> -->
@@ -490,7 +499,7 @@
 						success: function (data) {
 							console.log("Ajax success:", data);
 							showUploadResult(data);
-							$(".uploadDiv").css('display', 'none');
+							
 						},
 						error: function (xhr, status, error) {
 							console.error('Error fetching file list for user_email ' + user_email + ':', error);
@@ -526,7 +535,9 @@
 								uploadResultItem.remove();
 							}
 						});//end of ajax
-
+						
+						//이미지 등록 띄우기(이미지 삭제 후 파일업로드 안하고 빠져나갈 때 적용)
+						$(".uploadDiv").show();
 						//3. 파일 업로드 입력 요소 트리거
 						$("input[type='file']").click();
 					}
@@ -607,6 +618,7 @@
 					});
 
 					uploadUL.append(str);
+					$(".uploadDiv").css('display', 'none');
 
 					//드랍다운 부분에 사진 보이게
 					var uploadUL2 = $(".userWrapper");
