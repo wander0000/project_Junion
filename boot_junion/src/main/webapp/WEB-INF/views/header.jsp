@@ -74,7 +74,7 @@
 
 	.headerInner ul.menu li, .headerInner ul.rightMenu li 
 	{
-	    padding: 10px 20px;
+	    padding: 10px 10px;
 	}
 
 	.headerInner ul.menu li a, .headerInner ul.rightMenu li a 
