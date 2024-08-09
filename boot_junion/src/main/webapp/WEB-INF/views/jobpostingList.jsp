@@ -328,7 +328,7 @@
 	function deleteJobPosting(notice_num) {
 	           if (confirm("정말로 삭제하시겠습니까?")) {
 	               $.ajax({
-	                   url: '${pageContext.request.contextPath}/jobpostingDelete',
+	                   url: '${pageContext.request.contextPath}/jobpostingDeleteWithRelatedData',
 	                   type: 'POST',
 	                   data: { notice_num: notice_num },
 	                   success: function(response) {

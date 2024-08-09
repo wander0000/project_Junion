@@ -19,7 +19,11 @@ public interface jobpostingDAO {
 	 * 진행중공고 public ArrayList<jobpostingDTO> jobpostingOffList(String login_email);
 	 * // 마감된공고
 	 */	
-	public void jobpostingDelete(String notice_num);
+	public void deleteNotice(String notice_num);
+	public void deleteOffer(String notice_num);
+	public void deleteNoticeScrap(String notice_num);
+	public void deleteRecentNotice(String notice_num);
+	public void deleteSubmit(String notice_num);
 	// DTO로 받는건 여러 컬럼 받아올때 사용
 	public jobpostingDTO jobpostingTotalCount(String login_email); // 토탈카운트 (전체, 진행, 마감 3개 들어있음)
 	
