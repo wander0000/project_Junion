@@ -371,6 +371,7 @@
 		padding: 12px 20px;
 		width: initial;
 	    font-weight: 200;
+		
 	}
 
 
