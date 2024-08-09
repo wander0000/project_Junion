@@ -19,6 +19,7 @@ import com.boot.DTO.JoinDTO;
 import com.boot.DTO.ResumeDTO;
 import com.boot.DTO.ResumeUploadDTO;
 import com.boot.DTO.UserDTO;
+import com.boot.DTO.UserImageUploadDTO;
 import com.boot.Service.JoinService;
 import com.boot.Service.LoginService;
 import com.boot.Service.ResumeService;
@@ -252,12 +253,20 @@ public class ResumeController {
 		log.info("@# resumeModify param======>"+dto.getResume_comPosition());
 		model.addAttribute("resumeInfo", dto);	
 		
-		// 파일 업로드 if문 시작
-		if (resumeDTO.getResumeUploadList() != null) {
-			resumeDTO.getResumeUploadList().forEach(attach -> log.info("@# 보드컨트롤러 write / attach 호출=>"+attach));
-		}
 		
-		resumeService.resumeModify(param);
+//		// 파일 업로드 if문 시작
+//		if (resumeDTO.getResumeUploadList() != null) {//파일(이미지) 있으면
+//			resumeDTO.getResumeUploadList().forEach(attach -> log.info("@# 보드컨트롤러 write / attach 호출=>"+attach));
+//			List<ResumeUploadDTO> list = service.resumeGetFileList(dto.getResume_num());
+//			for (int i = 0; i < list.size(); i++) {
+//				service.deleteResumeImage(dto.getResume_num());//수정전 데이터 삭제
+//			}
+//			log.info("@# 사용자 사진 업로드 Impl insertUserImage 호출");
+//			service.resumeInsertFile(resumeDTO);
+//		}
+		
+		resumeService.resumeModify(dto);
+		
 		int resume_num = resumeDTO.getResume_num();
 		
 		log.info("@# resume resumeDTO  resume_num==>>" + resume_num);

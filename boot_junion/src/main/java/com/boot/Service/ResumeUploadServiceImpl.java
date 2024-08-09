@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.boot.DAO.ResumeUploadDAO;
+import com.boot.DAO.UserImageUploadDAO;
 import com.boot.DTO.ResumeUploadDTO;
+import com.boot.DTO.UserImageUploadDTO;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -56,6 +58,28 @@ public class ResumeUploadServiceImpl implements ResumeUploadService{
 		});//end of forEach
 	}
 
+	
+	@Override
+	public void resumeInsertFile(ResumeUploadDTO vo) {//이미지 하나 업로드
+		log.info("@# 사용자 사진 업로드 Impl  insertUserImage");
+		
+		ResumeUploadDAO dao = sqlSession.getMapper(ResumeUploadDAO.class);
+		
+		dao.resumeInsertFile(vo);
+	}
+
+	
+	@Override
+	public void deleteResumeImage(int resume_num) {//특정 이미지 하나만 삭제
+		log.info("@# 사용자 사진 업로드 Impl  deleteUserImage");
+		
+		ResumeUploadDAO dao = sqlSession.getMapper(ResumeUploadDAO.class);
+		
+		dao.deleteResumeImage(resume_num);
+		
+	}
+	
+	
 }
 
 
