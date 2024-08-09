@@ -138,6 +138,7 @@
 							&:hover {
 								background: var(--main-color);
 								color: #fff;
+								border-color: #FFA500;
 							}
 						}
 
@@ -155,6 +156,11 @@
 
 						.fa-bookmark.active {
 							color: var(--main-color);
+						}
+
+						.left .fil2:hover
+						{
+							border-color: #FFA500;
 						}
 
 						/* 버튼 끝 */
