@@ -303,12 +303,8 @@ section
   border-radius: 6px;
   padding: 12px 20px;
   width: initial;
-  cursor: pointer;
-  &:hover 
-  {
-      background: var(--main-color);
-      color: #fff;
-  }
+  
+
 }
 
 
