@@ -128,9 +128,9 @@
                     <div class="sectionB" data-aos="fade-up" data-aos-anchor-placement="top-bottom">
                         <div class="sectionName">
                             <div class="subtitle">기업 공고</div>
-                            <a href="cardPageList" class="more">더보기
+                            <!--<a href="cardPageList" class="more">더보기
                                 <i class="fa-solid fa-angle-right"></i>
-                            </a>
+                            </a>-->
                         </div><!--sectionName-->
                         <div class="themaCon">
                             <div class="postThema">
@@ -227,7 +227,7 @@
                         </a>
                     </div><!--sectionName 끝-->
                     <div class="postSection">
-                        <c:forEach items="${mainRecommendCom}" var="dto">
+                        <c:forEach items="${mainRecommendCom}" var="dto" begin='0' end='5'>
                             <div class="a" data-com-email="${dto.com_email}">
                                 <div class="conImage">
                                     <div class="uploadResutl">

@@ -62,17 +62,28 @@ public class DailyCSController {
 	@GetMapping("/dailyCS")
 	public String dailyCSList(dailyCSCriteria cri3, Model model, HttpServletRequest request) 
 	{	
-		HttpSession session = request.getSession();		
-		String session_email = (String)session.getAttribute("login_email");
-		model.addAttribute("session_email",session_email);
 		
-		ArrayList<DailyCSDTO> list = dailyCSService.questionList(cri3);		
-		model.addAttribute("list", list);		
-	
-		int total = dailyCSService.dailyCSGetTotalCount();
-		model.addAttribute("pageMaker", new DailyCSPageDTO(total,cri3));
+		HttpSession session = request.getSession();	
 		
-		return "dailyCS";
+		if ((String)session.getAttribute("login_email") == null) 
+		{
+    		return "redirect:login";
+		} 
+		else 
+		{
+			String session_email = (String)session.getAttribute("login_email");
+			model.addAttribute("session_email",session_email);
+			
+			ArrayList<DailyCSDTO> list = dailyCSService.questionList(cri3);		
+			model.addAttribute("list", list);		
+		
+			int total = dailyCSService.dailyCSGetTotalCount();
+			model.addAttribute("pageMaker", new DailyCSPageDTO(total,cri3));
+			
+			return "dailyCS";
+		}
+			
+		
 //		return null;
 	}
 	
