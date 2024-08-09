@@ -230,7 +230,7 @@
                         <c:forEach items="${mainRecommendCom}" var="dto" begin='0' end='5'>
                             <div class="a" data-com-email="${dto.com_email}">
                                 <div class="conImage">
-                                    <div class="uploadResutl">
+                                    <div class="uploadResult">
                                         <ul>
 
                                         </ul>
