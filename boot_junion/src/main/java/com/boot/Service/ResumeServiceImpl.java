@@ -86,9 +86,10 @@ public class ResumeServiceImpl implements ResumeService{
 	}
 
 	@Override
-	public void resumeModify(HashMap<String, String> param) {
+//	public void resumeModify(HashMap<String, String> param) {
+	public void resumeModify(ResumeDTO resumeDTO) {
 		ResumeDAO dao = sqlSession.getMapper(ResumeDAO.class);
-		dao.resumeModify(param);		
+		dao.resumeModify(resumeDTO);		
 	}
 
 	@Override

@@ -402,12 +402,7 @@
 						data: { resume_num: resume_num },
 						dataType: 'json',
 						success: function (result) {
-							// console.log("Ajax success:", data);
-							// alert("업로드 파일있음");
-							// showUploadResult(data);
-							// $(".uploadDiv").css('display', 'none');
-
-							alert("파일이 업로드 되었습니다.");
+							console.log("Ajax success:", data);
 						console.log(result);
 						showUploadResult(result); // 파일 업로드 결과 표시 함수 호출
 						$(".uploadDiv").css('display', 'none');
@@ -447,7 +442,10 @@
 						}
 					});//end of ajax
 
-					//3. 파일 업로드 입력 요소 트리거
+					//3.이미지 등록 띄우기(이미지 삭제 후 파일업로드 안하고 빠져나갈 때 적용)
+					$(".uploadDiv").show();
+
+					//4. 파일 업로드 입력 요소 트리거
 					$("input[type='file']").click();
 				}
 			});
@@ -531,88 +529,7 @@
 					// uploadUL.append(str);
 
 				}//showUploadResult function 끝
-
 			
-			//컨트롤러단으로 연결				
-			// boardNo를 던지면 리턴되는값 : function(arr) => 컨트롤러에 있는 new ResponseEntity<> 객체 전부 가져옴
-			// $.getJSON("/resumeGetFileList", {resume_num: resume_num}, function(arr)
-			// { 
-			// 	console.log("@# arr=>"+arr);
-
-			// 	var str="";
-
-				
-			// 	$(arr).each(function(i, attach)
-			// 	{
-								
-			// 		//image type
-			// 		if(attach.image) 
-			// 		{
-			// 			var fileCallPath = encodeURIComponent(attach.uploadPath +"/s_"+ attach.uuid + "_" + attach.fileName);
-
-			// 			str += "<li data-path='" + attach.uploadPath + "'";
-			// 			str += " data-uuid='" + attach.uuid + "' data-filename='" + attach.fileName + "' data-type='" + attach.image + "'>";
-			// 			str + "<div>";						
-			// 			str +="<span style='display:none'>"+attach.fileName+"</span>";
-			// 			str +="<img src='/resumeDisplay?fileName="+fileCallPath+"'>"; // 이미지 출력 처리(컨트롤러단)
-			// 			str +="</div>";
-			// 			str +="<div class='imgController'>";
-			// 			str +="<span data-file=\'"+fileCallPath+"\'data-type='image' style='cursor:pointer'> X </span>";
-			// 			str +="</div>";
-			// 			str +="</li>";
-			// 		}
-			// 		else 
-			// 		{
-			// 			var fileCallPath = encodeURIComponent(attach.uploadPath +"/"+ attach.uuid + "_" + attach.fileName);
-					
-			// 			str += "<li data-path='" + attach.uploadPath + "'";
-			// 			str += " data-uuid='" + attach.uuid + "' data-filename='" + attach.fileName + "' data-type='" + attach.image + "'"
-			// 			str + " ><div>";
-			// 			str +="<span>"+attach.fileName+"</span>";
-			// 			str +="<img src='./resources/img/attach.png'>";		
-			// 			str +="<span data-file=\'"+fileCallPath+"\'data-type='file' style='cursor:pointer'> X </span>";				
-			// 			str +="</div>";
-			// 			str +="</li>";
-			// 		}
-
-			// 	}); // arr.each 끝
-			// 	console.log("@#str=======>"+str);
-			// 	$(".uploadResult ul").html(str);
-			// }); // getJSON끝
-
-			// $(".uploadResult").on("click","li", function(e){
-			// 	console.log("@# uploadResult click");
-
-			// 	var liObj = $(this);
-			// 	console.log("@# liobj.path=>"+liObj.data("path"));
-			// 	console.log("@# liobj.uuid=>"+liObj.data("uuid"));
-			// 	console.log("@# liobj.fileName"+liObj.data("filename"));
-			// 	console.log("@# liobj.type"+liObj.data("type"));
-
-			// 	var path = encodeURIComponent(liObj.data("path") +"/"+ liObj.data("uuid") + "_" + liObj.data("filename"));
-			// 	console.log("@# var path=>"+path);
-
-			// 	if(liObj.data("type")) 
-			// 	{
-			// 		console.log("@# 01");
-			// 		console.log("@# view");
-
-			// 		showImage(path);
-			// 	}
-			// 	else 
-			// 	{
-			// 		console.log("@# 02");
-			// 		console.log("@# download");
-			// 		console.log("@# path=========>"+ path);
-			// 		// 컨트롤러의 download 호출
-			// 		//self.location="/download?fileName="+path;// 틀리면 download로 다시바꾸
-			// 		self.location="/resumeDownload?fileName="+path;
-					
-			// 	}
-			// }); // .uploadResult 클릭 끝
-
-			
-
 			// 썸네일이미지 눌렀을때 100%로 확대
 			function showImage(fileCallPath) 
 			{

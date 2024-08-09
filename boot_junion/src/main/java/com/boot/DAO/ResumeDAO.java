@@ -33,7 +33,8 @@ public interface ResumeDAO {
 //	public UserDTO userInfo(HashMap<String, String> param);
 	
 	// 이력서 수정
-	public void resumeModify(HashMap<String, String> param);
+//	public void resumeModify(HashMap<String, String> param);
+	public void resumeModify(ResumeDTO resumeDTO);
 	
 	// 이력서 삭제
 	public void resumeDelete(String resume_num);

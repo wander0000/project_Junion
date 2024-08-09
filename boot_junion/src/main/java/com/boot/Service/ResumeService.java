@@ -22,7 +22,8 @@ public interface ResumeService {
 	public ResumeDTO resumeInfo(HashMap<String, String> param);
 	public UserDTO userInfo(String user_email);
 //	public UserDTO userInfo(HashMap<String, String> param);
-	public void resumeModify(HashMap<String, String> param);
+//	public void resumeModify(HashMap<String, String> param);
+	public void resumeModify(ResumeDTO resumeDTO);
 	public void resumeDelete(String resume_num);
 	public void resumeOfferUpdate(String resume_num, String resume_offer);
 	

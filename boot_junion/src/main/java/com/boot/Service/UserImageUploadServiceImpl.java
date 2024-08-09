@@ -37,8 +37,6 @@ public class UserImageUploadServiceImpl implements UserImageUploadService{
 	}
 
 	
-	
-	
 	@Override
 	public void deleteUserImage(int fileNo) {//특정 이미지 하나만 삭제
 		log.info("@# 사용자 사진 업로드 Impl  deleteUserImage");
