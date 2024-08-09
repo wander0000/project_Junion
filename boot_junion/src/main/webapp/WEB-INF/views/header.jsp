@@ -120,7 +120,7 @@
                 <li><a href="jobpostingIndividualSupport">인재풀</a></li>
                 <li><a href="comList">기업정보</a></li>
                 <li><a href="boardCommunity">커뮤니티</a></li>
-                <li><a href="noticeCommunity">Q&A</a></li> 
+                <li><a href="announcements">고객센터</a></li> 
                 <li><a href="dailyCS">DailyCS</a></li>
                 <!-- <li><a href="#">공지사항</a></li> -->
             </ul>
