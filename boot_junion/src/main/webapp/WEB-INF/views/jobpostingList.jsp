@@ -164,11 +164,11 @@
 				                            <h5 class="carh5">삭제</h5>
 				                        </a>
 				                    </div>
-									<a class="applicant-count" href="jobpostingSupport?notice_num=${dto.notice_num}">
-									    <div class="jobjob">
+									<div class="applicant-count" >
+									    <a class="jobjob" href="jobpostingSupport?notice_num=${dto.notice_num}">
 									        <h5 class="carh6">지원자 ${dto.t_count}</h5>
-									    </div>
-									</a>
+									    </a>
+									</div>
 				                </div>
 				            </div>
 				        </c:forEach>

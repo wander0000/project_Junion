@@ -51,15 +51,9 @@
                                     <div class="list">
                                         <div class="ll">
 
-                                            <c:forEach items="${list}" var="dto"> <!--list 반복문 시작-->
-                                                <a class="move_link" href="${dto.board_no}">
-                                                    <div class="title">
-                                                        <h5 class="l1">
-                                                            [공지] 제목입니다제목입니다제목입니다제목입니다
-                                                        </h5>
-                                                    </div>
-                                                </a>
-                                            </c:forEach> <!--list 반복문 끝-->
+											<div id="announcement-container">
+											    <!-- Announcement titles will be dynamically inserted here -->
+											</div>
 
 
                                             <div class="title2">
@@ -87,18 +81,14 @@
                                     <div class="list">
                                         <div class="ll">
 
-											<c:set var="counter" value="0" />
-											<c:forEach items="${boardList}" var="dto">
-											    <c:if test="${counter < 5}">
-											        <a class="move_link" href="${pageContext.request.contextPath}/noticeBoardDetailView?board_no=${dto.board_no}">
-											            <div class="title">
-											                <h5 class="l1">
-											                    [Q&A] ${dto.board_title}
-											                </h5>
-											            </div>
-											        </a>
-										        <c:set var="counter" value="${counter + 1}" />
-											    </c:if>
+											<c:forEach items="${boardList}" var="dto" begin="0" end="4">
+											    <a class="move_link" href="${pageContext.request.contextPath}/noticeBoardDetailView?board_no=${dto.board_no}">
+											        <div class="title">
+											            <h5 class="l1">
+											                [Q&A] ${dto.board_title}
+											            </h5>
+											        </div>
+											    </a>
 											</c:forEach>
 
 
@@ -198,6 +188,39 @@
 	        actionForm.attr("action", "noticeBoardDetailView").submit();
 	    });
 	});
+	
+	
+	
+	
+	$.ajax({
+         url: '/announcementRest/data',
+         type: 'GET',
+         contentType: 'application/json',
+         dataType: 'json',
+         success: function(response) {
+             if (response.result) {
+                 var data = response.data;
+                 var $container = $('#announcement-container');
+                 $container.empty();
+
+                 // Show only first 5 items and populate the titles
+                 $.each(data.slice(0, 5), function(index, item) {
+                     $container.append(
+                         '<a class="move_link" href=/announcementRest/' + item.board_no + '>' +
+                             '<div class="title">' +
+                                 '<h5 class="l1">[공지] ' + item.board_title + '</h5>' +
+                             '</div>' +
+                         '</a>'
+                     );
+                 });
+             } else {
+                 console.error("No data found");
+             }
+         },
+         error: function(xhr, status, error) {
+             console.error("Error fetching data:", error);
+         }
+     });
 </script>
 
 

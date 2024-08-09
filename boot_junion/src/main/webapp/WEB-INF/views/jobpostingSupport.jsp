@@ -45,12 +45,8 @@
         font-size: var(--color-black);
     }
     /* 필터 박스 스타일 */
-    .filterBox {
-        margin-top: 10px;
-    }
-    .filterBox label {
-        margin-right: 5px;
-    }
+
+
     /* 데이터 없음 스타일 */
     .notfound {
         text-align: center;

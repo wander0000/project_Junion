@@ -81,6 +81,8 @@ public class announcementsController {
 		ArrayList<announcementsTermsDTO> list = termsService.boardList();
 		model.addAttribute("announcementsTerms", list);  
 		
+		ArrayList<announcementsBoardDTO> boardlist = boardService.boardList();
+		model.addAttribute("announcementsBoard", boardlist);  
 		
 		return "announcementsTerms";
 	}
