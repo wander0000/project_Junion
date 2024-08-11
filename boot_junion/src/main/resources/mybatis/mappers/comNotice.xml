@@ -35,22 +35,27 @@
 	
 <!-- 	채용공고 클릭, 상세페이지 이동시 조회수 증가 -->
 	<update id="hitUP">
-		update notice_tb set notice_hit = notice_hit+1
+		update notice_tb set notice_hit = IFNULL(notice_hit, 0)+1
 			where notice_num=#{notice_num}
 	</update>
 	
 <!--  채용공고 클릭시 상세정보 페이지 이동, 정보 뿌리기 -->
 <!--  2024-07-24 하진 : 테이블 정규화로 인해 쿼리 수정 -> join  -->
 <!--  2024-07-24 하진 : 재수정...join 오류 -->
+<!--2024-08-11 하진 : 상세공고 정보 출력 X 오류 -> left join으로 변경(기업 정보를 작성하지 않고 공고를 올리는 경우 고려)-->
 	<select id="JobPost" resultType="com.boot.DTO.ComNoticeDTO">
-		SELECT n.notice_title, n.com_email, c.com_name, n.notice_jobInfo, n.notice_job, c.com_location, 
-				n.notice_condition, n.notice_prefer, n.notice_benefit, nt.notice_stack, 
-				n.notice_startDate, n.notice_endDate, n.notice_area1, n.notice_area2, 
-				n.notice_career, n.notice_contactType, n.notice_department, n.notice_position, n.notice_recruitNum, 
-				n.notice_pay1, n.notice_pay2 
-			FROM notice_tb n JOIN (SELECT com_email, GROUP_CONCAT(stack SEPARATOR ', ') AS notice_stack 
-			FROM notice_stack WHERE notice_num = #{notice_num} GROUP BY com_email) nt ON n.com_email = nt.com_email 
-			JOIN com_tb c ON n.com_email = c.com_email WHERE n.notice_num = #{notice_num}
+			SELECT n.notice_title, n.com_email, c.com_name, n.notice_jobInfo, 
+						n.notice_job, c.com_location, n.notice_condition, n.notice_prefer, 
+						n.notice_benefit, nt.notice_stack, n.notice_startDate, 
+						n.notice_endDate, n.notice_area1, n.notice_area2, n.notice_career, 
+						n.notice_contactType, n.notice_department, n.notice_position, 
+						n.notice_recruitNum, n.notice_pay1, n.notice_pay2 
+				FROM notice_tb n 
+				left JOIN (SELECT com_email, GROUP_CONCAT(stack SEPARATOR ', ') AS notice_stack 
+							FROM notice_stack WHERE notice_num = #{notice_num} GROUP BY com_email) nt 
+				ON n.com_email = nt.com_email 
+				left JOIN com_tb c ON n.com_email = c.com_email 
+				WHERE n.notice_num = #{notice_num}
 	</select>
 
 <!-- 	채용공고 상세정보 페이지로 이동시 사이드에 해당 기업의 다른 공고를 출력하는 쿼리 -->
