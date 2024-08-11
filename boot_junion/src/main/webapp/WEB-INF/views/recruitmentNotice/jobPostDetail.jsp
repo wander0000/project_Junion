@@ -832,17 +832,40 @@
 	// 24.07.29 하진
 	// : 기업 회원의 경우 버튼 비활성화
 	// : 개인이나 비회원의 경우, 버튼 활성화 및 외부팝업 발생
+	
+	// 24.08.10 하진 : 스크랩한 공고 부분에서 마감된 공고도 볼 수 있다는 연주님 조언에 로직 추가
+	// 개인 회원일 경우, 지원하기 팝업을 발생하는 과정에서 한번 더 현재 날짜와 공고 마감일을 비교
+	// 날짜가 지난 경우, alert 발생
 	var user_type = "${login_usertype}";
+	var endDate ="${company.notice_endDate}";
+	console.log("endDate 확인 "+endDate);
+	const noticeEndDate = new Date(endDate);
+	noticeEndDate.setHours(0, 0, 0, 0);
+	console.log("endDate 변환 "+noticeEndDate);
+
+ 	// 현재 날짜 가져오기   
+	 const currentDate = new Date();
+
+	// var now = date.toDateString();
+	currentDate.setHours(0, 0, 0, 0);
+	console.log("now -> "+currentDate);
+	
+
 	// console.log("user_type = "+user_type);
 	// if (!user_type || user_type == 1) {
 	if (user_type == 1) {
 			// 24-07-09 임하진 : 외부 팝업
 			function resume() {
-				$("#user_resume").addClass("active");
-				const urlParams = new URLSearchParams(location.search);
-				var notice_num = urlParams.get('notice_num');
-				var popupProperties = "width=560, height=440, resizable = no, scrollbars = no";
-				window.open("/profileInfo?notice_num="+notice_num,"profileInfo.jsp", popupProperties);
+				if(noticeEndDate >= currentDate){
+					$("#user_resume").addClass("active");
+					const urlParams = new URLSearchParams(location.search);
+					var notice_num = urlParams.get('notice_num');
+					var popupProperties = "width=560, height=440, resizable = no, scrollbars = no";
+					window.open("/profileInfo?notice_num="+notice_num,"profileInfo.jsp", popupProperties);
+
+				}else if(noticeEndDate < currentDate) {
+               alert("지원이 마감된 공고입니다.");
+				}
 		}
 	}else if(!user_type){
 		function resume() {
@@ -934,13 +957,15 @@
 
 
 // 24.07.28 side 부분 구현 -> 다른 채용 공고가 없을 경우의 로직
+// 24.08.11 하진 : 다른 공고 보러 가기 클릭시 이동 테이지 수정
 	var postNum = "${postNum}";
 	if (postNum == 0) {
 		$("#otherNotice").text("다른 공고 보러 가기");
 		$(".t").css({"display":"none"});
 		$("#otherNotice").parent().on("click",function() {
 			$(this).addClass("active");
-			location.href="cardPageList";
+			// location.href="cardPageList";
+			location.href="jobPostList";
 		});
 	}
 
