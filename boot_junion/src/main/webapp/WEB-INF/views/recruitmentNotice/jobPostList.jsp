@@ -370,9 +370,9 @@ display:inline-block;
                 <form method="get" id="searchForm">
                     <div class="selectbox">
                         <div class="select">
-                            <input class="title" type="text" name="keyword" value="${paging.std.keyword}" placeholder="검색어를 입력해 주세요">
+                            <input class="title" type="text" name="keyword" id="keyword" value="${paging.std.keyword}" placeholder="검색어를 입력해 주세요">
                         </div> <!-- 콘텐트박스 끝-->
-                        <div class="icon">
+                        <div class="icon searchBtn">
                             <div class="i1">
                                 <a href="#" class="fa-solid fa-magnifying-glass" style="color: #ffa500;"></a>
                             </div>
@@ -420,33 +420,36 @@ display:inline-block;
                                         </select>
                                 <!-- </form> -->
                             </div> <!-- selectbox 끝 -->
+                            <button class="fil2 searchBtn">
+                                <!-- <input type="hidden" name="orderType" id="orderType" value="${orderType}"> -->
+                                    <!-- <div class="f1"> -->
+                                        <!-- <h5 class="but1"> -->
+                                            검색
+                                        <!-- </h5> -->
+                                    <!-- </div> -->
+                                </button> <!--검색 버튼 끝-->
 
-
-                            <button class="fil2" onclick="sortList()">
-                            <input type="hidden" name="orderType" id="orderType" value="${orderType}">
-                                <div class="f1">
-                                    <h5 class="but1">
-                                        마감임박
-                                    </h5>
-                                </div>
-                            </button> <!-- 마감임박 버튼 끝-->
-
+                            
                         </div> <!-- 레프트 끝-->
-
+                        
                         <div class="right">
-                            <button class="fil2" id="firstButton">
-                                <div class="f1">
-                                    <h5 class="but1">
-                                        추천순
-                                    </h5>
-                                </div>
+                            <input type="hidden" name="orderType" id="orderType">
+                            <button class="tab-btn fil2 ${paging.std.orderType == 'urgent' ? 'active' : ''}" id="urgentButton"  name="orderType" value="urgent">
+                                <h5 class="but1">
+                                    마감임박
+                                </h5>
                             </button>
-                            <button class="tab-btn fil2 ${orderType == 'latest' ? 'active' : ''}" id="latestButton" onclick="switchTab('latest', event)">
+                            <button class="tab-btn fil2 $paging.std.orderType == 'hit' ? 'active' : ''}" id="scrapButton" name="orderType" value="scrap">
+                                <h5 class="but1">
+                                    추천순
+                                </h5>
+                            </button>
+                            <button class="tab-btn fil2 ${paging.std.orderType == 'latest' ? 'active' : ''}" id="latestButton" name="orderType" value="latest">
                                 <h5 class="but1">
                                     최신순
                                 </h5>
                             </button>
-                            <button class="tab-btn fil2 ${hitType == 'view' ? 'active' : ''}" id="viewButton" onclick="switchTab('view', event)">
+                            <button class="tab-btn fil2 ${paging.std.orderType == 'view' ? 'active' : ''}" id="viewButton" name="orderType" value="view">
                                 <h5 class="but1">
                                     조회순
                                 </h5>
@@ -565,7 +568,8 @@ display:inline-block;
             <input type="hidden" name="pageNum" value="${paging.std.pageNum}">
             <input type="hidden" name="amount" value="${paging.std.amount}">
             <!-- hidden 값 미스매치로 페이지가 나오지 않는 오류 있었음 -->
-            <input type="hidden" name="hitType" value="${paging.std.hitType}">
+            <input type="hidden" name="keyword" value="${paging.std.keyword}">
+            <input type="hidden" name="careerType" value="${paging.std.careerType}">
             <input type="hidden" name="stackType" value="${paging.std.stackType}">
             <input type="hidden" name="locationType" value="${paging.std.locationType}">
         </form>
@@ -623,16 +627,24 @@ $(document).ready(function() {
 
     document.addEventListener('DOMContentLoaded', function() {
     // 각 버튼에 대한 이벤트 리스너 추가
-    const recentButton = document.getElementById('recentButton');
+    const urgentButton = document.getElementById('urgentButton');
+    const scrapButton = document.getElementById('scrapButton');
     const latestButton = document.getElementById('latestButton');
     const viewButton = document.getElementById('viewButton');
 
     const orderTypeInput = document.getElementById('orderType');
 
     // 마감임박 버튼 클릭 시
-    recentButton.addEventListener('click', function(event) {
+    urgentButton.addEventListener('click', function(event) {
         event.preventDefault();  // 기본 동작 방지
-        orderTypeInput.value = 'recent';  // orderType 값을 'recent'로 설정
+        orderTypeInput.value = 'urgent';  // orderType 값을 'recent'로 설정
+        document.getElementById('searchForm').submit();  // 폼 제출
+    });
+
+    // 추천순 버튼 클릭 시
+    scrapButton.addEventListener('click', function(event) {
+        event.preventDefault();  // 기본 동작 방지
+        orderTypeInput.value = 'scrap';  // orderType 값을 'recent'로 설정
         document.getElementById('searchForm').submit();  // 폼 제출
     });
 
@@ -652,13 +664,33 @@ $(document).ready(function() {
 });
 
 
-    // 검색 기능 초안
-    var searchForm = $("#searchForm");
+    // // 검색 기능 초안
+    // var searchForm = $("#searchForm");
 
-    $(".fa-magnifying-glass").on("click",function () {
-        $("#searchForm").submit();
-    })
+    // $(".fa-magnifying-glass").on("click",function () {
+    //     $("#searchForm").submit();
+    // })
 
+   /*
+    2024-08-09
+    서연주 
+    기업명, 공고제목, 공고내용으로 검색하기
+    */
+    function handleSearchClick(e) {
+        e.preventDefault();
+        var keyword = document.getElementById('keyword');
+        var searchForm = $("#searchForm");
+        if (keyword.value.length === 0) {
+            alert("키워드를 입력하세요.");
+        } else {
+            searchForm.attr("action", "#").submit(); // searchForm 정보를 들고 컨트롤러단으로 감
+        }
+    }
+
+    // 각 요소에 이벤트 리스너 추가
+    document.querySelectorAll('.searchBtn').forEach(function(element) {
+        element.addEventListener('click', handleSearchClick);
+    });
 
 
 // 페이징 관련 로직

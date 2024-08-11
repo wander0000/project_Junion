@@ -7,13 +7,14 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import com.boot.DTO.ComNoticeAttachDTO;
+import com.boot.DTO.ComNoticeDTO;
 import com.boot.DTO.Criteria4;
 import com.boot.DTO.Standard;
 
 @Mapper
 public interface CardPageDAO {
-//	public ArrayList<ComNoticeDAO> cardPageList(Standard std);// 페이징을 위한 메소드
-	public ArrayList<ComNoticeDAO> cardPageList(@Param("orderType") String orderType, @Param("std") Standard std);// 페이징 + 필터링
+//	public ArrayList<ComNoticeDAO> cardPageList(String orderType, Standard std);// 페이징을 위한 메소드
+	public ArrayList<ComNoticeDTO> cardPageList(@Param("orderType") String orderType, @Param("std") Standard std);// 페이징 + 필터링
 //	public ArrayList<ComNoticeDAO> cardPageList(CardPageDAO dao);// 페이징을 위한 메소드
 //	public int getTotalCount();//전체 공고 수 구하기
 	public int getTotalCount(Standard std);//전체 공고 수 구하기
