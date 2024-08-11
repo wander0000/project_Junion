@@ -3,88 +3,6 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.boot.DAO.CardPageDAO">
-<sql id="std">
-	        <if test='std.keyword != null and std.keyword != ""'><!--keyword 검색시-->
-	            AND n.notice_title LIKE CONCAT('%', #{std.keyword}, '%')
-	        </if>
-	        <if test='std.careerType != null and std.careerType != ""'><!--경력 검색-->
-	            AND notice_career = #{std.careerType}
-	        </if>
-<!--	        <if test='std.stackType != null and std.stackType != ""'>-->
-<!--	            AND EXISTS (-->
-<!--	                SELECT 1 FROM com_stack cs WHERE cs.com_email = n.com_email AND cs.stack = #{std.stackType}-->
-<!--	            )-->
-<!--	        </if>-->
-	        <if test='std.locationType != null and std.locationType != ""'><!--지역 검색-->
-	            AND CONCAT(notice_area1, notice_area2) LIKE CONCAT('%', #{std.locationType}, '%')
-	        </if>
-<!--	        <if test='std.email != null and std.email != ""'>-->
-<!--	            AND CONCAT(notice_area1, notice_area2) LIKE CONCAT('%', #{std.locationType}, '%')-->
-<!--	        </if>-->
-	</sql>
-
-	<sql id="orderType">
-	    <choose>
-	        <when test='orderType == "latest"'><!--최신순-->
-	            order by notice_num DESC
-	        </when>
-	        <otherwise>
-	            order by notice_num DESC   <!--기본 정렬 조건--> 
-	        </otherwise>
-	    </choose>
-	</sql>
-
-	<sql id="hitType">
-		<choose>
-			<when test='orderType == "recent"'><!--마감임박순-->
-	            order by notice_endDate asc
-	        </when>
-			<when test='orderType == "view"'><!--조회순-->
-	            order by notice_hit DESC
-	        </when>
-	        <otherwise>
-	            order by notice_num DESC   <!--기본 정렬 조건--> 
-	        </otherwise>
-	    </choose>
-	</sql>
-
-	<select id="cardPageList" resultType="com.boot.DTO.ComNoticeDTO">
-<!-- 	페이징을 위한 쿼리 -->
-	   select row_noticeNum, notice_num, notice_title, aa.com_name, notice_area1, notice_area2, notice_career 
-	   		FROM
-	   		(
-			select row_noticeNum, notice_num, notice_title, a.com_name, notice_area1, notice_area2, notice_career 
-	         FROM
-	         (
-				select row_number() over(
-	            
-		  	<![CDATA[
-		  		) as row_noticeNum , notice_num, notice_title, 
-	               c.com_name, notice_area1 , notice_area2, notice_career 
-	            FROM notice_tb n
-	            join com_tb c on n.com_email = c.com_email 
-	            where notice_endDate >= now()
-	            ]]>
-	            <include refid="std"/>
-	            <include refid="hitType"/>
-		  	<![CDATA[
-	            ) a 
-	         where row_noticeNum<= (#{std.pageNum} * #{std.amount}) 
-	         )aa 
-	         where row_noticeNum > (#{std.pageNum}-1)* #{std.amount}
-	   ]]>
-	</select>
-
-	
-<!--	총 진행중인 공고 수를 가져오는 쿼리-->
-	<select id="getTotalCount" resultType="int"> 
-		select count(*) from notice_tb n join com_tb c 
-			on n.com_email = c.com_email where notice_endDate >= now()
-<!--		<include refid="std"></include>-->
-	</select>
-
-
-
 
 
 <!--career 조회 : 필터링 기능을 위함 -->
@@ -107,6 +25,91 @@
 		select uuid, uploadPath, fileName, image, notice_num
 			from notice_attach where notice_num=#{notice_num}
     </select>
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    <!-- 0809 연주 메인 채용 채용공고 리스트 -->
+    
+    
+    
+    <select id="cardPageList" resultType="com.boot.DTO.ComNoticeDTO">
+		<!-- 	페이징을 위한 쿼리 -->
+	   select row_noticeNum, notice_num, notice_title, com_name, notice_area1, notice_area2, notice_career, notice_jobInfo,notice_endDate,notice_hit,scrap_count,stack
+		FROM ( select row_noticeNum, notice_num, notice_title, com_name, notice_area1, notice_area2, notice_career, notice_jobInfo,notice_endDate,notice_hit,scrap_count,stack
+				FROM (  select row_number() over( ) as row_noticeNum , nt.notice_num as notice_num, nt.notice_title as notice_title, ct.com_name as com_name
+						, notice_area1 , notice_area2, notice_career, notice_jobInfo, notice_endDate, notice_hit, scrap_count, stack
+						FROM notice_tb nt
+						left outer join (select com_name, com_email 
+											from com_tb group by com_email) ct on nt.com_email= ct.com_email
+						left outer join (select notice_num, COUNT(notice_num) AS scrap_count 
+											from NOTICE_SCRAP group by notice_num) ns on nt.notice_num = ns.notice_num 
+						left outer join (select notice_num, GROUP_CONCAT(stack SEPARATOR ', ') as stack 
+											from notice_stack group by notice_num) nk  on nt.notice_num = nk.notice_num
+						<![CDATA[
+		                where notice_endDate >= CURDATE()
+		                ]]>
+		                and (ct.com_name like concat ('%', IFNULL(#{std.keyword}, ''), '%') or nt.notice_title like concat ('%', IFNULL(#{std.keyword}, ''), '%') or notice_jobInfo like concat ('%', IFNULL(#{std.keyword}, ''), '%'))
+			           	and notice_career like concat ('%', IFNULL(#{std.careerType}, ''), '%') 
+						and nk.stack like BINARY CONCAT ('%', IFNULL(#{std.stackType}, ''), '%') 
+						and notice_area1 like concat ('%', IFNULL(#{std.locationType}, ''), '%') 
+						 <include refid="orderType"/>
+					  	<![CDATA[
+				            ) a 
+				         where row_noticeNum<= (#{std.pageNum} * #{std.amount}) 
+				         )aa 
+				         where row_noticeNum > (#{std.pageNum}-1)* #{std.amount}
+				   		]]>
+			           
+	</select>
+	
+	
+    <!--	총 진행중인 공고 수를 가져오는 쿼리-->
+	<select id="getTotalCount" resultType="int"> 
+		select count(*)
+		FROM notice_tb nt
+		left outer join (select com_name, com_email 
+							from com_tb group by com_email) ct on nt.com_email= ct.com_email
+		left outer join (select notice_num, COUNT(notice_num) AS scrap_count 
+							from NOTICE_SCRAP group by notice_num) ns on nt.notice_num = ns.notice_num 
+		left outer join (select notice_num, GROUP_CONCAT(stack SEPARATOR ', ') as stack 
+							from notice_stack group by notice_num) nk  on nt.notice_num = nk.notice_num
+		<![CDATA[
+		where notice_endDate >= CURDATE()
+		]]>
+		and (ct.com_name like concat ('%', IFNULL(#{keyword}, ''), '%') or nt.notice_title like concat ('%', IFNULL(#{keyword}, ''), '%') or notice_jobInfo like concat ('%', IFNULL(#{keyword}, ''), '%'))
+		and notice_career like concat ('%', IFNULL(#{careerType}, ''), '%') 
+		and nk.stack like BINARY CONCAT ('%', IFNULL(#{stackType}, ''), '%') 
+		and notice_area1 like concat ('%', IFNULL(#{locationType}, ''), '%') 
+		<include refid="orderType"/>
+        
+        
+	</select>
+    
+    <!--  정렬 로직: 마감임박순, 추천순, 최신순, 조회순 공고 리스트검색  -->
+	<sql id="orderType">
+      <if test="(orderType == 'latest' || orderType == null)">  <!-- 최신순  -->
+        order by nt.notice_num desc
+      </if>
+      <if test="(orderType == 'scrap')"><!-- 추천순  -->
+        order by scrap_count desc
+      </if>
+      <if test='(orderType == "view")'><!-- 조회순  -->
+         order by notice_hit desc
+      </if>
+      <if test='(orderType == "urgent")'><!-- 마감임박순  -->
+        order by notice_endDate desc
+      </if>
+   </sql>
+      
+   
+   
+    
 
 
 </mapper>

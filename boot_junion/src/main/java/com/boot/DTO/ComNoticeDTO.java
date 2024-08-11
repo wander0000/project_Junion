@@ -63,6 +63,9 @@ public class ComNoticeDTO {
 	
 	private String com_content;
 	
+	private int scrap_count;//스크랩수
+	private int row_noticenum;//스크랩수
+	
 	
 	
 }
