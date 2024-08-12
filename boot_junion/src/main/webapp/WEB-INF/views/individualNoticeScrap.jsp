@@ -310,7 +310,7 @@ main .mainContainer .jobPostList
   display: flex;
   gap: 10px;
   font-size: var(--font-size14);
-  color: var(--color-gray);
+  color: #777;
   
 }
 

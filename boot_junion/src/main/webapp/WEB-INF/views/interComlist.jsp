@@ -333,7 +333,7 @@
 	.postBox .boxMiddle .com_name
 	{
 	font-size: var(--font-size16);
-	color: #222;
+	color: #555;
 	cursor: pointer;
 	}
 
@@ -342,14 +342,14 @@
 	{
 	/* display: flex; */
 	font-size: var(--font-size14);
-	
+	color: #777;	
 	}
 
 	.postBox .boxMiddle .jobPostNum 
 	{
 	/* display: flex; */
 	font-size: var(--font-size12);
-	color: var(--color-gray);
+	color: #777;
 	}
 
 

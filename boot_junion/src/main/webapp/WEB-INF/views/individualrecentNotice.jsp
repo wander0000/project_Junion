@@ -278,10 +278,10 @@ main .mainContainer .jobPostList
 }
 
 
-.com_name , .jobPostTitle, p.submitResume
+.com_name , .jobPostTitle
 {
   font-size: var(--font-size14);
-  color: #777;
+  color: #555;
   cursor: pointer;
 }
 
@@ -309,7 +309,8 @@ main .mainContainer .jobPostList
   display: flex;
   gap: 10px;
   font-size: var(--font-size14);
-  color: var(--color-gray);
+  color:  #777;
+
   
 }
 
@@ -325,12 +326,13 @@ main .mainContainer .jobPostList
   text-decoration: underline;
   font-size: var(--font-size14);
 }
-.postBox .boxMiddle .resumeInfo .statusCon
+.postBox .boxMiddle .resumeInfo .statusCon 
 {
   display: flex;
   gap: 7px;
   align-items: baseline;
   cursor: pointer;
+  color:#777
 }
 
 .postBox .boxMiddle .resumeInfo i
@@ -358,9 +360,8 @@ main .mainContainer .jobPostList
   display: flex;
   gap: 10px;
   font-size: var(--font-size14);
-  color: var(--color-gray);
+  color: #777;
 }
-
 
 /*공고 박스 오른쪽*/
 .mainContainer .jobPostList .postBox .boxRight
@@ -369,7 +370,12 @@ main .mainContainer .jobPostList
   display: flex;
   font-size: var(--font-size14);
   gap: 10px;
-  color: var(--color-gray);
+  /* color: var(--color-gray); */
+}
+
+.postCon
+{
+  color: #777;
 }
 
 /*지원상태 탭*/
@@ -419,7 +425,7 @@ button.postStatus
 .postBox .boxRight .delIcon i
 {
   font-size: 16px;
-  color: var(--color-black);
+  /* color: var(--color-black); */
 }
 
 /* 페이징커스텀 */
