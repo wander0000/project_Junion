@@ -90,12 +90,12 @@ section
     padding: 50px 0;
     box-sizing: border-box;
     display: flex;
-	margin-top: 90px;
+
 }
 .board
 {
     width: 1200px;
-    
+	margin-top: 97px;
 }
 
 
@@ -117,7 +117,7 @@ section
 
 .headbox2
 {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
     display: flex;
 }
 
@@ -167,7 +167,7 @@ section
 }
 .headbox .head1
 {
-    font-weight: 500;
+    font-weight: 600;
     font-size: 18px;
     &:hover 
     {
@@ -212,7 +212,7 @@ section
 .board .head1
 {
 	font-size: 24px;
-	font-weight: 500;
+	font-weight: 600;
 
 	    color: #FFA500;
 }

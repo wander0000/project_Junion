@@ -42,21 +42,7 @@
 		<!-- 	페이징을 위한 쿼리 -->
 	   select row_noticeNum, notice_num, notice_title, com_name, notice_area1, notice_area2, notice_career, notice_jobInfo,notice_endDate,notice_hit,scrap_count,stack
 		FROM ( select row_noticeNum, notice_num, notice_title, com_name, notice_area1, notice_area2, notice_career, notice_jobInfo,notice_endDate,notice_hit,scrap_count,stack
-				FROM (  select row_number() over(ORDER BY nt.notice_num DESC) as row_noticeNum , nt.notice_num as notice_num, nt.notice_title as notice_title, ct.com_name as com_name
-								, notice_area1 , notice_area2, notice_career, notice_jobInfo, notice_endDate, notice_hit, COUNT(ns.notice_num) AS scrap_count, stack
-		                FROM notice_tb nt
-		                left outer join com_tb ct on nt.com_email= ct.com_email
-		                left outer join NOTICE_SCRAP ns ON nt.notice_num = ns.notice_num
-		                left join (select notice_num, GROUP_CONCAT(stack SEPARATOR ', ') as stack from notice_stack group by notice_num) nk  on nt.notice_num = nk.notice_num
-		                <![CDATA[
-		                where notice_endDate >= now()
-		                ]]>
-		                and (ct.com_name like concat ('%', IFNULL(#{std.keyword}, ''), '%') or nt.notice_title like concat ('%', IFNULL(#{std.keyword}, ''), '%') or notice_jobInfo like concat ('%', IFNULL(#{std.keyword}, ''), '%'))
-			            <include refid="careerType"/>
-				        <include refid="stackType"/>
-				        <include refid="locationType"/>
-			            group by  nt.notice_num
-				FROM (  select row_number() over( ) as row_noticeNum , nt.notice_num as notice_num, nt.notice_title as notice_title, ct.com_name as com_name
+							FROM (  select row_number() over( ) as row_noticeNum , nt.notice_num as notice_num, nt.notice_title as notice_title, ct.com_name as com_name
 						, notice_area1 , notice_area2, notice_career, notice_jobInfo, notice_endDate, notice_hit, scrap_count, stack
 						FROM notice_tb nt
 						left outer join (select com_name, com_email 
@@ -65,39 +51,27 @@
 											from NOTICE_SCRAP group by notice_num) ns on nt.notice_num = ns.notice_num 
 						left outer join (select notice_num, GROUP_CONCAT(stack SEPARATOR ', ') as stack 
 											from notice_stack group by notice_num) nk  on nt.notice_num = nk.notice_num
-						<![CDATA[
-		                where notice_endDate >= CURDATE()
-		                ]]>
-		                and (ct.com_name like concat ('%', IFNULL(#{std.keyword}, ''), '%') or nt.notice_title like concat ('%', IFNULL(#{std.keyword}, ''), '%') or notice_jobInfo like concat ('%', IFNULL(#{std.keyword}, ''), '%'))
-			           	and notice_career like concat ('%', IFNULL(#{std.careerType}, ''), '%') 
+	  				<![CDATA[
+            where notice_endDate >= CURDATE()
+            ]]>
+            and (ct.com_name like concat ('%', IFNULL(#{std.keyword}, ''), '%') 
+                  or nt.notice_title like concat ('%', IFNULL(#{std.keyword}, ''), '%') 
+                  or notice_jobInfo like concat ('%', IFNULL(#{std.keyword}, ''), '%'))
+            and notice_career like concat ('%', IFNULL(#{std.careerType}, ''), '%') 
 						and nk.stack like BINARY CONCAT ('%', IFNULL(#{std.stackType}, ''), '%') 
 						and notice_area1 like concat ('%', IFNULL(#{std.locationType}, ''), '%') 
-					  	<![CDATA[
-				            ) a 
-				         where row_noticeNum<= (#{std.pageNum} * #{std.amount}) 
-				         )aa 
-				         where row_noticeNum > (#{std.pageNum}-1)* #{std.amount}
-				   		]]>
-			            <include refid="orderType"/>
+            <![CDATA[
+                  ) a 
+               where row_noticeNum<= (#{std.pageNum} * #{std.amount})
+               )aa 
+               where row_noticeNum > (#{std.pageNum}-1)* #{std.amount}
+            ]]>
+            <include refid="orderType"/>
 	</select>
 	
 	
     <!--	총 진행중인 공고 수를 가져오는 쿼리-->
 	<select id="getTotalCount" resultType="int"> 
-		select count(*) 
-		FROM notice_tb nt
-        left outer join com_tb ct on nt.com_email= ct.com_email
-        left outer join NOTICE_SCRAP ns ON nt.notice_num = ns.notice_num
-        left join (select notice_num, GROUP_CONCAT(stack SEPARATOR ', ') as stack from notice_stack group by notice_num) nk  on nt.notice_num = nk.notice_num
-		<![CDATA[
-        where notice_endDate >= now()
-        ]]>
-        and (ct.com_name like concat ('%', IFNULL(#{std.keyword}, ''), '%') or nt.notice_title like concat ('%', IFNULL(#{std.keyword}, ''), '%')) or notice_jobInfo like concat ('%', IFNULL(#{std.keyword}, ''), '%'
-        <include refid="careerType"/>
-        <include refid="stackType"/>
-        <include refid="locationType"/>
-        group by  nt.notice_num
-        <include refid="orderType"/>
 		select count(*)
 		FROM notice_tb nt
 		left outer join (select com_name, com_email 
@@ -115,7 +89,6 @@
 		and notice_area1 like concat ('%', IFNULL(#{locationType}, ''), '%') 
 		<include refid="orderType"/>
         
-        
 	</select>
     
     <!--  정렬 로직: 마감임박순, 추천순, 최신순, 조회순 공고 리스트검색  -->
@@ -130,24 +103,23 @@
          order by notice_hit desc
       </if>
       <if test='(orderType == "urgent")'><!-- 마감임박순  -->
-        order by notice_endDate desc
+<!--        order by notice_endDate desc-->
+<!--	24.08.11 하진 : 최신순으로 정렬되는 조건이라 asc로 수정함-->
+        order by notice_endDate asc
       </if>
    </sql>
-      
-   
-   <!--  정렬 로직: 경력별 기술스택별 지역별 공고 리스트검색  -->
-   <sql id="careerType">
-		and notice_career=IFNULL(#{std.careerType}, '')
-	</sql>
-	<sql id="stackType">
-     	and  BINARY nk.stack LIKE concat ('%', IFNULL((#{std.stackType}, ''), '%')
-	</sql>
-	<sql id="locationType">
-		and notice_area1= IFNULL(#{std.locationType}, '')
-	</sql>
-  
+
     
 	
+
+   <sql id="comEmail">
+	   	<if test='(std.comEmail != null and std.comEmail != "")'>
+	   		and com_email = #{std.comEmail}
+<!--	   		and 7 = 7-->
+	   	</if>
+   </sql>
+   
+
     
 
 

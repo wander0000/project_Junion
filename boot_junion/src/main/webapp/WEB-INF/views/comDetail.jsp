@@ -303,12 +303,8 @@ section
   border-radius: 6px;
   padding: 12px 20px;
   width: initial;
-  cursor: pointer;
-  &:hover 
-  {
-      background: var(--main-color);
-      color: #fff;
-  }
+  
+
 }
 
 
@@ -673,7 +669,7 @@ font-weight: 200; */
 						</div>
 						<div class="comname2">
 							<h5 class="name">
-								${company.experience_years}년 (${company.com_year}년 설립)
+								${company.experience_years}년 (${company.com_year} 설립)
 							</h5>
 						</div>
 						<div class="comname1">

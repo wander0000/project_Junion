@@ -286,7 +286,7 @@ main .tabWrap .tabNum a
 .box .job-title .titlebb
 {
 	font-weight: 600;
-	font-size: var(--font-size24);
+	font-size: 20px;
 	color: #111;
 }
 
@@ -339,6 +339,7 @@ main .tabWrap .tabNum a
   font-size: var(--font-size12);
   width: 80px;
   height: 32px;
+
 }
 
 .left .job
@@ -354,6 +355,7 @@ main .tabWrap .tabNum a
 
 	display: flex;
 	text-align: center;
+	
 
 }
 

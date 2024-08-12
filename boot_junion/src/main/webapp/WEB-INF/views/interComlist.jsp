@@ -266,7 +266,7 @@
   color: #777;
   font-size: var(--font-size14);
   border-radius: 6px;
-  padding: 8px 10px;
+  padding: 8px 20px;
   cursor: pointer;
 }
 
@@ -299,7 +299,7 @@
 	box-sizing: border-box;
 	padding: 20px;
 	width: 1200px;
-	height: 140px;
+
 	justify-content: flex-start;
 	}
 

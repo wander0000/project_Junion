@@ -71,18 +71,18 @@ import org.springframework.web.bind.annotation.RequestMapping;
 		
 		
 	
-	    // 채용공고 삭제
-		@RequestMapping(value = "/jobpostingDelete", method = RequestMethod.POST)
-		@ResponseBody
-		public String jobpostingDelete(@RequestParam("notice_num") String notice_num) {
-		    try {
-		        jobpostingService.jobpostingDelete(notice_num);
-		        return "success";
-		    } catch (Exception e) {
-		        e.printStackTrace();
-		        return "error";
-		    }
-		}
+	    // 채용공고와 관련된 모든 데이터 삭제
+	    @RequestMapping(value = "/jobpostingDeleteWithRelatedData", method = RequestMethod.POST)
+	    @ResponseBody
+	    public String jobpostingDeleteWithRelatedData(@RequestParam("notice_num") String notice_num) {
+	        try {
+	            jobpostingService.deleteNoticeWithRelatedData(notice_num);
+	            return "success";
+	        } catch (Exception e) {
+	            e.printStackTrace();
+	            return "error";
+	        }
+	    }
 	    
 	
 	    // =============================  LIST 끝 ==========================

@@ -229,7 +229,7 @@
   color: #777;
   font-size: var(--font-size14);
   border-radius: 6px;
-  padding: 8px 10px;
+  padding: 8px 20px;
   cursor: pointer;
 }
 
@@ -258,7 +258,7 @@ main .mainContainer .jobPostList
   box-sizing: border-box;
   padding: 20px;
   width: 1200px;
-  height: 140px;
+
 }
 
 /*공고 박스 왼쪽*/
@@ -382,7 +382,9 @@ main .mainContainer .jobPostList
   flex-direction: column;
   gap: 10px;
   align-items:center;
-  margin-top: 32px;
+  position: relative;
+  bottom: -20px;
+
 }
 
 
