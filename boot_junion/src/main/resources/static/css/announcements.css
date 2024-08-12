@@ -87,14 +87,14 @@ section
 .wrap
 {
     min-width: 1200px;
-    padding: 50px 0;
+    padding: 90px 0;
     box-sizing: border-box;
     display: flex;
 }
 .board
 {
     width: 1200px;
-    
+	margin-top: 40px;
 }
 
 
@@ -114,15 +114,43 @@ section
 
 }
 
+span.icon i 
+{
+	font-size: 20px;
+}
+
+
 .headbox2
 {
-    margin-bottom: 60px;
+    margin-bottom: 40px;
+}
+
+.topAlign 
+{
+	display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 0 40px;
+	width: 100%;
 }
 
 .headbox
 {
 
-    width: 600px;
+	width: 600px;
+	display: flex;
+	flex-direction: column;
+	gap: 40px 0;
+}
+
+.headerbox 
+{
+	padding: 20px;
+    display: flex;
+    gap: 0 16px;
+    align-items: center;
+    background: #f7f7f7;
+    border-radius: 6px;
 }
 
 .headbox .head
@@ -149,7 +177,7 @@ section
 .headbox .head2
 {
 	color: #111;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: 1000;
     &:hover 
     {
@@ -159,32 +187,36 @@ section
     
 }
 
+.title2 
+{
+	margin-top: 40px;
+}
+
 .subbox
 {
     display: grid; grid-template-columns: 50px 500px 100px  100px 100px 60px 60px; grid-column-gap: 40px;
     padding-left: 8px;
 }
 
-.title
-{
-    margin-bottom: 20px;
-
-
-}
-
 .secbox
 {
     display: flex;
     flex-wrap: wrap;
+	gap: 40px 0;
 }
 
-
+#announcement-container, .ll 
+{
+	display: flex;
+	flex-direction: column;
+	gap: 20px 0;	
+}
 
 .board .head,
 .board .head1
 {
     font-size: var(--font-size32);
-    font-weight: 300;
+    font-weight: 600;
     /* line-height: 2; */
 }
 
@@ -204,7 +236,7 @@ section
 }
 .listbox .list .l1
 {
-    font-size: 18px;
+    font-size: 16px;
 }
 
 .listbox .list .l2
