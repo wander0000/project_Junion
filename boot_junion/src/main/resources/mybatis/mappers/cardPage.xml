@@ -103,9 +103,10 @@
          order by notice_hit desc
       </if>
       <if test='(orderType == "urgent")'><!-- 마감임박순  -->
-<!--        order by notice_endDate desc-->
+        <!--        order by notice_endDate desc-->
 <!--	24.08.11 하진 : 최신순으로 정렬되는 조건이라 asc로 수정함-->
         order by notice_endDate asc
+      
       </if>
    </sql>
       

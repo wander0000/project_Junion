@@ -29,6 +29,7 @@ public class CardPageServiceImpl implements CardPageService{
 		log.info("CardPageServiceImpl");
 		log.info("std 확인용 ->"+std);
 		log.info("orderType 확인용 ->"+orderType);
+		log.info("com_email 확인용 ->"+std.getComEmail());
 		
 		CardPageDAO dao = sqlSession.getMapper(CardPageDAO.class);
 //		CardPageDAO daos = sqlSession.getMapper(CardPageDAO.class);
@@ -45,6 +46,8 @@ public class CardPageServiceImpl implements CardPageService{
 	log.info("@# CardPageServiceImpl getTotalCount");
 	log.info("@# CardPageServiceImpl getTotalCount std=>"+std);
 	CardPageDAO dao= sqlSession.getMapper(CardPageDAO.class);
+	
+	log.info("이메일 확인은? "+std.getComEmail());
 //	int total = dao.getTotalCount();
 	int total = dao.getTotalCount(std);
 	log.info("전체 공고 수는? "+total);
