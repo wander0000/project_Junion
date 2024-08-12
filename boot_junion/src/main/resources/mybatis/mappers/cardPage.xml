@@ -56,12 +56,17 @@
 		                ]]>
 		                and (ct.com_name like concat ('%', IFNULL(#{std.keyword}, ''), '%') or nt.notice_title like concat ('%', IFNULL(#{std.keyword}, ''), '%') or notice_jobInfo like concat ('%', IFNULL(#{std.keyword}, ''), '%'))
 			           	and notice_career like concat ('%', IFNULL(#{std.careerType}, ''), '%') 
-						and nk.stack like BINARY CONCAT ('%', IFNULL(#{std.stackType}, ''), '%') 
+						and (nk.stack like BINARY CONCAT ('%', IFNULL(#{std.stackType}, ''), '%') OR nk.stack IS NULL)
 						and notice_area1 like concat ('%', IFNULL(#{std.locationType}, ''), '%') 
-						 <include refid="orderType"/>
+				         <if test='(std.comEmail != null and std.comEmail != "")'>
+					   		and nt.com_email = #{std.comEmail}
+					   	</if>
+						
+						<include refid="orderType"/>
 					  	<![CDATA[
 				            ) a 
 				         where row_noticeNum<= (#{std.pageNum} * #{std.amount}) 
+				        
 				         )aa 
 				         where row_noticeNum > (#{std.pageNum}-1)* #{std.amount}
 				   		]]>
@@ -84,8 +89,11 @@
 		]]>
 		and (ct.com_name like concat ('%', IFNULL(#{keyword}, ''), '%') or nt.notice_title like concat ('%', IFNULL(#{keyword}, ''), '%') or notice_jobInfo like concat ('%', IFNULL(#{keyword}, ''), '%'))
 		and notice_career like concat ('%', IFNULL(#{careerType}, ''), '%') 
-		and nk.stack like BINARY CONCAT ('%', IFNULL(#{stackType}, ''), '%') 
+		and (nk.stack like BINARY CONCAT ('%', IFNULL(#{stackType}, ''), '%') OR nk.stack IS NULL)
 		and notice_area1 like concat ('%', IFNULL(#{locationType}, ''), '%') 
+		<if test='(comEmail != null and comEmail != "")'>
+	   		and nt.com_email = #{comEmail}
+	   	</if>
 		<include refid="orderType"/>
         
         

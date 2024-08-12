@@ -35,28 +35,7 @@
   box-sizing: border-box;
 }
 
-/* 헤더 아이디 영역 */
-.mainContent header .userWrapper
-{
-  display: flex;
-  white-space: nowrap;
-  margin-left: auto;
-  align-items: center;
-}
 
-.mainContent header .userWrapper img
-{
-  margin-right: 12px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;   
-}
-
-.mainContent header .userWrapper h4.name 
-{
-  font-size: var(--font-size14);
-  margin-right: 12px;
-}
 
 /* 메인 */
 main 

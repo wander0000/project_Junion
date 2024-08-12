@@ -9,7 +9,7 @@
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
 			<title>개인-받은 제안</title>
 			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
-			<link rel="stylesheet" href="${pageContext.request.contextPath}/css/individualMain.css">
+			
 			<!--<link rel="stylesheet" href="src/main/resources/static/css/style.css">-->
 			<!-- import font-awesome, line-awesome -->
 			<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
@@ -23,64 +23,7 @@
 				integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
 
 			<style>
-				:root {
-					/* 컬러 모음 */
-					--main-color: #4d3a16;
-					--color-black: #111;
-					--color-white: #fff;
-					--color-gray: #787878;
-					--input-gray: #e5e5ec;
-					--button-gray: #f7f7f7;
-					--border-color-gray: #dadada;
-					--font-size32: 32px;
-					--font-size24: 24px;
-					--font-size16: 16px;
-					--font-size14: 14px;
-					--font-size12: 12px;
-				}
-
-				/* 네비게이션 옆 컨텐츠 영역 */
-				.mainContent {
-					width: calc(100% - 260px);
-					min-height: 100vh;
-				}
-
-
-				/* 드롭다운 메뉴 */
-				.dorpdowmMain {
-					display: flex;
-				}
-
-				.dropdown {
-					display: flex;
-					align-items: center;
-				}
-
-				.dropdownSub {
-					display: flex;
-				}
-
-				.dropdownContent {
-					position: absolute;
-					display: none;
-					text-align: center;
-					margin-top: 20px;
-					width: 160px;
-					background-color: var(--color-white);
-					border-radius: 5px;
-					box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-					right: 11px;
-				}
-
-				.dropdownContent a {
-					color: var(--color-black);
-					padding: 12px;
-					text-decoration: none;
-					display: block;
-					font-size: var(--color-black);
-				}
-
-
+				
 
 				/*메인콘텐츠 전체*/
 
@@ -95,6 +38,7 @@
 				main {
 					display: flex;
 					justify-content: center;
+					padding: 50px 0 120px;
 				}
 
 				main .mainContainer {
@@ -585,31 +529,7 @@
 				<%@ include file="nav_individual.jsp" %>
 					<div class="mainContent">
 						<header>
-							<div class="userWrapper">
-								<img src="images/people.svg" alt="">
-								<div class="dorpdowmMain">
-									<div class="dropdown">
-										<div class="dropdownSub" id="dropdownSub">
-											<h4 class="name" name="user_name" style="cursor: pointer;">${login_name}
-											</h4>
-											<div class="dropdownContent" id="dropdownContent">
-												<a href="userInfo">
-													<div>개인 정보 관리</div>
-												</a>
-												<a href="logout">
-													<div>로그아웃</div>
-												</a>
-											</div> <!-- dropdownContent 끝-->
-											<span class="icon">
-												<i id="iconDown" class="fa-solid fa-caret-down"
-													style="display: block; cursor: pointer;"></i>
-												<i id="iconUp" class="fa-solid fa-caret-up"
-													style="display: none; cursor: pointer;"></i>
-											</span>
-										</div> <!--dropdownSub 끝-->
-									</div> <!--dropdown 끝-->
-								</div><!--dropdownMain 끝-->
-							</div>
+							<%@ include file="dropdown.jsp" %>
 						</header>
 						<main>
 							<div class="mainContainer">
@@ -943,23 +863,4 @@
 
 			});
 		</script>
-		<script>
-			// 드롭다운 메뉴 (하지수)
-
-			function dropdown() {
-				let click = document.getElementById("dropdownContent");
-				let iconDown = document.getElementById("iconDown");
-				let iconUp = document.getElementById("iconUp");
-
-				if (click.style.display === "none" || click.style.display === "") {
-					click.style.display = "block";
-					iconDown.style.display = "none";
-					iconUp.style.display = "block";
-				} else {
-					click.style.display = "none";
-					iconDown.style.display = "block";
-					iconUp.style.display = "none";
-				}
-			}
-			document.getElementById("dropdownSub").addEventListener("click", dropdown); // 드롭다운 메뉴 끝
-		</script>
+		
