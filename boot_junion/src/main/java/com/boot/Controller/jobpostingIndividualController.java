@@ -197,5 +197,44 @@ public class jobpostingIndividualController {
 		return "resumeInfo2";
 	}
     
+    @RequestMapping("/resumeInfo3")
+    public String resumeInfo3(@RequestParam int resumeNum, Model model, HttpServletRequest request) 
+    {
+    	log.info("@# resume/resumeInfo");	
+//		HttpSession session = request.getSession();		
+//		String login_email = (String)session.getAttribute("login_email");
+    	
+    	ResumeDTO dto = jobpostingIndividualService.resumeInfo(resumeNum);
+    	UserDTO dtos = jobpostingIndividualService.userInfo(dto.getUser_email());
+    	log.info("@# UserDTO dtos==========>"+dtos);
+    	
+    	String user_name =  dtos.getUser_name();
+    	String user_gender = dtos.getUser_gender();
+    	String user_tel = dtos.getUser_tel();
+    	String user_location = dtos.getUser_location();
+    	String user_location2 = dtos.getUser_location2();
+    	String user_birthdate = dtos.getUser_birthdate();
+    	
+    	dto.setResume_age(user_birthdate);				
+    	
+    	model.addAttribute("resumeInfo", dto);
+    	model.addAttribute("user_gender", user_gender);
+    	model.addAttribute("user_tel", user_tel);
+    	model.addAttribute("user_location", user_location);
+    	model.addAttribute("user_location2", user_location2);
+    	model.addAttribute("user_name", user_name);
+    	
+    	log.info("@# dto==========>"+dto);	
+    	
+    	
+    	String link = dto.getResume_portfolio_url();
+    	log.info("@# link===========>"+link);
+    	model.addAttribute("links", link);
+    	
+    	
+    	
+    	return "resumeInfo3";
+    }
+    
     // =============================  이력서 열람 끝  ==========================
 }

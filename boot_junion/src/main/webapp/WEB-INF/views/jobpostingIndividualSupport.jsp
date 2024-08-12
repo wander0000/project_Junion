@@ -92,17 +92,17 @@
 								</div>
 								<!-- selectbox 끝  -->
 								
-								<div class="left">
-									<button class="fil2" type="button" onclick="setAllToNone()">
-										<div class="f1">
-											<h5 class="but1">
-												전체 무관
-											</h5>
-										</div>
-									</button>
-								</div>
 							</div>
 							<!-- 레프트 끝 -->
+							<div class="right">
+								<button class="fil2" type="button" onclick="setAllToNone()">
+									<div class="f1">
+										<h5 class="but1">
+											전체 무관
+										</h5>
+									</div>
+								</button>
+							</div>
 
 							<!-- <div class="right" style="visibility: hidden;"> -->
 							<div class="right">
@@ -142,30 +142,32 @@
 								<div class="pp" data-resume-num="${sup.resume_num}">
 									<div class="imgbox">
 										<div class="uploadResult">
-                                            <ul>
+											<ul>
 												<img src="images/people.svg" alt="#" class="img">
                                             </ul>
                                         </div>
 									</div>
-									<div class="tt">
-										<h5 class="t1">
-											${sup.user_name}
-										</h5>
-									</div>
-									<div class="tt">
-										<h5 class="t1">
-											${sup.user_gender} ${sup.korean_age}세
-										</h5>
-									</div>
-									<div class="tt">
-										<h5 class="t1">
-											<c:if test="${sup.career_years != 0}">
-												${sup.career_years}년차
-											</c:if>
-											<c:if test="${sup.career_years == 0}">
-												신입
-											</c:if>
-										</h5>
+									<div class="ppInfo">
+										<div class="tt">
+											<h5 class="t1">
+												${sup.user_name}
+											</h5>
+										</div>
+										<div class="tt">
+											<h5 class="t1">
+												${sup.user_gender} ${sup.korean_age}세
+											</h5>
+										</div>
+										<div class="tt">
+											<h5 class="t1">
+												<c:if test="${sup.career_years != 0}">
+													${sup.career_years}년차
+												</c:if>
+												<c:if test="${sup.career_years == 0}">
+													신입
+												</c:if>
+											</h5>
+										</div>
 									</div>
 
 									<div class="buttbox1">
@@ -188,7 +190,7 @@
 										<div class="buttbox2">
 											<h5 class="b2">
 												<button type="button" class="view_resume"
-												onclick="location.href='resumeInfo2?resumeNum=${sup.resume_num}'">
+												onclick="location.href='resumeInfo3?resumeNum=${sup.resume_num}'">
 													이력서열람
 												</button>
 											</h5>

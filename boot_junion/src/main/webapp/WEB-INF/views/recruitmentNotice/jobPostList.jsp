@@ -147,7 +147,11 @@ section
     }
 }
 
-
+.fil2.active
+{
+    background: var(--main-color);
+    color: var(--color-white);
+}
 
 
 /* 버튼 끝 */

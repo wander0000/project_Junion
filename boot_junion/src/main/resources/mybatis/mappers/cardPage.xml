@@ -113,6 +113,10 @@
 		and notice_career like concat ('%', IFNULL(#{careerType}, ''), '%') 
 		and nk.stack like BINARY CONCAT ('%', IFNULL(#{stackType}, ''), '%') 
 		and notice_area1 like concat ('%', IFNULL(#{locationType}, ''), '%') 
+		
+		<if test='(comEmail != null and comEmail != "")'>
+	   		and nt.com_email = #{comEmail}
+	   	</if>
 		<include refid="orderType"/>
         
         
@@ -131,6 +135,9 @@
       </if>
       <if test='(orderType == "urgent")'><!-- 마감임박순  -->
         order by notice_endDate desc
+<!--        order by notice_endDate desc-->
+<!--	24.08.11 하진 : 최신순으로 정렬되는 조건이라 asc로 수정함-->
+        order by notice_endDate asc
       </if>
    </sql>
       
@@ -148,6 +155,13 @@
   
     
 	
+   <sql id="comEmail">
+	   	<if test='(std.comEmail != null and std.comEmail != "")'>
+	   		and com_email = #{std.comEmail}
+<!--	   		and 7 = 7-->
+	   	</if>
+   </sql>
+   
     
 
 

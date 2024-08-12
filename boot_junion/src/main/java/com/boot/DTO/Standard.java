@@ -14,7 +14,7 @@ public class Standard {
 	private String careerType;// 경력
 	private String stackType;// 기술 스택
 	private String locationType;// 지역
-//	private String hitType;// 지역
+	private String comEmail;// 해당 기업의 공고 조회를 위한 필드
 	private String orderType;//정렬기준 마감임박순, 추천순, 최신순, 조회순 값 담는 필드
 	private String keyword;//검색
 	
