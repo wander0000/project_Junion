@@ -724,9 +724,11 @@
 						</c:forEach>
 
                         <div class="pos" >
-							<form action="jobPostList">
-								<input type="hidden" name="com_email" value="${company.com_email}">
-								<button class="box3" >
+							<form id="selectEmail" action="jobPostList">
+								<!-- <input type="hidden" name="com_email" value="${company.com_email}"> -->
+								<button class="box3">
+										<!-- <div class="hiddenClass"></div> -->
+										<input type="hidden" id="com_email" name="com_email">
 										<h5 class="m1" id="otherNotice">${postNum}개의 공고</h5>
 								</button>
 							</form>
@@ -912,7 +914,7 @@
 
 	// 관심 기업 추가 로직
 	const user_email = "${login_email}";
-	const com_email = "${company.com_email}";
+	let com_email = "${company.com_email}";
 	if (user_type == 1) {
 	$(".fa-heart").on("click", function () {
 		var urlParams = new URLSearchParams(location.search);
@@ -960,17 +962,85 @@
 
 
 // 24.07.28 side 부분 구현 -> 다른 채용 공고가 없을 경우의 로직
-// 24.08.11 하진 : 다른 공고 보러 가기 클릭시 이동 테이지 수정
+// 24.08.11 하진 : 다른 공고 보러 가기 클릭시 이동 페이지 수정
+	// var postNum = "${postNum}";
+	// if (postNum == 0) {
+	// 	$("#otherNotice").text("다른 공고 보러 가기");
+	// 	$(".t").css({"display":"none"});
+	// 	$("#otherNotice").parent().on("click",function() {
+	// 		$(this).addClass("active");
+	// 		// location.href="cardPageList";
+	// 		location.href="jobPostList";
+	// 	});
+	// }else{
+	// 	$("#otherNotice").parent().on("click",function() {
+	// 		$(this).addClass("active");
+	// 	// 	var inputEmail = $(".hiddenClass");
+
+	// 	// 	$(this).submit();
+	// 	$("#otherNotice").parent().on("click", function() {
+    //     $(this).addClass("active");
+	// 	var getFromID = document.getElementById("selectEmail");
+        
+    //     // com_email 값을 hidden input으로 설정
+    //     // var inputEmail = $("<input>").attr("type", "hidden").attr("name", "com_email").val($(".hiddenClass").text());
+	// 	var hiddenEmail = $(".hiddenClass");
+	// 	var inputEmail = "";
+	// 	inputEmail += '<input type="hidden" name="com_email" value="${company.com_email}">';
+
+    //     // // 해당 폼이 없으면 생성
+    //     // var form = $("#emailForm");
+    //     // if (form.length == 0) {
+    //     //     form = $("<form>").attr({
+    //     //         "id": "emailForm",
+    //     //         "method": "post",
+    //     //         "action": "jobPostList"
+    //     //     }).appendTo("body");
+    //     // }
+
+    //     // 폼에 hidden input 추가
+    //     hiddenEmail.empty().append(inputEmail);
+
+    //     // 폼 제출
+    //     getFromID.submit();
+    // });
+	// 	});
+	// }
 	var postNum = "${postNum}";
-	if (postNum == 0) {
-		$("#otherNotice").text("다른 공고 보러 가기");
-		$(".t").css({"display":"none"});
-		$("#otherNotice").parent().on("click",function() {
-			$(this).addClass("active");
-			// location.href="cardPageList";
-			location.href="jobPostList";
-		});
-	}
+if (postNum == 0) {
+    $("#otherNotice").text("다른 공고 보러 가기");
+    $(".t").css({"display":"none"});
+    $("#otherNotice").parent().on("click", function() {
+        $(this).addClass("active");
+        location.href = "jobPostList";
+    });
+} else {
+    $("#otherNotice").parent().on("click", function() {
+        $(this).addClass("active");
+
+        // hiddenClass 안에 com_email 값을 담는 부분
+        var hiddenEmail = $(".hiddenClass");
+        var comEmail = "${company.com_email}";
+
+        // 기존 input 태그를 생성하여 hiddenClass 안에 추가
+        // var inputEmail = $('<input>').attr({
+        //     type: 'hidden',
+        //     name: 'com_email',
+        //     value: comEmail
+        // });
+
+        // hiddenEmail.empty().append(inputEmail);
+		
+		$("#com_email").val(comEmail);
+
+        // ID가 selectEmail인 폼 요소를 찾아서 제출
+        var form = $("#selectEmail");  // 폼 요소의 ID를 selectEmail로 가정
+        // if (form.length > 0) {
+            form.submit();
+        // }
+    });
+}
+
 
 	// 24.07.29 하진
 	// 사이드 채용공고의 값이 신입이나 경력무관이면 .career class의 경력 문구 숨기기
