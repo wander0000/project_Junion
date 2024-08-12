@@ -254,18 +254,20 @@ public class ResumeController {
 		model.addAttribute("resumeInfo", dto);	
 		
 		
-//		// 파일 업로드 if문 시작
-//		if (resumeDTO.getResumeUploadList() != null) {//파일(이미지) 있으면
-//			resumeDTO.getResumeUploadList().forEach(attach -> log.info("@# 보드컨트롤러 write / attach 호출=>"+attach));
-//			List<ResumeUploadDTO> list = service.resumeGetFileList(dto.getResume_num());
-//			for (int i = 0; i < list.size(); i++) {
-//				service.deleteResumeImage(dto.getResume_num());//수정전 데이터 삭제
-//			}
-//			log.info("@# 사용자 사진 업로드 Impl insertUserImage 호출");
-//			service.resumeInsertFile(resumeDTO);
-//		}
+		// 파일 수정 if문 시작
+		if (resumeDTO.getResumeUploadList() != null) {//파일(이미지) 있으면
+			resumeDTO.getResumeUploadList().forEach(attach -> {
+				log.info("@# 보드컨트롤러 write / attach 호출=>"+attach);
+				List<ResumeUploadDTO> list = service.resumeGetFileList(dto.getResume_num());//현재 DB에 있는 파일내용 가져와서
+					
+				for (int i = 0; i < list.size(); i++) {//파일갯수만큼
+					service.deleteResumeImage(dto.getResume_num());//수정전 데이터 삭제
+				}
+				service.resumeInsertFile(attach);//새 파일 저장
+			});
+		}// 파일 수정 if문 끝
 		
-		resumeService.resumeModify(dto);
+		resumeService.resumeModify(dto);//이력서 수정
 		
 		int resume_num = resumeDTO.getResume_num();
 		

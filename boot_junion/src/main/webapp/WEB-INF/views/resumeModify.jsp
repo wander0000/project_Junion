@@ -396,23 +396,23 @@
 			console.log("@# resume_num=>"+resume_num);
 
 			if (resume_num) {
-					$.ajax({
-						url: '/resumeGetFileList',
-						type: 'GET',
-						data: { resume_num: resume_num },
-						dataType: 'json',
-						success: function (result) {
-							console.log("Ajax success:", data);
-						console.log(result);
-						showUploadResult(result); // 파일 업로드 결과 표시 함수 호출
-						$(".uploadDiv").css('display', 'none');
-						},
-						error: function (xhr, status, error) {
-							console.error('Error fetching file list for resume_num ' + resume_num + ':', error);
-							$(".uploadResult").css('display', 'none');
-						}
-					});
-				}
+				$.ajax({
+					url: '/resumeGetFileList',
+					type: 'GET',
+					data: { resume_num: resume_num },
+					dataType: 'json',
+					success: function (result) {
+						console.log("Ajax success:", result);
+					console.log(result);
+					showUploadResult(result); // 파일 업로드 결과 표시 함수 호출
+					$(".uploadDiv").css('display', 'none');
+					},
+					error: function (xhr, status, error) {
+						console.error('Error fetching file list for resume_num ' + resume_num + ':', error);
+						$(".uploadResult").css('display', 'none');
+					}
+				});
+			}
 
 			/*
 			2024-08-08 서연주
@@ -526,6 +526,7 @@
 
 					});
 					$(".uploadResult ul").html(str);
+					$(".uploadDiv").css('display', 'none');
 					// uploadUL.append(str);
 
 				}//showUploadResult function 끝

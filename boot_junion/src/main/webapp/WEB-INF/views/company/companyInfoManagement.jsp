@@ -22,46 +22,7 @@
     <script src="js/index.js"></script>
     <!--kakao map -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=48ca63ceb0746787c922c8da8f33b705&libraries=services"></script>
-<style>
-    /* 드롭다운 메뉴 */
-    .dorpdowmMain
-    {
-    display: flex;
-    }
 
-    .dropdown
-    {
-    display: flex;
-    align-items: center;
-    }
-
-    .dropdownSub
-    {
-    display: flex;
-    }
-
-    .dropdownContent 
-    {
-    position: absolute;
-    display: none;
-    text-align: center;
-    margin-top: 20px;
-    width: 160px;
-    background-color: var(--color-white);
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    right: 11px;
-    }
-
-    .dropdownContent a 
-    {
-    color: var(--color-black);
-    padding: 12px;
-    text-decoration: none;
-    display: block;
-    font-size: var(--color-black);
-    }
-</style>
 </head>
 <body>
 <div class="container">
@@ -70,24 +31,7 @@
 <!--	${companyInfo}-->
     <div class="mainContent">
         <header>
-            <div class="userWrapper">
-                <img src="images/people.svg"alt="">
-                <div class="dorpdowmMain">
-                    <div class="dropdown">
-                        <div class="dropdownSub" id="dropdownSub">
-                            <h4 class="name" name="com_name" style="cursor: pointer;">${login_name}</h4>
-                            <div class="dropdownContent" id="dropdownContent">
-                                <a href="companyInfoManagement"><div>기업 정보 관리</div></a>
-                                <a href="logout"><div>로그아웃</div></a>
-                            </div> <!-- dropdownContent 끝-->
-                            <span class="icon">
-                                <i id="iconDown" class="fa-solid fa-caret-down" style="display: block; cursor: pointer;"></i>
-                                <i id="iconUp" class="fa-solid fa-caret-up" style="display: none; cursor: pointer;"></i>
-                            </span>
-                        </div> <!--dropdownSub 끝-->
-                    </div> <!--dropdown 끝-->
-                </div><!--dropdownMain 끝-->
-             </div>
+            <%@ include file="../dropdown.jsp" %>
         </header>    
         <main>
             <div class="containe">
@@ -481,24 +425,4 @@
         peopleElem.css("display", "none");
     }
 
-</script>
-<script>
-    // 드롭다운 메뉴 (하지수)
-
-    function dropdown() {
-        let click = document.getElementById("dropdownContent");
-        let iconDown = document.getElementById("iconDown");
-        let iconUp = document.getElementById("iconUp");
-
-        if (click.style.display === "none" || click.style.display === "") {
-            click.style.display = "block";
-            iconDown.style.display = "none";
-            iconUp.style.display = "block";
-        } else {
-            click.style.display = "none";
-            iconDown.style.display = "block";
-            iconUp.style.display = "none";
-        }
-    }
-    document.getElementById("dropdownSub").addEventListener("click", dropdown); // 드롭다운 메뉴 끝
 </script>

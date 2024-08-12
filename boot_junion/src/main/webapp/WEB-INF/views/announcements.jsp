@@ -38,72 +38,84 @@
                     <div class="secbox">
 
 
-
+						<div class="topAlign">
+	                        <div class="headbox">
+	                            <div class="headerbox">
+									<span class="icon">
+										<i class="fa-solid fa-volume-high"></i>
+									</span>
+	                                <a class="head2" href="announcementRest">
+	                                    공지사항
+	                                </a>
+	                            </div>
+	
+	
+	                            <div class="listbox">
+	                                    <div class="list">
+	                                        <div class="ll">
+	
+												<div id="announcement-container">
+												    <!-- Announcement titles will be dynamically inserted here -->
+												</div>
+	
+	
+	                                            <div class="title2">
+	                                                <a class="l2" href="announcementRest">
+	                                                    + 모두 보기
+	                                                </a>
+	                                            </div>
+	
+	                                        </div>
+	                                    </div> <!-- 리스트 끝-->
+	                            </div> <!-- 리스트박스 끝-->
+	                        </div> <!-- headbox 끝-->
+	
+	
+	 
+	                        <div class="headbox">
+	                            <div class="headerbox">
+									<span class="icon">
+										<i class="fa-solid fa-circle-question"></i>
+									</span>
+	                                <a class="head2"  href="noticeCommunity">
+	                                    Q&A
+	                                </a>
+	                            </div>
+	
+	
+	                            <div class="listbox">
+	                                    <div class="list">
+	                                        <div class="ll">
+	
+												<c:forEach items="${boardList}" var="dto" begin="0" end="4">
+												    <a class="move_link" href="${pageContext.request.contextPath}/noticeBoardDetailView?board_no=${dto.board_no}">
+												        <div class="title">
+												            <h5 class="l1">
+												                [Q&A] ${dto.board_title}
+												            </h5>
+												        </div>
+												    </a>
+												</c:forEach>
+	
+	
+	                                            <div class="title2" >
+	                                                <a class="l2" href="noticeCommunity">
+	                                                    + 모두 보기
+	                                                </a>
+	                                            </div>
+	
+	                                        </div>
+	                                    </div> <!-- 리스트 끝-->
+	                            </div> <!-- 리스트박스 끝-->
+	                        </div> <!-- headbox 끝-->
+						</div>
+						
                         <div class="headbox">
-                            <div class="headbox">
-                                <a class="head2" href="announcementRest">
-                                    공지사항
-                                </a>
-                            </div>
-
-
-                            <div class="listbox">
-                                    <div class="list">
-                                        <div class="ll">
-
-											<div id="announcement-container">
-											    <!-- Announcement titles will be dynamically inserted here -->
-											</div>
-
-
-                                            <div class="title2">
-                                                <a class="l2" href="announcementRest">
-                                                    + 모두 보기
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                    </div> <!-- 리스트 끝-->
-                            </div> <!-- 리스트박스 끝-->
-                        </div> <!-- headbox 끝-->
-
-
- 
-                        <div class="headbox">
-                            <div class="headbox">
-                                <a class="head2"  href="noticeCommunity">
-                                    Q&A
-                                </a>
-                            </div>
-
-
-                            <div class="listbox">
-                                    <div class="list">
-                                        <div class="ll">
-
-											<c:forEach items="${boardList}" var="dto" begin="0" end="4">
-											    <a class="move_link" href="${pageContext.request.contextPath}/noticeBoardDetailView?board_no=${dto.board_no}">
-											        <div class="title">
-											            <h5 class="l1">
-											                [Q&A] ${dto.board_title}
-											            </h5>
-											        </div>
-											    </a>
-											</c:forEach>
-
-
-                                            <div class="title2" >
-                                                <a class="l2" href="noticeCommunity">
-                                                    + 모두 보기
-                                                </a>
-                                            </div>
-
-                                        </div>
-                                    </div> <!-- 리스트 끝-->
-                            </div> <!-- 리스트박스 끝-->
-                        </div> <!-- headbox 끝-->
-                        <div class="headbox">
-                            <div class="headbox">
+							
+                            <div class="headerbox">
+								<span class="icon">
+									<i class="fa-solid fa-file-lines"></i>
+								</span>
                                 <a class="head2" href="announcementsTerms">
                                     회원약관
                                 </a>
