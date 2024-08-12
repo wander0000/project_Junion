@@ -181,7 +181,7 @@ main
                             <div class="infoConWrap">
                                 <div class="infoCon left">
                                     <div class="uploadResult">
-                                        <ul>
+                                        <ul >
                           
                                         </ul>
                                     </div>
@@ -251,7 +251,7 @@ main
 </html>
 <script>
 
-  $(document).ready(function () {
+$(document).ready(function () {
 				
 				/*
 				2024-8-06 서연주(comRegistModify 참고)
@@ -300,6 +300,20 @@ main
 						str += "<img src='/userImageDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
 						str += "</div></li>";
 					});
+
+					uploadUL.append(str);
+
+          //드랍다운 부분에 사진 보이게
+					// var uploadUL2 = $(".userWrapper");
+					// var str2 = "";
+
+					// $(uploadResultArr).each(function (i, obj) {
+					// 	var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+					// 	str2 += "<img src='/userImageDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
+					// });
+
+					// uploadUL2.prepend(str2);
 				}//showUploadResult function 끝
 
   });//document ready 끝

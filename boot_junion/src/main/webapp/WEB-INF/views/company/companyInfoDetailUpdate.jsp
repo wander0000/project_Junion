@@ -56,10 +56,14 @@
                                 <ul class="comInfoImage">
                                 </ul>
                             </div>
-                            <label for="photo" style='cursor: pointer;'>
+                            <div class="uploadDiv">
+                                <input type="file" name="uploadFile" id="fileUpload" multiple style="display: none;">
+                                <label for="fileUpload" style="cursor: pointer;" class="uploadText">기업사진 수정하기</label>
+                            </div>
+                            <!-- <label for="photo" style='cursor: pointer;'>
                                 <div class="imgg">기업 사진 수정하기</div>
                             </label>
-                            <input type="file" name="uploadFile" id="photo" accept="image/*,.txt">
+                            <input type="file" name="uploadFile" id="photo" accept="image/*,.txt"> -->
                         </div>
 
                         <div class="main">
@@ -264,39 +268,38 @@
     </div>
 </html>
 <script>
-	$(document).ready(function()
-	{	
+    $(document).ready(function (e){
 
-	    // $('.Bodycon.tech input.tech').click(function(){//기술 스택 선택시 값을 넣는 쿼리
-	    //     $(this).toggleClass('active');
-	    // });	
-		
-		// var buttons = $('.Bodycon.tech input.tech');
-		// var techValue = $('#techValue');		
-		// var submit = $('button.saveTech');
-		// // 제출 버튼 클릭 시
-		// submit.on('click', function() {
-        // // 'on' 클래스가 있는 버튼들의 값을 배열에 저장
-        // var buttonValues = [];
-        // buttons.filter('.active').each(function() {
-        //     buttonValues.push($(this).val());
-        // });
+         /*
+        2024-8-06 서연주(comRegistModify 참고)
+        이미지 파일 로딩//즉시실행함수
+        */
+        // user-email 변수 가져오기
+        // var user_email = $(".userImage").data('user-email'); // 파일노출되는 div의 클래스명과 data이용
+        var com_email = "<c:out value='${companyInfo.com_email}'/>"; //c:out으로
+        console.log("com_email:", com_email);
 
-        // // AJAX 요청을 통해 서버로 데이터 전송
-        // $.ajax({
-        //     url: "/companyInfoDetailUpdate", // 실제 서버 엔드포인트 URL
-        //     type: "POST",  
-        //     async: false,          
-        //     data: JSON.stringify({com_stack: buttonValues}),
-        //     success: function(response) {
-        //         // 선택된 값을 wishJob 입력 필드에 쉼표로 구분된 문자열로 표시
-        //         techValue.val(buttonValues.join(', '));
-        //     },
-        //     error: function(response) {
-        //         // 요청 중 오류 발생 시 처리
-        //         console.error(response);
-        //     }
-        // });
+        // var uploadResultContainer = $(".userImage").find('.uploadResult ul');
+
+        if (com_email) {
+            $.ajax({
+                url: '/comInfoGetFileList',
+                type: 'GET',
+                data: { com_email: com_email },
+                dataType: 'json',
+                success: function (data) {
+                    console.log("Ajax success:", data);
+                    showUploadResult(data);
+                    
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching file list for com_email ' + com_email + ':', error);
+                }
+            });
+        }
+
+
+        //기술스택 버튼 활성화, 값 저장
         $('.Bodycon.tech input.tech').click(function(){
             console.log("click!!");
 	        $(this).toggleClass('active');
@@ -316,99 +319,45 @@
 			techValue.val(buttonValues.join(', '));
 		});
 
-    // });
-
-  
-	});//end of document ready
-
-    var mapContainer = document.getElementById('map'), // 지도를 표시할 div
-        mapOption = {
-            center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
-            level: 5 // 지도의 확대 레벨(크기가 클수록 상세 확대창을 보여줌)
-        };
-
-    //지도를 미리 생성
-    var map = new daum.maps.Map(mapContainer, mapOption);
-    //주소-좌표 변환 객체를 생성
-    var geocoder = new daum.maps.services.Geocoder();
-    //마커를 미리 생성
-    var marker = new daum.maps.Marker({
-        position: new daum.maps.LatLng(37.537187, 127.005476),
-        map: map
-    });
 
 
-    function sample5_execDaumPostcode() {
-        new daum.Postcode({
-            oncomplete: function(data) {
-                var addr = data.address; // 최종 주소 변수
-                // console.log("이건 뭐죠?"+addr);
 
-                // 주소 정보를 해당 필드에 넣는다.
-                document.getElementById("sample5_address").value = addr;
-                // 주소로 상세 정보를 검색
-                geocoder.addressSearch(data.address, function(results, status) {
-                    // 정상적으로 검색이 완료됐으면
-                    if (status === daum.maps.services.Status.OK) {
 
-                        var result = results[0]; //첫번째 결과의 값을 활용
-
-                        // 해당 주소에 대한 좌표를 받아서
-                        var coords = new daum.maps.LatLng(result.y, result.x);
-                        // 지도를 보여준다.
-                        mapContainer.style.display = "block";
-                        map.relayout();
-                        // 지도 중심을 변경한다.
-                        map.setCenter(coords);
-                        // 마커를 결과값으로 받은 위치로 옮긴다.
-                        marker.setPosition(coords)
-                    }
-                });
-            }
-        }).open();
-    }
-</script>
-<script>
-	// 이미지 업로드
-	// $(document).ready(function (e){
-		var formObj = $("form[id='comInfoUpdate']");
-
+        // 수정완료 버튼 누르면 동작( 유효성 검사하고 정보, 파일 들고 submit )
 		$("input[type='submit']").on("click", function(e){
 		// $("button[type='submit']").on("click", function(e){
 			e.preventDefault();
 			console.log("submit clicked");
 
-    //             e.preventDefault();
-    // console.log("submit clicked");
+   
+            /*
+                2024-07-24 하지수 
+                유효성 검사
+            */
+            var requiredFields = [
+                {name: "com_name", message: "기업명을 입력해주세요."},
+                {name: "com_foundation", message: "창립일을 입력해주세요."},
+                {name: "com_content", message: "회사 소개를 입력해주세요."},
+                {name: "com_sale", message: "매출액을 입력해주세요."},
+                {name: "com_type", message: "회사 유형을 선택해주세요."},
+                {name: "com_salary", message: "평균 연봉을 입력해주세요."},
+                {name: "com_CEO", message: "대표자명을 입력해주세요."},
+                {name: "com_site", message: "회사 홈페이지의 주소를 입력해주세요."},
+                {name: "com_employee", message: "사원수를 입력해주세요."},
+                {
+                    name: "com_stack", 
+                    message: "스택을 선택해주세요.",
+                    validate: function() {
+                        // 여기에서 hidden 필드의 값을 확인합니다.
+                        var hiddenFieldValue = $("#techValue").val().trim();
+                        return hiddenFieldValue !== "";
+                    }
+                }
+            ];
 
-    /*
-        2024-07-24 하지수 
-        유효성 검사
-    */
-    var requiredFields = [
-        {name: "com_name", message: "기업명을 입력해주세요."},
-        {name: "com_foundation", message: "창립일을 입력해주세요."},
-        {name: "com_content", message: "회사 소개를 입력해주세요."},
-        {name: "com_sale", message: "매출액을 입력해주세요."},
-        {name: "com_type", message: "회사 유형을 선택해주세요."},
-        {name: "com_salary", message: "평균 연봉을 입력해주세요."},
-        {name: "com_CEO", message: "대표자명을 입력해주세요."},
-        {name: "com_site", message: "회사 홈페이지의 주소를 입력해주세요."},
-        {name: "com_employee", message: "사원수를 입력해주세요."},
-        {
-            name: "com_stack", 
-            message: "스택을 선택해주세요.",
-            validate: function() {
-                // 여기에서 hidden 필드의 값을 확인합니다.
-                var hiddenFieldValue = $("#techValue").val().trim();
-                return hiddenFieldValue !== "";
-            }
-        }
-    ];
+            // var isValid = true;
 
-    // var isValid = true;
-
-    for (var i = 0; i < requiredFields.length; i++) {
+            for (var i = 0; i < requiredFields.length; i++) {
                 var field = requiredFields[i];
 
                 // 일반 필드와 특별한 기술 스택 필드를 구분
@@ -428,12 +377,13 @@
                     }
                 }
             } //유효성 검사 끝 --	
-    // if (isValid) {
-        
-    // }
-// });
+         
 
-			var str="";//출력에 관한 로직?
+
+            var formObj = $("form[id='comInfoUpdate']");
+
+            //업로드된 파일정보 hidden타입 input으로 body에 추가하기
+            var str="";
 
 			$(".uploadResult ul li").each(function (i, obj){
 				console.log("@# obj=>"+$(obj));
@@ -459,150 +409,194 @@
 			console.log(str);
 			// return;
 			formObj.append(str).submit();
-		});//end of button submit
+		});//end of submit
+		
 
-		//확장자(exe, sh, alz), 파일크기(5MB 미만) 조건
-		//확장자가 exe|sh|alz 업로드 금지하기 위한 정규식
-		var regex = new RegExp("(.*?)\.(exe|sh|alz)$");//파일 유효성 검사
-		var maxSize = 5242880;//5MB
+       
+    
+        /*
+        2024-08-06 서연주
+        이미지 파일 누르면 삭제하기나 수정하기 할 수 있도록
+        */
+        $(".uploadResult").on("click", "li", function (e) {
+            console.log("uploadResult click");
 
-		function checkExtension(fileName, fileSize){
-			if(fileSize >= maxSize){
-				alert("파일 사이즈 초과");
-				return false;
-			}
-			if(regex.test(fileName)){
-				alert("해당 종류의 파일은 업로드할 수 없습니다.");
-				return false;
-			}
-			return true;
-		}
+            // 이미지 삭제 확인
+            if (confirm("하나의 파일만 업로드할 수 있습니다. 삭제하고 다시 업로드 하시겠습니까?")) {
+                
+                // 1. 클릭된 이미지 제거
+                $(this).remove();
 
-		$("input[type='file']").change(function (e){
-			var formData = new FormData();// 파일 업로드를 위한 로직
-			var inputFile = $("input[name='uploadFile']");
-			//files : 파일정보
-			var files = inputFile[0].files;
+                //2. 컨트롤러 단으로 업로든 된 실제 파일 삭제
+                var targetFile = $(this).data("file");
+                var type = $(this).data("type");
+                
+                $.ajax({
+                    type: "post"
+                    ,data: {fileName: targetFile, type: type}
+                    ,url: "comInfoDeleteFile"
+                    ,success: function(result){
+                        alert(result);
+                        //브라우저에서 해당 썸네일이나 첨부파일이미지 제거
+                        uploadResultItem.remove();
+                    }
+                });//end of ajax
+                
+                //3.이미지 등록 띄우기(이미지 삭제 후 파일업로드 안하고 빠져나갈 때 적용)
+                $(".uploadDiv").show();
+                //4.. 파일 업로드 입력 요소 트리거
+                $("input[type='file']").click();
+            }
+        });
 
-			for(var i=0; i<files.length; i++){
-				console.log("@# files=>"+files[i].name);
+        /*
+        2024-08-06 서연주
+        파일(이미지) 업로드
+        */
+        $("input[type='file']").change(function () {
+        // $("#uploadtext").click(function () {
+            var formData = new FormData();
+            var inputFile = $("input[name='uploadFile']");
+            var files = inputFile[0].files;
 
-				//파일크기와 종류중에서 거짓이면 리턴
-				if(!checkExtension(files[i].name, files[i].size)){
-					return false;
-				}
+            for (var i = 0; i < files.length; i++) {
+                if (!checkExtension(files[i].name, files[i].size)) {
+                    return false;
+                }
+                formData.append("uploadFile", files[i]);
+            }
 
-				//파일 정보를 formData에 추가
-				formData.append("uploadFile",files[i]);
-			}
-
-			$.ajax({
-				 type: "post"
-				,data: formData
-				//컨트롤러단 호출
-				,url: "comUploadAjaxAction"
-                //processData : 기본은 key/value 를 Query String 으로 전송하는게 true
-                //(파일 업로드는 false)
-				,processData: false
-                //contentType : 기본값 : "application / x-www-form-urlencoded; charset = UTF-8"
-                //첨부파일은 false : multipart/form-data로 전송됨
-				,contentType: false
-				,success: function(result){
-					alert("사진 업로드 완료");
-					console.log(result);
-					//파일정보들을 함수로 보냄
-					showUploadResult(result);//업로드 결과 처리 함수 
-				}
-			});//end of ajax
-
-			function showUploadResult(uploadResultArr){
-				if(!uploadResultArr || uploadResultArr.length == 0){
-					return;
-				}
-
-				var uploadUL = $(".uploadResult ul");
-				var str="";
-
-				$(uploadResultArr).each(function (i, obj){
-					//image type
-					if (obj.image) {
-						console.log("@# obj.uploadPath=>"+obj.uploadPath);
-						console.log("@# obj.uuid=>"+obj.uuid);
-						console.log("@# obj.fileName=>"+obj.fileName);
-
-						// var fileCallPath = obj.uploadPath + obj.uuid + "_" + obj.fileName;
-						// var fileCallPath = encodeURIComponent(obj.uploadPath +"/"+ obj.uuid + "_" + obj.fileName);
-						var fileCallPath = encodeURIComponent(obj.uploadPath +"/s_"+ obj.uuid + "_" + obj.fileName);
-						// str += "<li><div>";
-
-						str += "<li data-path='" + obj.uploadPath + "'";
-						str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>"
-						str + "<div>";
-
-						str += "<span style='display:none;'>"+obj.fileName+"</span>";
-						str += "<img src='/comDisplay?fileName="+fileCallPath+"'>";//이미지 출력 처리(컨트롤러단)
-						str += "</div>";
-						str += "<div class='imgDelete'>";
-						// str += "<span data-file=\'"+ fileCallPath +"\'data-type='image'><i class='fa-regular fa-trash-can'></i></span>";
-						str += "<span style='cursor: pointer;' data-file=\'"+ fileCallPath +"\'data-type='image'>이미지 삭제</span>";
-						str += "</div></li>";
-					} else {
-						// var fileCallPath = obj.uploadPath + obj.uuid + "_" + obj.fileName;
-						var fileCallPath = encodeURIComponent(obj.uploadPath +"/"+ obj.uuid + "_" + obj.fileName);
-						// str += "<li><div>";
-
-						str += "<li data-path='" + obj.uploadPath + "'";
-						str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'"
-						str + " ><div>";
-
-						str += "<span>"+obj.fileName+"</span>";
-						// str += "<img src='./resources/img/attach.png'>";
-						str += "<span data-file=\'"+ fileCallPath +"\'data-type='file'> [삭제] </span>";
-						str += "</div></li>";
-					}
-				});//end of each
-
-				//div class 에 파일 목록 추가
-				uploadUL.append(str);
-                $('.imgg').css({"display":"none"});
-			}
-
-			$(".uploadResult").on("click","span",function(){
-				var targetFile = $(this).data("file");
-				var type = $(this).data("type");
-				var uploadResultItem = $(this).closest("li");
-
-				console.log("@# targetFile=>"+targetFile);
-				console.log("@# type=>"+type);
-				console.log("@# uploadResultItem=>"+uploadResultItem);
-
-				//컨트롤러 단에서 업로드된 실제파일 삭제
-				$.ajax({
-					 type: "post"
-					,data: {fileName: targetFile, type: type}
-					,url: "comInfoDeleteFile"
-					,success: function(result){
-						alert(result);
-						//브라우저에서 해당 썸네일이나 첨부파일이미지 제거
-						uploadResultItem.remove();
-
-                        if($(".uploadResult ul li").length === 0){
-							$('.imgg').css({"display":"flex"}); // 모든 파일이 삭제되면 보이기
-						}
-					}
-				});//end of ajax
-			});//end of click
-		});//end of change 
-	// });//end of ready // 이미지 업로드 끝
+            // 파일 업로드 AJAX 요청
+            $.ajax({
+                type: "post",
+                data: formData,
+                url: "comUploadAjaxAction",
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    alert("파일이 업로드 되었습니다.");
+                    console.log(result);
+                    showUploadResult(result); // 파일 업로드 결과 표시 함수 호출
+                    $(".uploadDiv").css('display', 'none');
+                }
+            });
+        });
 
 
-// 24.07.24 하진
-// 창립일 선택시 현재 날짜 이후의 날짜를 막는 코드
-var now = new Date(); // 지금 날짜를 가져옴
-console.log(now);
-var today = now.toISOString().substring(0,10);
-document.getElementById("Date").setAttribute("max", today);
+        // 파일 확장자와 크기 검사
+        var regex = new RegExp("(.*?)\\.(exe|sh|alz)$"); // 정규식에서 \\를 추가하여 이스케이프 처리
+        var maxSize = 5242880; // 5MB
 
-$("span").text(now.getFullYear());
+        function checkExtension(fileName, fileSize) {
+            if (fileSize >= maxSize) {
+                alert("파일 사이즈 초과");
+                return false;
+            }
+            if (regex.test(fileName)) {
+                alert("해당 종류의 파일은 업로드할 수 없습니다.");
+                return false;
+            }
+            return true;
+        }
+
+
+
+        // 업로드된 파일 목록 표시
+        function showUploadResult(uploadResultArr) {
+            if (!uploadResultArr || uploadResultArr.length === 0) {
+                return;
+            }
+            //회원정보 부분에 사진 보이게
+            var uploadUL = $(".uploadResult ul");
+            var str = "";
+            var rootURL = "<%=request.getScheme()%>";
+
+            $(uploadResultArr).each(function (i, obj) {
+                var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+                str += "<li data-path='" + obj.uploadPath + "'";
+                str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+                // str += "<div style='background:url("+rootURL+"/userImageDisplay?fileName=" + fileCallPath +")'>";
+                str += "<div>";
+                str += "<span style='display:none;'>" + obj.fileName + "</span>";
+                str += "<img src='/comDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
+                str += "</div></li>";
+            });
+
+            uploadUL.append(str);
+            $(".uploadDiv").css('display', 'none');
+
+        }//showUploadResult function 끝
+
+
+
+
+
+        
+        
+	});//end of ready // 이미지 업로드 끝
+    
+    
+            // 24.07.24 하진
+            // 창립일 선택시 현재 날짜 이후의 날짜를 막는 코드
+            var now = new Date(); // 지금 날짜를 가져옴
+            console.log(now);
+            var today = now.toISOString().substring(0,10);
+            document.getElementById("Date").setAttribute("max", today);
+        
+            $("span").text(now.getFullYear());
+        
+        
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div
+                mapOption = {
+                    center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
+                    level: 5 // 지도의 확대 레벨(크기가 클수록 상세 확대창을 보여줌)
+                };
+        
+        
+            // 24.07.24 하진
+            // 지도
+        
+            //지도를 미리 생성
+            var map = new daum.maps.Map(mapContainer, mapOption);
+            //주소-좌표 변환 객체를 생성
+            var geocoder = new daum.maps.services.Geocoder();
+            //마커를 미리 생성
+            var marker = new daum.maps.Marker({
+                position: new daum.maps.LatLng(37.537187, 127.005476),
+                map: map
+            });
+        
+        
+            function sample5_execDaumPostcode() {
+                new daum.Postcode({
+                    oncomplete: function(data) {
+                        var addr = data.address; // 최종 주소 변수
+                        // console.log("이건 뭐죠?"+addr);
+        
+                        // 주소 정보를 해당 필드에 넣는다.
+                        document.getElementById("sample5_address").value = addr;
+                        // 주소로 상세 정보를 검색
+                        geocoder.addressSearch(data.address, function(results, status) {
+                            // 정상적으로 검색이 완료됐으면
+                            if (status === daum.maps.services.Status.OK) {
+        
+                                var result = results[0]; //첫번째 결과의 값을 활용
+        
+                                // 해당 주소에 대한 좌표를 받아서
+                                var coords = new daum.maps.LatLng(result.y, result.x);
+                                // 지도를 보여준다.
+                                mapContainer.style.display = "block";
+                                map.relayout();
+                                // 지도 중심을 변경한다.
+                                map.setCenter(coords);
+                                // 마커를 결과값으로 받은 위치로 옮긴다.
+                                marker.setPosition(coords)
+                            }
+                        });
+                    }
+                }).open();
+            }
 
 </script>
+
