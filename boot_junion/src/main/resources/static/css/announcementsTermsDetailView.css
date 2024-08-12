@@ -191,6 +191,7 @@ section
     cursor: pointer;
     &:hover 
     {
+		border: 1px solid var(--main-color);
         background: var(--main-color);
         color: #fff;
     }
