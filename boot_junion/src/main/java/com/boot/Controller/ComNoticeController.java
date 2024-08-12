@@ -65,7 +65,7 @@ public class ComNoticeController {
 //	public String jobPost(Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
 //	public String jobPost(Model model) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
 //		public String jobPost(Standard std, Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동
-		public String jobPost(@RequestParam(name = "orderType", required = false, defaultValue = "latest") String orderType,
+		public String jobPost(@RequestParam(name = "orderType", required = false, defaultValue = "latest") String orderType,@RequestParam(name = "keyword", required = false, defaultValue = "") String keyword,
 							Standard std, Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동
 //		public String jobPost(@RequestParam(name = "orderType", required = false, defaultValue = "latest") String orderType, Standard std, Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동
 		log.info("@# cardPage controller");
