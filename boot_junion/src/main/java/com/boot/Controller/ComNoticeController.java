@@ -74,9 +74,10 @@ public class ComNoticeController {
 		model.addAttribute(orderType, orderType);
 		
 //		ArrayList<ComNoticeDAO> list = cardPageService.cardPageList(std);//현재 진행중인 공고를 가져옴
-		ArrayList<ComNoticeDAO> list = cardPageService.cardPageList(orderType, std);//현재 진행중인 공고를 가져옴
+		ArrayList<ComNoticeDTO> list = cardPageService.cardPageList(orderType, std);//현재 진행중인 공고를 가져옴
 //		int total = pageService.getTotalCount();
 		int total = cardPageService.getTotalCount(std);
+		log.info("@# cardPage controller total!!=>"+total);
 		
 		model.addAttribute("jobPost", list);//현재 진행중인 공고를 실어 보냄
 		model.addAttribute("paging", new CardPageDTO(total, std));

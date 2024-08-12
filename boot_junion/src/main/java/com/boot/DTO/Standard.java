@@ -15,6 +15,7 @@ public class Standard {
 	private String stackType;// 기술 스택
 	private String locationType;// 지역
 //	private String hitType;// 지역
+	private String orderType;//정렬기준 마감임박순, 추천순, 최신순, 조회순 값 담는 필드
 	private String keyword;//검색
 	
 	public Standard() {//카드 형식의 목록은 12개가 한 페이지 갯수

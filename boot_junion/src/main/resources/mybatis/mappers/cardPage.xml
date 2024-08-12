@@ -56,6 +56,22 @@
 				        <include refid="stackType"/>
 				        <include refid="locationType"/>
 			            group by  nt.notice_num
+				FROM (  select row_number() over( ) as row_noticeNum , nt.notice_num as notice_num, nt.notice_title as notice_title, ct.com_name as com_name
+						, notice_area1 , notice_area2, notice_career, notice_jobInfo, notice_endDate, notice_hit, scrap_count, stack
+						FROM notice_tb nt
+						left outer join (select com_name, com_email 
+											from com_tb group by com_email) ct on nt.com_email= ct.com_email
+						left outer join (select notice_num, COUNT(notice_num) AS scrap_count 
+											from NOTICE_SCRAP group by notice_num) ns on nt.notice_num = ns.notice_num 
+						left outer join (select notice_num, GROUP_CONCAT(stack SEPARATOR ', ') as stack 
+											from notice_stack group by notice_num) nk  on nt.notice_num = nk.notice_num
+						<![CDATA[
+		                where notice_endDate >= CURDATE()
+		                ]]>
+		                and (ct.com_name like concat ('%', IFNULL(#{std.keyword}, ''), '%') or nt.notice_title like concat ('%', IFNULL(#{std.keyword}, ''), '%') or notice_jobInfo like concat ('%', IFNULL(#{std.keyword}, ''), '%'))
+			           	and notice_career like concat ('%', IFNULL(#{std.careerType}, ''), '%') 
+						and nk.stack like BINARY CONCAT ('%', IFNULL(#{std.stackType}, ''), '%') 
+						and notice_area1 like concat ('%', IFNULL(#{std.locationType}, ''), '%') 
 					  	<![CDATA[
 				            ) a 
 				         where row_noticeNum<= (#{std.pageNum} * #{std.amount}) 
@@ -82,6 +98,22 @@
         <include refid="locationType"/>
         group by  nt.notice_num
         <include refid="orderType"/>
+		select count(*)
+		FROM notice_tb nt
+		left outer join (select com_name, com_email 
+							from com_tb group by com_email) ct on nt.com_email= ct.com_email
+		left outer join (select notice_num, COUNT(notice_num) AS scrap_count 
+							from NOTICE_SCRAP group by notice_num) ns on nt.notice_num = ns.notice_num 
+		left outer join (select notice_num, GROUP_CONCAT(stack SEPARATOR ', ') as stack 
+							from notice_stack group by notice_num) nk  on nt.notice_num = nk.notice_num
+		<![CDATA[
+		where notice_endDate >= CURDATE()
+		]]>
+		and (ct.com_name like concat ('%', IFNULL(#{keyword}, ''), '%') or nt.notice_title like concat ('%', IFNULL(#{keyword}, ''), '%') or notice_jobInfo like concat ('%', IFNULL(#{keyword}, ''), '%'))
+		and notice_career like concat ('%', IFNULL(#{careerType}, ''), '%') 
+		and nk.stack like BINARY CONCAT ('%', IFNULL(#{stackType}, ''), '%') 
+		and notice_area1 like concat ('%', IFNULL(#{locationType}, ''), '%') 
+		<include refid="orderType"/>
         
         
 	</select>
