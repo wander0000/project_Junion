@@ -1,0 +1,74 @@
+#chat-room {
+    width: 1000px;
+    margin: 0 auto;
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+}
+
+#messages {
+    height: 800px;
+    /* overflow-y: scroll; */
+    /* display: flex; */
+    /* flex-direction: column; 채팅이 위에서 아래로 나타나게 함 */
+    /* flex-direction: column-reverse; */
+    /* overflow-y: hidden; */
+    /* flex: 1; */
+    /* overflow: auto; */
+    margin-bottom: 10px;
+    /* border: 1px solid #ddd; */
+    padding: 5px;
+}
+
+.message {
+    /* padding: 5px; */
+    /* border-radius: 3px; */
+    /* margin-bottom: 5px; */
+    /* max-width: 70%; */
+    padding: 10px 15px;
+    border-radius: 20px;
+    margin-bottom: 10px;
+    width: fit-content;
+    /* max-width: 60%;  최대 너비 제한 */
+    word-wrap: break-word;  /* 긴 단어가 줄을 넘어갈 때 자동으로 줄 바꿈 */
+}
+
+.sendMessage {
+    display: flex;
+}
+
+.sent {
+    background-color: #FFA500;
+    /* text-align: right; */
+    align-self: flex-end;  /* 우측 정렬 */
+    margin-left: auto;  /* 왼쪽 여백 자동 조절 */
+}
+
+.received {
+    background-color: #ffffff;
+    /* text-align: left; */
+    align-self: flex-start;  /* 좌측 정렬 */
+}
+
+#message-input {
+    padding: 5px;
+    width: calc(100% - 60px);
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+}
+
+#send-button {
+    padding: 5px 10px;
+    height: 40px;
+    width: 80px;
+    border: none;
+    border-radius: 10px;
+    background-color: #FFA500;
+    color: white;
+    cursor: pointer;
+}
+
+#send-button:hover {
+    background-color: #FFA500;
+}

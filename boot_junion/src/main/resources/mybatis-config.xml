@@ -42,6 +42,7 @@
 		<mapper resource="mybatis/mappers/userImageUpload.xml"/>
 		<mapper resource="mybatis/mappers/announcementsTerms.xml"/>
 		<mapper resource="mybatis/mappers/announcementsBoard.xml"/>
+		<mapper resource="mybatis/mappers/SNSChat.xml"/>
 	</mappers>
 </configuration>
 
