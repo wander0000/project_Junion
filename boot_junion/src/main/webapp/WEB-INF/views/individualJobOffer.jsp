@@ -232,7 +232,7 @@
 					display: flex;
 					align-items: center;
 					gap: 20px;
-					color: #222;
+					color: #555;
 				}
 
 				/*제안박스 왼쪽(체크박스)*/
@@ -252,7 +252,7 @@
 					gap: 10px 0;
 					padding-left: 60px;
 					cursor: pointer;
-					color: #222;
+					color: #555;	
 				}
 
 				/* 기업명 */
@@ -269,6 +269,7 @@
 					/* display: flex; */
 					font-size: var(--font-size14);
 					cursor: pointer;
+					color: #777;	
 
 				}
 
