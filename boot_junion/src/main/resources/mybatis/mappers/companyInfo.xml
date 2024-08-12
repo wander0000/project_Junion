@@ -54,7 +54,7 @@
 				cs.com_stack, c.com_location, c.com_year, c.com_content, c.com_sale, c.com_type, c.com_salary, 
 				c.com_CEO, c.com_site, c.com_employee , TIMESTAMPDIFF(YEAR, c.com_year, CURDATE()) AS experience_years 
 			from com_tb c 
-			join(select com_email, GROUP_CONCAT(stack SEPARATOR ', ') AS com_stack 
+			left join(select com_email, GROUP_CONCAT(stack SEPARATOR ', ') AS com_stack 
 			from com_stack 
 			where com_email=#{com_email} group by com_email) cs on c.com_email = cs.com_email 
 			where c.com_email=#{com_email} 
