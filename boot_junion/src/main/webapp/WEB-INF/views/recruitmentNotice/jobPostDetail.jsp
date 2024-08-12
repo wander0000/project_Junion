@@ -55,7 +55,7 @@
 	.wrap
 	{
 	    min-width: 1200px;
-	    padding: 70px 0;
+	    padding: 70px 0 90px 0;
 	    box-sizing: border-box;
 	    display: flex;
 	}
@@ -392,12 +392,12 @@
 	  border-radius: 6px;
 	  padding: 12px 20px;
 	  width: initial;
-	  cursor: pointer;
+	 /* cursor: pointer;
 	  &:hover 
 	  {
 	      background: var(--main-color);
 	      color: #fff;
-	  }
+	  }*/
 	}
 
 
@@ -658,8 +658,8 @@
                             <h5 class="detail">
                                 <div class="sectionConBody tech">
                                     <div class="Bodycon tech">            
-                                        <button class="tech" style="gap: 20px;">
-                                        </button>
+                                        <!-- <button class="tech" style="gap: 20px;">
+                                        </button> -->
                                     </div>                        
                                 </div> <!-- sectionConBody 끝 -->
                             </h5>
@@ -677,7 +677,7 @@
                         </div>
                     </div>
 
-                    <div class="col7">
+                    <div class="col7 dislocation">
                         <div class="columnA">
                             <h5 class="title">회사 위치</h5>
                         </div>
@@ -769,9 +769,9 @@
 			2024-07-24 임하진 : 스택 출력 문제로 span으로 태그 변경
             */
      var noticeStack = "${company.notice_stack}";
-	//  console.log(noticeStack);
-	//  console.log(noticeStack.length);
-	 if(noticeStack.length > 0){
+	 console.log("test"+noticeStack);
+	 console.log("length"+noticeStack.length);
+	 if(noticeStack.length >0){
             const stacks = noticeStack.split(','); // 콤마로 나눠서 배열로 저장
             let output = "";
             for (let i = 0; i < stacks.length; i++) {
@@ -797,42 +797,88 @@
 			$(".case").css("display","none");
 		}
 
+		// 24.08.12 하진 : 채용 공고에 기업이 회사 위치를 설정하지 않은 경우, 해당 태그 부분 숨김처리 로직 추가
+		var getlocation ="${company.com_location}";
 
-
+		if(getlocation){
 		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-    mapOption = {
-        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-        level: 3 // 지도의 확대 레벨
-    };  
+			mapOption = {
+				center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+				level: 3 // 지도의 확대 레벨
+				};  
 
-	// 지도를 생성합니다    
-	var map = new kakao.maps.Map(mapContainer, mapOption); 
+		// 지도를 생성합니다    
+		var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-	// 주소-좌표 변환 객체를 생성합니다
-	var geocoder = new kakao.maps.services.Geocoder();
+		// 주소-좌표 변환 객체를 생성합니다
+		var geocoder = new kakao.maps.services.Geocoder();
 
-	// 주소로 좌표를 검색합니다
+		// 주소로 좌표를 검색합니다
+		geocoder.addressSearch(getlocation, function(result, status) {
 
-	var getlocation ="${company.com_location}";
+		// 정상적으로 검색이 완료됐으면 
+		if (status === kakao.maps.services.Status.OK) {
 
-	geocoder.addressSearch(getlocation, function(result, status) {
+			var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
-    // 정상적으로 검색이 완료됐으면 
-     if (status === kakao.maps.services.Status.OK) {
+			// 결과값으로 받은 위치를 마커로 표시합니다
+			var marker = new kakao.maps.Marker({
+				map: map,
+				position: coords
+			});
 
-        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+			map.setCenter(coords);
+			} 
+		});  
+	}else{
+		$(".dislocation").css("display","none");
+	}
 
-        // 결과값으로 받은 위치를 마커로 표시합니다
-        var marker = new kakao.maps.Marker({
-            map: map,
-            position: coords
-        });
+		//24.07.30 지수
+		//파일 가져오기
+		var noticeNum = "${noticeNumber}";
+		console.log("notice_num=>","${noticeNumber}");
+		var uploadResultContainer = $(this).find('.uploadResult ul');
 
-        map.setCenter(coords);
-    } 
-});   
-
+		if (noticeNum) {
+			$.ajax({
+				url: '/registGetFileList',
+				type: 'GET',
+				data: { notice_num: noticeNum },
+				dataType: 'json',
+				success: function(data) {
+					showUploadResult(data, uploadResultContainer);
+				},
+				error: function(xhr, status, error) {
+					console.error('Error fetching file list for notice_num ' + noticeNum + ':', error);
+				}
+			});
+		} 
 	});//end of document ready function
+
+
+	function showUploadResult(uploadResultArr, uploadResultContainer){
+	   if (!uploadResultArr || uploadResultArr.length == 0) {
+		   return;
+	   }
+   
+	   var str = "";
+   
+	   $(uploadResultArr).each(function (i, obj) {
+		   var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+   
+		   str += "<li data-path='" + obj.uploadPath + "'";
+		   str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+		   str += "<div>";
+		   str += "<span style='display:none;'>" + obj.fileName + "</span>";
+		   str += "<img src='/registDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+		   str += "</div></li>";
+	   });
+   
+	   uploadResultContainer.empty().append(str);
+   }
+   
+
 
 	// 24.07.29 하진
 	// : 기업 회원의 경우 버튼 비활성화
@@ -963,6 +1009,7 @@
 
 // 24.07.28 side 부분 구현 -> 다른 채용 공고가 없을 경우의 로직
 // 24.08.11 하진 : 다른 공고 보러 가기 클릭시 이동 페이지 수정
+// 24.08.12 하진 : 해당 기업의 공고 목록으로 이동 로직 추가
 	// var postNum = "${postNum}";
 	// if (postNum == 0) {
 	// 	$("#otherNotice").text("다른 공고 보러 가기");
@@ -1007,39 +1054,39 @@
 	// 	});
 	// }
 	var postNum = "${postNum}";
-if (postNum == 0) {
-    $("#otherNotice").text("다른 공고 보러 가기");
-    $(".t").css({"display":"none"});
-    $("#otherNotice").parent().on("click", function() {
-        $(this).addClass("active");
-        location.href = "jobPostList";
-    });
-} else {
-    $("#otherNotice").parent().on("click", function() {
-        $(this).addClass("active");
+	if (postNum == 0) {
+		$("#otherNotice").text("다른 공고 보러 가기");
+		$(".t").css({"display":"none"});
+		$("#otherNotice").parent().on("click", function() {
+			$(this).addClass("active");
+			location.href = "jobPostList";
+		});
+	} else {
+		$("#otherNotice").parent().on("click", function() {
+			$(this).addClass("active");
 
-        // hiddenClass 안에 com_email 값을 담는 부분
-        var hiddenEmail = $(".hiddenClass");
-        var comEmail = "${company.com_email}";
+			// hiddenClass 안에 com_email 값을 담는 부분
+			var hiddenEmail = $(".hiddenClass");
+			var comEmail = "${company.com_email}";
 
-        // 기존 input 태그를 생성하여 hiddenClass 안에 추가
-        // var inputEmail = $('<input>').attr({
-        //     type: 'hidden',
-        //     name: 'com_email',
-        //     value: comEmail
-        // });
+			// 기존 input 태그를 생성하여 hiddenClass 안에 추가
+			// var inputEmail = $('<input>').attr({
+			//     type: 'hidden',
+			//     name: 'com_email',
+			//     value: comEmail
+			// });
 
-        // hiddenEmail.empty().append(inputEmail);
-		
-		$("#com_email").val(comEmail);
+			// hiddenEmail.empty().append(inputEmail);
+			
+			$("#com_email").val(comEmail);
 
-        // ID가 selectEmail인 폼 요소를 찾아서 제출
-        var form = $("#selectEmail");  // 폼 요소의 ID를 selectEmail로 가정
-        // if (form.length > 0) {
-            form.submit();
-        // }
-    });
-}
+			// ID가 selectEmail인 폼 요소를 찾아서 제출
+			var form = $("#selectEmail");  // 폼 요소의 ID를 selectEmail로 가정
+			// if (form.length > 0) {
+				form.submit();
+			// }
+		});
+	}
 
 
 	// 24.07.29 하진
@@ -1059,47 +1106,47 @@ if (postNum == 0) {
 <script>
 	//24.07.30 지수
 	//파일 가져오기
-	$(document).ready(function () {
+	// $(document).ready(function () {
 		
-		var noticeNum = "${noticeNumber}";
-		console.log("notice_num=>","${noticeNumber}");
-		var uploadResultContainer = $(this).find('.uploadResult ul');
+		// var noticeNum = "${noticeNumber}";
+		// console.log("notice_num=>","${noticeNumber}");
+		// var uploadResultContainer = $(this).find('.uploadResult ul');
 
-		if (noticeNum) {
-			$.ajax({
-				url: '/registGetFileList',
-				type: 'GET',
-				data: { notice_num: noticeNum },
-				dataType: 'json',
-				success: function(data) {
-					showUploadResult(data, uploadResultContainer);
-				},
-				error: function(xhr, status, error) {
-					console.error('Error fetching file list for notice_num ' + noticeNum + ':', error);
-				}
-			});
-		} 
-   });
+		// if (noticeNum) {
+		// 	$.ajax({
+		// 		url: '/registGetFileList',
+		// 		type: 'GET',
+		// 		data: { notice_num: noticeNum },
+		// 		dataType: 'json',
+		// 		success: function(data) {
+		// 			showUploadResult(data, uploadResultContainer);
+		// 		},
+		// 		error: function(xhr, status, error) {
+		// 			console.error('Error fetching file list for notice_num ' + noticeNum + ':', error);
+		// 		}
+		// 	});
+		// } 
+//    });
    
-   function showUploadResult(uploadResultArr, uploadResultContainer){
-	   if (!uploadResultArr || uploadResultArr.length == 0) {
-		   return;
-	   }
+//    function showUploadResult(uploadResultArr, uploadResultContainer){
+// 	   if (!uploadResultArr || uploadResultArr.length == 0) {
+// 		   return;
+// 	   }
    
-	   var str = "";
+// 	   var str = "";
    
-	   $(uploadResultArr).each(function (i, obj) {
-		   var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+// 	   $(uploadResultArr).each(function (i, obj) {
+// 		   var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
    
-		   str += "<li data-path='" + obj.uploadPath + "'";
-		   str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
-		   str += "<div>";
-		   str += "<span style='display:none;'>" + obj.fileName + "</span>";
-		   str += "<img src='/registDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
-		   str += "</div></li>";
-	   });
+// 		   str += "<li data-path='" + obj.uploadPath + "'";
+// 		   str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+// 		   str += "<div>";
+// 		   str += "<span style='display:none;'>" + obj.fileName + "</span>";
+// 		   str += "<img src='/registDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+// 		   str += "</div></li>";
+// 	   });
    
-	   uploadResultContainer.empty().append(str);
-   }
+// 	   uploadResultContainer.empty().append(str);
+//    }
    
    </script>
