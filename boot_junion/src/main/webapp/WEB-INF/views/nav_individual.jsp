@@ -52,6 +52,7 @@
 	  transition: 0.5s;
 	  padding: 1rem 0;
 	  border-right: 1px solid var(--input-gray);
+	  z-index: 9;
 	}
 
 	/* 로고 */
@@ -140,7 +141,22 @@
 	  min-height: 100vh;
 	}
 
-	/* 헤더 */
+    /*회원사진*/
+    .userWrapper img
+    {
+        width: 40px;
+        mask-image: url(images/circle36.png);
+        -webkit-mask-image: url(images/circle36.png);
+        mask-repeat: no-repeat;
+        -webkit-mask-repeat: no-repeat;
+        /* mask-position: center top; */
+        mask-position: 50% 25%;/*0% 0% 가 왼쪽상단 100% 100%가 오른쪽 하단*/
+        -webkit-mask-position: 50% 25%;
+        overflow: hidden; /* 컨테이너 영역 밖 요소 숨김 */
+        position: relative;
+    }
+
+    	/* 헤더 */
 	header 
 	{
 	    width: 100%;
@@ -193,6 +209,7 @@
 	  font-size: var(--font-size14);
 	  margin-right: 12px;
 	}
+
 </style>	
 </head>
 <body>
