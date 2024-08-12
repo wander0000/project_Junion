@@ -224,9 +224,9 @@
 
 	.textarea
 	{
-	/* white-space: pre-wrap;*//*줄바꿈을 그대로 출력(ChatGPT) 실패 */
-	white-space: pre;/*줄바꿈을 그대로 출력*/
+	white-space: pre-wrap;/*줄바꿈을 그대로 출력*/
 	line-height :1.5;/* 글자 위아래 간격 조절 (1.5배) */
+	max-width: 720px;
 	}
 
 	/* 라이트 시작 */
@@ -724,9 +724,12 @@
 						</c:forEach>
 
                         <div class="pos" >
-                            <button class="box3" >
-                                    <h5 class="m1" id="otherNotice">${postNum}개의 공고</h5>
-                            </button>
+							<form action="jobPostList">
+								<input type="hidden" name="com_email" value="${company.com_email}">
+								<button class="box3" >
+										<h5 class="m1" id="otherNotice">${postNum}개의 공고</h5>
+								</button>
+							</form>
                         </div>
                         <div class="pos">
                             <button class="box3" id="user_resume" onclick="resume()">
