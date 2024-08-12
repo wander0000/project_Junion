@@ -1,0 +1,196 @@
+:root 
+{
+	/* 컬러 모음 */
+	--main-color:#FFA500;
+	--color-black: #111;
+	--color-white: #fff;
+	--color-gray: #787878;
+	--input-gray: #e5e5ec;
+	--button-gray: #f7f7f7;
+	--border-color-gray: #dadada;
+	--font-size32: 32px;
+	--font-size24: 24px;
+	--font-size16: 16px;
+	--font-size14: 14px;
+	--font-size12: 12px;
+}
+
+.snsMain
+{
+	display: flex;
+	margin: 80px;
+}
+
+.snsMain .detailBox
+{
+	margin: 0 80px 80px;
+	width: 600px;
+}
+
+.snsMain .detailBox .userBox
+{
+	display: flex;
+	align-items: center;
+}
+
+.snsMain .detailBox .userBox .uploadResult img
+{
+	width: 36px;
+	height: 36px;
+	cursor: pointer;
+}
+
+.snsMain .detailBox .userBox .nameBox h4
+{
+	margin: 18px;
+	font-size: var(--font-size14);
+	cursor: pointer;
+}
+
+.snsMain .detailBox .userBox .right
+{
+	margin-left: auto;
+}
+
+.snsMain .detailBox .userBox .right button
+{
+	width: 58px;
+	height: 30px;
+	border-radius: 6px;
+	background-color: var(--color-white);
+	border: solid 1px var(--border-color-gray);
+	color: var(--color-black);
+	font-size: var(--font-size12);
+	cursor: pointer;
+}
+
+.snsMain .detailBox .detailContent
+{
+	text-align: center;
+}
+
+.snsMain .detailBox .detailContent .mainGetResult
+{
+	text-align: center;
+}
+
+.snsMain .detailBox .detailContent .mainGetResult img
+{
+	width: 600px;
+	height: 360px;
+	border-radius: 6px;
+	margin-top: 12px;
+}
+
+.snsMain .detailBox .detailContent .detailTitle
+{
+	text-align: left;
+    margin: 12px 0 0px 4px;
+    font-size: var(--font-size16);
+}
+
+.snsMain .detailBox .detailContent textarea
+{
+	width: 600px;
+	height: 120px;
+	font-size: var(--font-size14);
+	font-weight: 400;
+	margin: 12px 4px;
+	resize: none;
+	border: none;
+	outline: none;
+}
+
+.snsMain .detailBox .iconBox
+{
+	display: flex;
+	border-top: solid 1px var(--border-color-gray);
+	padding: 12px 12px 12px 8px
+}
+
+.snsMain .detailBox .iconBox .icon
+{
+	font-size: var(--font-size24);
+	margin-right: 16px;
+	cursor: pointer;
+}
+
+.snsMain .detailBox .iconBox h5
+{
+	margin-left: auto;
+	color: var(--color-gray);
+}
+
+.snsMain .rightCon
+{
+	margin: 80px;
+	display: flex;
+	flex-direction: column;
+}
+
+.snsMain .rightCon h5
+{
+	color: var(--color-gray);
+	font-size: var(--font-size14);
+}
+
+.snsMain .rightCon .profile
+{
+	margin-bottom: 12px;
+}
+
+.snsMain .rightCon .userBox
+{
+	display: flex;
+	align-items: center;
+	width: 240px;
+
+}
+
+.snsMain .rightCon .userBox .uploadResult img
+{
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+}
+
+.snsMain .rightCon .userBox .nameBox
+{
+	margin: 18px;
+}
+
+.snsMain .rightCon .userBox .nameBox h4
+{
+	font-size: var(--font-size14);
+	cursor: pointer;
+}
+
+.snsMain .rightCon .userBox .nameBox h5
+{
+	font-size: var(--font-size12);
+	color: var(--color-gray);
+}
+
+.snsMain .rightCon .userBox .right
+{
+	margin-left: auto;
+}
+
+.snsMain .rightCon .userBox .right button
+{
+	width: 58px;
+	height: 30px;
+	border-radius: 6px;
+	background-color: var(--main-color);
+	border: solid 1px var(--main-color);
+	color: var(--color-white);
+	font-size: var(--font-size12);
+	cursor: pointer;
+}
+
+.snsMain .rightCon .more
+{
+	margin-left: auto;
+	margin-top: 8px;
+	cursor: pointer;
+}
