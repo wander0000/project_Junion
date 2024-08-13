@@ -634,6 +634,12 @@ section
     height: 500px;
 }
 
+.company > img{
+	width: 100%;
+	    height: 100%;
+	    border-radius: 20px;
+	
+}
 .comInfoImage li img 
 {
     width: 100%;
