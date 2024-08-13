@@ -43,7 +43,7 @@ header
 	width: 100%;
 	background-color: var(--color-white);
 	position: fixed;
-	z-index: 9;
+	z-index: -2;
 }
 
 .snsHeader
