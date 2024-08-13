@@ -62,6 +62,5 @@
 		uuid, uploadPath, fileName, image, user_email
 			from user_attach where user_email=#{user_email}
     </select>
-<!--    추가-->
 	
 </mapper>

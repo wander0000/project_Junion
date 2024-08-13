@@ -47,7 +47,6 @@ public class SNSMyPageController {
         // SNS 목록 가져오기
         ArrayList<SNSDTO> snsList = snsService.snsList();
         log.info("@# list" + snsList);
-
         // 모델에 SNS 목록 추가
         model.addAttribute("snsList", snsList);
 		
@@ -59,6 +58,7 @@ public class SNSMyPageController {
 //	    model.addAttribute("snsIntro", snsIntro);
 	    
 	    ResumeDTO resumeDTO = snsMyPageService.resumeInfo(param);
+//        List<ResumeDTO> resumeDTO = snsMyPageService.resumeInfo(param);
 	    model.addAttribute("resumeInfo", resumeDTO);
 	    
 //	    String user_email = (String)session.getAttribute("login_email");
@@ -84,6 +84,11 @@ public class SNSMyPageController {
 //	public String SNSCompanyPage(@RequestParam(value = "com_email", required = false) String com_email , Model model, HttpSession session) {
 	public String SNSCompanyPage(String com_email , Model model, HttpSession session) {
 		log.info("@# snsCompanyPage");
+		
+        ArrayList<SNSDTO> snsList = snsService.snsList();
+        log.info("@# list" + snsList);
+        // 모델에 SNS 목록 추가
+        model.addAttribute("snsList", snsList);
 		
 		CompanyInfoDTO companyDTO = snsMyPageService.companyInfo(com_email);
 		log.info("@# snsCompanyPage" + companyDTO);
