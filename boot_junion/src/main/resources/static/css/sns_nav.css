@@ -253,7 +253,7 @@
 	outline: none;
 }
 
-.xIcon 
+.navSearch .searchBox .xIcon 
 {
     position: absolute; 
     right: 36px; 
@@ -262,7 +262,7 @@
     cursor: pointer; 
 }
 
-.xIcon i 
+.navSearch .searchBox .xIcon i 
 {
     font-size: 16px; 
     color: var(--color-gray); 
@@ -528,6 +528,11 @@
 	resize: none;
 }
 
+body.body-no-scroll 
+{
+    overflow: hidden;
+}
+
 /* 네비게이션 옆 컨텐츠 영역 */
 .snsContent 
 {
@@ -538,5 +543,5 @@
 
 .snsContainer .snsContent main
 {
-	margin: 90px 480px;
+	margin: 90px 480px 0;
 }

@@ -23,7 +23,7 @@
 		<div class="navigation">
 
 			<div class="logo">
-				<a href="snsMain">
+				<a href="main">
 					<img src="images/logo.svg" alt="#">
 				</a>
 				<!-- <h1>
@@ -83,7 +83,7 @@
 			<div class="navigationTwo">
 
 				<div class="logo">
-					<a href="snsMain">
+					<a href="main">
 						<img src="images/logoSmall.svg" alt="#">
 					</a>
 					<!-- <h1>
@@ -178,7 +178,7 @@
 			<div class="navigationTwo">
 
 				<div class="logo">
-					<a href="snsMain">
+					<a href="main">
 						<img src="images/logoSmall.svg" alt="#">
 					</a>
 					<!-- <h1>
@@ -344,25 +344,19 @@
             $('.navigationChat').hide();
         });
 
-        // '글 작성' 메뉴 항목을 클릭했을 때 모달 열기
-        $('.navMenu .iconWrite').on('click', function(event) {
-            event.preventDefault();
-            $('#writeModal').css('display', 'flex');
-            $('body').css({
-                'overflow': 'hidden',
-                'margin-right': scrollbarWidth + 'px' // 스크롤바 너비만큼 오른쪽 마진 추가
-            });
-        });
+       // '글 작성' 메뉴 항목을 클릭했을 때 모달 열기
+		$('.navMenu .iconWrite').on('click', function(event) {
+			event.preventDefault();
+			$('#writeModal').css('display', 'flex');
+			$('body').addClass('body-no-scroll');
+		});
 
-        // '취소' 버튼 클릭 시 모달 닫기
-        $('#cancelButton').on('click', function(event) {
-            event.preventDefault();
-            $('#writeModal').hide();
-            $('body').css({
-                'overflow': 'auto',
-                'margin-right': '0' // 오른쪽 마진 원래대로
-            });
-        });
+		// '취소' 버튼 클릭 시 모달 닫기
+		$('#cancelButton').on('click', function(event) {
+			event.preventDefault();
+			$('#writeModal').hide();
+			$('body').removeClass('body-no-scroll');
+		});
 
         // 폼 제출 시 처리 (예: 데이터 유효성 검사 및 AJAX로 서버에 전송)
         // $('.popupBox').on('submit', function(event) {
