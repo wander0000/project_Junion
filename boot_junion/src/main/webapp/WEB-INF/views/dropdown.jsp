@@ -158,15 +158,15 @@
     // 개인회원 업로드된 파일 목록 표시
     function showUploadResultUser(uploadResultArr) {
         
-        //드랍다운 부분에 사진 보이게
+        //드랍다운 부분에 사진 보이게(사진 여러개라면  하나만 보이게)
         var uploadUL = $(".userWrapper");
         var str = "";
 
-        $(uploadResultArr).each(function (i, obj) {
+        if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
+            var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기
             var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
-
             str += "<img src='/userImageDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
-        });
+        }
 
         uploadUL.prepend(str);
 
@@ -177,15 +177,15 @@
       // 기업회원 업로드된 파일 목록 표시
       function showUploadResultCom(uploadResultArr) {
         
-        //드랍다운 부분에 사진 보이게
+        //드랍다운 부분에 사진 보이게(사진 여러개라면  하나만 보이게)
         var uploadUL2 = $(".userWrapper");
         var str2 = "";
 
-        $(uploadResultArr).each(function (i, obj) {
+        if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
+            var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기
             var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
-
-            str2 += "<img src='/comDisplay?fileName="+fileCallPath+"'>";//이미지 출력 처리(컨트롤러단)
-        });
+            str2 += "<img src='/comDisplay?fileName=" + fileCallPath + "'>";//이미지 출력 처리(컨트롤러단)
+        }
 
         uploadUL2.prepend(str2);
 
