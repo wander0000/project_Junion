@@ -729,7 +729,7 @@
 								<button class="box3">
 										<!-- <div class="hiddenClass"></div> -->
 										<input type="hidden" id="com_email" name="com_email">
-										<h5 class="m1" id="otherNotice">${postNum}개의 공고</h5>
+										<h5 class="m1" id="otherNotice">${postNum}개의 공고가 더 진행중</h5>
 								</button>
 							</form>
                         </div>
@@ -769,8 +769,8 @@
 			2024-07-24 임하진 : 스택 출력 문제로 span으로 태그 변경
             */
      var noticeStack = "${company.notice_stack}";
-	 console.log("test"+noticeStack);
-	 console.log("length"+noticeStack.length);
+	//  console.log("test"+noticeStack);
+	//  console.log("length"+noticeStack.length);
 	 if(noticeStack.length >0){
             const stacks = noticeStack.split(','); // 콤마로 나눠서 배열로 저장
             let output = "";
@@ -1056,7 +1056,7 @@
 	var postNum = "${postNum}";
 	if (postNum == 0) {
 		$("#otherNotice").text("다른 공고 보러 가기");
-		$(".t").css({"display":"none"});
+		$(".t").css({"display":"none"});//기업의 진행중인 채용 공고  태그 비활성화
 		$("#otherNotice").parent().on("click", function() {
 			$(this).addClass("active");
 			location.href = "jobPostList";
@@ -1106,6 +1106,7 @@
 <script>
 	//24.07.30 지수
 	//파일 가져오기
+	// document.ready function 중복으로 오류 발생 방지를 위해 로직을 위로 올림
 	// $(document).ready(function () {
 		
 		// var noticeNum = "${noticeNumber}";

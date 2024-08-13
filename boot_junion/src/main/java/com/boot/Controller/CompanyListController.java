@@ -118,6 +118,9 @@ public class CompanyListController {
 		ArrayList<ComNoticeDTO> noticeList = comNoticeService.getNoticeLimit(com_email);
 		model.addAttribute("noticeList", noticeList);//진행중인 공고를 조회 후 view로 가져감
 		
+		int postNum = noticeList.size();
+		model.addAttribute("postNum", postNum);// 진행중인 공고 수를 구해서 view로 가져감
+		
 		String user_email = (String) session.getAttribute("login_email");//세션에서 이메일 값을 얻음
 		
 		if(user_email != null) {//회원일 경우 쿼리를 날림

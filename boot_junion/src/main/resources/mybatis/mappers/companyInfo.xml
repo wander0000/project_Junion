@@ -51,7 +51,7 @@
 <!--   24.07.27(토) 하진 : 업력 계산 함수 추가 or js 처리 중 방식 고민중... -->
 	<select id="companyInfo" resultType="com.boot.DTO.CompanyInfoDTO"> 
 		select c.com_email, c.com_pw, c.com_name, c.com_serial_number, c.com_tel, c.com_person, 
-				cs.com_stack, c.com_location, c.com_year, c.com_content, c.com_sale, c.com_type, c.com_salary, 
+				cs.com_stack as com_stack, c.com_location, c.com_year, c.com_content, c.com_sale, c.com_type, c.com_salary, 
 				c.com_CEO, c.com_site, c.com_employee , TIMESTAMPDIFF(YEAR, c.com_year, CURDATE()) AS experience_years 
 			from com_tb c 
 			left join(select com_email, GROUP_CONCAT(stack SEPARATOR ', ') AS com_stack 
