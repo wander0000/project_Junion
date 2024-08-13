@@ -1,0 +1,66 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.DAO.SNSMyPageDAO">
+
+	<select id="resumeInfo" resultType="com.boot.DTO.ResumeDTO">
+		select rt.resume_num, ut.user_email, rt.resume_title, rt.resume_comName, rt.resume_comPart,
+			TIMESTAMPDIFF(YEAR, rt.career_start, rt.career_end) AS career_years,
+			MOD(TIMESTAMPDIFF(MONTH, rt.career_start, rt.career_end), 12) AS career_months,
+	        rt.resume_eduName, rt.resume_eduMajor,
+	        TIMESTAMPDIFF(YEAR, rt.resume_eduStart, rt.resume_eduEnd) AS edu_years,
+			MOD(TIMESTAMPDIFF(MONTH, rt.resume_eduStart, rt.resume_eduEnd), 12) AS edu_months,
+	        rt.resume_portfolio_name, rt.resume_portfolio_url, rt.resume_licenseContent, rt.resume_licenseDate
+		from user_tb ut
+		join resume_tb rt
+		on ut.user_email = rt.user_email
+		where ut.user_email = #{user_email}
+    </select>
+    
+	<select id="companyInfo" resultType="com.boot.DTO.CompanyInfoDTO">
+		select com_email, com_pw, com_name, com_tel, com_person, 
+				com_location, com_year, com_content, com_sale, com_type, com_salary, 
+				com_CEO, com_site, com_employee , TIMESTAMPDIFF(YEAR, com_year, CURDATE()) AS experience_years 
+			from com_tb
+			where com_email = #{com_email}
+    </select>
+	
+	<select id="getUserInfo" resultType="com.boot.DTO.UserDTO">
+		SELECT
+		    user_email, user_name
+		FROM 
+		    user_tb
+    	WHERE
+		    user_email = #{user_email}
+    </select>
+    
+	
+    <select id="getSNSIntro" resultType="com.boot.DTO.SNSIntroDTO">
+    	select user_email, sns_intro
+    	from sns_intro_tb 
+    	where user_email = #{user_email}
+    </select>
+
+	<select id="getSNSStack" resultType="com.boot.DTO.SNSIntroDTO">
+		SELECT ut.user_email, us.stack_name
+			from user_tb ut
+		    join user_stack us
+		    on ut.user_email = us.user_email
+		    where ut.user_email = #{user_email}
+    </select>
+	
+	<select id="getSNSJob" resultType="com.boot.DTO.SNSIntroDTO">
+	    SELECT ut.user_email, uj.job_name
+			from user_tb ut
+		    join user_job uj
+		    on ut.user_email = uj.user_email
+		    where ut.user_email = #{user_email}
+    </select>
+    
+    <select id="getUserImage" resultType="com.boot.DTO.UserImageUploadDTO">
+		uuid, uploadPath, fileName, image, user_email
+			from user_attach where user_email=#{user_email}
+    </select>
+	
+</mapper>
