@@ -54,8 +54,8 @@ section
 	background-color: #f7f7f7;
 	box-sizing: border-box;
 	width: 720px;
-	height: 300px;
-	border-radius: 15px;
+	height: 500px;
+	border-radius: 20px;
 	justify-content: center;
 	align-items: center; 
 }
