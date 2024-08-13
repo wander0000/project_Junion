@@ -66,7 +66,10 @@ public class SNSController {
         if (snsdto.getSNSAttachList() != null) {
             snsdto.getSNSAttachList().forEach(attach -> log.info("@# attach=>" + attach));
         }
+        
+        httpServletRequest.setAttribute("msg", "작성 완료!");
+		httpServletRequest.setAttribute("url", "redirect:/snsMain");// snsMain 페이지로 리다이렉트
 
-        return "redirect:/snsMain"; // snsMain 페이지로 리다이렉트
+        return "alert"; 
     }
 }

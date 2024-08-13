@@ -24,7 +24,7 @@
 		LEFT JOIN 
 		    user_tb u ON s.login_email = u.user_email AND s.user_type = 1
 		LEFT JOIN 
-		    com_tb c ON s.login_email = c.com_email AND s.user_type = 2;
+		    com_tb c ON s.login_email = c.com_email AND s.user_type = 2 order by s.sns_date desc;
     </select>
     
     <select id="findBySNSNum" resultType="com.boot.DTO.SNSDTO">
