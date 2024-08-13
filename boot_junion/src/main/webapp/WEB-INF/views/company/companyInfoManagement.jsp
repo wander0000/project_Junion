@@ -59,10 +59,7 @@
                                         <div class="uploadResult">
                                            
                                         </div>
-                                        <div class="uploadDiv">
-                                            <input type="file" name="uploadFile" id="fileUpload" multiple style="display: none;">
-                                            <label for="fileUpload" style="cursor: pointer;" class="uploadText">기업사진 수정하기</label>
-                                        </div>
+                                        <img class="imgg" src="../images/companyInfo.svg" alt="#">
                                     </div>
                                     <div class="main">
                                         <div class="sub1">
@@ -286,8 +283,8 @@
             var uploadUL = $(".uploadResult");
             var str = "";
             if (!uploadResultArr || uploadResultArr.length === 0) {
-                // $(".uploadResult").css('display', 'none');
-                $(".uploadDiv").css('display', 'flex');
+                var altImg = "<img class='imgg' src='/images/company.svg' alt='#'>";
+                uploadResultContainer.empty().append(str);
                 return;
             }
             var rootURL = "<%=request.getScheme()%>";
@@ -307,7 +304,7 @@
             }
 
             uploadUL.append(str);
-            $(".uploadDiv").css('display', 'none');
+           
 
         }//showUploadResult function 끝
 
