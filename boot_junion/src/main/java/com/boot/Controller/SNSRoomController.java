@@ -29,6 +29,7 @@ public class SNSRoomController {
     @PostMapping
     public ResponseEntity<SNSRoom> createRoom(@RequestBody SNSRoom room) {
     	log.info("@# createRoom");
+    	// 채팅방이 없는 경우에만 만들어지도록 해야함
     	chatService.createRoom(room);
         return ResponseEntity.status(HttpStatus.CREATED).body(room);
     }

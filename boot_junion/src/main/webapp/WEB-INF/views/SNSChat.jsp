@@ -29,14 +29,22 @@
 
 
 <body>
-    ${login_email}
-    <div id="chat-room">
-        <div id="messages">
-            <!-- 메시지 목록이 여기 출력됩니다. -->
-        </div>
-        <div class="sendMessage">
-            <input type="text" id="message-input" placeholder="메시지를 입력하세요"/>
-            <button id="send-button">전송</button>
+    <div class="snsContainer">
+        <%@ include file="sns_nav.jsp" %>
+        <div class="snsContent">
+            <%@ include file="sns_header.jsp" %> 
+            <main>
+                ${login_email}
+                <div id="chat-room">
+                    <div id="messages">
+                        <!-- 메시지 목록이 여기 출력됩니다. -->
+                    </div>
+                    <div class="sendMessage">
+                        <input type="text" id="message-input" placeholder="메시지를 입력하세요"/>
+                        <button id="send-button">전송</button>
+                    </div>
+                </div>
+            </main>
         </div>
     </div>
 </body>
@@ -92,6 +100,26 @@
                 messageInput.value = '';
             }
         });
+
+        document.getElementById('message-input').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter' && !event.shiftKey) {  // Shift 키가 눌리지 않고 Enter 키가 눌린 경우
+                event.preventDefault();  // 기본 이벤트(여기서는 줄바꿈)를 방지
+                var messageContent = this.value.trim();  // 입력 필드의 내용을 가져옴
+
+                if (messageContent) {  // 메시지 내용이 비어있지 않은 경우
+                    var chatMessage = {
+                        sender_id: senderId,  // 발신자 ID
+                        receiver_id: receiverId,  // 수신자 ID
+                        // roomId: roomId,    // 채팅방 ID
+                        chatRoom_id: 1,  // 채팅방 ID, 실제 사용 시 변수 사용 가능
+                        message: messageContent
+                    };
+
+                    stompClient.send("/pub/chat.sendMessage", {}, JSON.stringify(chatMessage));  // 메시지 전송
+                    this.value = '';  // 입력 필드 초기화
+                }
+            }
+        });
     });
 
     function loadMessages() {
@@ -117,7 +145,7 @@
         messageElement.classList.add('message');
 
         console.log("@# 메시지 출력");
-        console.log("@# message.senderId=>"+message.senderId);
+        console.log("@# message.sender_id=>"+message.sender_id);
         console.log("@# senderId=>"+senderId);
 
         // 보낸 사람과 받은 사람에 따라 메시지 스타일 변경
@@ -129,7 +157,14 @@
 
         messageElement.innerHTML = message.message;
         document.getElementById('messages').appendChild(messageElement);
+        scrollBottom();
     }
+
+    function scrollBottom() {
+        var messagesContainer = document.getElementById('messages');
+        messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
 </script>
 
 
