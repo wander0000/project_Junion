@@ -842,7 +842,7 @@
 
 		if (noticeNum) {
 			$.ajax({
-				url: '/registGetFileList',
+				url: '/comFileList',
 				type: 'GET',
 				data: { notice_num: noticeNum },
 				dataType: 'json',

@@ -77,7 +77,7 @@ section
     margin-bottom: 32px;
 
 }
-
+/* 
 .wrap .left .company .imgg
 {   
     width: 720px;
@@ -85,8 +85,17 @@ section
 
 
     /* margin-left: auto;
-    align-items: top; */
-}
+    align-items: top;
+} */
+
+
+.uploadResult img
+	{
+		width: 720px;
+		height: 410px;
+    	border-radius: 15px;
+	}
+
 
 .wrap .main
 {
@@ -547,7 +556,12 @@ font-weight: 200; */
 			<!-- 컴퍼니 시작-->
 
 			<div class="company">
-				<img class="imgg" src="images/company.svg" alt="#">
+				<div class="uploadResult">
+					<ul>
+
+					</ul>
+				</div>
+				<!-- <img class="imgg" src="images/company.svg" alt="#"> -->
 			</div>
 			<div class="main">
 				<div class="sub1">
@@ -882,7 +896,7 @@ font-weight: 200; */
 			}
 
 
-
+		// 24.08.13 하진 : 더 많은 공고 페이지 연결
 		var postList = "${postNum}";
 		console.log("확인용 " + postList);
 			if (postList == 0) {
@@ -910,8 +924,81 @@ font-weight: 200; */
 				// }
 			});
 		}
+
+
+		// var data ="${comImage}";
+		// console.log("comImage = "+data);
+		// var uploadResultContainer = $('.uploadResult ul');
+		// // function showUploadResult(uploadResultArr, uploadResultContainer) {
+		// 	(function(data, uploadResultContainer) {
+		// 	if (!data || data.length === 0) {
+		// 		// uploadResultContainer.append('<img class="imgg" src="images/company.svg" alt="#">');
+		// 		return;
+		// 	}
+
+		// 		var str = "";
+
+		// 		$(data).each(function (i, obj) {
+		// 			console.log("여기까지 내가 왔따!!");
+		// 			var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+		// 			str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+		// 			str += "<div>";
+		// 			str += "<span style='display:none;'>" + obj.fileName + "</span>";
+		// 			str += "<img src='/comListDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";
+		// 			str += "</div></li>";
+		// 		});
+
+		// 	uploadResultContainer.empty().append(str);
+		// })
+				//24.07.30 지수
+		//파일 가져오기
+		var comEmail = "${company.com_email}";
+		console.log("com_email=>"+comEmail);
+		var uploadResultContainer = $(this).find('.uploadResult ul');
+
+		if (comEmail) {
+			$.ajax({
+				url: '/comFileList',
+				type: 'GET',
+				data: { com_email : comEmail },
+				dataType: 'json',
+				success: function(data) {
+					showUploadResult(data, uploadResultContainer);
+				},
+				error: function(xhr, status, error) {
+					console.error('Error fetching file list for notice_num ' + noticeNum + ':', error);
+				}
+			});
+		} 
 	});//end of document ready function
 
+
+	
+
+
+	function showUploadResult(uploadResultArr, uploadResultContainer){
+	   if (!uploadResultArr || uploadResultArr.length == 0) {
+			uploadResultContainer.empty().append('<img src="images/company.svg" alt="#"> ');
+		   return;
+	   }
+	   
+	   var str = "";
+   
+	   $(uploadResultArr).each(function (i, obj) {
+		   var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+   
+		   str += "<li data-path='" + obj.uploadPath + "'";
+		   str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+		   str += "<div>";
+		   str += "<span style='display:none;'>" + obj.fileName + "</span>";
+		//    str += "<img src='/registDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+		   str += "<img src='/display?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+		   str += "</div></li>";
+	   });
+   
+	   uploadResultContainer.empty().append(str);
+   }
 	//24.08.07 : 하진 : 사이드 공고 관심공고 추가/삭제 로직
 	var user_type = "${login_usertype}";
 	$(".side .fa-bookmark").click(function() {
