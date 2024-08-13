@@ -56,10 +56,12 @@
                 
                                     <div class="company">
                                         <!-- <img class="imgg" src="../images/companyInfo.svg" alt="#"> -->
-                                        <div class="imgg uploadResult">
-                                            <ul>
-                
-                                            </ul>
+                                        <div class="uploadResult">
+                                           
+                                        </div>
+                                        <div class="uploadDiv">
+                                            <input type="file" name="uploadFile" id="fileUpload" multiple style="display: none;">
+                                            <label for="fileUpload" style="cursor: pointer;" class="uploadText">기업사진 수정하기</label>
                                         </div>
                                     </div>
                                     <div class="main">
@@ -248,48 +250,109 @@
 </body>
 </html>
 <script>
+
     $(document).ready(function () {
-// 24.08.09 하진 : 파일 업로드 로직 추가
-        var uploadResultContainer = $('.uploadResult ul');
-        console.log("uploadResultContainer~!!! "+uploadResultContainer);
-        var comEmail = "${companyInfo.com_email}";
 
-    if (comEmail) {
-        $.ajax({
-            url: '/mainComFileList',
-            type: 'GET',
-            data: { com_email: comEmail },
-            dataType: 'json',
-            success: function(data) {
-                showUploadResult(data, uploadResultContainer);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching file list for com_email ' + comEmail + ':', error);
+         /*
+        2024-8-06 서연주(comRegistModify 참고)
+        이미지 파일 로딩//즉시실행함수
+        */
+        // user-email 변수 가져오기
+        // var user_email = $(".userImage").data('user-email'); // 파일노출되는 div의 클래스명과 data이용
+        var com_email = "<c:out value='${companyInfo.com_email}'/>"; //c:out으로
+        console.log("com_email:", com_email);
+
+        if (com_email) {
+            $.ajax({
+                url: '/comInfoGetFileList',
+                type: 'GET',
+                data: { com_email: com_email },
+                dataType: 'json',
+                success: function (data) {
+                    console.log("Ajax success:", data);
+                    showUploadResult(data);
+                    
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching file list for com_email ' + com_email + ':', error);
+                }
+            });
+        }
+
+
+        // 업로드된 파일 목록 표시
+        function showUploadResult(uploadResultArr) {
+           
+            var uploadUL = $(".uploadResult");
+            var str = "";
+            if (!uploadResultArr || uploadResultArr.length === 0) {
+                // $(".uploadResult").css('display', 'none');
+                $(".uploadDiv").css('display', 'flex');
+                return;
             }
-        });
-    } 
+            var rootURL = "<%=request.getScheme()%>";
+
+            // $(uploadResultArr).each(function (i, obj) {//파일 여러개일때 전부 다 보여줘는
+            if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
+                var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기 파일 하나만 보여주기
+                var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+                str += "<div data-path='" + obj.uploadPath + "'";
+                str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+                str += "<div style='background:url("+rootURL+"/userImageDisplay?fileName=" + fileCallPath +")'>";
+                str += "<div class='photo'>";
+                str += "<span style='display:none;'>" + obj.fileName + "</span>";
+                str += "<img src='/comDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
+                str += "</div>";
+            }
+
+            uploadUL.append(str);
+            $(".uploadDiv").css('display', 'none');
+
+        }//showUploadResult function 끝
+
+
+// // 24.08.09 하진 : 파일 업로드 로직 추가
+//         var uploadResultContainer = $('.uploadResult ul');
+//         console.log("uploadResultContainer~!!! "+uploadResultContainer);
+//         var comEmail = "${companyInfo.com_email}";
+
+//     if (comEmail) {
+//         $.ajax({
+//             url: '/mainComFileList',
+//             type: 'GET',
+//             data: { com_email: comEmail },
+//             dataType: 'json',
+//             success: function(data) {
+//                 showUploadResult(data, uploadResultContainer);
+//             },
+//             error: function(xhr, status, error) {
+//                 console.error('Error fetching file list for com_email ' + comEmail + ':', error);
+//             }
+//         });
+//     } 
     
-    function showUploadResult(uploadResultArr, uploadResultContainer){
-    if (!uploadResultArr || uploadResultArr.length == 0) {
-        var notImage = "<img class='imgg' src='../images/companyInfo.svg>'";
-        uploadResultContainer.empty().append(notImage);
-    }
+//     function showUploadResult(uploadResultArr, uploadResultContainer){
+//     if (!uploadResultArr || uploadResultArr.length == 0) {
+//         var notImage = "<img class='imgg' src='../images/companyInfo.svg>'";
+//         uploadResultContainer.empty().append(notImage);
+//     }
 
-    var str = "";
+//     var str = "";
 
-    $(uploadResultArr).each(function (i, obj) {
-        var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+//     $(uploadResultArr).each(function (i, obj) {
+//         var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+       
+//         str += "<div class='photo' data-path='" + obj.uploadPath + "'";
+//         str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+//         str += "<div>";
+//         str += "<span style='display:none;'>" + obj.fileName + "</span>";
+//         str += "<img src='/mainDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+//         str += "</div></div>";
+//     });
 
-        str += "<li data-path='" + obj.uploadPath + "'";
-        str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
-        str += "<div>";
-        str += "<span style='display:none;'>" + obj.fileName + "</span>";
-        str += "<img src='/mainDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
-        str += "</div></li>";
-    });
-
-    uploadResultContainer.empty().append(str);
-}   
+//     uploadResultContainer.empty().append(str);
+// }   
 
 
 

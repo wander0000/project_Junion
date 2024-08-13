@@ -274,9 +274,8 @@
         2024-8-06 서연주(comRegistModify 참고)
         이미지 파일 로딩//즉시실행함수
         */
-        // user-email 변수 가져오기
-        // var user_email = $(".userImage").data('user-email'); // 파일노출되는 div의 클래스명과 data이용
-        var com_email = "<c:out value='${companyInfo.com_email}'/>"; //c:out으로
+        // var com_email = "<c:out value='${companyInfo.com_email}'/>"; //c:out으로 >null나와
+        var com_email = '${login_email}'; //세션에 있는 로그인이메일 값
         console.log("com_email:", com_email);
 
         // var uploadResultContainer = $(".userImage").find('.uploadResult ul');
@@ -290,7 +289,6 @@
                 success: function (data) {
                     console.log("Ajax success:", data);
                     showUploadResult(data);
-                    
                 },
                 error: function (xhr, status, error) {
                     console.error('Error fetching file list for com_email ' + com_email + ':', error);
@@ -438,14 +436,15 @@
                     ,success: function(result){
                         alert(result);
                         //브라우저에서 해당 썸네일이나 첨부파일이미지 제거
-                        uploadResultItem.remove();
+                        // uploadResultItem.remove();
                     }
                 });//end of ajax
                 
                 //3.이미지 등록 띄우기(이미지 삭제 후 파일업로드 안하고 빠져나갈 때 적용)
-                $(".uploadDiv").show();
+                $(".uploadDiv").css('display', 'flex');
                 //4.. 파일 업로드 입력 요소 트리거
                 $("input[type='file']").click();
+                console.log("파일 업로드 입력 요소 트리거")
             }
         });
 
@@ -477,7 +476,6 @@
                     alert("파일이 업로드 되었습니다.");
                     console.log(result);
                     showUploadResult(result); // 파일 업로드 결과 표시 함수 호출
-                    $(".uploadDiv").css('display', 'none');
                 }
             });
         });
@@ -504,6 +502,8 @@
         // 업로드된 파일 목록 표시
         function showUploadResult(uploadResultArr) {
             if (!uploadResultArr || uploadResultArr.length === 0) {
+                // $(".uploadResult").css('display', 'none');
+                $(".uploadDiv").css('display', 'flex');
                 return;
             }
             //회원정보 부분에 사진 보이게
@@ -511,7 +511,11 @@
             var str = "";
             var rootURL = "<%=request.getScheme()%>";
 
-            $(uploadResultArr).each(function (i, obj) {
+           // $(uploadResultArr).each(function (i, obj) {//파일 여러개일때 전부 다 보여줘는
+           if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
+                var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기 파일 하나만 보여주기
+                console.log(obj);
+                console.log(uploadResultArr);
                 var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 
                 str += "<li data-path='" + obj.uploadPath + "'";
@@ -521,7 +525,7 @@
                 str += "<span style='display:none;'>" + obj.fileName + "</span>";
                 str += "<img src='/comDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
                 str += "</div></li>";
-            });
+            }
 
             uploadUL.append(str);
             $(".uploadDiv").css('display', 'none');
