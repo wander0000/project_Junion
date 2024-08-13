@@ -834,6 +834,7 @@
 		$(".dislocation").css("display","none");
 	}
 
+
 		//24.07.30 지수
 		//파일 가져오기
 		var noticeNum = "${noticeNumber}";
@@ -842,7 +843,7 @@
 
 		if (noticeNum) {
 			$.ajax({
-				url: '/comFileList',
+				url: '/registGetFileList',
 				type: 'GET',
 				data: { notice_num: noticeNum },
 				dataType: 'json',
@@ -859,21 +860,26 @@
 
 	function showUploadResult(uploadResultArr, uploadResultContainer){
 	   if (!uploadResultArr || uploadResultArr.length == 0) {
-		   return;
+			var altImg = "<img class='imgg' src='/images/company.svg' alt='#'>";
+			uploadResultContainer.empty().append(str);
+			return;
 	   }
    
 	   var str = "";
    
-	   $(uploadResultArr).each(function (i, obj) {
-		   var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
-   
-		   str += "<li data-path='" + obj.uploadPath + "'";
-		   str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
-		   str += "<div>";
-		   str += "<span style='display:none;'>" + obj.fileName + "</span>";
-		   str += "<img src='/registDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
-		   str += "</div></li>";
-	   });
+	   // $(uploadResultArr).each(function (i, obj) {//파일 여러개일때 전부 다 보여줘는
+	   if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
+        	var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기 파일 하나만 보여주기
+			console.log("obj=>"+obj);
+			var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+			str += "<li data-path='" + obj.uploadPath + "'";
+			str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+			str += "<div>";
+			str += "<span style='display:none;'>" + obj.fileName + "</span>";
+			str += "<img src='/registDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+			str += "</div></li>";
+	   }
    
 	   uploadResultContainer.empty().append(str);
    }

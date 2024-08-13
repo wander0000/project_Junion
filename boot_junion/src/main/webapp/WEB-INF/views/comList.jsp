@@ -606,7 +606,9 @@
 							}
 
 							var str = "";
-							$(uploadResultArr).each(function (i, obj) {
+							 // $(uploadResultArr).each(function (i, obj) {//파일 여러개일때 전부 다 보여줘는
+							 if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
+               					var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기 파일 하나만 보여주기
 								var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 
 								str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
@@ -614,7 +616,7 @@
 								str += "<span style='display:none;'>" + obj.fileName + "</span>";
 								str += "<img src='/comListDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";
 								str += "</div></li>";
-							});
+							}
 
 							uploadResultContainer.empty().append(str);
 						}
