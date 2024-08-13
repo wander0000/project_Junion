@@ -140,9 +140,14 @@
         }
     }
 
+    /*
     function showMessage(message) {
         var messageElement = document.createElement('div');
         messageElement.classList.add('message');
+
+        // var timestampSpan = document.createElement('div');
+        // timestampSpan.classList.add('message-time');
+        // timestampSpan.textContent = timeAgo(new Date(message.timestamp));
 
         console.log("@# 메시지 출력");
         console.log("@# message.sender_id=>"+message.sender_id);
@@ -159,7 +164,123 @@
         document.getElementById('messages').appendChild(messageElement);
         scrollBottom();
     }
+    */
 
+    // 채팅 입력시간 계산하는 메소드
+    function timeAgo(date) {
+        const MINUTE = 60;
+        const HOUR = MINUTE * 60;
+        const DAY = HOUR * 24;
+        const WEEK = DAY * 7;
+        const MONTH = DAY * 30;
+        const YEAR = DAY * 365;
+
+        const seconds = Math.floor((new Date() - date) / 1000);
+        let interval = seconds / YEAR;
+
+        if (interval > 1) {
+            return Math.floor(interval) + "년 전";
+        }
+        interval = seconds / MONTH;
+        if (interval > 1) {
+            return Math.floor(interval) + "개월 전";
+        }
+        interval = seconds / WEEK;
+        if (interval > 1) {
+            return Math.floor(interval) + "주 전";
+        }
+        interval = seconds / DAY;
+        if (interval > 1) {
+            return Math.floor(interval) + "일 전";
+        }
+        interval = seconds / HOUR;
+        if (interval > 1) {
+            return Math.floor(interval) + "시간 전";
+        }
+        interval = seconds / MINUTE;
+        if (interval > 1) {
+            return Math.floor(interval) + "분 전";
+        }
+        return "방금";
+    }
+
+    /*
+    function showMessage(message) {
+        var messageElement = document.createElement('div');
+        messageElement.classList.add('message', message.sender_id === senderId ? 'sent' : 'received');
+
+        var messageContent = document.createElement('div');
+        messageContent.classList.add('message-content');
+        messageContent.textContent = message.message;
+        
+        // 메시지 입력 시간
+        var timestampSpan = document.createElement('div');
+        timestampSpan.classList.add('message-time');
+        timestampSpan.textContent = timeAgo(new Date(message.timestamp));
+
+        if (message.sender_id === senderId){
+            messageElement.appendChild(timestampSpan);
+            messageElement.appendChild(messageContent);
+        } else {
+            messageElement.appendChild(messageContent);
+            messageElement.appendChild(timestampSpan);
+        }
+
+        document.getElementById('messages').appendChild(messageElement);
+        scrollBottom();
+    }
+    */
+
+
+    var lastTimestamp = null; // 이전 메시지의 시간을 저장할 전역 변수
+
+    function showMessage(message) {
+        var currentTimestamp = timeAgo(new Date(message.timestamp)); // 현재 메시지의 시간 계산
+
+        var messageElement = document.createElement('div');
+        messageElement.classList.add('message', message.sender_id === senderId ? 'sent' : 'received');
+
+        var messageContent = document.createElement('div');
+        messageContent.classList.add('message-content');
+        messageContent.textContent = message.message;
+        
+        var timestampSpan = document.createElement('div');
+        timestampSpan.classList.add('message-time');
+        timestampSpan.textContent = currentTimestamp;
+
+        if (message.sender_id === senderId){
+            if (currentTimestamp === lastTimestamp) { // 이전 메시지와 시간이 같다면
+                var lastMessageTime = document.querySelector('.message:last-child .message-time');
+                if (lastMessageTime) lastMessageTime.style.display = 'none'; // 이전 메시지의 시간을 숨김
+            }
+            else {
+                var lastMessage = document.querySelector('.message:last-child');
+                if (lastMessage) lastMessage.classList.add('time-visible'); // 시간이 표시되는 메시지에 클래스 추가
+            }
+            messageElement.appendChild(timestampSpan);
+            messageElement.appendChild(messageContent);
+        } else {
+            if (currentTimestamp === lastTimestamp) { // 이전 메시지와 시간이 같다면
+                var lastMessageTime = document.querySelector('.message:last-child .message-time');
+                if (lastMessageTime) lastMessageTime.style.display = 'none'; // 이전 메시지의 시간을 숨김
+            }
+            else {
+                var lastMessage = document.querySelector('.message:last-child');
+                if (lastMessage) lastMessage.classList.add('time-visible'); // 시간이 표시되는 메시지에 클래스 추가
+            }
+            messageElement.appendChild(messageContent);
+            messageElement.appendChild(timestampSpan);
+        }
+
+        document.getElementById('messages').appendChild(messageElement);
+        scrollBottom();
+
+        lastTimestamp = currentTimestamp; // 현재 메시지의 시간을 저장
+    }
+    
+
+
+    // 메시지 입력 후 스크롤 맨 밑으로 이동
     function scrollBottom() {
         var messagesContainer = document.getElementById('messages');
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
