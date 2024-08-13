@@ -951,7 +951,9 @@ font-weight: 200; */
 
 		// 	uploadResultContainer.empty().append(str);
 		// })
-				//24.07.30 지수
+		
+		
+		//24.07.30 지수
 		//파일 가져오기
 		var comEmail = "${company.com_email}";
 		console.log("com_email=>"+comEmail);
@@ -964,41 +966,50 @@ font-weight: 200; */
 				data: { com_email : comEmail },
 				dataType: 'json',
 				success: function(data) {
-					showUploadResult(data, uploadResultContainer);
+					showUploadResult(data, uploadResultContainer);//파일보여주기 function 호출
 				},
 				error: function(xhr, status, error) {
 					console.error('Error fetching file list for notice_num ' + noticeNum + ':', error);
 				}
 			});
 		} 
+
+		function showUploadResult(uploadResultArr, uploadResultContainer){//파일보여주기 function
+		   if (!uploadResultArr || uploadResultArr.length == 0) {
+				uploadResultContainer.empty().append('<img src="images/company.svg" alt="#"> ');
+			   return;
+		   }
+		   
+		   var str = "";
+	   
+		  // $(uploadResultArr).each(function (i, obj) {//파일 여러개일때 전부 다 보여줘는
+			if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
+				var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기 파일 하나만 보여주기
+				var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+	
+				str += "<li data-path='" + obj.uploadPath + "'";
+				str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+				str += "<div>";
+				str += "<span style='display:none;'>" + obj.fileName + "</span>";
+			//    str += "<img src='/registDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+				str += "<img src='/display?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+				str += "</div></li>";
+			}
+		   uploadResultContainer.empty().append(str);
+	   }//파일 가져오기 끝
+
+
+
+
 	});//end of document ready function
 
 
 	
 
 
-	function showUploadResult(uploadResultArr, uploadResultContainer){
-	   if (!uploadResultArr || uploadResultArr.length == 0) {
-			uploadResultContainer.empty().append('<img src="images/company.svg" alt="#"> ');
-		   return;
-	   }
-	   
-	   var str = "";
-   
-	   $(uploadResultArr).each(function (i, obj) {
-		   var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
-   
-		   str += "<li data-path='" + obj.uploadPath + "'";
-		   str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
-		   str += "<div>";
-		   str += "<span style='display:none;'>" + obj.fileName + "</span>";
-		//    str += "<img src='/registDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
-		   str += "<img src='/display?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
-		   str += "</div></li>";
-	   });
-   
-	   uploadResultContainer.empty().append(str);
-   }
+
+
+
 	//24.08.07 : 하진 : 사이드 공고 관심공고 추가/삭제 로직
 	var user_type = "${login_usertype}";
 	$(".side .fa-bookmark").click(function() {
@@ -1037,17 +1048,17 @@ font-weight: 200; */
 
 	// 24.08.07 하진 : 관심 기업 등록
 	$("#mainBookmark").click(function() {
-	if(user_type == 1){
-	
-		const urlParams = new URLSearchParams(location.search);
-		var com_email = urlParams.get('com_email');//이렇게 해도 되고 아니면 이미 값을 가지고 갔기 때문에 출력해도 됨
-				
-		const user_email = "${login_email}";
+		console.log("mainBookmark clcik");
+		if(user_type == 1){
+			const urlParams = new URLSearchParams(location.search);
+			var com_email = urlParams.get('com_email');//이렇게 해도 되고 아니면 이미 값을 가지고 갔기 때문에 출력해도 됨
+					
+			const user_email = "${login_email}";
 
-		let getid = $(this).attr("id");//해당 북마크의 id를 찾음
-		var bookmark = document.getElementById(getid);
+			let getid = $(this).attr("id");//해당 북마크의 id를 찾음
+			var bookmark = document.getElementById(getid);
 
-		$.ajax({
+			$.ajax({
 				type : "POST",
 				url : "/comListScrap",				
 				data : {
@@ -1066,8 +1077,8 @@ font-weight: 200; */
 
 						}
 					}
-				});//end of ajax
-			}else if(!user_type){//user_type이 없으면 login 페이지로 이동
+			});//end of ajax
+		}else if(!user_type){//user_type이 없으면 login 페이지로 이동
         location.href="/login";
         }
 	});//end of mainBookmark clcik function
