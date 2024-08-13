@@ -55,6 +55,13 @@ header
 	height: 100%;
 	/* margin-left: auto; */
 }
+
+.snsHeader .logo
+{
+	margin-right: auto;
+	margin-left: 40px;
+}
+
 .snsHeader .user
 {
 	display: flex;
@@ -118,6 +125,11 @@ font-size: var(--color-black);
 <body>
 	<header>
 		<div class="snsHeader">
+			<h5 class="logo">
+                <a href="main">
+					<img src="${pageContext.request.contextPath}/images/logo.svg" alt="Logo">
+                </a>
+            </h5>
 			<div class="user">
 				<div class="loginUserImg">
 					<ul>

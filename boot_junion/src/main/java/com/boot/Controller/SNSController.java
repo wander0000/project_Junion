@@ -23,16 +23,43 @@ public class SNSController {
     private SNSService snsService;
 
     // SNS 메인 페이지로 이동
+//    @RequestMapping("/snsMain")
+//    public String snsMain(HttpServletRequest httpServletRequest, Model model) {
+//        log.info("@# snsMain");
+//
+//        HttpSession session = httpServletRequest.getSession();
+//        session.getAttribute("login_usertype");
+//        session.getAttribute("login_email");
+//        
+//        model.addAttribute("login_usertype", session.getAttribute("login_usertype"));
+//        model.addAttribute("login_email", session.getAttribute("login_email"));
+//
+//        // SNS 목록 가져오기
+//        ArrayList<SNSDTO> snsList = snsService.snsList();
+//        log.info("@# list" + snsList);
+//
+//        // 모델에 SNS 목록 추가
+//        model.addAttribute("snsList", snsList);
+//
+//        return "snsMain"; // snsMain 페이지 반환
+//    }
     @RequestMapping("/snsMain")
     public String snsMain(HttpServletRequest httpServletRequest, Model model) {
         log.info("@# snsMain");
 
         HttpSession session = httpServletRequest.getSession();
-        session.getAttribute("login_usertype");
-        session.getAttribute("login_email");
-        
-        model.addAttribute("login_usertype", session.getAttribute("login_usertype"));
-        model.addAttribute("login_email", session.getAttribute("login_email"));
+        Object userType = session.getAttribute("login_usertype");
+        Object email = session.getAttribute("login_email");
+
+        // 사용자가 로그인하지 않은 경우
+        if (userType == null || email == null) {
+            // 로그인 페이지로 리디렉션
+            return "redirect:/login"; 
+        }
+
+        // 로그인한 경우
+        model.addAttribute("login_usertype", userType);
+        model.addAttribute("login_email", email);
 
         // SNS 목록 가져오기
         ArrayList<SNSDTO> snsList = snsService.snsList();
@@ -43,7 +70,7 @@ public class SNSController {
 
         return "snsMain"; // snsMain 페이지 반환
     }
-
+    
     // SNS 게시물 작성
     @RequestMapping("/snsPost")
     public String snsPost(SNSDTO snsdto, HttpServletRequest httpServletRequest, Model model) {
@@ -68,7 +95,7 @@ public class SNSController {
         }
         
         httpServletRequest.setAttribute("msg", "작성 완료!");
-		httpServletRequest.setAttribute("url", "redirect:/snsMain");// snsMain 페이지로 리다이렉트
+		httpServletRequest.setAttribute("url", "/snsMain");// snsMain 페이지로 리다이렉트
 
         return "alert"; 
     }
