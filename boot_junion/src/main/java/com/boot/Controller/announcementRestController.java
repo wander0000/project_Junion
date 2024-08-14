@@ -33,6 +33,7 @@ public class announcementRestController {
         result.put("result", Boolean.TRUE);
         result.put("data", announcements);
         log.info("Announcements list fetched successfully");
+        log.info("Announcements list fetched successfully");
         return ResponseEntity.ok(result);
     }
 
