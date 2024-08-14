@@ -50,5 +50,4 @@ public class UserDTO {
 	private String job_name2;
 	
 	
-	
 }

@@ -124,6 +124,7 @@
                 <li><a href="boardCommunity">커뮤니티</a></li>
                 <li><a href="announcements">고객센터</a></li> 
                 <li><a href="dailyCS">DailyCS</a></li>
+                <li><a href="snsMain">SNS</a></li>
                 <!-- <li><a href="#">공지사항</a></li> -->
             </ul>
             <ul class="rightMenu">

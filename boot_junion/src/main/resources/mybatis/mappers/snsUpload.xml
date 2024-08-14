@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.DAO.SNSAttachDAO">
+    <insert id="snsInsertFile">
+		insert into sns_attach(uuid ,uploadPath ,fileName, image, sns_num) 
+			   			values(#{uuid},#{uploadPath},#{fileName},#{image},#{sns_num})
+    </insert>
+    
+    <select id="snsGetFileList" resultType="com.boot.DTO.SNSAttachDTO">
+		select uuid ,uploadPath ,fileName, image, sns_num
+		from sns_attach where sns_num=#{sns_num}
+    </select>
+    
+    <delete id="snsDeleteFile">
+		delete from sns_attach where sns_num=#{sns_num}
+    </delete>
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,35 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.DAO.SNSChatDAO">
+    
+    <select id="selectAllRooms" resultType="com.boot.DTO.SNSRoom">
+        SELECT * FROM chatRoom_tb WHERE sender_id = #{senderId}
+    </select>
+
+    <insert id="insertRoom" parameterType="com.boot.DTO.SNSRoom">
+        INSERT INTO chatRoom_tb (sender_id, receiver_id) VALUES (#{senderId}, #{receiverId})
+    </insert>
+    
+
+    <select id="selectMessagesByRoomId" parameterType="int" resultType="com.boot.DTO.SNSChat">
+        SELECT * FROM chat_tb WHERE chatRoom_id = #{roomId} ORDER BY timestamp
+    </select>
+
+    <insert id="insertMessage" parameterType="com.boot.DTO.SNSChat">
+        INSERT INTO chat_tb (sender_id, receiver_id, chatRoom_id, message, timestamp)
+        VALUES (#{sender_id}, #{receiver_id}, #{chatRoom_id}, #{message}, #{timestamp})
+    </insert>
+    
+</mapper>
+
+
+
+
+
+
+
+
+
+

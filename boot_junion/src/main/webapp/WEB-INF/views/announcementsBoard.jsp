@@ -27,7 +27,10 @@
                     <div class="headbox2">
                         <h5 class="head1">공지사항</h5>
                         <div class="hbox">
-                            <a class="hb1" id="writeButton">+ 글쓰기</a>
+							<!-- login_email이 admin@admin.com일 때만 글쓰기 버튼이 보이도록 설정 -->
+							<c:if test="${login_email == 'admin@admin.com'}">
+							    <a class="hb1" id="writeButton">+ 글쓰기</a>
+							</c:if>
                         </div>
                     </div>
                     <div class="secbox">

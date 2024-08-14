@@ -38,47 +38,37 @@
     
     
     
-    <select id="cardPageList" resultType="com.boot.DTO.ComNoticeDTO">
+<select id="cardPageList" resultType="com.boot.DTO.ComNoticeDTO">
 		<!-- 	페이징을 위한 쿼리 -->
-	   select row_noticeNum, notice_num, notice_title, com_name, notice_area1, notice_area2, notice_career, 
-	   			notice_jobInfo,notice_endDate,notice_hit,scrap_count,stack
-			FROM ( select row_noticeNum, notice_num, notice_title, com_name, notice_area1, notice_area2, notice_career, 
-							notice_jobInfo,notice_endDate,notice_hit,scrap_count,stack
-					FROM (  select row_number() over( ) as row_noticeNum , nt.notice_num as notice_num, 
-									nt.notice_title as notice_title, ct.com_name as com_name, notice_area1 , notice_area2, 
-									notice_career, notice_jobInfo, notice_endDate, notice_hit, scrap_count,
-									stack,  nt.com_email as com_email
-								FROM notice_tb nt
-							left outer join (select com_name, com_email 
-												from com_tb group by com_email) ct on nt.com_email= ct.com_email
-							left outer join (select notice_num, COUNT(notice_num) AS scrap_count 
-												from NOTICE_SCRAP group by notice_num) ns on nt.notice_num = ns.notice_num 
-							left outer join (select notice_num, GROUP_CONCAT(stack SEPARATOR ', ') as stack 
-												from notice_stack group by notice_num) nk  on nt.notice_num = nk.notice_num
-						<![CDATA[
-		                where notice_endDate >= CURDATE()
-		                ]]>
-		                and (ct.com_name like concat ('%', IFNULL(#{std.keyword}, ''), '%') 
-		                	or nt.notice_title like concat ('%', IFNULL(#{std.keyword}, ''), '%') 
-		                	or notice_jobInfo like concat ('%', IFNULL(#{std.keyword}, ''), '%'))
-			           	and notice_career like concat ('%', IFNULL(#{std.careerType}, ''), '%') 
-						and nk.stack like BINARY CONCAT ('%', IFNULL(#{std.stackType}, ''), '%') 
+	   select row_noticeNum, notice_num, notice_title, com_name, notice_area1, notice_area2, notice_career, notice_jobInfo,notice_endDate,notice_hit,scrap_count,stack
+		FROM ( select row_noticeNum, notice_num, notice_title, com_name, notice_area1, notice_area2, notice_career, notice_jobInfo,notice_endDate,notice_hit,scrap_count,stack
+				FROM (  select row_number() over( ) as row_noticeNum , nt.notice_num as notice_num, nt.notice_title as notice_title, ct.com_name as com_name
+						, notice_area1 , notice_area2, notice_career, notice_jobInfo, notice_endDate, notice_hit, scrap_count, stack
+						FROM notice_tb nt
+						left outer join (select com_name, com_email 
+											from com_tb group by com_email) ct on nt.com_email= ct.com_email
+						left outer join (select notice_num, COUNT(notice_num) AS scrap_count 
+											from NOTICE_SCRAP group by notice_num) ns on nt.notice_num = ns.notice_num 
+						left outer join (select notice_num, GROUP_CONCAT(stack SEPARATOR ', ') as stack 
+											from notice_stack group by notice_num) nk  on nt.notice_num = nk.notice_num
+            <![CDATA[
+            where notice_endDate >= CURDATE()
+            ]]>
+            and (ct.com_name like concat ('%', IFNULL(#{std.keyword}, ''), '%') or nt.notice_title like concat ('%', IFNULL(#{std.keyword}, ''), '%') or notice_jobInfo like concat ('%', IFNULL(#{std.keyword}, ''), '%'))
+            and notice_career like concat ('%', IFNULL(#{std.careerType}, ''), '%') 
+						and (nk.stack like BINARY CONCAT ('%', IFNULL(#{std.stackType}, ''), '%') OR nk.stack IS NULL)
 						and notice_area1 like concat ('%', IFNULL(#{std.locationType}, ''), '%') 
-						 <include refid="orderType"/>
-					  	<![CDATA[
-				            ) a 
-				         where row_noticeNum<= (#{std.pageNum} * #{std.amount})
-				         ]]>
-<!--				         <if test='(comEmail != null and comEmail != "")'>-->
-<!--							   		and 7 = 7-->
-<!--	   					</if>-->
-				         <include refid="comEmail"/>
-<!--						and com_email = "jisu@jisu.com"-->
-<!--						and com_email = IFNULL(#{std.com_email}, '')-->
-				         <![CDATA[
-				         )aa 
-				         where row_noticeNum > (#{std.pageNum}-1)* #{std.amount}
-				   		]]>
+              <if test='(std.comEmail != null and std.comEmail != "")'>
+                  and nt.com_email = #{std.comEmail}
+              </if>
+					  <include refid="orderType"/>
+            <![CDATA[
+                  ) a 
+               where row_noticeNum<= (#{std.pageNum} * #{std.amount}) 
+
+               )aa 
+               where row_noticeNum > (#{std.pageNum}-1)* #{std.amount}
+            ]]>
 			           
 	</select>
 	
@@ -98,13 +88,13 @@
 		]]>
 		and (ct.com_name like concat ('%', IFNULL(#{keyword}, ''), '%') or nt.notice_title like concat ('%', IFNULL(#{keyword}, ''), '%') or notice_jobInfo like concat ('%', IFNULL(#{keyword}, ''), '%'))
 		and notice_career like concat ('%', IFNULL(#{careerType}, ''), '%') 
-		and nk.stack like BINARY CONCAT ('%', IFNULL(#{stackType}, ''), '%') 
+		and (nk.stack like BINARY CONCAT ('%', IFNULL(#{stackType}, ''), '%') OR nk.stack IS NULL)
 		and notice_area1 like concat ('%', IFNULL(#{locationType}, ''), '%') 
-		
 		<if test='(comEmail != null and comEmail != "")'>
 	   		and nt.com_email = #{comEmail}
-	   	</if>
+	  </if>
 		<include refid="orderType"/>
+        
         
 	</select>
     
@@ -120,18 +110,23 @@
          order by notice_hit desc
       </if>
       <if test='(orderType == "urgent")'><!-- 마감임박순  -->
-<!--        order by notice_endDate desc-->
+        <!--        order by notice_endDate desc-->
 <!--	24.08.11 하진 : 최신순으로 정렬되는 조건이라 asc로 수정함-->
         order by notice_endDate asc
+      
       </if>
    </sql>
       
+         
    <sql id="comEmail">
 	   	<if test='(std.comEmail != null and std.comEmail != "")'>
-	   		and com_email = #{std.comEmail}
+	   		and nt.com_email = #{std.comEmail}
 <!--	   		and 7 = 7-->
 	   	</if>
    </sql>
+   
+    
+
    
     
 

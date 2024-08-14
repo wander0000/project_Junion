@@ -1,159 +1,4 @@
 
-:root 
-{
-  /* 컬러 모음 */
-  --main-color:#FFA500;
-  --color-black: #111;
-  --color-white: #fff;
-  --color-gray: #787878;
-  --input-gray: #e5e5ec;
-  --button-gray: #f7f7f7;
-  --border-color-gray: #dadada;
-  --font-size32: 32px;
-  --font-size24: 24px;
-  --font-size20: 20px;
-  --font-size16: 16px;
-  --font-size14: 14px;
-  --font-size12: 12px;
-}
-
-.container 
-{
-  display: flex;
-}
-
-/* 네비게이션 */
-.navigation
-{
-    position:relative;
-    width: 260px;
-    background: #fff;
-    overflow: hidden;
-    transition: 0.5s;
-    padding: 1rem 0;
-}
-
-/* 로고 */
-
-.navigation .logo 
-{
-  list-style:none;
-  padding: 30px 20px;
-}
-
-.navigation .logo a {
-  color: var(--main-color);
-  position: relative;
-  width: 100%;
-  display: flex;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-/* 메뉴 */
-
-.navigation .navMenu {
-  position: relative;
-  height: calc( 100vh - 163px);
-}
-
-.navigation ul
-{
-  position: absolute;
-  top:0;
-  left:0;
-  width: 100%;
-}
-
-.navigation ul li
-{
-  position:relative;
-  list-style:none;
-  width: 100%;
-}
-
-.navigation ul li.active
-{
-  background:rgba(255,165,0,0.3);
-}
-
-.navigation ul li a
-{
-  position:relative;
-  display:block;
-  width: 100%;
-  display:flex;
-  color: var(--color-black);
-  font-weight: 500;
-  font-size: 16px;
-}
-
-.navigation ul li a .icon
-{
-  position: relative;
-  display:block;
-  min-width: 80px;
-  height:60px;
-  line-height: 60px;
-  text-align: center;
-}
-
-.navigation ul li a .icon i
-{
-  font-size: var(--font-size24);
-}
-
-.navigation ul li a .title
-{
-  position:relative;
-  display:block;
-  height: 60px;
-  line-height: 60px;
-  white-space: nowrap;
-}
-
-/* 네비게이션 옆 컨텐츠 영역 */
-.mainContent 
-{
-  width: calc( 100% - 260px);
-  min-height: 100vh;
-  /* justify-content: center; */
-}
-
-/* 헤더 */
-.mainContent header 
-{
-  height: 90px;
-  border-bottom: 1px solid var(--input-gray);
-  padding: 0 40px;
-  display: flex;
-  align-items: center;
-}
-
-/* 헤더 아이디 영역 */
-.mainContent header .userWrapper
-{
-  display: flex;
-  padding: 0 15px;
-  white-space: nowrap;
-  margin-left: auto;
-  width: 140px;
-  align-items: center;
-}
-
-.mainContent header .userWrapper img
-{
-  margin-right: 12px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;   
-}
-
-.mainContent header .userWrapper h4.name 
-{
-  font-size: var(--font-size14);
-  margin-right: 12px;
-}
 
 /* 메인 */
 main 
@@ -168,15 +13,16 @@ main .mainContent
 {
   min-width:1200px;
   display: flex;
+  justify-content: center;
   
 }
 
-main .containe
-{
-  width: 1200px;
+/* main .containe
+{ */
+  /* width: calc(1200px-); */
   /* padding-top: 90px; */
   
-}
+/* } */
 
 
 /* 헤더밑 타이틀*/
@@ -282,6 +128,7 @@ th
   text-align: left;
   padding-left: 40px;
   width: 360px;
+  /* width: 200px; */
   background-color: #E5E5EC;
   
   
@@ -291,12 +138,12 @@ td
 {
   padding: 20px;
   width: calc(1200px - 360px);
+  /* width: calc(730px - 200px); */
 
 }
 
-td .modifytext
+.disB > td .modifytext
 {
-  background-color: none;
   border: none ;
   padding: 5px 20px;
   border-radius: 6px;
@@ -307,7 +154,7 @@ td .changepw
 {
   border: 1px solid #E5E5EC;
   font-size: var(--font-size14);
-  padding: 10px 20px;
+  padding: 5px 20px;
   border-radius: 6px;
   cursor: pointer;
 }
@@ -346,16 +193,19 @@ section
     min-width: 1200px;
     /* padding: 70px 0; */
     padding-bottom: 70px;
+    /* padding: 0 0 70px 40px; */
     box-sizing: border-box;
     display: flex;
+    /* justify-content: center; */
 }
 
-.wrap .left
-{
-    max-width: 720px ;
-    justify-content: left;
+/* .wrap .left
+{ */
+/*    max-width: 720px ;*/
+    /* display: flex; */
+    /* justify-content: left; */
     
-}
+/* } */
 
 
 .wrap .left .company
@@ -366,9 +216,13 @@ section
 
 }
 
-.wrap .left .company .imgg
+
+
+.wrap .left .photo >img
 {   
     width: 720px;
+	box-sizing: border-box;
+  	border-radius: 15px;
 
 
     /* margin-left: auto;
@@ -400,7 +254,8 @@ section
 .introduce
 {
   /* white-space: pre-wrap;*//*줄바꿈을 그대로 출력(ChatGPT) 실패 */
-  white-space: pre;/*줄바꿈을 그대로 출력*/
+  /* white-space: pre;줄바꿈을 그대로 출력 */
+  white-space: pre-wrap;/*줄바꿈을 그대로 출력*/
   line-height :1.5;/* 글자 위아래 간격 조절 (1.5배) */
 }
 
@@ -475,6 +330,16 @@ section
     height:350px;
     margin-bottom: 20px;
 }
+
+/* #map img
+{ */
+    /* width:730px; */
+    /* width: 730px;
+    height:350px;
+    padding-left: 60px; */
+    /* margin-bottom: 20px; */
+/* } */
+
 
 
 .wrap .column .columnA .title
@@ -644,8 +509,8 @@ section
 
 .submit .btn
 {
-  color: white;
-  background-color: #FFA500;
+  color: var(--color-white);
+  background-color: var(--main-color);
   border: none;
   padding: 4px 8px;
   border-radius: 4px;
@@ -750,11 +615,23 @@ section
 
 
 
+/*스택 버튼*/
 
+.columnAA .detail#stack {
+    /* display: flex; */
+    gap: 20px;
+    max-width: 760px;
+    grid-auto-columns: (6, 1fr);
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
 .columnAA .detail .sectionConBody .Bodycon.tech 
 {
   display: block;
-  max-width: 1200px;
+  /* max-width: 1200px; */
+  max-width: 100%;
+  flex-wrap: wrap;
+  
 }
 
 .columnAA .detail .sectionConBody .Bodycon button.tech 
@@ -781,13 +658,20 @@ section
 
 .uploadResult ul li img
 {
-    width: 100%;
+    width: 750px;
     height: 500px;
 }
 
+.company > img{
+	width: 100%;
+	    height: 100%;
+	    border-radius: 20px;
+	
+}
 .comInfoImage li img 
 {
     width: 100%;
     height: 100%;
     border-radius: 20px;
 }
+

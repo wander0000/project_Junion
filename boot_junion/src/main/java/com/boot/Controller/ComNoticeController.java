@@ -62,6 +62,7 @@ public class ComNoticeController {
 	
 
 	@RequestMapping("/jobPostList")
+//	@ResponseBody
 //	public String jobPost(Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
 //	public String jobPost(Model model) {//대메뉴 -> 채용 클릭시 이동(페이징 처리를 위해 CardPageController 매핑됨)
 //		public String jobPost(Standard std, Model model, HttpSession session) {//대메뉴 -> 채용 클릭시 이동

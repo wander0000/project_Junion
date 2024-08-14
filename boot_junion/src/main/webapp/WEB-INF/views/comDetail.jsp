@@ -57,7 +57,7 @@ section
 .wrap
 {
     min-width: 1200px;
-    padding: 70px 0;
+    padding: 70px 0 90px 0;
     box-sizing: border-box;
     display: flex;
 }
@@ -77,7 +77,7 @@ section
     margin-bottom: 32px;
 
 }
-
+/* 
 .wrap .left .company .imgg
 {   
     width: 720px;
@@ -85,8 +85,17 @@ section
 
 
     /* margin-left: auto;
-    align-items: top; */
-}
+    align-items: top;
+} */
+
+
+.uploadResult img
+	{
+		width: 720px;
+		height: 410px;
+    	border-radius: 15px;
+	}
+
 
 .wrap .main
 {
@@ -232,7 +241,8 @@ section
 {
     font-weight: 100;
     font-size: var(--font-size16);
-    color: var(--color-gray);
+    /* color: var(--color-gray); */
+    color: var(--color-black);
 
 }
 
@@ -315,9 +325,16 @@ section
 }
 
 .wrap .columnAA .tech .mm1 {
-    color: var(--color-grayblack);
-    font-size: var(--font-size14);
-    font-weight: 200;
+	color: var(--color-grayblack);
+	    font-size: var(--font-size14);
+		margin: 10px 12px 10px 0;
+		background-color: var(--button-gray);
+		border: 1px solid var(--input-gray);
+		border-radius: 6px;
+		padding: 12px 20px;
+		width: initial;
+	    font-weight: 200;
+		
 }
 
 
@@ -490,6 +507,7 @@ font-weight: 200; */
     {
         background: var(--main-color);
         color: #fff;
+		border: 1px solid var(--main-color);
     }
 }
 
@@ -538,7 +556,12 @@ font-weight: 200; */
 			<!-- 컴퍼니 시작-->
 
 			<div class="company">
-				<img class="imgg" src="images/company.svg" alt="#">
+				<div class="uploadResult">
+					<ul>
+
+					</ul>
+				</div>
+				<!-- <img class="imgg" src="images/company.svg" alt="#"> -->
 			</div>
 			<div class="main">
 				<div class="sub1">
@@ -581,7 +604,7 @@ font-weight: 200; */
 					<h5 class="detail">
 						<div class="sectionConBody tech">
 							<div class="Bodycon tech">                            
-								<button class="tech">
+								<!-- <button class="tech">
 									<h5 class="mm1">JAVA</h5>
 								</button>
 								<button class="tech">
@@ -619,7 +642,7 @@ font-weight: 200; */
 								</button>
 								<button class="tech">
 									<h5 class="mm1">C++</h5>
-								</button>
+								</button> -->
 
 
 							</div>                        
@@ -631,7 +654,7 @@ font-weight: 200; */
 
 
 
-			<div class="col7">
+			<div class="col7 dislocation">
 				<div class="columnA">
 					<h5 class="title">회사 위치</h5>
 				</div>
@@ -774,8 +797,11 @@ font-weight: 200; */
 				</c:forEach>
 
 				<div class="pos" >
-					<button class="box3" >
-							<h5 class="m1">더 많은 채용공고 보기</h5>
+					<button class="box3" id="selectPost">
+						<form id="selectEmail" action="jobPostList">
+							<input type="hidden" id="com_email" name="com_email">
+							<h5 class="m1" id="otherNotice">더 많은 채용공고 보기</h5>
+						</form>
 					</button>
 				</div>
 
@@ -804,44 +830,60 @@ font-weight: 200; */
 
 <script>
 	$(document).ready(function () {
-		var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-						mapOption = {
-							center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-							level: 3 // 지도의 확대 레벨
-						};
+		
+		// 24.08.12 스택값을 가져와 버튼 형태로 출력
+		var comStack = "${company.com_stack}";
+		console.log("stack 확인 : "+comStack);
+		if(comStack.length > 0){
+			const stacks = comStack.split(','); // 콤마로 나눠서 배열로 저장
+            let output = "";
+            for (let i = 0; i < stacks.length; i++) {
+                // output += "<span class='mm1'>" + stacks[i].trim() + "</span>"; 통일성을 위해 button으로 변경
+                output += "<button class='mm1'>" + stacks[i].trim() + "</button>";
+            }
+            $('.col6 .tech').html(output);
+		}
 
-					// 지도를 생성합니다    
-					var map = new kakao.maps.Map(mapContainer, mapOption);
 
-					// 주소-좌표 변환 객체를 생성합니다
-					var geocoder = new kakao.maps.services.Geocoder();
+				// 24.08.12 하진 : 채용 공고에 기업이 회사 위치를 설정하지 않은 경우, 해당 태그 부분 숨김처리 로직 추가
+				var getlocation ="${company.com_location}";
 
-					// 주소로 좌표를 검색합니다
+				if(getlocation){
+				var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+					mapOption = {
+						center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+						level: 3 // 지도의 확대 레벨
+						};  
 
-					var getlocation = "${company.com_location}";
-					console.log("회사 주소는 잘 가져왔나요? " + getlocation);
-					// geocoder.addressSearch('제주특별자치도 제주시 첨단로 242', function(result, status) {
-					geocoder.addressSearch(getlocation, function (result, status) {
+				// 지도를 생성합니다    
+				var map = new kakao.maps.Map(mapContainer, mapOption); 
 
-						// 정상적으로 검색이 완료됐으면 
-						if (status === kakao.maps.services.Status.OK) {
+				// 주소-좌표 변환 객체를 생성합니다
+				var geocoder = new kakao.maps.services.Geocoder();
 
-							var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+				// 주소로 좌표를 검색합니다
+				geocoder.addressSearch(getlocation, function(result, status) {
 
-							// 결과값으로 받은 위치를 마커로 표시합니다
-							var marker = new kakao.maps.Marker({
-								map: map,
-								position: coords
-							});
+				// 정상적으로 검색이 완료됐으면 
+				if (status === kakao.maps.services.Status.OK) {
 
-							map.setCenter(coords);
-						}
+					var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+					// 결과값으로 받은 위치를 마커로 표시합니다
+					var marker = new kakao.maps.Marker({
+						map: map,
+						position: coords
 					});
-});//end of document ready function
-</script>
 
-<script>
-	$(document).ready(function(){
+					map.setCenter(coords);
+					} 
+				});  
+				}else{
+				$(".dislocation").css("display","none");
+				}
+			// });//end of document ready function
+
+// 	$(document).ready(function(){
 
 
 		//24.08.07 : 하진
@@ -853,7 +895,120 @@ font-weight: 200; */
 				mainBookmark.classList.add("active");
 			}
 
+
+		// 24.08.13 하진 : 더 많은 공고 페이지 연결
+		var postList = "${postNum}";
+		console.log("확인용 " + postList);
+			if (postList == 0) {
+				$("#otherNotice").text("전체 공고 보러 가기");
+				$(".t").css({"display":"none"});
+				$("#selectPost").click(function() {
+				$(this).addClass("active");
+				location.href = "jobPostList";
+				});
+			} else{
+				$("#selectPost").click(function() {
+					// alert("해당 기업의 공고 보러 가기를 클릭!");
+					$(this).addClass("active");
+
+				// hiddenClass 안에 com_email 값을 담는 부분
+				var hiddenEmail = $(".hiddenClass");
+				var comEmail = "${company.com_email}";
+				
+				$("#com_email").val(comEmail);
+
+				// ID가 selectEmail인 폼 요소를 찾아서 제출
+				var form = $("#selectEmail");  // 폼 요소의 ID를 selectEmail로 가정
+				// if (form.length > 0) {
+					form.submit();
+				// }
+			});
+		}
+
+
+		// var data ="${comImage}";
+		// console.log("comImage = "+data);
+		// var uploadResultContainer = $('.uploadResult ul');
+		// // function showUploadResult(uploadResultArr, uploadResultContainer) {
+		// 	(function(data, uploadResultContainer) {
+		// 	if (!data || data.length === 0) {
+		// 		// uploadResultContainer.append('<img class="imgg" src="images/company.svg" alt="#">');
+		// 		return;
+		// 	}
+
+		// 		var str = "";
+
+		// 		$(data).each(function (i, obj) {
+		// 			console.log("여기까지 내가 왔따!!");
+		// 			var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+		// 			str += "<li data-path='" + obj.uploadPath + "' data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+		// 			str += "<div>";
+		// 			str += "<span style='display:none;'>" + obj.fileName + "</span>";
+		// 			str += "<img src='/comListDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";
+		// 			str += "</div></li>";
+		// 		});
+
+		// 	uploadResultContainer.empty().append(str);
+		// })
+		
+		
+		//24.07.30 지수
+		//파일 가져오기
+		var comEmail = "${company.com_email}";
+		console.log("com_email=>"+comEmail);
+		var uploadResultContainer = $(this).find('.uploadResult ul');
+
+		if (comEmail) {
+			$.ajax({
+				url: '/comFileList',
+				type: 'GET',
+				data: { com_email : comEmail },
+				dataType: 'json',
+				success: function(data) {
+					showUploadResult(data, uploadResultContainer);//파일보여주기 function 호출
+				},
+				error: function(xhr, status, error) {
+					console.error('Error fetching file list for notice_num ' + noticeNum + ':', error);
+				}
+			});
+		} 
+
+		function showUploadResult(uploadResultArr, uploadResultContainer){//파일보여주기 function
+		   if (!uploadResultArr || uploadResultArr.length == 0) {
+				uploadResultContainer.empty().append('<img src="images/company.svg" alt="#"> ');
+			   return;
+		   }
+		   
+		   var str = "";
+	   
+		  // $(uploadResultArr).each(function (i, obj) {//파일 여러개일때 전부 다 보여줘는
+			if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
+				var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기 파일 하나만 보여주기
+				var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+	
+				str += "<li data-path='" + obj.uploadPath + "'";
+				str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+				str += "<div>";
+				str += "<span style='display:none;'>" + obj.fileName + "</span>";
+			//    str += "<img src='/registDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+				str += "<img src='/display?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+				str += "</div></li>";
+			}
+		   uploadResultContainer.empty().append(str);
+	   }//파일 가져오기 끝
+
+
+
+
 	});//end of document ready function
+
+
+	
+
+
+
+
 
 	//24.08.07 : 하진 : 사이드 공고 관심공고 추가/삭제 로직
 	var user_type = "${login_usertype}";
@@ -893,17 +1048,17 @@ font-weight: 200; */
 
 	// 24.08.07 하진 : 관심 기업 등록
 	$("#mainBookmark").click(function() {
-	if(user_type == 1){
-	
-		const urlParams = new URLSearchParams(location.search);
-		var com_email = urlParams.get('com_email');//이렇게 해도 되고 아니면 이미 값을 가지고 갔기 때문에 출력해도 됨
-				
-		const user_email = "${login_email}";
+		console.log("mainBookmark clcik");
+		if(user_type == 1){
+			const urlParams = new URLSearchParams(location.search);
+			var com_email = urlParams.get('com_email');//이렇게 해도 되고 아니면 이미 값을 가지고 갔기 때문에 출력해도 됨
+					
+			const user_email = "${login_email}";
 
-		let getid = $(this).attr("id");//해당 북마크의 id를 찾음
-		var bookmark = document.getElementById(getid);
+			let getid = $(this).attr("id");//해당 북마크의 id를 찾음
+			var bookmark = document.getElementById(getid);
 
-		$.ajax({
+			$.ajax({
 				type : "POST",
 				url : "/comListScrap",				
 				data : {
@@ -922,8 +1077,8 @@ font-weight: 200; */
 
 						}
 					}
-				});//end of ajax
-			}else if(!user_type){//user_type이 없으면 login 페이지로 이동
+			});//end of ajax
+		}else if(!user_type){//user_type이 없으면 login 페이지로 이동
         location.href="/login";
         }
 	});//end of mainBookmark clcik function

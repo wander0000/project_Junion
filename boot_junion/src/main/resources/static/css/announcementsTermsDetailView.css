@@ -120,6 +120,7 @@ section
     font-size: var(--font-size16);
     font-weight: 200;
     line-height: 2;
+	width: 1200px;
 
 }
 
@@ -191,6 +192,7 @@ section
     cursor: pointer;
     &:hover 
     {
+		border: 1px solid var(--main-color);
         background: var(--main-color);
         color: #fff;
     }

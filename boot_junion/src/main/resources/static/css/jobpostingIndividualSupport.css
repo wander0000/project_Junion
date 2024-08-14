@@ -228,10 +228,11 @@ display:inline-block;
 }
 .pplist .pp .uploadResult img
 {
-    width: 64px;
-    max-width: 64px;
-    height: 64px;
-	border-radius: 50%;
+    width: 54px;
+    max-width: 54px;
+    height: 72px;
+	/* border-radius: 50%; */
+	border-radius: 10px;
 }
 .pplist .tt .t1
 {

@@ -66,8 +66,11 @@ public class ResumeDTO {
 	
 	private String resume_offer; // 이력서공개여부
 	
+	private int career_years; //경력 계산 년
+	private int career_months; //경력 계산 월
+	private int edu_years; //학력 계산 년
+	private int edu_months; //학력 계산 월
 	
-		
 //	private List<CareerDTO> career; // 커리어
 //	private List<EduDTO> edu; // 교육
 //	private List<ExDTO> ex; // 경험
