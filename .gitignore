@@ -1,1 +1,2 @@
-/.metadata/
+# Eclipse 관련 설정 파일 무시
+.metadata/
