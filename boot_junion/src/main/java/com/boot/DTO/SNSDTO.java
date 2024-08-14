@@ -24,6 +24,8 @@ public class SNSDTO {
 	private String com_email; // 기업 이메일
 	
 	private String sns_name; // 이름
+	private String sns_email; //이메일
 	
 	private List<SNSAttachDTO> SNSAttachList;  // 파일업로드 attachDTO를 가져와서 attachList에 담음
+	
 }

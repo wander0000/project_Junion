@@ -59,7 +59,7 @@
 						</a>
 					</li>
 					<li>
-						<a href="#">
+						<a href="snsUserPage?user_email=${login_email}">
 							<span class="icon">
 								<!-- <i class="fa-solid fa-user"></i> -->
 								<i class="fa-regular fa-user"></i>
@@ -79,6 +79,7 @@
 			</div>  <!-- nav-menu 끝-->    
 		</div> <!-- navigation 끝-->
 
+		<!-- 검색 부분 -->
 		<div class="navigationSNS">
 			<div class="navigationTwo">
 
@@ -119,7 +120,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="snsUserPage?user_email=${login_email}">
 								<span class="icon">
 									<!-- <i class="fa-solid fa-user"></i> -->
 									<i class="fa-regular fa-user"></i>
@@ -142,32 +143,14 @@
 				<div class="searchBox">
 					<h3>검색</h3>
 					<div class="searchInputBox">
-						<input type="text" placeholder="검색">
+						<input type="text" id="searchQuery" onkeyup="searchName()" placeholder="검색">
 						<span class="xIcon">
 							<i class="fa-solid fa-xmark"></i>
 						</span>
 					</div>
 				</div> <!--searchBox 끝-->
-				<div class="searchResultBox">
+				<div class="searchResultBox" id="searchResultBox">
 
-					<div class="searchResult">
-						<div class="left">
-							<div class="UserImage">
-								<ul>
-									<img src="images/people.svg" alt="#" class="img">
-								</ul>
-							</div>
-						</div><!--left 끝-->
-						<div class="nameBox">
-							<h4>김정우</h4>
-							<h5>신입</h5>
-						</div><!--nameBox 끝-->
-						<div class="right">
-							<button type="button">
-								팔로우
-							</button>
-						</div><!--right 끝-->
-					</div><!--searchResult 끝-->
 
 				</div> <!--searchResultBox 끝-->
 			</div> <!--navSearch 끝-->
@@ -214,7 +197,7 @@
 							</a>
 						</li>
 						<li>
-							<a href="#">
+							<a href="snsUserPage?user_email=${login_email}">
 								<span class="icon">
 									<!-- <i class="fa-solid fa-user"></i> -->
 									<i class="fa-regular fa-user"></i>
@@ -342,6 +325,12 @@
             event.preventDefault();
             $('.navigationSNS').hide();
             $('.navigationChat').hide();
+
+			// 클릭된 링크로 이동
+			var link = $(this).find('a').attr('href');
+			if (link) {
+				window.location.href = link;
+			}
         });
 
        // '글 작성' 메뉴 항목을 클릭했을 때 모달 열기
@@ -555,5 +544,61 @@
 				});//end of ajax
 			});//end of click
 		});//end of change 
+
+		// xIcon 클릭 시 입력 필드 비우기
+		$('.searchInputBox .xIcon').on('click', function() {
+			$('#searchQuery').val(''); // 입력 필드 비우기
+			$('#searchQuery').focus(); // 입력 필드에 포커스
+			$('#searchResultBox').html(''); // 검색 결과도 초기화 (옵션)
+		});
     });//end of ready
+</script>
+<script>
+
+	function searchName() {
+		var query = $('#searchQuery').val();
+		
+
+		if (query.length > 0) {
+			$.ajax({
+				url: '/api/searchName',
+				type: 'GET',
+				data: { query: query },
+				success: function(data) {
+					var resultHtml = '';
+					
+					$.each(data, function(index, result) {
+						console.log("@#result",result);
+						console.log(result.name); // 값이 제대로 있는지 확인
+						resultHtml += `
+							<div class="searchResult">
+								<div class="left">
+									<div class="UserImage">
+										<ul>
+											<img src="images/people.svg" alt="#" class="img">
+										</ul>
+									</div>
+								</div><!--left 끝-->
+								<div class="nameBox">
+									<h4>`+result.sns_name+`</h4>
+									<h5>`+result.sns_email+`</h5>
+								</div><!--nameBox 끝-->
+								<div class="right">
+									<button type="button">
+										팔로우
+									</button>
+								</div><!--right 끝-->
+							</div><!--searchResult 끝-->
+						`;
+					});
+					$('#searchResultBox').html(resultHtml);
+				},
+				error: function() {
+					$('#searchResultBox').html('<p>No results found.</p>');
+				}
+			});
+		} else {
+			$('#searchResultBox').html('');
+		}
+	}
 </script>
