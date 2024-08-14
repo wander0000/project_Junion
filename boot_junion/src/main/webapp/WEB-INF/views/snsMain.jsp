@@ -48,7 +48,7 @@
                                 </div><!--left 끝-->
                                 <div class="nameBox">
                                     <!-- <h4>수지야</h4> -->
-                                    <h4>${dto.sns_name}</h4>
+                                    <h5 class="nana">${dto.sns_name}</h5>
                                 </div><!--nameBox 끝-->
                                 <div class="right">
                                     <button type="button">
@@ -65,10 +65,11 @@
                                 </div>
                                 <div class="textArea">
                                     <div class="detailTitle">
-                                        <h4>${dto.sns_title}</h4>
+                                        <h4 class="snsntitle">${dto.sns_title}</h4>
                                     </div>
-                                    <textarea readonly>${dto.sns_content}</textarea>
                                 </div>
+								<h5 class="snsn" id="snsnTextarea" readonly>${dto.sns_content}</h5>
+								<button type="button" class="more-btn" style="display:none;">더보기</button>
                             </div> <!--detailContent 끝-->
             
                             <div class="iconBox">
@@ -78,7 +79,7 @@
                                 <span class="commentIcon">
                                     <i class="fa-regular fa-comment"></i>
                                 </span>
-                                <h5>${dto.sns_date}</h5>
+                                <h5 class="datete">${dto.sns_date}</h5>
                             </div> <!--iconBox 끝-->
             
                         </div> <!--detailBox 끝-->
@@ -396,6 +397,40 @@ $(document).ready(function () {
         $("#popupModal .popupGetResult ul").empty(); // 모달 내부의 사진 데이터 초기화
         $("#popupModal .popupUserImage ul").empty(); // 사용자 이미지 초기화
     }
+	
+	
+	$('.detailBox').each(function () {
+	       var snsnText = $(this).find('.snsn');
+	       var moreBtn = $(this).find('.more-btn');
+
+	       // 텍스트가 5줄을 초과하면 "더보기" 버튼을 표시
+	       if (snsnText[0].scrollHeight > snsnText.height()) {
+	           moreBtn.show();
+	       }
+
+	       // "더보기" 버튼 클릭 시 전체 텍스트 표시
+	       moreBtn.click(function () {
+	           if (snsnText.hasClass('expanded')) {
+	               // 이미 확장된 상태라면 접기 동작 수행
+	               snsnText.removeClass('expanded');
+	               snsnText.css({
+	                   '-webkit-line-clamp': 5,
+	                   'max-height': 'calc(1.2em * 5)',
+	                   'overflow': 'hidden',
+	               });
+	               moreBtn.text('더보기');
+	           } else {
+	               // 확장되지 않은 상태라면 더보기 동작 수행
+	               snsnText.addClass('expanded');
+	               snsnText.css({
+	                   '-webkit-line-clamp': 'unset',
+	                   'max-height': 'none',
+	                   'overflow': 'visible',
+	               });
+	               moreBtn.text('접기');
+	           }
+	       });
+	   });
     
 });
 
@@ -419,6 +454,11 @@ function showUploadResult(uploadResultArr, uploadResultContainer){
 
     uploadResultContainer.empty().append(str);
 }
+
+
+
+
+
 </script>
 
 </body>
