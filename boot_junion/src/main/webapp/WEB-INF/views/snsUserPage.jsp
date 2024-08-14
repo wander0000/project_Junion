@@ -234,7 +234,6 @@
         </head>
 
         <body>
-            <c:set var="user_email" value="${param.user_email}" />
             <div class="snsContainer">
                 <%@ include file="sns_nav.jsp" %>
 
@@ -369,6 +368,7 @@
                                                 <div class="contentBoardWrap">
                                                     <button class="writing">작성하기</button>
                                                     <c:forEach items="${snsList}" var="dto">
+                                                        <c:set var="user_email" value="${param.user_email}" />
                                                         <c:if test="${dto.login_email == user_email}">
                                                             <div class="detailBox" data-sns-num="${dto.sns_num}">
                                                                 <div class="userBox" data-user-type="${dto.user_type}"
@@ -427,8 +427,8 @@
                                                     </c:forEach>
                                                 </div> <!-- contentBoardWrap -->
                                             </div> <!-- contentBoard 끝-->
-
                                         </div>
+
                                         <!-- 모달 구조 (첫 번째 HTML 블록 끝부분에 추가) -->
                                         <div id="writeFeedback" class="feedbackModal">
                                             <form class="feedbackPopupBox">
