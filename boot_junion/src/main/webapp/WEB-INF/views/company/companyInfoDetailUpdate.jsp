@@ -440,6 +440,11 @@
                         //브라우저에서 해당 썸네일이나 첨부파일이미지 제거
                         // uploadResultItem.remove();
                     }
+                    ,error: function (xhr, status, error) {
+                        console.error('Error: ' + error); // HTTP 상태 코드, 에러 메시지
+                        console.error('Response Text: ' + xhr.responseText); // 서버가 반환한 에러 메시지
+                        alert('파일 삭제 중 오류가 발생했습니다.'); // 사용자에게 알림
+                    }
                 });//end of ajax
                 
                 //3.이미지 등록 띄우기(이미지 삭제 후 파일업로드 안하고 빠져나갈 때 적용)
@@ -479,8 +484,15 @@
                     console.log(result);
                     showUploadResult(result); // 파일 업로드 결과 표시 함수 호출
                 }
+                ,error: function (xhr, status, error) {
+                    console.error('Error: ' + error); // HTTP 상태 코드, 에러 메시지
+                    console.error('Response Text: ' + xhr.responseText); // 서버가 반환한 에러 메시지
+                    alert('파일 업로드 중 오류가 발생했습니다. 이미지파일 여부와 5MB이상인 확인해주세요. '); // 사용자에게 알림
+                }
+                
             });
-        });
+        });// 이미지 업로드 끝
+
 
 
         // 파일 확장자와 크기 검사
@@ -537,10 +549,9 @@
 
 
 
-
         
         
-	});//end of ready // 이미지 업로드 끝
+	});//end of ready 
     
     
             // 24.07.24 하진

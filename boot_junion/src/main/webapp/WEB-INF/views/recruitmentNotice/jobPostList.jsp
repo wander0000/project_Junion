@@ -680,21 +680,36 @@ $(document).ready(function() {
     서연주 
     기업명, 공고제목, 공고내용으로 검색하기
     */
-    function handleSearchClick(e) {
-        e.preventDefault();
-        var keyword = document.getElementById('keyword');
-        var searchForm = $("#searchForm");
-        if (keyword.value.length === 0) {
-            alert("키워드를 입력하세요.");
-        } else {
-            searchForm.attr("action", "#").submit(); // searchForm 정보를 들고 컨트롤러단으로 감
-        }
-    }
+   function handleSearchClick(e) {
+       e.preventDefault(); // 기본 동작(페이지 리로드 등)을 막음
 
+       // 공백을 제거하고 올바르게 요소를 가져옵니다.
+       var keyword = document.getElementById('keyword').value.trim();
+       var careerSelect = document.getElementById('careerSelect').value.trim();
+       var stackSelect = document.getElementById('stackSelect').value.trim();
+       var locationselect = document.getElementById('locationselect').value.trim();
+       var searchForm = $("#searchForm");
+
+       // 모든 필드가 비어 있을 때 경고
+       if (keyword.length === 0 && careerSelect.length === 0 && stackSelect.length === 0 && locationselect.length === 0) {
+           alert("키워드를 입력하거나 조건을 선택하세요.");
+       } else {
+           // 하나라도 값이 있으면 폼을 제출
+           searchForm.attr("action", "#").submit();
+       }
+   }
     // 각 요소에 이벤트 리스너 추가
     document.querySelectorAll('.searchBtn').forEach(function(element) {
         element.addEventListener('click', handleSearchClick);
     });
+
+
+
+
+
+
+
+
 
 
 // 페이징 관련 로직
