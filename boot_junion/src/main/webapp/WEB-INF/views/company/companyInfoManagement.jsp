@@ -22,46 +22,7 @@
     <script src="js/index.js"></script>
     <!--kakao map -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=48ca63ceb0746787c922c8da8f33b705&libraries=services"></script>
-<style>
-    /* 드롭다운 메뉴 */
-    .dorpdowmMain
-    {
-    display: flex;
-    }
 
-    .dropdown
-    {
-    display: flex;
-    align-items: center;
-    }
-
-    .dropdownSub
-    {
-    display: flex;
-    }
-
-    .dropdownContent 
-    {
-    position: absolute;
-    display: none;
-    text-align: center;
-    margin-top: 20px;
-    width: 160px;
-    background-color: var(--color-white);
-    border-radius: 5px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-    right: 11px;
-    }
-
-    .dropdownContent a 
-    {
-    color: var(--color-black);
-    padding: 12px;
-    text-decoration: none;
-    display: block;
-    font-size: var(--color-black);
-    }
-</style>
 </head>
 <body>
 <div class="container">
@@ -70,24 +31,7 @@
 <!--	${companyInfo}-->
     <div class="mainContent">
         <header>
-            <div class="userWrapper">
-                <img src="images/people.svg"alt="">
-                <div class="dorpdowmMain">
-                    <div class="dropdown">
-                        <div class="dropdownSub" id="dropdownSub">
-                            <h4 class="name" name="com_name" style="cursor: pointer;">${login_name}</h4>
-                            <div class="dropdownContent" id="dropdownContent">
-                                <a href="companyInfoManagement"><div>기업 정보 관리</div></a>
-                                <a href="logout"><div>로그아웃</div></a>
-                            </div> <!-- dropdownContent 끝-->
-                            <span class="icon">
-                                <i id="iconDown" class="fa-solid fa-caret-down" style="display: block; cursor: pointer;"></i>
-                                <i id="iconUp" class="fa-solid fa-caret-up" style="display: none; cursor: pointer;"></i>
-                            </span>
-                        </div> <!--dropdownSub 끝-->
-                    </div> <!--dropdown 끝-->
-                </div><!--dropdownMain 끝-->
-             </div>
+            <%@ include file="../dropdown.jsp" %>
         </header>    
         <main>
             <div class="containe">
@@ -112,11 +56,10 @@
                 
                                     <div class="company">
                                         <!-- <img class="imgg" src="../images/companyInfo.svg" alt="#"> -->
-                                        <div class="imgg uploadResult">
-                                            <ul>
-                
-                                            </ul>
+                                        <div class="uploadResult">
+                                           
                                         </div>
+                                        <!-- <img class="imgg" src="../images/companyInfo.svg" alt="#"> -->
                                     </div>
                                     <div class="main">
                                         <div class="sub1">
@@ -146,7 +89,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col1">
+                                    <div class="col2">
                                         <div class="columnA">
                                             <h5 class="title">기술 스택</h5>
                                         </div>
@@ -165,6 +108,7 @@
                                         <div class="columnBB">
                                             <!--지도가 들어갈 위치-->
                                             <div id="map" style="width:100%;height:350px;"></div>
+                                            <!-- <div id="map"></div> -->
                                             <h5 class="comloc" id="comAddress">${companyInfo.com_location}</h5>
                                         </div>
                                     </div>
@@ -264,7 +208,8 @@
                     </div>
                     
                     <div class="tabCon detail">
-                        <table class="detail disB" width="1200px" height="300px">
+                        <!-- <table class="detail disB" width="1200px" height="300px"> -->
+                        <table class="detail disB">
                             <tr>
                                 <th>기업이메일</th>
                                 <td>${companyInfo.com_email}</td>
@@ -276,11 +221,11 @@
                             </tr>
                             <tr>
                                 <th>이름</th>
-                                <td>${companyInfo.com_person}</td>
+                                <td class="modifytext">${companyInfo.com_person}</td>
                             </tr>
                             <tr>
                                 <th>연락처</th>
-                                <td>${companyInfo.com_tel}</td>
+                                <td class="modifytext">${companyInfo.com_tel}</td>
                             </tr>
                             <tr>
                                 <th>비밀번호</th>
@@ -304,48 +249,111 @@
 </body>
 </html>
 <script>
+
     $(document).ready(function () {
-// 24.08.09 하진 : 파일 업로드 로직 추가
-        var uploadResultContainer = $('.uploadResult ul');
-        console.log("uploadResultContainer~!!! "+uploadResultContainer);
-        var comEmail = "${companyInfo.com_email}";
 
-    if (comEmail) {
-        $.ajax({
-            url: '/mainComFileList',
-            type: 'GET',
-            data: { com_email: comEmail },
-            dataType: 'json',
-            success: function(data) {
-                showUploadResult(data, uploadResultContainer);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching file list for com_email ' + comEmail + ':', error);
+         /*
+        2024-8-06 서연주(comRegistModify 참고)
+        이미지 파일 로딩//즉시실행함수
+        */
+        // user-email 변수 가져오기
+        // var user_email = $(".userImage").data('user-email'); // 파일노출되는 div의 클래스명과 data이용
+        var com_email = "<c:out value='${companyInfo.com_email}'/>"; //c:out으로
+        console.log("com_email:", com_email);
+
+        if (com_email) {
+            $.ajax({
+                url: '/comInfoGetFileList',
+                type: 'GET',
+                data: { com_email: com_email },
+                dataType: 'json',
+                success: function (data) {
+                    console.log("Ajax success:", data);
+                    showUploadResult(data);
+                    
+                },
+                error: function (xhr, status, error) {
+                    console.error('Error fetching file list for com_email ' + com_email + ':', error);
+                }
+            });
+        }
+
+
+        // 업로드된 파일 목록 표시
+        function showUploadResult(uploadResultArr) {
+           
+            var uploadUL = $(".uploadResult");
+            var str = "";
+            if (!uploadResultArr || uploadResultArr.length === 0) {
+                alert("업로드파일없음")
+                var company = $(".company");
+                var altImg = "<img class='imgg' src='../images/companyInfo.svg' alt='#'>";
+                company.append(altImg);
+                return;
             }
-        });
-    } 
+            var rootURL = "<%=request.getScheme()%>";
+
+            // $(uploadResultArr).each(function (i, obj) {//파일 여러개일때 전부 다 보여줘는
+            if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
+                var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기 파일 하나만 보여주기
+                var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+                str += "<div data-path='" + obj.uploadPath + "'";
+                str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+                str += "<div style='background:url("+rootURL+"/userImageDisplay?fileName=" + fileCallPath +")'>";
+                str += "<div class='photo'>";
+                str += "<span style='display:none;'>" + obj.fileName + "</span>";
+                str += "<img src='/comDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
+                str += "</div>";
+            }
+
+            uploadUL.append(str);
+           
+
+        }//showUploadResult function 끝
+
+
+// // 24.08.09 하진 : 파일 업로드 로직 추가
+//         var uploadResultContainer = $('.uploadResult ul');
+//         console.log("uploadResultContainer~!!! "+uploadResultContainer);
+//         var comEmail = "${companyInfo.com_email}";
+
+//     if (comEmail) {
+//         $.ajax({
+//             url: '/mainComFileList',
+//             type: 'GET',
+//             data: { com_email: comEmail },
+//             dataType: 'json',
+//             success: function(data) {
+//                 showUploadResult(data, uploadResultContainer);
+//             },
+//             error: function(xhr, status, error) {
+//                 console.error('Error fetching file list for com_email ' + comEmail + ':', error);
+//             }
+//         });
+//     } 
     
-    function showUploadResult(uploadResultArr, uploadResultContainer){
-    if (!uploadResultArr || uploadResultArr.length == 0) {
-        var notImage = "<img class='imgg' src='../images/companyInfo.svg>'";
-        uploadResultContainer.empty().append(notImage);
-    }
+//     function showUploadResult(uploadResultArr, uploadResultContainer){
+//     if (!uploadResultArr || uploadResultArr.length == 0) {
+//         var notImage = "<img class='imgg' src='../images/companyInfo.svg>'";
+//         uploadResultContainer.empty().append(notImage);
+//     }
 
-    var str = "";
+//     var str = "";
 
-    $(uploadResultArr).each(function (i, obj) {
-        var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+//     $(uploadResultArr).each(function (i, obj) {
+//         var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+       
+//         str += "<div class='photo' data-path='" + obj.uploadPath + "'";
+//         str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+//         str += "<div>";
+//         str += "<span style='display:none;'>" + obj.fileName + "</span>";
+//         str += "<img src='/mainDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+//         str += "</div></div>";
+//     });
 
-        str += "<li data-path='" + obj.uploadPath + "'";
-        str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
-        str += "<div>";
-        str += "<span style='display:none;'>" + obj.fileName + "</span>";
-        str += "<img src='/mainDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
-        str += "</div></li>";
-    });
-
-    uploadResultContainer.empty().append(str);
-}   
+//     uploadResultContainer.empty().append(str);
+// }   
 
 
 
@@ -481,24 +489,4 @@
         peopleElem.css("display", "none");
     }
 
-</script>
-<script>
-    // 드롭다운 메뉴 (하지수)
-
-    function dropdown() {
-        let click = document.getElementById("dropdownContent");
-        let iconDown = document.getElementById("iconDown");
-        let iconUp = document.getElementById("iconUp");
-
-        if (click.style.display === "none" || click.style.display === "") {
-            click.style.display = "block";
-            iconDown.style.display = "none";
-            iconUp.style.display = "block";
-        } else {
-            click.style.display = "none";
-            iconDown.style.display = "block";
-            iconUp.style.display = "none";
-        }
-    }
-    document.getElementById("dropdownSub").addEventListener("click", dropdown); // 드롭다운 메뉴 끝
 </script>

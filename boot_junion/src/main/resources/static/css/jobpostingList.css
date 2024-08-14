@@ -1,4 +1,5 @@
 
+
 :root 
 {
   /* 컬러 모음 */
@@ -151,6 +152,7 @@
   font-size: var(--font-size14);
   margin-right: 12px;
 }
+
 
 /* 메인 */
 main 

@@ -18,46 +18,7 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <!-- import js -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-<style>
-    /* 드롭다운 메뉴 */
-	.dorpdowmMain
-	{
-	display: flex;
-	}
 
-	.dropdown
-	{
-	display: flex;
-	align-items: center;
-	}
-
-	.dropdownSub
-	{
-	display: flex;
-	}
-
-	.dropdownContent 
-	{
-	position: absolute;
-	display: none;
-	text-align: center;
-	margin-top: 20px;
-	width: 160px;
-	background-color: var(--color-white);
-	border-radius: 5px;
-	box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-	right: 11px;
-	}
-
-	.dropdownContent a 
-	{
-	color: var(--color-black);
-	padding: 12px;
-	text-decoration: none;
-	display: block;
-	font-size: var(--color-black);
-	}
-</style>
 </head>
 <body>
 	
@@ -70,24 +31,7 @@
     
     <div class="mainContent">
         <header>
-			<div class="userWrapper">
-				<img src="images/people.svg"alt="">
-				<div class="dorpdowmMain">
-					<div class="dropdown">
-						<div class="dropdownSub" id="dropdownSub">
-							<h4 class="name" name="com_name" style="cursor: pointer;">${login_name}</h4>
-							<div class="dropdownContent" id="dropdownContent">
-								<a href="#"><div>기업 정보 관리</div></a>
-								<a href="logout"><div>로그아웃</div></a>
-							</div> <!-- dropdownContent 끝-->
-							<span class="icon">
-								<i id="iconDown" class="fa-solid fa-caret-down" style="display: block; cursor: pointer;"></i>
-								<i id="iconUp" class="fa-solid fa-caret-up" style="display: none; cursor: pointer;"></i>
-							</span>
-						</div> <!--dropdownSub 끝-->
-					</div> <!--dropdown 끝-->
-				</div><!--dropdownMain 끝-->
-			 </div>
+			<%@ include file="dropdown.jsp" %>
 		</header>  
 		<!--------------------------------------------- 헤더 끝 ------------------------>  
 		  <main>
@@ -271,30 +215,7 @@
     </div> <!-- //main-content -->
 </div>    
     
-<footer>
-    <div class="footerInner">
-        <div class="left_conWrap f_conWrap">
-            <h5 class="logo">
-                <a href="#">
-                    <img src="images/logo.svg" alt="#">
-                </a>
-            </h5>
-            <p class="textWrap">
-                부산광역시 부산진구 중앙대로 688 한준빌딩 2층<br>
-                대표이사 : 주니온<br>
-                사업자등록번호 : 123-45-67890 / 통신판매업신고 : 9999-12345호<br>
-                이메일 : abcde@naver.com
-            </p>
-        </div>
-        <div class="right_conWrap f_conWrap">
-            <h3>1234-5678</h3>
-            <p class="textWrap">                        
-                오전 9시 ~ 오후 6시(토요일, 공휴일 휴무)<br>
-                Copyright ⓒ JUNION ALL RIGHTS RESERVED.
-            </p>
-        </div>
-    </div>
-</footer>   
+<%@ include file="footer.jsp" %>
 </body>
 </html>
 
@@ -427,24 +348,4 @@
 	   });
 	   // CSS JS ---------------------------------------------------
 
-</script>
-<script>
-    // 드롭다운 메뉴 (하지수)
-
-    function dropdown() {
-        let click = document.getElementById("dropdownContent");
-        let iconDown = document.getElementById("iconDown");
-        let iconUp = document.getElementById("iconUp");
-
-        if (click.style.display === "none" || click.style.display === "") {
-            click.style.display = "block";
-            iconDown.style.display = "none";
-            iconUp.style.display = "block";
-        } else {
-            click.style.display = "none";
-            iconDown.style.display = "block";
-            iconUp.style.display = "none";
-        }
-    }
-    document.getElementById("dropdownSub").addEventListener("click", dropdown); // 드롭다운 메뉴 끝
 </script>

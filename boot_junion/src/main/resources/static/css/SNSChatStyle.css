@@ -1,0 +1,146 @@
+
+
+#chat-room {
+    width: 1000px;
+    /* margin: 0 auto; */
+    margin-left: 128px;
+    padding: 10px;
+    /* border: 1px solid #ccc; */
+    border-radius: 5px;
+}
+
+#messages {
+    height: 700px;
+    /* overflow-y: scroll; */
+    /* display: flex; */
+    /* flex-direction: column; 채팅이 위에서 아래로 나타나게 함 */
+    /* flex-direction: column-reverse; */
+    overflow-y: auto;
+    /* -ms-overflow-style: none; */
+    scrollbar-width: none; /* 스크롤바 안보이게 함 */
+    /* flex: 1; */
+    /* overflow: auto; */
+    margin-bottom: 10px;
+    /* border: 1px solid #ddd; */
+    padding: 5px;
+}
+/* #messages::-webkit-scrollba {
+    display: none;
+} */
+
+.message {
+    /* padding: 5px; */
+    /* border-radius: 3px; */
+    /* margin-bottom: 5px; */
+    /* max-width: 70%; */
+    /* padding: 10px 15px;
+    border-radius: 20px; */
+    display: flex;
+    margin-bottom: 5px;
+    width: fit-content;
+    max-width: 45%;  /* 최대 너비 제한 */
+    word-wrap: break-word;  /* 긴 단어가 줄을 넘어갈 때 자동으로 줄 바꿈 */
+}
+
+.sendMessage {
+    display: flex;
+}
+
+.message-time {
+    font-size: 0.75em;
+    color: #888;
+    margin-top: auto;
+    /* float: right; */
+}
+
+.sent {
+    margin-left: auto;  /* 왼쪽 여백 자동 조절 */
+}
+.sent .message-content {
+    background-color: #FFA500;
+    padding: 10px 15px;
+    border-radius: 10px;
+    max-width: 80%;  /* 최대 너비 제한 */
+    margin-left: auto;
+    /* 긴 단어가 줄을 넘어갈 때 자동으로 줄 바꿈 */
+    /* word-wrap: break-word; */
+    /* margin-bottom: 10px; */
+    /* width: fit-content; */
+    /* text-align: right; */
+    /* 우측 정렬 */
+    /* align-self: flex-end;  */
+}
+.sent .message-time {
+    /* align-self: flex-start; */
+    /* text-align: left; */
+    margin-left: auto;
+    min-width: auto;
+}
+
+.received .message-content {
+    border: 1px solid #f0c9f8;
+    background-color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 10px;
+    max-width: 80%;
+    /* 긴 단어가 줄을 넘어갈 때 자동으로 줄 바꿈 */
+    /* word-wrap: break-word;  */
+    /* margin-bottom: 10px; */
+    /* width: fit-content; */
+    /* text-align: left; */
+    /* 좌측 정렬 */
+    /* align-self: flex-start;  */
+}
+.received .message-time {
+    /* text-align: right; */
+}
+
+.time-visible {
+    margin-bottom: 20px;  /* 시간이 보이는 메시지에만 마진 적용 */
+}
+
+
+#message-input {
+    padding: 5px;
+    width: calc(100% - 60px);
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    outline: none;
+    padding-left: 12px;
+}
+
+#send-button {
+    padding: 5px 10px;
+    height: 40px;
+    width: 80px;
+    border: none;
+    border-radius: 10px;
+    background-color: #FFA500;
+    color: white;
+    cursor: pointer;
+}
+
+#send-button:hover {
+    background-color: #FFA500;
+}
+
+.message.received 
+{
+	justify-content : start;	
+}
+
+.message.received .message-time 
+{
+	margin-left: 8px;
+}
+
+.message.sent
+{
+	justify-content : flex-end;	
+}
+
+.message.sent .message-time 
+{
+	margin-right: 8px;
+}

@@ -34,13 +34,11 @@
 							<ul class="comNoticeImage">
 							</ul>
 						</div>
-                        <label for="file" class="imgAddLabel">
-							<div class="comImage">
-								<div class="building">
-								</div>                                
-                            </div>
-							<!-- <h3 style="cursor: pointer;">이미지 등록</h3> -->
-                        </label>
+                        <div class="uploadDiv">
+                            <input type="file" name="uploadFile" id="fileUpload" multiple style="display: none;">
+                            <label for="fileUpload" style="cursor: pointer;" class="uploadText">이미지등록</label>
+                        </div>
+                        
                     </div>
 					
                     <div class="postContainer">
@@ -540,12 +538,17 @@ $(document).ready(function (e){
 
         function showUploadResult(uploadResultArr, uploadResultContainer){
             if (!uploadResultArr || uploadResultArr.length == 0) {
+                $(".uploadDiv").css('display', 'flex');
                 return;
             }
 
             var str = "";
 
-            $(uploadResultArr).each(function (i, obj) {
+            // $(uploadResultArr).each(function (i, obj) {//파일 여러개일때 전부 다 보여줘는
+           if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
+                var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기 파일 하나만 보여주기
+                console.log(obj);
+                console.log(uploadResultArr);
                 var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 
                 str += "<li data-path='" + obj.uploadPath + "'";
@@ -554,10 +557,15 @@ $(document).ready(function (e){
                 str += "<span style='display:none;'>" + obj.fileName + "</span>";
                 str += "<img src='/registDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
                 str += "</div></li>";
-            });
+            }
 
             uploadResultContainer.empty().append(str);
+            $(".uploadDiv").css('display', 'none');
         }
+
+
+
+        //수정버튼 누르면
         $("input[type='submit']").on("click", function(e){
             e.preventDefault();  // 기본 폼 제출 동작 막기
             console.log("submit clicked");
@@ -617,6 +625,98 @@ $(document).ready(function (e){
             }
             $("#registModify").submit();
         });
+
+
+
+/*
+        2024-08-06 서연주
+        이미지 파일 누르면 삭제하기나 수정하기 할 수 있도록
+        */
+        $(".uploadResult").on("click", "li", function (e) {
+            console.log("uploadResult click");
+
+            // 이미지 삭제 확인
+            if (confirm("하나의 파일만 업로드할 수 있습니다. 삭제하고 다시 업로드 하시겠습니까?")) {
+                
+                // 1. 클릭된 이미지 제거
+                $(this).remove();
+
+                //2. 컨트롤러 단으로 업로든 된 실제 파일 삭제
+                var targetFile = $(this).data("file");
+                var type = $(this).data("type");
+                
+                $.ajax({
+                    type: "post"
+                    ,data: {fileName: targetFile, type: type}
+                    ,url: "registDeleteFile"
+                    ,success: function(result){
+                        alert(result);
+                        //브라우저에서 해당 썸네일이나 첨부파일이미지 제거
+                        // uploadResultItem.remove();
+                    }
+                });//end of ajax
+                
+                //3.이미지 등록 띄우기(이미지 삭제 후 파일업로드 안하고 빠져나갈 때 적용)
+                $(".uploadDiv").css('display', 'flex');
+                //4.. 파일 업로드 입력 요소 트리거
+                $("input[type='file']").click();
+                console.log("파일 업로드 입력 요소 트리거")
+            }
+        });
+
+        /*
+        2024-08-06 서연주
+        파일(이미지) 업로드
+        */
+        $("input[type='file']").change(function () {
+        // $("#uploadtext").click(function () {
+            var formData = new FormData();
+            var inputFile = $("input[name='uploadFile']");
+            var uploadResultContainer = $(".noitceImage").find('.uploadResult ul');
+            var files = inputFile[0].files;
+
+            for (var i = 0; i < files.length; i++) {
+                if (!checkExtension(files[i].name, files[i].size)) {
+                    return false;
+                }
+                formData.append("uploadFile", files[i]);
+            }
+
+            // 파일 업로드 AJAX 요청
+            $.ajax({
+                type: "post",
+                data: formData,
+                url: "registUploadAjaxAction",
+                processData: false,
+                contentType: false,
+                success: function (result) {
+                    alert("파일이 업로드 되었습니다.");
+                    console.log(result);
+                    showUploadResult(result,uploadResultContainer); // 파일 업로드 결과 표시 함수 호출
+                }
+            });
+        });
+
+
+        // 파일 확장자와 크기 검사
+        var regex = new RegExp("(.*?)\\.(exe|sh|alz)$"); // 정규식에서 \\를 추가하여 이스케이프 처리
+        var maxSize = 5242880; // 5MB
+
+        function checkExtension(fileName, fileSize) {
+            if (fileSize >= maxSize) {
+                alert("파일 사이즈 초과");
+                return false;
+            }
+            if (regex.test(fileName)) {
+                alert("해당 종류의 파일은 업로드할 수 없습니다.");
+                return false;
+            }
+            return true;
+        }
+
+
+
+
 });
 
 </script>

@@ -1,0 +1,629 @@
+* 
+{
+    margin:0;
+    padding:0;
+}
+
+section.snsCompanyPage 
+{
+    position: relative;
+    width: 1200px;
+    margin-left: 360px;
+    display: flex;
+    justify-content: center;
+}
+
+.bgH
+{
+    background-color: #BFFD9F;
+    width: 100%;
+    height: 300px;
+    position: absolute;
+    top:0;
+    left:0;
+    z-index: -9;
+}
+
+.contentWrap 
+{
+    width: 100%;
+    padding: 140px 40px 40px 40px;
+    display: flex;
+    gap: 0 40px;
+}
+
+.content.profile 
+{
+    display: flex;
+    background-color: #fff;
+    border: 1px solid #e5e5ec;
+    flex-direction: column;
+    border-radius: 6px;
+    width: 240px;
+    height: auto;
+}
+
+.profileInfo 
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding:40px 0 20px;
+    
+}
+
+.profileInfo .image
+{
+    width: 90px;
+    height: 90px;
+    background-size: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.profileInfo .img
+{
+    width: 90px;
+    height: 90px;
+    background-size: cover;
+    border-radius: 50%;
+    margin-bottom: 20px;
+}
+
+.profileInfo .name 
+{
+    font-size: 20px;
+    color: #111;
+}
+.com_content
+{
+    padding: 20px;
+}
+
+.profileInfo .job 
+{
+    margin-top: 8px;
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 20px;
+}
+
+.profileInfo textarea
+{
+    height: 60px;
+}
+
+.profileInfo button.following, .estimatePortfolio 
+{
+    padding:8px 20px;
+    border: 1px solid #e5e5ec;
+    font-size: 14px;
+    background:#fff;
+    border-radius: 6px;
+    /* margin-top: 20px; */
+    cursor: pointer;
+}
+
+.profileInfo button.following:hover , .estimatePortfolio:hover 
+{
+    background:#FFA500;
+    color: #fff;
+    border: 1px solid #FFA500;
+} 
+
+.profileCon 
+{
+    padding: 20px;
+    /* border-top: 1px solid #e5e5ec; */
+}
+
+.profileCon .profileCon.follower
+{
+    border-top: 1px solid #e5e5ec;
+    border-bottom: 1px solid #e5e5ec;
+}
+
+.profileCon, .follow 
+{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.follow 
+{
+    gap: 10px;
+}
+
+.positionWrap 
+{
+    text-align: right;
+}
+
+.proflieConTitle 
+{
+    font-weight: 400;
+}
+
+.proflieConTitle, .positionWrap h3 
+{
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.content.info 
+{
+    border: 1px solid #e5e5ec;
+    flex-direction: column;
+    border-radius: 6px;
+    width: 840px;
+    background-color: #fff;    
+}
+
+.content.info .tabWrap 
+{
+    padding: 0 40px;
+    display: flex;
+    gap: 0 40px;
+    border-bottom: 1px solid #e5e5ec;
+}
+
+.content.info .tabWrap .tab 
+{
+    font-size: 14px;
+    /* cursor: pointer; */
+    padding: 18px 20px;
+    min-width: 80px;
+    text-align: center;
+    border-bottom: 4px solid #FFA500;
+}
+/* 
+.content.info .tabWrap .tab.active
+{
+} */
+
+.contentInfoWrap 
+{
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 40px 0;
+}
+
+#resumeSelect 
+{
+    padding: 8px 20px;
+    border: 1px solid #e5e5ec;
+    width: 200px;
+}
+
+.content.info .infoConWrap 
+{
+    border: 1px solid #e5e5ec;
+    padding: 40px 40px 0 40px;
+    border-radius: 6px;
+}
+
+.infoConWrapTitle 
+{
+    font-size: 24px;
+    font-weight: 600;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #999;
+}
+
+.infoCon 
+{
+    padding: 20px 0;
+}
+
+.infoConImg 
+{
+    width: 32px;
+    height: 32px;
+    background-color: gray;
+    border-radius: 50%;
+}
+
+.infoCon 
+{
+    display: flex;
+    gap:0 12px;
+    align-items: center;
+}
+
+.infoConSubTitleWrap 
+{
+    display: flex;
+    gap:0 12px;
+    color: #999;
+    font-weight: 300;
+    align-items: center;
+}
+
+.infoConTitle 
+{
+    font-size: 16px;
+    color: #111;
+    font-weight: 600;
+    margin-bottom:4px;
+}
+
+.infoConPosition, .infoConCareer 
+{
+    font-size: 12px;
+    color: #999;
+    font-weight: 400;
+}
+
+.estimatePortfolio 
+{
+    margin-left: auto;
+    margin-top: 0;
+}
+
+.content.profile a.detailPage
+{
+    padding:8px 20px;
+    border: 1px solid #e5e5ec;
+    font-size: 14px;
+    background:#fff;
+    border-radius: 6px;
+    /* margin-top: 20px; */
+    cursor: pointer;
+    text-decoration: none;
+    color: #111;
+    width: 80px;
+    height: 25px;
+    font-size: 14px;
+    text-align: center;
+    /* margin-left: 60px; */
+    margin-left: auto;
+    margin-right: auto;
+	margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center; 
+}
+
+.content.profile a.detailPage:hover
+{
+    background:#FFA500;
+    color: #fff;
+    border: 1px solid #FFA500;
+} 
+
+.contentInfoWrap, .contentBoard
+{
+    display: none;
+}
+
+.contentInfoWrap.active, .contentBoard.active 
+{
+    display: flex;
+    flex-direction: column;
+}
+
+.contentBoardWrap button.writing
+{
+    padding:8px 20px;
+    border: 1px solid #e5e5ec;
+    font-size: 14px;
+    background:#fff;
+    border-radius: 6px;
+    margin-top: 20px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+.contentBoardWrap button.writing:hover
+{
+    background:#FFA500;
+    color: #fff;
+    border: 1px solid #FFA500;
+} 
+
+.contentBoardWrap .img
+{
+    width: 36px;
+    height: 36px;
+    background-image: url(../n.png);
+    background-size: cover;
+    border-radius: 50%;
+}
+
+.contentBoardWrap
+{
+    display: flex;
+    padding: 20px 100px 50px;
+    gap: 20px;
+    flex-direction: column;
+}
+
+/* .boardProCon
+{
+    width: 640px;
+    display: flex;
+    gap: 0 20px;
+    align-items: center;
+    font-size: 18px;
+    position: relative;
+}
+
+#boardEdit
+{
+    display: flex;
+    margin-left:auto;
+}
+
+.boardContent
+{
+    border-bottom: 1px solid #999;
+    padding-bottom: 16px;
+    font-size: 16px;
+}
+
+.boardContent .boardImg
+{
+    width: 640px;
+    height: 450px;
+    background-image: url(../n2.jpg);
+    margin-bottom: 16px;
+}
+
+.boardIcon
+{
+    display: flex;
+    align-items: center;
+}
+
+.left_icon
+{
+    display: flex;
+    gap: 16px;
+}
+
+.right_icon
+{
+    margin-left: auto;
+}
+
+.boardWriter 
+{
+    font-size: 18px;
+    margin-bottom: 0;
+    font-weight: 500;
+} */
+
+.right span.icon 
+{
+    margin-left: auto;
+    cursor: pointer;
+}
+
+.option 
+{
+    position: absolute;
+    right: 30px;
+    padding: 0;
+    background: #fff;
+    box-sizing: border-box;
+    border-radius: 6px;
+    box-shadow: 0px 6px 16px rgba(0,0,0,0.3);
+    opacity: 0;
+}
+
+.option.active 
+{
+    opacity: 1;
+}
+
+.option h5
+{
+    padding: 8px 20px;
+    text-wrap:nowrap;
+    min-width:100px;
+    margin-bottom:0;
+}
+
+.option h5:hover 
+{
+    background:#FFA500;   
+    color:#fff;
+}
+
+.option h5:first-child 
+{
+    border-bottom: 1px solid #dbdbdb;
+    border-radius: 6px 6px 0 0;
+}
+
+.option h5:last-child 
+{
+    border-bottom: 1px solid #dbdbdb;
+    border-radius: 0 0 6px 6px;
+}
+
+.option h5
+{
+    color: #111;
+    font-size: 14px;
+}
+
+.contentBoard .detailBox
+{
+	margin: 0 10px 80px;
+	width: 600px;
+}
+
+.contentBoard .detailBox .userBox
+{
+	display: flex;
+	align-items: center;
+}
+
+.contentBoard .detailBox .userBox .UserImage img
+{
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	cursor: pointer;
+}
+
+.contentBoard .detailBox .userBox .nameBox h4
+{
+	margin: 18px;
+	font-size: var(--font-size14);
+	cursor: pointer;
+}
+
+.contentBoard .detailBox .userBox .right
+{
+	margin-left: auto;
+}
+
+.contentBoard .detailBox .userBox .right button
+{
+	width: 58px;
+	height: 30px;
+	border-radius: 6px;
+	background-color: var(--color-white);
+	border: solid 1px var(--border-color-gray);
+	color: var(--color-black);
+	font-size: var(--font-size12);
+	cursor: pointer;
+    margin-right: 10px;
+}
+
+.contentBoard .detailBox .detailContent
+{
+	text-align: center;
+}
+
+.contentBoard .detailBox .detailContent .mainGetResult
+{
+	text-align: center;
+}
+
+.contentBoard .detailBox .detailContent .mainGetResult img
+{
+	width: 600px;
+	height: 360px;
+	border-radius: 6px;
+	margin-top: 12px;
+}
+
+.contentBoard .detailBox .detailContent .detailTitle
+{
+	text-align: left;
+    margin: 12px 0 0px 4px;
+    font-size: var(--font-size16);
+}
+
+.contentBoard .detailBox .detailContent textarea
+{
+	width: 600px;
+	height: 120px;
+	font-size: var(--font-size14);
+	font-weight: 400;
+	margin: 12px 4px;
+	resize: none;
+	border: none;
+	outline: none;
+}
+
+.contentBoard .detailBox .iconBox
+{
+	display: flex;
+	border-top: solid 1px var(--border-color-gray);
+	padding: 12px 12px 12px 8px
+}
+
+.contentBoard .detailBox .iconBox .icon,
+.contentBoard .detailBox .iconBox .commentIcon
+{
+	font-size: var(--font-size24);
+	margin-right: 16px;
+	cursor: pointer;
+}
+
+.contentBoard .detailBox .iconBox h5
+{
+	margin-left: auto;
+	color: var(--color-gray);
+}
+
+.contentBoard .rightCon
+{
+	margin: 80px;
+	display: flex;
+	flex-direction: column;
+}
+
+.contentBoard .rightCon h5
+{
+	color: var(--color-gray);
+	font-size: var(--font-size14);
+}
+
+.contentBoard .rightCon .profile
+{
+	margin-bottom: 12px;
+}
+
+.contentBoard .rightCon .userBox
+{
+	display: flex;
+	align-items: center;
+	width: 240px;
+
+}
+
+.contentBoard .rightCon .userBox .uploadResult img
+{
+	width: 40px;
+	height: 40px;
+	cursor: pointer;
+}
+
+.contentBoard .rightCon .userBox .nameBox
+{
+	margin: 18px;
+}
+
+.contentBoard .rightCon .userBox .nameBox h4
+{
+	font-size: var(--font-size14);
+	cursor: pointer;
+}
+
+.contentBoard .rightCon .userBox .nameBox h5
+{
+	font-size: var(--font-size12);
+	color: var(--color-gray);
+}
+
+.contentBoard .rightCon .userBox .right
+{
+	margin-left: auto;
+}
+
+.contentBoard .rightCon .userBox .right button
+{
+	width: 58px;
+	height: 30px;
+	border-radius: 6px;
+	background-color: var(--main-color);
+	border: solid 1px var(--main-color);
+	color: var(--color-white);
+	font-size: var(--font-size12);
+	cursor: pointer;
+}
+
+.contentBoard .rightCon .more
+{
+	margin-left: auto;
+	margin-top: 8px;
+	cursor: pointer;
+}

@@ -298,8 +298,21 @@ label.imgAddLabel h3
 
 .uploadResult 
 {
+	position: absolute;
     width:100%;
     height: 100%;
+}
+
+.uploadDiv
+{
+	position: absolute;
+	background-color: #f7f7f7;
+	box-sizing: border-box;
+	width: 720px;
+	height: 500px;
+	border-radius: 20px;
+	justify-content: center;
+	align-items: center; 
 }
 
 .uploadResult ul, .uploadResult ul li 
