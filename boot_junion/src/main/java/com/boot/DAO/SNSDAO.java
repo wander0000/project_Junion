@@ -1,6 +1,7 @@
 package com.boot.DAO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 
@@ -13,6 +14,8 @@ public interface SNSDAO {
 	
 	public SNSDTO findBySNSNum(int sns_num);
 	public void snsWrite(SNSDTO snsDTO);
+	
+	List<SNSDTO> searchName(String searchName);
 	
 }
 

@@ -34,6 +34,7 @@ import com.boot.DAO.ComNoticeDAO;
 import com.boot.DTO.CardPageDTO;
 import com.boot.DTO.ComNoticeAttachDTO;
 import com.boot.DTO.ComNoticeDTO;
+import com.boot.DTO.JoinDTO;
 import com.boot.DTO.RecentNoticeDTO;
 import com.boot.DTO.ResumeDTO;
 
@@ -42,6 +43,7 @@ import com.boot.DTO.SubmitDTO;
 import com.boot.DTO.UserDTO;
 import com.boot.Service.CardPageService;
 import com.boot.Service.ComNoticeService;
+import com.boot.Service.JoinService;
 import com.boot.Service.ScrapService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -59,6 +61,9 @@ public class ComNoticeController {
 	
 	@Autowired
 	private CardPageService cardPageService;
+	
+	@Autowired
+	private JoinService joinService;
 	
 
 	@RequestMapping("/jobPostList")
@@ -304,6 +309,16 @@ public class ComNoticeController {
 		model.addAttribute("com_email",session.getAttribute("login_email"));
 		model.addAttribute("com_name", session.getAttribute("login_name"));
 		
+		
+		//24.08.14 하진 : 스택값 불일치 오류로 인한 스택값 수정
+		List<JoinDTO> stack = joinService.stack();		
+		model.addAttribute("stack_name", stack);
+		
+		List<JoinDTO> stack2 = joinService.stack2();		
+		model.addAttribute("stack_name2", stack2);
+		
+		List<JoinDTO> stack3 = joinService.stack3();		
+		model.addAttribute("stack_name3", stack3);
 		return "comRegistUpload";
 	}
 	
@@ -332,7 +347,7 @@ public class ComNoticeController {
 			service.noticeStauts(comNoticeDTO);
 			
 			httpServletRequest.setAttribute("msg", "공고를 등록하였습니다.");
-			httpServletRequest.setAttribute("url", "/companyMain");
+			httpServletRequest.setAttribute("url", "/jobpostingList");
 			return "/alert";
 			
 		}

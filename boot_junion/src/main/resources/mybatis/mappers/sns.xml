@@ -37,7 +37,31 @@
 		insert into sns_tb (login_email, user_type, sns_title, sns_content, sns_date) 
 		values (#{login_email}, #{user_type}, #{sns_title}, #{sns_content}, now())
     </insert>
-	
+    
+    <select id="searchName" resultType="com.boot.DTO.SNSDTO">
+
+		    SELECT 
+		        u.user_email AS sns_email,
+		        u.user_name AS sns_name,
+		        '1' AS user_type
+		    FROM 
+		        user_tb u
+		    WHERE 
+		        u.user_name LIKE CONCAT('%', #{searchName}, '%')
+		    
+		    UNION ALL
+		    
+		    SELECT 
+		        c.com_email AS sns_email,
+		        c.com_name AS sns_name,
+		        '2' AS user_type
+		    FROM 
+		        com_tb c
+		    WHERE 
+		        c.com_name LIKE CONCAT('%', #{searchName}, '%');
+		       
+	</select>
+
 
 </mapper>
 
