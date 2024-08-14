@@ -150,7 +150,7 @@
                         </div>
                     </div><!--left 끝-->
                     <div class="nameBox">
-                        <h4 id="modalSnsName"></h4>
+                        <h4 id="modalSnsName" class="snsnsn"></h4>
                     </div><!--nameBox 끝-->
                     <div class="right">
                         <button type="button">
