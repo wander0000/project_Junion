@@ -136,7 +136,7 @@
                             <div class="postThema">
                                 <div class="sectionName">
                                     <h5 class="subtitle"><span style="color: #FFA500;">신입</span> TOP 5</h5>
-                                    <a href="#" class="moreView">더보기
+                                    <a href="jobPostList?careerType=신입&orderType=view" class="moreView">더보기
                                         <i class="fa-solid fa-angle-right"></i>
                                     </a>
                                 </div><!--sectionName-->
@@ -160,7 +160,7 @@
                             <div class="postThema">
                                 <div class="sectionName">
                                     <div class="subtitle"><span style="color: #FFA500;">경력</span> 인기 TOP 5</div>
-                                    <a href="#" class="moreView">더보기
+                                    <a href="jobPostList?careerType!=신입&orderType=view" class="moreView">더보기
                                         <i class="fa-solid fa-angle-right"></i>
                                     </a>
                                 </div><!--sectionName-->
@@ -184,7 +184,7 @@
                             <div class="postThema">
                                 <div class="sectionName">
                                     <div class="subtitle"><span style="color: #FFA500;">오늘</span> 뜬 인기 TOP 5</div>
-                                    <a href="#" class="moreView">더보기
+                                    <a href="jobPostList?orderType=view" class="moreView">더보기
                                         <i class="fa-solid fa-angle-right"></i>
                                     </a>
                                 </div><!--sectionName-->

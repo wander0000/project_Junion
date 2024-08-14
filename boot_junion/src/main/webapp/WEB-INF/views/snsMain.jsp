@@ -42,13 +42,17 @@
                                 <div class="left">
                                     <div class="UserImage">
                                         <ul>
-                                            <img src="images/people.svg" alt="#" class="img">
+                                            <!-- <img src="images/people.svg" alt="#" class="img"> -->
                                         </ul>
                                     </div>
                                 </div><!--left 끝-->
                                 <div class="nameBox">
                                     <!-- <h4>수지야</h4> -->
-                                    <h5 class="nana">${dto.sns_name}</h5>
+                                    <h5 class="nana">
+                                        <a href="#" id="userProfileLink" style="color: var(--color-black);">
+                                            ${dto.sns_name}
+                                        </a>
+                                    </h5>
                                 </div><!--nameBox 끝-->
                                 <div class="right">
                                     <button type="button">
@@ -127,7 +131,12 @@
                         </div><!--right 끝-->
                     </div> <!--userBox 끝-->
         
-                    <h5 class="more">더 보기</h5>
+                    
+                        <h5 class="more">
+                            <a href="SNSRecommendUser" style="color: var(--color-gray);">
+                                더 보기
+                            </a>
+                        </h5>
                 </div> <!--rightCon 끝-->
         
             </div> <!--snsMain 끝-->
@@ -243,6 +252,7 @@
 
 <script>
 $(document).ready(function () {
+
     $('.detailBox').each(function () {
         var sns_num = $(this).data('sns-num');
         
@@ -266,7 +276,7 @@ $(document).ready(function () {
 
     $('.detailBox').each(function () {
         var user_type = $(this).data('user-type');
-        var snsEmail = $(this).data('user-email')
+        var snsEmail = $(this).data('user-email');
         
         var uploadResultContainer = $(this).find('.UserImage ul');
 
@@ -294,10 +304,19 @@ $(document).ready(function () {
                 }
             });
         }
+
+        var userProfileLink = $(this).find('#userProfileLink');
+
+        if (user_type == 1) {
+            userProfileLink.attr('href', 'snsUserPage?user_email=' + snsEmail);
+        } else if (user_type == 2) {
+            userProfileLink.attr('href', 'snsCompanyPage?com_email=' + snsEmail);
+        }
+
     });
 
      // .snsMain .detailContent textarea, .snsMain .detailBox .iconBox .commentIcon를 클릭했을 때 모달 열기
-     $(".snsMain .detailContent textarea, .snsMain .detailBox .iconBox .commentIcon").click(function () {
+     $(".snsMain .detailContent .snsn, .snsMain .detailBox .iconBox .commentIcon").click(function () {
         var detailBox = $(this).closest('.detailBox');
         var snsNum = detailBox.data('sns-num');
         var snsName = detailBox.data('sns-name');

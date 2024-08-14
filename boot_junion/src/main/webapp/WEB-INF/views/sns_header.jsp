@@ -142,7 +142,7 @@ font-size: var(--color-black);
 							<!-- <h4 class="name" style="cursor: pointer;">${com_name}</h4> -->
 							<h4 class="name" style="cursor: pointer;">${login_name}</h4>
 							<div class="dropdownContent" id="dropdownContent">
-								<a href="#"><div>프로필</div></a>
+								<a href="#" id="profileLink"><div>프로필</div></a>
 								<a href="#" id="mypageLink"><div>마이페이지</div></a>
 								<a href="logout"><div>로그아웃</div></a>
 							</div> <!-- dropdownContent 끝-->
@@ -181,11 +181,14 @@ font-size: var(--color-black);
 
 	$(document).ready(function(){
 		var mypageLink = document.getElementById('mypageLink')
+		var profileLink = document.getElementById('profileLink')
 		if('${login_usertype}'==1){
-		mypageLink.href='resumeList';
+			mypageLink.href='userInfo';
+			profileLink.href='snsUserPage?user_email=${login_email}';
 		}else if('${login_usertype}'==2){
-		mypageLink.href='jobpostingList';
-		}
+			mypageLink.href='companyInfoManagement';
+			profileLink.href='snsCompanyPage?com_email=${login_email}';
+			}
 
 
 		//이미지 업로드
