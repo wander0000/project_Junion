@@ -37,12 +37,9 @@ public class SNSMyPageController {
 	public String SNSUserPage(@RequestParam HashMap<String, String> param, Model model, HttpServletRequest httpServletRequest, String user_email) {
 		log.info("@# snsUserPage");
 		
-		HttpSession session = httpServletRequest.getSession();
-        session.getAttribute("login_usertype");
-        session.getAttribute("login_email");
-        
-        model.addAttribute("login_usertype", session.getAttribute("login_usertype"));
-        model.addAttribute("login_email", session.getAttribute("login_email"));
+        HttpSession session = httpServletRequest.getSession();
+        Object userType = session.getAttribute("login_usertype");
+        Object email = session.getAttribute("login_email");
 
         // SNS 목록 가져오기
         ArrayList<SNSDTO> snsList = snsService.snsList();
@@ -75,7 +72,8 @@ public class SNSMyPageController {
 	    List<SNSIntroDTO> getSNSJob = snsMyPageService.getSNSJob(user_email);
 	    model.addAttribute("SNSJob", getSNSJob);
 	    
-		
+	    model.addAttribute("user_email", user_email);
+	    
 //		model.addAttribute("snsPostList", snsPostList);
 		return "/snsUserPage";
 	}

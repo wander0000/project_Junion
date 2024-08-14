@@ -108,6 +108,7 @@ section.snsMypage
     cursor: pointer;
 }
 
+
 .profileInfo button.following:hover, .message:hover, .estimatePortfolio:hover , .viewEstimate:hover
 {
     background:#FFA500;
@@ -419,16 +420,10 @@ section.snsMypage
     color:#fff;
 }
 
-.option h5:first-child 
+.option h5
 {
     border-bottom: 1px solid #dbdbdb;
-    border-radius: 6px 6px 0 0;
-}
-
-.option h5:last-child 
-{
-    border-bottom: 1px solid #dbdbdb;
-    border-radius: 0 0 6px 6px;
+    border-radius: 6px;
 }
 
 .option h5
@@ -612,4 +607,24 @@ section.snsMypage
 	margin-left: auto;
 	margin-top: 8px;
 	cursor: pointer;
+}
+
+.infoCon button.viewEstimate 
+{
+    padding:8px 20px;
+    border: 1px solid #e5e5ec;
+    font-size: 14px;
+    background:#fff;
+    border-radius: 6px;
+    margin-top: 20px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-bottom: 20px;
+}
+
+.infoCon button.viewEstimate:hover
+{
+    background:#FFA500;
+    color: #fff;
+    border: 1px solid #FFA500;
 }
