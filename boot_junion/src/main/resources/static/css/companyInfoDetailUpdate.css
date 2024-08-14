@@ -48,6 +48,14 @@ section
 	
 }
 
+.imgg
+{
+	box-sizing: border-box;
+	width: 720px;
+	height: 500px;
+	border-radius: 20px;
+}
+
 .uploadDiv
 {
 /*	position: absolute;*/
@@ -279,8 +287,8 @@ section
 .detailtext
 {
 	display: flex;
-    /* width: 1200px; */
-    width: 694px;
+    /* width: 694px; */
+    width: 100%;
     min-height: 300px;
     resize: none;
     border: 1px solid var(--border-color-gray);
@@ -288,6 +296,7 @@ section
     font-size: var(--font-size14);
     /* border-radius: 10px; */
     border-radius: 6px;
+	white-space: pre-wrap;
 
 }
 
