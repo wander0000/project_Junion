@@ -63,15 +63,63 @@
 	color: var(--color-black);
 	font-size: var(--font-size12);
 	cursor: pointer;
+	
+	&:hover 
+	{
+	    background: var(--main-color);
+	    color: #fff;
+		border: solid 1px var(--main-color);
+	}
+	
 }
 
 .snsMain .detailBox .detailContent
 {
-	text-align: center;
-	max-height: 555px;
+	text-align: left;
+
 	display: flex;
 	flex-direction: column;
 	justify-content:space-between;
+}
+.snsMain .detailBox .detailContent .snsn {
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* 처음에 5줄까지만 보이게 설정 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: calc(1.2em * 5); /* 5줄 정도의 높이로 제한 */
+    word-break: break-word;
+
+	
+	
+	font-weight: 300;
+	font-size: 16px;
+	margin-top: 10px;
+
+
+	
+}
+
+/* "더보기" 버튼 스타일링 */
+.snsMain .detailBox .detailContent .more-btn {
+    display: none; /* 기본적으로 숨김 */
+    color: #007BFF; /* 예시로 파란색 텍스트 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+	margin-top: 10px;
+}
+.nameBox .nana
+{
+	font-weight: 500;
+	font-size: 18px;
+	margin-left: 10px;
+}
+.snsMain .detailBox .detailContent .snsntitle
+{
+	font-weight: 600;
+	font-size: 20px;
 }
 
 .snsMain .detailBox .detailContent .mainGetResult
@@ -93,10 +141,12 @@
 	flex-direction: column;
 	flex-grow: 1;
 }
+
+
 .snsMain .detailBox .detailContent .detailTitle
 {
 	text-align: left;
-    margin: 12px 0 0px 4px;
+    margin: 12px 0 0px 0px;
     font-size: var(--font-size16);
 }
 
@@ -117,7 +167,13 @@
 {
 	display: flex;
 	border-top: solid 1px var(--border-color-gray);
-	padding: 12px 12px 12px 8px
+	padding: 12px 12px 12px 8px;
+	margin-top: 14px;
+}
+.snsMain .detailBox .iconBox .datete
+{
+	font-size: 14px;
+	font-weight: 300;
 }
 
 .snsMain .detailBox .iconBox .icon,
