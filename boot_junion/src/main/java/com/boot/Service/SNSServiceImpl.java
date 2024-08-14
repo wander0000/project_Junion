@@ -1,6 +1,7 @@
 package com.boot.Service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,14 @@ public class SNSServiceImpl implements SNSService{
 		});
 	}
 
+	@Override
+	public List<SNSDTO> searchName(String searchName) {
+
+		SNSDAO dao = sqlSession.getMapper(SNSDAO.class);
+		List<SNSDTO> list = dao.searchName(searchName);
+		
+		return list;
+	}
 
 
 }
