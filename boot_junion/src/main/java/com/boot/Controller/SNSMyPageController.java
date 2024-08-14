@@ -80,8 +80,14 @@ public class SNSMyPageController {
 	
 	@RequestMapping("/snsCompanyPage")
 //	public String SNSCompanyPage(@RequestParam(value = "com_email", required = false) String com_email , Model model, HttpSession session) {
-	public String SNSCompanyPage(String com_email , Model model, HttpSession session) {
+	public String SNSCompanyPage(String com_email , Model model, HttpServletRequest httpServletRequest) {
 		log.info("@# snsCompanyPage");
+		
+        HttpSession session = httpServletRequest.getSession();
+        Object userType = session.getAttribute("login_usertype");
+        Object email = session.getAttribute("login_email");
+        
+        model.addAttribute("com_email", com_email);
 		
         ArrayList<SNSDTO> snsList = snsService.snsList();
         log.info("@# list" + snsList);
