@@ -17,13 +17,6 @@ main .mainContent
   
 }
 
-/* main .containe
-{ */
-  /* width: calc(1200px-); */
-  /* padding-top: 90px; */
-  
-/* } */
-
 
 /* 헤더밑 타이틀*/
 main .toptitle
@@ -86,10 +79,6 @@ main .toptitle .toptitle2
     gap: 20px;
 }
 
-.disN
-{
-    display: none;
-}
 
 .disB 
 {
@@ -199,14 +188,6 @@ section
     /* justify-content: center; */
 }
 
-/* .wrap .left
-{ */
-/*    max-width: 720px ;*/
-    /* display: flex; */
-    /* justify-content: left; */
-    
-/* } */
-
 
 .wrap .left .company
 {
@@ -224,9 +205,6 @@ section
 	box-sizing: border-box;
   	border-radius: 15px;
 
-
-    /* margin-left: auto;
-    align-items: top; */
 }
 
 .wrap .main
@@ -253,7 +231,6 @@ section
 
 .introduce
 {
-  /* white-space: pre-wrap;*//*줄바꿈을 그대로 출력(ChatGPT) 실패 */
   /* white-space: pre;줄바꿈을 그대로 출력 */
   white-space: pre-wrap;/*줄바꿈을 그대로 출력*/
   line-height :1.5;/* 글자 위아래 간격 조절 (1.5배) */
@@ -348,14 +325,6 @@ section
 
 }
 
-/* .wrap .column .col7 .columnBB .comloc
-{
-    /* font-weight: 100;
-    font-size: var(--font-size16);
-    color: black; */
-    /* margin-top: 20px;
-
-} */
 
 .wrap .column .columnAA .detail,
 .wrap .column .col7 .columnBB .comloc,
