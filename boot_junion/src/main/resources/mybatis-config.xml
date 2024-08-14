@@ -46,6 +46,8 @@
 		<mapper resource="mybatis/mappers/snsUpload.xml"/>
 		<mapper resource="mybatis/mappers/SNSChat.xml"/>
 		<mapper resource="mybatis/mappers/snsMyPage.xml"/>
+		<mapper resource="mybatis/mappers/SNSRecommendUser.xml"/>
+		<mapper resource="mybatis/mappers/SNSFollow.xml"/>
 	</mappers>
 </configuration>
 

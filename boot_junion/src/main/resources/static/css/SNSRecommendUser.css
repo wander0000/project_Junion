@@ -15,7 +15,7 @@ body {
     /* margin-left: 221px; */
     /* margin-left: 481px; */
 	/*margin-top: 191px;*/
-    /* margin-bottom: 100px; */
+    margin-bottom: 100px;
 }
 
 .recommendProf {
@@ -54,7 +54,8 @@ body {
 .profList {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
+    margin-left: 33px;
+    /* justify-content: center; */
     /* align-items: left; */
     /* width: 1200px; */
 }
@@ -84,12 +85,19 @@ body {
     
 }
 
-.prof-img {
+.UserImage {
     height: 50px;
     width: 50px;
-    background-color: #bbb;
+    /* background-color: #bbb; */
     border-radius: 50%;
     margin-right: 12px;
+}
+.UserImage img {
+    height: 100%;
+    width: 100%;
+    /* background-color: #bbb; */
+    /* border-radius: 50%; */
+    /* margin-right: 12px; */
 }
 
 .info {
@@ -122,8 +130,7 @@ h3, p {
     cursor: pointer;
     margin-top: 2px;
 }
-
-.btn2:hover {
+.btn2.followed {
     background-color: #ffffff;
     border: solid 1px #dadada;
     color: #000;
@@ -133,4 +140,7 @@ h3, p {
     max-width: 505px;
     max-height: 50px;
     font-size: 12px;
+    /* overflow: hidden; */
+    /* white-space: nowrap; */
+    /* text-overflow: ellipsis; */
 }
