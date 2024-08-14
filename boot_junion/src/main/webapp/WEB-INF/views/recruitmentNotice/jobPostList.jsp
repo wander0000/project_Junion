@@ -688,6 +688,7 @@ $(document).ready(function() {
        var careerSelect = document.getElementById('careerSelect').value.trim();
        var stackSelect = document.getElementById('stackSelect').value.trim();
        var locationselect = document.getElementById('locationselect').value.trim();
+       
        var searchForm = $("#searchForm");
 
        // 모든 필드가 비어 있을 때 경고
@@ -698,6 +699,7 @@ $(document).ready(function() {
            searchForm.attr("action", "#").submit();
        }
    }
+
     // 각 요소에 이벤트 리스너 추가
     document.querySelectorAll('.searchBtn').forEach(function(element) {
         element.addEventListener('click', handleSearchClick);
