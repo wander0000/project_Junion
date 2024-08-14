@@ -149,8 +149,10 @@
                                 <!-- <div class="detail"> -->
                                     <div id="map" clss="map"></div>
                                     <div class="mapLocation">
+                                        <!-- <input  type="text" name="com_location" id="sample5_address" class="maptext" value="${companyInfo.com_location}"> -->
+                                        <!-- <label for="searchComAdress"><input  type="text" name="com_location" id="sample5_address" class="maptext" value="${companyInfo.com_location}"></label> -->
                                         <input  type="text" name="com_location" id="sample5_address" class="maptext" value="${companyInfo.com_location}">
-                                        <input type="button" class="searchButton" onclick="sample5_execDaumPostcode()" value="주소 검색">
+                                        <input type="button" id="searchComAdress" class="searchButton" onclick="sample5_execDaumPostcode()" value="주소 검색">
                                     </div>
                             <!-- </div> -->
                         </div>
@@ -572,6 +574,10 @@
             });
         
         
+            $(".maptext").click(function () {
+                $("#searchComAdress").click();
+
+            })
             function sample5_execDaumPostcode() {
                 new daum.Postcode({
                     oncomplete: function(data) {

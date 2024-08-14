@@ -280,7 +280,8 @@ section
 {
 	display: flex;
     /* width: 1200px; */
-    width: 694px;
+    white-space: pre-wrap;
+    width: 100%;
     min-height: 300px;
     resize: none;
     border: 1px solid var(--border-color-gray);
