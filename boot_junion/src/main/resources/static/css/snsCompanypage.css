@@ -39,7 +39,7 @@ section.snsCompanyPage
     border: 1px solid #e5e5ec;
     flex-direction: column;
     border-radius: 6px;
-    min-width: 240px;
+    width: 240px;
     height: auto;
 }
 
@@ -281,7 +281,8 @@ section.snsCompanyPage
     /* margin-left: 60px; */
     margin-left: auto;
     margin-right: auto;
-     display: flex;
+	margin-bottom: 20px;
+    display: flex;
     justify-content: center;
     align-items: center; 
 }
