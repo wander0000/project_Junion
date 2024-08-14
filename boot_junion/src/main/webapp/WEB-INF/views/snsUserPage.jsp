@@ -236,10 +236,8 @@
         <body>
             <div class="snsContainer">
                 <%@ include file="sns_nav.jsp" %>
-
                     <div class="snsContent">
                         <%@ include file="sns_header.jsp" %>
-
                             <main>
                                 <section class="snsMypage">
                                     <div class="bgH"></div>
@@ -248,17 +246,11 @@
                                             <div class="profileInfo">
                                                 <img class="img" src="/images/1.jpg" alt="">
                                                 <h3 class="name">${userInfo.user_name}</h3>
-                                                <!-- <h5 class="job">그린컴퓨터 아카데미</h5> -->
-                                                <!-- <form action=""> -->
                                                 <p class="intro">${userIntro.sns_intro}</p>
-                                                <!-- </form> -->
                                                 <div class="profileButton">
                                                     <button class="following">팔로잉</button>
                                                     <button class="message">메시지</button>
                                                 </div>
-                                                <!-- <span class="chatIcon">
-                                                    <i class="fa-regular fa-comments"></i>
-                                                </span> -->
                                             </div>
                                             <div class="profileCon follower">
                                                 <div class="follow">
@@ -274,9 +266,6 @@
                                                 <div class="positionWrap">
                                                     <c:forEach items="${SNSJob}" var="dto">
                                                         <h3>${dto.job_name}</h3>
-                                                        <!-- <h3>Java 개발자</h3>
-                                                    <h3>Spring 개발자</h3>
-                                                    <h3>DB 관리</h3> -->
                                                     </c:forEach>
                                                 </div>
                                             </div>
@@ -285,9 +274,6 @@
                                                 <div class="positionWrap">
                                                     <c:forEach items="${SNSStack}" var="dto">
                                                         <h3>${dto.stack_name}</h3>
-                                                        <!-- <h3>Java</h3>
-                                                    <h3>Figma</h3>
-                                                    <h3>Photoshop</h3> -->
                                                     </c:forEach>
                                                 </div>
                                             </div>
@@ -306,7 +292,6 @@
                                                 <div class="infoConWrap">
                                                     <h3 class="infoConWrapTitle">경력</h3>
                                                     <div class="infoCon">
-                                                        <!-- <div class="infoConImg"></div> -->
                                                         <div style="display: flex; flex-direction: column;">
                                                             <div class="infoConTitle">${resumeInfo.resume_comName}</div>
                                                             <div class="infoConSubTitleWrap">
@@ -322,7 +307,6 @@
                                                 <div class="infoConWrap">
                                                     <h3 class="infoConWrapTitle">학력</h3>
                                                     <div class="infoCon">
-                                                        <!-- <div class="infoConImg"></div> -->
                                                         <div style="display: flex; flex-direction: column;">
                                                             <div class="infoConTitle">${resumeInfo.resume_eduName}</div>
                                                             <div class="infoConSubTitleWrap">
@@ -337,23 +321,24 @@
                                                 </div>
                                                 <div class="infoConWrap">
                                                     <h3 class="infoConWrapTitle">포트폴리오</h3>
+                                                    <p>현재 로그인한 사용자의 이메일: ${sessionScope.login_email}</p>
+                                                    <p>현재 페이지의 사용자 이메일: ${user_email}</p>
                                                     <div class="infoCon">
                                                         <div style="display: flex; flex-direction: column;">
                                                             <div class="infoConTitle">
                                                                 ${resumeInfo.resume_portfolio_name}</div>
-                                                            <h5 class="infoConPosition"><a
-                                                                    href="http://${resumeInfo.resume_portfolio_url}"
+                                                            <h5 class="infoConPosition">
+                                                                <a href="http://${resumeInfo.resume_portfolio_url}"
                                                                     style="color:#111">${resumeInfo.resume_portfolio_url}</a>
                                                             </h5>
                                                         </div>
-                                                        <c:if test="${user_email == sessionScope.user_email}">
+                                                        <c:if test="${user_email != sessionScope.login_email}">
                                                             <button class="estimatePortfolio">평가하기</button>
                                                         </c:if>
-                                                        <c:if test="${user_email != sessionScope.user_email}">
+                                                        <c:if test="${user_email == sessionScope.login_email}">
                                                             <button class="viewEstimate">평가보기</button>
                                                         </c:if>
                                                     </div>
-
                                                 </div>
                                                 <div class="infoConWrap">
                                                     <h3 class="infoConWrapTitle">자격 / 수상</h3>
@@ -369,7 +354,9 @@
                                             </div> <!-- contentInfoWrap -->
                                             <div class="contentBoard">
                                                 <div class="contentBoardWrap">
-                                                    <button class="writing">작성하기</button>
+                                                    <c:if test="${user_email == sessionScope.login_email}">
+                                                        <button class="writing">작성하기</button>
+                                                    </c:if>
                                                     <c:forEach items="${snsList}" var="dto">
                                                         <c:set var="user_email" value="${param.user_email}" />
                                                         <c:if test="${dto.login_email == user_email}">
@@ -385,29 +372,30 @@
                                                                         </div>
                                                                     </div><!--left 끝-->
                                                                     <div class="nameBox">
-                                                                        <!-- <h4>수지야</h4> -->
                                                                         <h4>${dto.sns_name}</h4>
                                                                     </div><!--nameBox 끝-->
                                                                     <div class="right">
-                                                                        <button type="button">
-                                                                            팔로잉
-                                                                        </button>
-                                                                        <span class="icon">
-                                                                            <i
-                                                                                class="fa-solid fa-ellipsis-vertical"></i>
-                                                                        </span>
-                                                                        <div class="option">
-                                                                            <h5>수정하기</h5>
-                                                                            <h5>삭제하기</h5>
-                                                                        </div>
+                                                                        <c:if
+                                                                            test="${user_email != sessionScope.login_email}">
+                                                                            <button type="button">팔로잉</button>
+                                                                        </c:if>
+                                                                        <c:if
+                                                                            test="${user_email == sessionScope.login_email}">
+                                                                            <span class="icon">
+                                                                                <i
+                                                                                    class="fa-solid fa-ellipsis-vertical"></i>
+                                                                            </span>
+                                                                            <div class="option">
+                                                                                <!-- <h5>수정하기</h5> -->
+                                                                                <h5>삭제하기</h5>
+                                                                            </div>
+                                                                        </c:if>
                                                                     </div><!--right 끝-->
                                                                 </div> <!--userBox 끝-->
 
                                                                 <div class="detailContent">
                                                                     <div class="mainGetResult">
-                                                                        <ul>
-                                                                            <!-- <img src="images/suji.jpg" alt="#" class="img"> -->
-                                                                        </ul>
+                                                                        <ul></ul>
                                                                     </div>
                                                                     <div class="detailTitle">
                                                                         <h4>${dto.sns_title}</h4>
