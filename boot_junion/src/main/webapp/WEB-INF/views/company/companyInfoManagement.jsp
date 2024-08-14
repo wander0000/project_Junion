@@ -59,7 +59,7 @@
                                         <div class="uploadResult">
                                            
                                         </div>
-                                        <img class="imgg" src="../images/companyInfo.svg" alt="#">
+                                        <!-- <img class="imgg" src="../images/companyInfo.svg" alt="#"> -->
                                     </div>
                                     <div class="main">
                                         <div class="sub1">
@@ -285,8 +285,10 @@
             var uploadUL = $(".uploadResult");
             var str = "";
             if (!uploadResultArr || uploadResultArr.length === 0) {
-                var altImg = "<img class='imgg' src='/images/company.svg' alt='#'>";
-                uploadResultContainer.empty().append(str);
+                alert("업로드파일없음")
+                var company = $(".company");
+                var altImg = "<img class='imgg' src='../images/companyInfo.svg' alt='#'>";
+                company.append(altImg);
                 return;
             }
             var rootURL = "<%=request.getScheme()%>";
