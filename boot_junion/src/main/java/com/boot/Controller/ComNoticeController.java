@@ -331,7 +331,7 @@ public class ComNoticeController {
 			service.noticeStauts(comNoticeDTO);
 			
 			httpServletRequest.setAttribute("msg", "공고를 등록하였습니다.");
-			httpServletRequest.setAttribute("url", "/companyMain");
+			httpServletRequest.setAttribute("url", "/jobpostingList");
 			return "/alert";
 			
 		}

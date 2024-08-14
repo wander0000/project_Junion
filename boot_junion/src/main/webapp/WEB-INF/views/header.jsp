@@ -75,6 +75,7 @@
 	.headerInner ul.menu li, .headerInner ul.rightMenu li 
 	{
 	    padding: 10px 10px;
+		text-wrap: nowrap;
 	}
 
 	.headerInner ul.menu li a, .headerInner ul.rightMenu li a 
@@ -82,6 +83,7 @@
 	    font-size: var(--font-size16);
 	    color: var(--color-black);
 	    font-weight: 400;
+		text-wrap:nowrap;
 	}
 	
 	.headerInner ul.menu li a:hover, .headerInner ul.rightMenu li a:hover 
