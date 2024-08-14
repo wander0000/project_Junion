@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.boot.DTO.ComNoticeDTO;
-import com.boot.DTO.CompanyAttachDTO;
 import com.boot.DTO.CompanyInfoDTO;
 import com.boot.DTO.JoinDTO;
 import com.boot.Service.CompanyInfoService;
@@ -36,8 +35,8 @@ public class CompanyInfoController {
 
 	@Autowired
 	private JoinService joinService;
-	@Autowired
-	private MainService mainService;
+//	@Autowired
+//	private MainService mainService;
 
 	@RequestMapping("/companyMain")
 	public String companyMain(HttpServletRequest request, Model model) {//기업 마이페이지 메인
