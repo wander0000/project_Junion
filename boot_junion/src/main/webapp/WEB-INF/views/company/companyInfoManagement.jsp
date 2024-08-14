@@ -55,7 +55,7 @@
                                     <!-- 컴퍼니 시작 -->
                 
                                     <div class="company">
-                                        <!-- <img class="imgg" src="../images/companyInfo.svg" alt="#"> -->
+                                        
                                         <div class="uploadResult">
                                            
                                         </div>
