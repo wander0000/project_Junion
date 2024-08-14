@@ -164,7 +164,7 @@
 							    <div class="Bodycon IT">
 							        <div class="techName">개발</div>
 							        <div class="itTech">
-							            <button type="button" class="tech" data-tech="JAVA">JAVA</button>
+							            <!-- <button type="button" class="tech" data-tech="JAVA">JAVA</button>
 							            <button type="button" class="tech" data-tech="iOS">iOS</button>
 							            <button type="button" class="tech" data-tech="Android">Android</button>
 							            <button type="button" class="tech" data-tech="PHP">PHP</button>
@@ -176,32 +176,41 @@
 							            <button type="button" class="tech" data-tech="Vue.js">Vue.js</button>
 							            <button type="button" class="tech" data-tech="DB">DB</button>
 							            <button type="button" class="tech" data-tech="C">C</button>
-							            <button type="button" class="tech" data-tech="C++">C++</button>
+							            <button type="button" class="tech" data-tech="C++">C++</button> -->
+										<c:forEach var="dto" items="${stack_name}">
+											<button type="button" class="tech" data-tech="${dto.stack_name}">${dto.stack_name}</button>
+										</c:forEach>
 							        </div>
 							    </div>
 							    <div class="Bodycon Design">
 							        <div class="techName">디자인</div>
 							        <div class="designTech">
-							            <button type="button" class="tech" data-tech="Adobe XD">Adobe XD</button>
+							            <!-- <button type="button" class="tech" data-tech="Adobe XD">Adobe XD</button>
 							            <button type="button" class="tech" data-tech="Sketch">Sketch</button>
 							            <button type="button" class="tech" data-tech="Zepline">Zepline</button>
 							            <button type="button" class="tech" data-tech="Premiere">Premiere</button>
 							            <button type="button" class="tech" data-tech="After Effect">After Effect</button>
 							            <button type="button" class="tech" data-tech="Lightroom">Lightroom</button>
-							            <button type="button" class="tech" data-tech="InDesign">InDesign</button>
+							            <button type="button" class="tech" data-tech="InDesign">InDesign</button> -->
+										<c:forEach var="dto" items="${stack_name2}">
+											<button type="button" class="tech" data-tech="${dto.stack_name}">${dto.stack_name}</button>
+										</c:forEach>
 							        </div>
 							    </div>
 							    <div class="Bodycon Office">
 							        <div class="techName">기획</div>
 							        <div class="officeTech">
-							            <button type="button" class="tech" data-tech="Excel">Excel</button>
+							            <!-- <button type="button" class="tech" data-tech="Excel">Excel</button>
 							            <button type="button" class="tech" data-tech="Power Point">Power Point</button>
 							            <button type="button" class="tech" data-tech="MS 오피스">MS 오피스</button>
 							            <button type="button" class="tech" data-tech="Notion">Notion</button>
 							            <button type="button" class="tech" data-tech="Google Apps">Google Apps</button>
 							            <button type="button" class="tech" data-tech="Slack">Slack</button>
 							            <button type="button" class="tech" data-tech="Asana">Asana</button>
-							            <button type="button" class="tech" data-tech="Cloud">Cloud</button>
+							            <button type="button" class="tech" data-tech="Cloud">Cloud</button> -->
+										<c:forEach var="dto" items="${stack_name3}">
+											<button type="button" class="tech" data-tech="${dto.stack_name}">${dto.stack_name}</button>
+										</c:forEach>
 							        </div>
 							    </div>
 								<input type="hidden" name="stack" id="notice_stack" value="${stack}">
