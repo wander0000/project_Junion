@@ -19,126 +19,131 @@
             <c:set var="com_email" value="${param.com_email}" />
             <div class="snsContainer">
 
-                    <div class="snsContent">
-                        <%@ include file="sns_header.jsp" %>
+                <div class="snsContent">
+                    <%@ include file="sns_header.jsp" %>
 
-                            <main>
-                                <section class="snsCompanyPage">
-                                    <div class="bgH"></div>
-                                    <div class="contentWrap">
-                                        <div class="content profile">
-                                            <div class="profileInfo">
-                                                <img class="img" src="/images/n.png" alt="">
-                                                <h3 class="name">${company.com_name}</h3>
-                                                <p class="com_content">${company.com_content}</p>
-                                                <button class="following">팔로잉</button>
-                                            </div>
-                                            <div class="profileCon follower">
-                                                <div class="follow">
-                                                    <h5 class="proflieConTitle">팔로워</h5>
-                                                    <span class="icon">
-                                                        <i class="fa-regular fa-thumbs-up" style="cursor: pointer;"></i>
-                                                    </span>
-                                                </div>
-                                                <h3 class="followerNum">20</h3>
-                                            </div>
-                                            <div class="profileCon CEO">
-                                                <h5 class="proflieConTitle">CEO</h5>
-                                                <div class="positionWrap">
-                                                    <h3>${company.com_person}</h3>
-                                                </div>
-                                            </div>
-                                            <div class="profileCon tel">
-                                                <h5 class="proflieConTitle">번호</h5>
-                                                <div class="positionWrap">
-                                                    <h3>${company.com_tel}</h3>
-                                                </div>
-                                            </div>
-                                            <div class="profileCon location">
-                                                <h5 class="proflieConTitle">주소</h5>
-                                                <div class="positionWrap">
-                                                    <h3>
-                                                        ${company.com_location}
-                                                    </h3>
-                                                </div>
-                                            </div>
-
-                                            <a href="comDetail?com_email=${com_email}" type="button"
-                                                class="detailPage">상세 페이지</a>
+                        <main>
+                            <section class="snsCompanyPage">
+                                <div class="bgH"></div>
+                                <div class="contentWrap">
+                                    <div class="content profile">
+                                        <div class="profileInfo">
+                                            <img class="img" src="/images/n.png" alt="">
+                                            <h3 class="name">${company.com_name}</h3>
+                                            <p class="com_content">${company.com_content}</p>
+                                            <button class="following">팔로잉</button>
                                         </div>
-                                        <div class="content info">
-                                            <div class="tabWrap">
-                                                <div class="tab board active">게시글</div>
+                                        <div class="profileCon follower">
+                                            <div class="follow">
+                                                <h5 class="proflieConTitle">팔로워</h5>
+                                                <span class="icon">
+                                                    <i class="fa-regular fa-thumbs-up" style="cursor: pointer;"></i>
+                                                </span>
                                             </div>
+                                            <h3 class="followerNum">20</h3>
+                                        </div>
+                                        <div class="profileCon CEO">
+                                            <h5 class="proflieConTitle">CEO</h5>
+                                            <div class="positionWrap">
+                                                <h3>${company.com_person}</h3>
+                                            </div>
+                                        </div>
+                                        <div class="profileCon tel">
+                                            <h5 class="proflieConTitle">번호</h5>
+                                            <div class="positionWrap">
+                                                <h3>${company.com_tel}</h3>
+                                            </div>
+                                        </div>
+                                        <div class="profileCon location">
+                                            <h5 class="proflieConTitle">주소</h5>
+                                            <div class="positionWrap">
+                                                <h3>
+                                                    ${company.com_location}
+                                                </h3>
+                                            </div>
+                                        </div>
+
+                                        <a href="comDetail?com_email=${com_email}" type="button" class="detailPage">상세
+                                            페이지</a>
+                                    </div>
+                                    <div class="content info">
+                                        <div class="tabWrap">
+                                            <div class="tab board active">게시글</div>
+                                        </div>
 
 
-                                            <div class="contentBoard active">
-                                                <div class="contentBoardWrap">
+                                        <div class="contentBoard active">
+                                            <div class="contentBoardWrap">
+                                                <c:if test="${com_email == sessionScope.login_email}">
                                                     <button class="writing">작성하기</button>
-                                                    <c:forEach items="${snsList}" var="dto">
-                                                        <c:if test="${dto.login_email == com_email}">
-                                                            <div class="detailBox" data-sns-num="${dto.sns_num}">
-                                                                <div class="userBox" data-user-type="${dto.user_type}"
-                                                                    data-user-email="${dto.login_email}">
-                                                                    <div class="left">
-                                                                        <div class="UserImage">
-                                                                            <ul>
-                                                                                <img src="images/people.svg" alt="#"
-                                                                                    class="img">
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div><!--left 끝-->
-                                                                    <div class="nameBox">
-                                                                        <!-- <h4>수지야</h4> -->
-                                                                        <h4>${dto.sns_name}</h4>
-                                                                    </div><!--nameBox 끝-->
-                                                                    <div class="right">
-                                                                        <button type="button">
-                                                                            팔로잉
-                                                                        </button>
+                                                </c:if>
+                                                <c:forEach items="${snsList}" var="dto">
+                                                    <c:if test="${dto.login_email == com_email}">
+                                                        <div class="detailBox" data-sns-num="${dto.sns_num}">
+                                                            <div class="userBox" data-user-type="${dto.user_type}"
+                                                                data-user-email="${dto.login_email}">
+                                                                <div class="left">
+                                                                    <div class="UserImage">
+                                                                        <ul>
+                                                                            <img src="images/people.svg" alt="#"
+                                                                                class="img">
+                                                                        </ul>
+                                                                    </div>
+                                                                </div><!--left 끝-->
+                                                                <div class="nameBox">
+                                                                    <!-- <h4>수지야</h4> -->
+                                                                    <h4>${dto.sns_name}</h4>
+                                                                </div><!--nameBox 끝-->
+                                                                <div class="right">
+                                                                    <button type="button">
+                                                                        팔로잉
+                                                                    </button>
+                                                                    <c:if
+                                                                        test="${com_email == sessionScope.login_email}">
                                                                         <span class="icon">
                                                                             <i
                                                                                 class="fa-solid fa-ellipsis-vertical"></i>
                                                                         </span>
                                                                         <div class="option">
-                                                                            <h5>수정하기</h5>
+                                                                            <!-- <h5>수정하기</h5> -->
                                                                             <h5>삭제하기</h5>
                                                                         </div>
-                                                                    </div><!--right 끝-->
-                                                                </div> <!--userBox 끝-->
+                                                                    </c:if>
+                                                                </div><!--right 끝-->
+                                                            </div> <!--userBox 끝-->
 
-                                                                <div class="detailContent">
-                                                                    <div class="mainGetResult">
-                                                                        <ul>
-                                                                            <!-- <img src="images/suji.jpg" alt="#" class="img"> -->
-                                                                        </ul>
-                                                                    </div>
-                                                                    <div class="detailTitle">
-                                                                        <h4>${dto.sns_title}</h4>
-                                                                    </div>
-                                                                    <textarea readonly>${dto.sns_content}</textarea>
-                                                                </div> <!--detailContent 끝-->
+                                                            <div class="detailContent">
+                                                                <div class="mainGetResult">
+                                                                    <ul>
+                                                                        <!-- <img src="images/suji.jpg" alt="#" class="img"> -->
+                                                                    </ul>
+                                                                </div>
+                                                                <div class="detailTitle">
+                                                                    <h4>${dto.sns_title}</h4>
+                                                                </div>
+                                                                <textarea readonly>${dto.sns_content}</textarea>
+                                                            </div> <!--detailContent 끝-->
 
-                                                                <div class="iconBox">
-                                                                    <span class="icon">
-                                                                        <i class="fa-regular fa-heart"></i>
-                                                                    </span>
-                                                                    <span class="commentIcon">
-                                                                        <i class="fa-regular fa-comment"></i>
-                                                                    </span>
-                                                                    <h5>${dto.sns_date}</h5>
-                                                                </div> <!--iconBox 끝-->
+                                                            <div class="iconBox">
+                                                                <span class="icon">
+                                                                    <i class="fa-regular fa-heart"></i>
+                                                                </span>
+                                                                <span class="commentIcon">
+                                                                    <i class="fa-regular fa-comment"></i>
+                                                                </span>
+                                                                <h5>${dto.sns_date}</h5>
+                                                            </div> <!--iconBox 끝-->
 
-                                                            </div> <!--detailBox 끝-->
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </div> <!-- contentBoardWrap -->
-                                            </div> <!-- contentBoard -->
-                                        </div>
+                                                        </div> <!--detailBox 끝-->
+                                                    </c:if>
+                                                </c:forEach>
+                                            </div> <!-- contentBoardWrap -->
+                                        </div> <!-- contentBoard -->
                                     </div>
-                                </section>
-                            </main>
-                    </div>
+                                </div>
+                            </section>
+                        </main>
+                </div>
             </div>
         </body>
 
