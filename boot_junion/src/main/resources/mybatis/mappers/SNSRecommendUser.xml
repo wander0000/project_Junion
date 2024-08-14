@@ -1,0 +1,74 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.boot.DAO.SNSRecommendUserDAO">
+
+    <select id="getStackNames" resultType="String"> 
+		SELECT
+			stack_name
+		FROM
+			user_stack
+		WHERE
+			user_email = #{login_email}
+	</select>
+
+
+	<sql id="orderType">
+		<if test="(stackNames.size() > 0)">
+			ORDER BY (CASE
+	            <foreach item="stack" collection="stackNames" separator=" " open="" close="">
+	                WHEN stack_names LIKE '%${stack}%' THEN 1
+	            </foreach>
+	            ELSE 0
+        	END) DESC
+        </if>
+	</sql>
+	
+	<select id="RecommendUserList" resultType="com.boot.DTO.SNSRecommendUserDTO">
+		SELECT user_email,
+			   user_name,
+			   user_type,
+			   (SELECT GROUP_CONCAT(us.stack_name)
+			      FROM user_stack us
+			     WHERE us.user_email = u.user_email)
+			   AS stack_names,
+			   (SELECT sns_intro
+			      FROM sns_intro_tb sit
+			     WHERE sit.user_email = u.user_email)
+			   AS sns_intro
+		FROM user_tb u
+		WHERE user_email != #{login_email}
+		AND user_type != 3
+  		<include refid="orderType"></include>
+	</select>
+
+
+	<sql id="orderType2">
+		<if test="(stackNames.size() > 0)">
+			ORDER BY (CASE
+	            <foreach item="stack" collection="stackNames" separator=" " open="" close="">
+	                WHEN stack_names LIKE '%${stack}%' THEN 1
+	            </foreach>
+	            ELSE 0
+        	END) DESC
+        </if>
+	</sql>
+	
+	<select id="RecommendComList" resultType="com.boot.DTO.SNSRecommendUserDTO">
+		SELECT com_email,
+			   com_name,
+		       com_content,
+		       user_type,
+			   (SELECT GROUP_CONCAT(cs.stack)
+			      FROM com_stack cs
+			     WHERE cs.com_email = c.com_email)
+			   AS stack_names
+		FROM com_tb c
+		WHERE user_type != 3
+		  <include refid="orderType2"></include>
+	</select>
+	
+</mapper>
+
+
