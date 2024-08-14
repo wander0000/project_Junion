@@ -37,17 +37,13 @@ public class SNSMyPageController {
 	public String SNSUserPage(@RequestParam HashMap<String, String> param, Model model, HttpServletRequest httpServletRequest, String user_email) {
 		log.info("@# snsUserPage");
 		
-		HttpSession session = httpServletRequest.getSession();
-        session.getAttribute("login_usertype");
-        session.getAttribute("login_email");
-        
-        model.addAttribute("login_usertype", session.getAttribute("login_usertype"));
-        model.addAttribute("login_email", session.getAttribute("login_email"));
+        HttpSession session = httpServletRequest.getSession();
+        Object userType = session.getAttribute("login_usertype");
+        Object email = session.getAttribute("login_email");
 
         // SNS 목록 가져오기
         ArrayList<SNSDTO> snsList = snsService.snsList();
         log.info("@# list" + snsList);
-
         // 모델에 SNS 목록 추가
         model.addAttribute("snsList", snsList);
 		
@@ -59,6 +55,7 @@ public class SNSMyPageController {
 //	    model.addAttribute("snsIntro", snsIntro);
 	    
 	    ResumeDTO resumeDTO = snsMyPageService.resumeInfo(param);
+//        List<ResumeDTO> resumeDTO = snsMyPageService.resumeInfo(param);
 	    model.addAttribute("resumeInfo", resumeDTO);
 	    
 //	    String user_email = (String)session.getAttribute("login_email");
@@ -75,15 +72,27 @@ public class SNSMyPageController {
 	    List<SNSIntroDTO> getSNSJob = snsMyPageService.getSNSJob(user_email);
 	    model.addAttribute("SNSJob", getSNSJob);
 	    
-		
+	    model.addAttribute("user_email", user_email);
+	    
 //		model.addAttribute("snsPostList", snsPostList);
 		return "/snsUserPage";
 	}
 	
 	@RequestMapping("/snsCompanyPage")
 //	public String SNSCompanyPage(@RequestParam(value = "com_email", required = false) String com_email , Model model, HttpSession session) {
-	public String SNSCompanyPage(String com_email , Model model, HttpSession session) {
+	public String SNSCompanyPage(String com_email , Model model, HttpServletRequest httpServletRequest) {
 		log.info("@# snsCompanyPage");
+		
+        HttpSession session = httpServletRequest.getSession();
+        Object userType = session.getAttribute("login_usertype");
+        Object email = session.getAttribute("login_email");
+        
+        model.addAttribute("com_email", com_email);
+		
+        ArrayList<SNSDTO> snsList = snsService.snsList();
+        log.info("@# list" + snsList);
+        // 모델에 SNS 목록 추가
+        model.addAttribute("snsList", snsList);
 		
 		CompanyInfoDTO companyDTO = snsMyPageService.companyInfo(com_email);
 		log.info("@# snsCompanyPage" + companyDTO);

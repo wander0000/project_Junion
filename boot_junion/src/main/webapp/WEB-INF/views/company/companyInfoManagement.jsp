@@ -89,7 +89,7 @@
                                         </div>
                                     </div>
 
-                                    <div class="col1">
+                                    <div class="col2">
                                         <div class="columnA">
                                             <h5 class="title">기술 스택</h5>
                                         </div>
@@ -108,6 +108,7 @@
                                         <div class="columnBB">
                                             <!--지도가 들어갈 위치-->
                                             <div id="map" style="width:100%;height:350px;"></div>
+                                            <!-- <div id="map"></div> -->
                                             <h5 class="comloc" id="comAddress">${companyInfo.com_location}</h5>
                                         </div>
                                     </div>
@@ -207,7 +208,8 @@
                     </div>
                     
                     <div class="tabCon detail">
-                        <table class="detail disB" width="1200px" height="300px">
+                        <!-- <table class="detail disB" width="1200px" height="300px"> -->
+                        <table class="detail disB">
                             <tr>
                                 <th>기업이메일</th>
                                 <td>${companyInfo.com_email}</td>
@@ -219,11 +221,11 @@
                             </tr>
                             <tr>
                                 <th>이름</th>
-                                <td>${companyInfo.com_person}</td>
+                                <td class="modifytext">${companyInfo.com_person}</td>
                             </tr>
                             <tr>
                                 <th>연락처</th>
-                                <td>${companyInfo.com_tel}</td>
+                                <td class="modifytext">${companyInfo.com_tel}</td>
                             </tr>
                             <tr>
                                 <th>비밀번호</th>

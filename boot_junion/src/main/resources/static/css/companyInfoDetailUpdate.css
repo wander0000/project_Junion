@@ -287,7 +287,9 @@ section
 .detailtext
 {
 	display: flex;
+
     /* width: 694px; */
+    white-space: pre-wrap;
     width: 100%;
     min-height: 300px;
     resize: none;

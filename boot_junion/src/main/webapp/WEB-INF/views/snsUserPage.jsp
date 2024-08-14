@@ -6,7 +6,7 @@
         <head>
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>snsMypage</title>
+            <title>snsUserpage</title>
             <!-- import font-awesome, line-awesome -->
             <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
             <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css"> -->
@@ -236,10 +236,8 @@
         <body>
             <div class="snsContainer">
                 <%@ include file="sns_nav.jsp" %>
-
                     <div class="snsContent">
                         <%@ include file="sns_header.jsp" %>
-
                             <main>
                                 <section class="snsMypage">
                                     <div class="bgH"></div>
@@ -248,11 +246,11 @@
                                             <div class="profileInfo">
                                                 <img class="img" src="/images/1.jpg" alt="">
                                                 <h3 class="name">${userInfo.user_name}</h3>
-                                                <!-- <h5 class="job">그린컴퓨터 아카데미</h5> -->
-                                                <!-- <form action=""> -->
                                                 <p class="intro">${userIntro.sns_intro}</p>
-                                                <!-- </form> -->
-                                                <button class="following">팔로잉</button>
+                                                <div class="profileButton">
+                                                    <button class="following">팔로잉</button>
+                                                    <button class="message">메시지</button>
+                                                </div>
                                             </div>
                                             <div class="profileCon follower">
                                                 <div class="follow">
@@ -267,10 +265,7 @@
                                                 <h5 class="proflieConTitle">희망 직무</h5>
                                                 <div class="positionWrap">
                                                     <c:forEach items="${SNSJob}" var="dto">
-                                                    <h3>${dto.job_name}</h3>
-                                                    <!-- <h3>Java 개발자</h3>
-                                                    <h3>Spring 개발자</h3>
-                                                    <h3>DB 관리</h3> -->
+                                                        <h3>${dto.job_name}</h3>
                                                     </c:forEach>
                                                 </div>
                                             </div>
@@ -278,10 +273,7 @@
                                                 <h5 class="proflieConTitle">기술 스택</h5>
                                                 <div class="positionWrap">
                                                     <c:forEach items="${SNSStack}" var="dto">
-                                                    <h3>${dto.stack_name}</h3>
-                                                    <!-- <h3>Java</h3>
-                                                    <h3>Figma</h3>
-                                                    <h3>Photoshop</h3> -->
+                                                        <h3>${dto.stack_name}</h3>
                                                     </c:forEach>
                                                 </div>
                                             </div>
@@ -300,12 +292,14 @@
                                                 <div class="infoConWrap">
                                                     <h3 class="infoConWrapTitle">경력</h3>
                                                     <div class="infoCon">
-                                                        <!-- <div class="infoConImg"></div> -->
                                                         <div style="display: flex; flex-direction: column;">
                                                             <div class="infoConTitle">${resumeInfo.resume_comName}</div>
                                                             <div class="infoConSubTitleWrap">
-                                                                <h5 class="infoConPosition">${resumeInfo.resume_comPart}</h5>
-                                                                <h5 class="infoConCareer">${resumeInfo.career_years}년${resumeInfo.career_months}개월</h5>
+                                                                <h5 class="infoConPosition">${resumeInfo.resume_comPart}
+                                                                </h5>
+                                                                <h5 class="infoConCareer">
+                                                                    ${resumeInfo.career_years}년${resumeInfo.career_months}개월
+                                                                </h5>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -313,77 +307,119 @@
                                                 <div class="infoConWrap">
                                                     <h3 class="infoConWrapTitle">학력</h3>
                                                     <div class="infoCon">
-                                                        <!-- <div class="infoConImg"></div> -->
                                                         <div style="display: flex; flex-direction: column;">
                                                             <div class="infoConTitle">${resumeInfo.resume_eduName}</div>
                                                             <div class="infoConSubTitleWrap">
-                                                                <h5 class="infoConPosition">${resumeInfo.resume_eduMajor}</h5>
-                                                                <h5 class="infoConCareer">${resumeInfo.edu_years}년${resumeInfo.edu_months}개월</h5>
+                                                                <h5 class="infoConPosition">
+                                                                    ${resumeInfo.resume_eduMajor}</h5>
+                                                                <h5 class="infoConCareer">
+                                                                    ${resumeInfo.edu_years}년${resumeInfo.edu_months}개월
+                                                                </h5>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="infoConWrap">
                                                     <h3 class="infoConWrapTitle">포트폴리오</h3>
+                                                    <p>현재 로그인한 사용자의 이메일: ${sessionScope.login_email}</p>
+                                                    <p>현재 페이지의 사용자 이메일: ${user_email}</p>
                                                     <div class="infoCon">
-                                                        <!-- <div class="infoConImg"></div> -->
                                                         <div style="display: flex; flex-direction: column;">
-                                                            <div class="infoConTitle">${resumeInfo.resume_portfolio_name}</div>
-                                                            <h5 class="infoConPosition"><a href="http://${resumeInfo.resume_portfolio_url}"
-                                                                    style="color:#111">${resumeInfo.resume_portfolio_url}</a></h5>
+                                                            <div class="infoConTitle">
+                                                                ${resumeInfo.resume_portfolio_name}</div>
+                                                            <h5 class="infoConPosition">
+                                                                <a href="http://${resumeInfo.resume_portfolio_url}"
+                                                                    style="color:#111">${resumeInfo.resume_portfolio_url}</a>
+                                                            </h5>
                                                         </div>
-                                                        <button class="estimatePortfolio">평가하기</button>
-                                                        <button class="viewEstimate">평가보기</button>
+                                                        <c:if test="${user_email != sessionScope.login_email}">
+                                                            <button class="estimatePortfolio">평가하기</button>
+                                                        </c:if>
+                                                        <c:if test="${user_email == sessionScope.login_email}">
+                                                            <button class="viewEstimate">평가보기</button>
+                                                        </c:if>
                                                     </div>
-
                                                 </div>
                                                 <div class="infoConWrap">
                                                     <h3 class="infoConWrapTitle">자격 / 수상</h3>
                                                     <div class="infoCon">
-                                                        <!-- <div class="infoConImg"></div> -->
                                                         <div style="display: flex; flex-direction: column;">
-                                                            <div class="infoConTitle">${resumeInfo.resume_licenseContent}</div>
-                                                            <h5 class="infoConPosition">${resumeInfo.resume_licenseDate}</h5>
+                                                            <div class="infoConTitle">
+                                                                ${resumeInfo.resume_licenseContent}</div>
+                                                            <h5 class="infoConPosition">${resumeInfo.resume_licenseDate}
+                                                            </h5>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div> <!-- contentInfoWrap -->
                                             <div class="contentBoard">
                                                 <div class="contentBoardWrap">
-                                                    <button class="writing">작성하기</button>
+                                                    <c:if test="${user_email == sessionScope.login_email}">
+                                                        <button class="writing">작성하기</button>
+                                                    </c:if>
                                                     <c:forEach items="${snsList}" var="dto">
-                                                        <div class="boardProCon">
-                                                            <img class="img" src="/images/1.jpg" alt="">
-                                                            <h5 class="boardWriter">${dto.sns_name}</h5>
-                                                            <span class="icon">
-                                                                <i class="fa-solid fa-ellipsis-vertical"></i>
-                                                            </span>
-                                                            <div class="option">
-                                                                <h5>수정하기</h5>
-                                                                <h5>삭제하기</h5>
-                                                            </div>
-                                                        </div>
-                                                        <div class="boardContent">
-                                                            <img class="boardImg" src="/images/2.jpg" alt="">
-                                                            <p readonly>${dto.sns_content}</p>
-                                                        </div>
-                                                        <div class="boardIcon">
-                                                            <div class="left_icon">
-                                                                <!-- 좋아요 -->
-                                                                <i class="fa-regular fa-heart fa-xl"></i>
-                                                                <!-- 댓글 -->
-                                                                <i class="fa-regular fa-comment fa-xl"></i>
-                                                            </div>
-                                                            <div class="right_icon">
-                                                                <!-- 공유 -->
-                                                                <h5>${dto.sns_date}</h5>
-                                                            </div>
-                                                        </div>
+                                                        <c:set var="user_email" value="${param.user_email}" />
+                                                        <c:if test="${dto.login_email == user_email}">
+                                                            <div class="detailBox" data-sns-num="${dto.sns_num}">
+                                                                <div class="userBox" data-user-type="${dto.user_type}"
+                                                                    data-user-email="${dto.login_email}">
+                                                                    <div class="left">
+                                                                        <div class="UserImage">
+                                                                            <ul>
+                                                                                <img src="images/people.svg" alt="#"
+                                                                                    class="img">
+                                                                            </ul>
+                                                                        </div>
+                                                                    </div><!--left 끝-->
+                                                                    <div class="nameBox">
+                                                                        <h4>${dto.sns_name}</h4>
+                                                                    </div><!--nameBox 끝-->
+                                                                    <div class="right">
+                                                                        <c:if
+                                                                            test="${user_email != sessionScope.login_email}">
+                                                                            <button type="button">팔로잉</button>
+                                                                        </c:if>
+                                                                        <c:if
+                                                                            test="${user_email == sessionScope.login_email}">
+                                                                            <span class="icon">
+                                                                                <i
+                                                                                    class="fa-solid fa-ellipsis-vertical"></i>
+                                                                            </span>
+                                                                            <div class="option">
+                                                                                <!-- <h5>수정하기</h5> -->
+                                                                                <h5>삭제하기</h5>
+                                                                            </div>
+                                                                        </c:if>
+                                                                    </div><!--right 끝-->
+                                                                </div> <!--userBox 끝-->
+
+                                                                <div class="detailContent">
+                                                                    <div class="mainGetResult">
+                                                                        <ul></ul>
+                                                                    </div>
+                                                                    <div class="detailTitle">
+                                                                        <h4>${dto.sns_title}</h4>
+                                                                    </div>
+                                                                    <textarea readonly>${dto.sns_content}</textarea>
+                                                                </div> <!--detailContent 끝-->
+
+                                                                <div class="iconBox">
+                                                                    <span class="icon">
+                                                                        <i class="fa-regular fa-heart"></i>
+                                                                    </span>
+                                                                    <span class="commentIcon">
+                                                                        <i class="fa-regular fa-comment"></i>
+                                                                    </span>
+                                                                    <h5>${dto.sns_date}</h5>
+                                                                </div> <!--iconBox 끝-->
+
+                                                            </div> <!--detailBox 끝-->
+                                                        </c:if>
                                                     </c:forEach>
                                                 </div> <!-- contentBoardWrap -->
                                             </div> <!-- contentBoard 끝-->
-
                                         </div>
+
                                         <!-- 모달 구조 (첫 번째 HTML 블록 끝부분에 추가) -->
                                         <div id="writeFeedback" class="feedbackModal">
                                             <form class="feedbackPopupBox">
@@ -495,12 +531,16 @@
                     $('.contentBoard').addClass('active');
                 });
 
+                // 각 detailBox 내에서 .option 활성화
                 $('span.icon').click(function () {
-                    $('.option').addClass('active');
+                    // 현재 아이콘의 가장 가까운 .detailBox를 찾고 그 안의 .option을 활성화
+                    $(this).closest('.detailBox').find('.option').addClass('active');
                 });
 
+                // .option의 h5 클릭 시, 해당 .option을 비활성화
                 $('.option h5').click(function () {
-                    $('.option.active').removeClass('active');
+                    // 클릭된 h5의 부모 .option을 비활성화
+                    $(this).closest('.option').removeClass('active');
                 });
 
                 // '작성하기' 버튼 클릭 시 모달 열기
@@ -598,6 +638,79 @@
                         }
                     });
                 });
+
+                $('.detailBox').each(function () {
+                    var sns_num = $(this).data('sns-num');
+
+                    var uploadResultContainer = $(this).find('.mainGetResult ul');
+
+                    if (sns_num) {
+                        $.ajax({
+                            url: '/snsGetFileList',
+                            type: 'GET',
+                            data: { sns_num: sns_num },
+                            dataType: 'json',
+                            success: function (data) {
+                                showUploadResult(data, uploadResultContainer);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error fetching file list for com_email ' + sns_num + ':', error);
+                            }
+                        });
+                    }
+                });
+
+                $('.userBox').each(function () {
+                    var user_type = $(this).data('user-type');
+                    var email = $(this).data('user-email')
+
+                    var uploadResultContainer = $(this).find('.UserImage ul');
+
+                    if (user_type) {
+                        var url;
+                        var emailParam = '';
+
+                        if (user_type == 1) {
+                            url = '/getUserImageList';
+                            emailParam = { user_email: email }
+                        } else if (user_type == 2) {
+                            url = '/mainComFileList';
+                            emailParam = { com_email: email }
+                        }
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            data: emailParam, // 이메일만 데이터로 전송
+                            dataType: 'json',
+                            success: function (data) {
+                                showUploadResult(data, uploadResultContainer);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error fetching file list for email ' + email + ':', error);
+                            }
+                        });
+                    }
+                });
+                function showUploadResult(uploadResultArr, uploadResultContainer) {
+                    if (!uploadResultArr || uploadResultArr.length == 0) {
+                        return;
+                    }
+
+                    var str = "";
+
+                    $(uploadResultArr).each(function (i, obj) {
+                        var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+                        str += "<li data-path='" + obj.uploadPath + "'";
+                        str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+                        str += "<div>";
+                        str += "<span style='display:none;'>" + obj.fileName + "</span>";
+                        str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";
+                        str += "</div></li>";
+                    });
+
+                    uploadResultContainer.empty().append(str);
+                }
 
             });
         </script>

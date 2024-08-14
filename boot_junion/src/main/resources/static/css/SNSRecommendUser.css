@@ -1,0 +1,136 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    width: 1200px;
+    align-items: left;
+    /* padding: 20px; */
+    /* gap: 10px; */
+    /* margin-left: 221px; */
+    /* margin-left: 481px; */
+	/*margin-top: 191px;*/
+    /* margin-bottom: 100px; */
+}
+
+.recommendProf {
+    margin-left: 58px;
+    margin-top: 101px;
+}
+
+.recommendProf h3 {
+    margin-top: 0;
+    font-size: 24px;
+    margin-left: -5px;
+}
+
+.btn1 {
+    margin-top: 47px;
+    margin-left: -5px;
+    font-size: 16px;
+    /* margin-bottom: 28px; */
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+.btn1.active {
+    color: #FFA500;
+}
+
+.form-box {
+    display: none;
+    /* border: 1px solid #ccc; */
+    /* padding: 30px; */
+}
+.form-box.active {
+    display: block;
+}
+
+.profList {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    /* align-items: left; */
+    /* width: 1200px; */
+}
+
+.prof {
+    background-color: #ffffff;
+    border: solid 1px #bbb;
+    border-radius: 10px;
+    width: 495px;
+    max-width: 495px;
+    min-width: 495px;
+    height: 110px;
+    margin: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    padding: 15px;
+    /* padding: 20px 15px; */
+    flex: 1 1 45%;
+}
+
+.profInfo {
+    display: inline-flex;
+    margin-bottom: 14px;
+    max-width: 505px;
+    max-height: 50px;
+    
+}
+
+.prof-img {
+    height: 50px;
+    width: 50px;
+    background-color: #bbb;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.info {
+    flex-grow: 1;
+    /* margin-right: 220px; */
+}
+
+h3, p {
+    margin: 0;
+    /* margin-top: 5px; */
+}
+.profName {
+    font-size: 14px;
+    margin-top: 10px;
+}
+
+.profCareer {
+    font-size: 12px;
+}
+
+.btn2 {
+    background-color: #FFA500;
+    /* border: none; */
+    border: solid 1px #FFA500;
+    color: white;
+    height: 28px;
+    width: 53px;
+    /* padding: 10px 20px; */
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 2px;
+}
+
+.btn2:hover {
+    background-color: #ffffff;
+    border: solid 1px #dadada;
+    color: #000;
+}
+
+.profComm {
+    max-width: 505px;
+    max-height: 50px;
+    font-size: 12px;
+}

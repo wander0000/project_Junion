@@ -41,9 +41,9 @@ header
 	height: 90px;
 	/* border-bottom: 1px solid var(--border-color-gray); */
 	width: 100%;
-	background-color: var(--color-white);
+	/* background-color: var(--color-white); */
 	position: fixed;
-	z-index: 9;
+	/* z-index: -2; */
 }
 
 .snsHeader
@@ -55,6 +55,13 @@ header
 	height: 100%;
 	/* margin-left: auto; */
 }
+
+.snsHeader .logo
+{
+	margin-right: auto;
+	margin-left: 40px;
+}
+
 .snsHeader .user
 {
 	display: flex;
@@ -118,6 +125,11 @@ font-size: var(--color-black);
 <body>
 	<header>
 		<div class="snsHeader">
+			<h5 class="logo">
+                <a href="main">
+					<img src="${pageContext.request.contextPath}/images/logo.svg" alt="Logo">
+                </a>
+            </h5>
 			<div class="user">
 				<div class="loginUserImg">
 					<ul>

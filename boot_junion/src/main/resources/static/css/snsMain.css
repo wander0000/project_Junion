@@ -63,11 +63,63 @@
 	color: var(--color-black);
 	font-size: var(--font-size12);
 	cursor: pointer;
+	
+	&:hover 
+	{
+	    background: var(--main-color);
+	    color: #fff;
+		border: solid 1px var(--main-color);
+	}
+	
 }
 
 .snsMain .detailBox .detailContent
 {
-	text-align: center;
+	text-align: left;
+
+	display: flex;
+	flex-direction: column;
+	justify-content:space-between;
+}
+.snsMain .detailBox .detailContent .snsn {
+    display: -webkit-box;
+    -webkit-line-clamp: 5; /* 처음에 5줄까지만 보이게 설정 */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: calc(1.2em * 5); /* 5줄 정도의 높이로 제한 */
+    word-break: break-word;
+
+	
+	
+	font-weight: 300;
+	font-size: 16px;
+	margin-top: 10px;
+
+
+	
+}
+
+/* "더보기" 버튼 스타일링 */
+.snsMain .detailBox .detailContent .more-btn {
+    display: none; /* 기본적으로 숨김 */
+    color: #007BFF; /* 예시로 파란색 텍스트 */
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-weight: 500;
+	margin-top: 10px;
+}
+.nameBox .nana
+{
+	font-weight: 500;
+	font-size: 18px;
+	margin-left: 10px;
+}
+.snsMain .detailBox .detailContent .snsntitle
+{
+	font-weight: 600;
+	font-size: 20px;
 }
 
 .snsMain .detailBox .detailContent .mainGetResult
@@ -83,10 +135,18 @@
 	margin-top: 12px;
 }
 
+.snsMain .detailBox .detailContent .textArea
+{
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+}
+
+
 .snsMain .detailBox .detailContent .detailTitle
 {
 	text-align: left;
-    margin: 12px 0 0px 4px;
+    margin: 12px 0 0px 0px;
     font-size: var(--font-size16);
 }
 
@@ -100,13 +160,20 @@
 	resize: none;
 	border: none;
 	outline: none;
+	cursor: auto;
 }
 
 .snsMain .detailBox .iconBox
 {
 	display: flex;
 	border-top: solid 1px var(--border-color-gray);
-	padding: 12px 12px 12px 8px
+	padding: 12px 12px 12px 8px;
+	margin-top: 14px;
+}
+.snsMain .detailBox .iconBox .datete
+{
+	font-size: 14px;
+	font-weight: 300;
 }
 
 .snsMain .detailBox .iconBox .icon,
@@ -209,6 +276,7 @@
 .popupDetail .detailBox
 {
 	width: 600px;
+	height: 670px;
 	border-right: 1px solid var(--border-color-gray);
 	padding: 0 28px;
 }
@@ -220,11 +288,12 @@
 	margin: 14px 0
 }
 
-.popupDetail .detailBox .userBox .uploadResult img
+.popupDetail .detailBox .userBox .popupUserImage img
 {
 	width: 48px;
 	height: 48px;
 	cursor: pointer;
+	border-radius: 50%;
 }
 
 .popupDetail .detailBox .userBox .nameBox h4
@@ -254,39 +323,55 @@
 .popupDetail .detailContent
 {
 	text-align: center;
+	height: 85%;
+	display: flex;
+    flex-direction: column;
 }
 
-.popupDetail .detailContent .uploadResult
+.popupDetail .detailContent .popupGetResult
 {
 	text-align: center;
 }
 
-.popupDetail .detailContent .uploadResult img
+.popupDetail .detailContent .popupGetResult img
 {
 	width: 600px;
 	height: 360px;
 	border-radius: 6px;
 }
 
+.popupDetail .detailContent h4
+{
+	text-align: left;
+	margin: 12px 0 0 4px;
+	font-size: var(--font-size16);
+}
+.popupDetail .detailContent .popupTextarea
+{
+	display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
 .popupDetail .detailContent textarea
 {
 	width: 600px;
-	height: 180px;
+	height: 100%;
 	font-size: var(--font-size14);
 	font-weight: 400;
-	margin: 12px 0 8px 0;
+	margin: 12px 0 8px 4px;
 	resize: none;
 	border: none;
 	outline: none;
 }
-
 .popupDetail .detailContent h5
 {
 	margin-left: auto;
     font-size: var(--font-size12);
     color: var(--color-gray);
     font-weight: 400;
-    width: 50px;
+    width: fit-content;
+	margin-top: auto;
 }
 
 .popupDetail .detailComment
@@ -324,11 +409,12 @@
 	margin-right: 12px;
 }
 
-.popupDetail .detailComment .commentCon .left .uploadResult img
+.popupDetail .detailComment .commentCon .left .commentUserImage img
 {
 	width: 36px;
 	height: 36px;
 	margin: 0 12px 0px 20px;
+	border-radius: 50%;
 }
 
 .popupDetail .detailComment .nameBox
