@@ -13,15 +13,16 @@ main .mainContent
 {
   min-width:1200px;
   display: flex;
+  justify-content: center;
   
 }
 
-main .containe
-{
-  width: 1200px;
+/* main .containe
+{ */
+  /* width: calc(1200px-); */
   /* padding-top: 90px; */
   
-}
+/* } */
 
 
 /* 헤더밑 타이틀*/
@@ -127,6 +128,7 @@ th
   text-align: left;
   padding-left: 40px;
   width: 360px;
+  /* width: 200px; */
   background-color: #E5E5EC;
   
   
@@ -136,12 +138,12 @@ td
 {
   padding: 20px;
   width: calc(1200px - 360px);
+  /* width: calc(730px - 200px); */
 
 }
 
-td .modifytext
+.disB > td .modifytext
 {
-  background-color: none;
   border: none ;
   padding: 5px 20px;
   border-radius: 6px;
@@ -152,7 +154,7 @@ td .changepw
 {
   border: 1px solid #E5E5EC;
   font-size: var(--font-size14);
-  padding: 10px 20px;
+  padding: 5px 20px;
   border-radius: 6px;
   cursor: pointer;
 }
@@ -191,16 +193,19 @@ section
     min-width: 1200px;
     /* padding: 70px 0; */
     padding-bottom: 70px;
+    /* padding: 0 0 70px 40px; */
     box-sizing: border-box;
     display: flex;
+    /* justify-content: center; */
 }
 
-.wrap .left
-{
+/* .wrap .left
+{ */
 /*    max-width: 720px ;*/
-    justify-content: left;
+    /* display: flex; */
+    /* justify-content: left; */
     
-}
+/* } */
 
 
 .wrap .left .company
@@ -249,7 +254,8 @@ section
 .introduce
 {
   /* white-space: pre-wrap;*//*줄바꿈을 그대로 출력(ChatGPT) 실패 */
-  white-space: pre;/*줄바꿈을 그대로 출력*/
+  /* white-space: pre;줄바꿈을 그대로 출력 */
+  white-space: pre-wrap;/*줄바꿈을 그대로 출력*/
   line-height :1.5;/* 글자 위아래 간격 조절 (1.5배) */
 }
 
@@ -324,6 +330,16 @@ section
     height:350px;
     margin-bottom: 20px;
 }
+
+/* #map img
+{ */
+    /* width:730px; */
+    /* width: 730px;
+    height:350px;
+    padding-left: 60px; */
+    /* margin-bottom: 20px; */
+/* } */
+
 
 
 .wrap .column .columnA .title
@@ -493,8 +509,8 @@ section
 
 .submit .btn
 {
-  color: white;
-  background-color: #FFA500;
+  color: var(--color-white);
+  background-color: var(--main-color);
   border: none;
   padding: 4px 8px;
   border-radius: 4px;
@@ -599,11 +615,23 @@ section
 
 
 
+/*스택 버튼*/
 
+.columnAA .detail#stack {
+    /* display: flex; */
+    gap: 20px;
+    max-width: 760px;
+    grid-auto-columns: (6, 1fr);
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+}
 .columnAA .detail .sectionConBody .Bodycon.tech 
 {
   display: block;
-  max-width: 1200px;
+  /* max-width: 1200px; */
+  max-width: 100%;
+  flex-wrap: wrap;
+  
 }
 
 .columnAA .detail .sectionConBody .Bodycon button.tech 
@@ -630,7 +658,7 @@ section
 
 .uploadResult ul li img
 {
-    width: 100%;
+    width: 750px;
     height: 500px;
 }
 
@@ -646,3 +674,4 @@ section
     height: 100%;
     border-radius: 20px;
 }
+
