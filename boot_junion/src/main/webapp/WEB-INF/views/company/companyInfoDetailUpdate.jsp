@@ -72,7 +72,7 @@
                                     <h5 class="title">기업명</h5>
                                     <div class="write">
                                         <!-- <input  type="text" name="com_name" class="comname" placeholder="${companyInfo.com_name}"> -->
-                                        <input  type="text" name="com_name" class="comname" value="${companyInfo.com_name}">
+                                        <input  type="text" name="com_name" class="comname" value="${companyInfo.com_name}" placeholder="기업명을 입력해 주세요">
                                         <!-- <div class="message">기업명을 확인해주세요</div> -->
                                     </div>
                                 </div>
@@ -98,7 +98,7 @@
                                 <h5 class="title">회사 소개</h5>
                             </div>
                             <div class="columnAA">
-                                <textarea name="com_content" class="detailtext">${companyInfo.com_content}</textarea>
+                                <textarea name="com_content" class="detailtext" placeholder="회사 소개를 입력해 주세요">${companyInfo.com_content}</textarea>
                             </div>
                         </div>
 
