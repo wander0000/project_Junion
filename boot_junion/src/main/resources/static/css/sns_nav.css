@@ -279,6 +279,7 @@
 {
 	width: 53px;
 	height: 53px;
+	border-radius: 50%;
 }
 
 .searchResult .nameBox
@@ -435,7 +436,7 @@
 
 .popupBox .boxButton .postButton
 {
-	color: var(--input-gray);
+	color: var(--main-color);
 	font-weight: 400;
 	font-size: var(--font-size16);
 	cursor: pointer;
@@ -447,11 +448,12 @@
 	align-items: center;
 }
 
-.popupBox .boxTitle .UserImage img
+.popupBox .boxTitle .loginUserImg img
 {
 	width: 40px;
 	height: 40px;
 	margin: 0px 30px;
+	border-radius: 50%;
 }
 
 .popupBox .boxTitle .titleContent input

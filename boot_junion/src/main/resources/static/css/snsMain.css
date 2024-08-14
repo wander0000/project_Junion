@@ -83,7 +83,7 @@
 }
 .snsMain .detailBox .detailContent .snsn {
     display: -webkit-box;
-    -webkit-line-clamp: 5; /* 처음에 5줄까지만 보이게 설정 */
+    -webkit-line-clamp: 5;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -103,13 +103,16 @@
 /* "더보기" 버튼 스타일링 */
 .snsMain .detailBox .detailContent .more-btn {
     display: none; /* 기본적으로 숨김 */
-    color: #007BFF; /* 예시로 파란색 텍스트 */
+	color: var(--color-gray);
     background: none;
     border: none;
     cursor: pointer;
     font-weight: 500;
-	margin-top: 10px;
+    margin-top: 8px;
+    margin-left: auto;
+    margin-right: 12px;
 }
+	
 .nameBox .nana
 {
 	font-weight: 500;

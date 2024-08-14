@@ -256,9 +256,9 @@
 						<input type="submit" value="게시" class="postButton"></input>
 					</div> <!--boxButton 끝-->
 					<div class="boxTitle">
-						<div class="UserImage">
+						<div class="loginUserImg">
 							<ul>
-								<img src="images/people.svg" alt="#" class="img">
+								<!-- <img src="images/people.svg" alt="#" class="img"> -->
 							</ul>
 						</div>
 						<div class="titleContent">
@@ -465,6 +465,7 @@
 			});//end of ajax
 
 			function showUploadResult(uploadResultArr){
+
 				if(!uploadResultArr || uploadResultArr.length == 0){
 					return;
 				}
@@ -551,6 +552,44 @@
 			$('#searchQuery').focus(); // 입력 필드에 포커스
 			$('#searchResultBox').html(''); // 검색 결과도 초기화 (옵션)
 		});
+
+		// JSP에서 login_email과 login_usertype 값을 가져옴
+		var login_email = "<c:out value='${login_email}'/>";
+		var login_usertype = "<c:out value='${login_usertype}'/>"; // 사용자 유형을 JSP에서 가져옴
+
+		console.log("login_email:", login_email);
+
+		// 업로드 결과를 표시할 컨테이너 찾기
+		var uploadResultContainer = $(this).find('.loginUserImg ul');
+
+		// 사용자 유형에 따라 다른 URL과 이메일 파라미터 설정
+		if (login_email) {
+			var url = '';
+			var emailParam = '';
+
+			if (login_usertype == 1) {
+				url = '/getUserImageList';
+				emailParam = { user_email: login_email }; // user_email로 데이터 전송
+			} else if (login_usertype == 2) {
+				url = '/mainComFileList';
+				emailParam = { com_email: login_email }; // com_email로 데이터 전송
+			}
+
+			if (url) {
+				$.ajax({
+					url: url,
+					type: 'GET',
+					data: emailParam,
+					dataType: 'json',
+					success: function(data) {
+						searhUploadResult(data, uploadResultContainer);
+					},
+					error: function(xhr, status, error) {
+						console.error('Error fetching file list for login_email ' + login_email + ':', error);
+					}
+				});
+			}
+		}
     });//end of ready
 </script>
 <script>
@@ -571,7 +610,7 @@
 						console.log("@#result",result);
 						console.log(result.name); // 값이 제대로 있는지 확인
 						resultHtml += `
-							<div class="searchResult">
+							<div class="searchResult" data-sns-email="` + result.sns_email + `">
 								<div class="left">
 									<div class="UserImage">
 										<ul>
@@ -590,6 +629,8 @@
 								</div><!--right 끝-->
 							</div><!--searchResult 끝-->
 						`;
+						// 이메일별로 사진을 가져옴
+						loadImage(result);
 					});
 					$('#searchResultBox').html(resultHtml);
 				},
@@ -600,5 +641,55 @@
 		} else {
 			$('#searchResultBox').html('');
 		}
+	}
+
+	function loadImage(result) {
+		if (result.user_type) {
+			var url;
+			var emailParam = '';
+
+			if (result.user_type == 1) {
+				url = '/getUserImageList';
+				emailParam = { user_email: result.sns_email };
+			} else if (result.user_type == 2) {
+				url = '/mainComFileList';
+				emailParam = { com_email: result.sns_email };
+			}
+
+			$.ajax({
+				url: url,
+				type: 'GET',
+				data: emailParam,
+				dataType: 'json',
+				success: function(imageData) {
+					var uploadResultContainer = $(".searchResult[data-sns-email='" + result.sns_email + "'] .UserImage ul");
+					searhUploadResult(imageData, uploadResultContainer);
+				},
+				error: function(xhr, status, error) {
+					console.error('Error fetching file list for email ' + result.sns_email + ':', error);
+				}
+			});
+		}
+	}
+
+	function searhUploadResult(uploadResultArr, uploadResultContainer){
+		if (!uploadResultArr || uploadResultArr.length == 0) {
+			return;
+		}
+
+		var str = "";
+
+		$(uploadResultArr).each(function (i, obj) {
+			var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+			str += "<li data-path='" + obj.uploadPath + "'";
+			str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+			str += "<div>";
+			str += "<span style='display:none;'>" + obj.fileName + "</span>";
+			str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+			str += "</div></li>";
+		});
+
+		uploadResultContainer.empty().append(str);
 	}
 </script>
