@@ -338,7 +338,6 @@
                                                 <div class="infoConWrap">
                                                     <h3 class="infoConWrapTitle">포트폴리오</h3>
                                                     <div class="infoCon">
-                                                        <!-- <div class="infoConImg"></div> -->
                                                         <div style="display: flex; flex-direction: column;">
                                                             <div class="infoConTitle">
                                                                 ${resumeInfo.resume_portfolio_name}</div>
@@ -347,8 +346,12 @@
                                                                     style="color:#111">${resumeInfo.resume_portfolio_url}</a>
                                                             </h5>
                                                         </div>
-                                                        <button class="estimatePortfolio">평가하기</button>
-                                                        <button class="viewEstimate">평가보기</button>
+                                                        <c:if test="${user_email == sessionScope.user_email}">
+                                                            <button class="estimatePortfolio">평가하기</button>
+                                                        </c:if>
+                                                        <c:if test="${user_email != sessionScope.user_email}">
+                                                            <button class="viewEstimate">평가보기</button>
+                                                        </c:if>
                                                     </div>
 
                                                 </div>
