@@ -41,9 +41,9 @@ header
 	height: 90px;
 	/* border-bottom: 1px solid var(--border-color-gray); */
 	width: 100%;
-	background-color: var(--color-white);
+	/* background-color: var(--color-white); */
 	position: fixed;
-	z-index: -2;
+	/* z-index: -2; */
 }
 
 .snsHeader
