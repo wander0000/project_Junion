@@ -1,7 +1,7 @@
 package com.boot.DTO;
 
 
-import java.sql.Timestamp;
+import java.time.LocalDate;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -15,6 +15,6 @@ public class SNSFeedbackDTO {
 	private int resume_num;
     private char user_type;
     private String feedback_content;
-    private Timestamp feedback_date;
+    private LocalDate  feedback_date;
 	
 }

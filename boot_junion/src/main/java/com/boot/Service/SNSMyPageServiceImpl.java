@@ -11,6 +11,7 @@ import com.boot.DAO.ResumeDAO;
 import com.boot.DAO.SNSMyPageDAO;
 import com.boot.DTO.CompanyInfoDTO;
 import com.boot.DTO.ResumeDTO;
+import com.boot.DTO.SNSFeedbackDTO;
 import com.boot.DTO.SNSIntroDTO;
 import com.boot.DTO.UserDTO;
 import com.boot.DTO.UserImageUploadDTO;
@@ -101,6 +102,14 @@ public class SNSMyPageServiceImpl implements SNSMyPageService {
 		log.info("@# 게시물 삭제");
 		SNSMyPageDAO dao = sqlSession.getMapper(SNSMyPageDAO.class);
 		dao.deletePost(param);
+	}
+
+	@Override
+	public void writeFeedback(SNSFeedbackDTO snsFeedbackDTO) {
+		log.info("@# 피드백 작성");
+		SNSMyPageDAO dao = sqlSession.getMapper(SNSMyPageDAO.class);
+		dao.writeFeedback(snsFeedbackDTO);
+		
 	}
 	
 	
