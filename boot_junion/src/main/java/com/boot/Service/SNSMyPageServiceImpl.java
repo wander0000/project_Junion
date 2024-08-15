@@ -95,6 +95,14 @@ public class SNSMyPageServiceImpl implements SNSMyPageService {
 		SNSMyPageDAO dao= sqlSession.getMapper(SNSMyPageDAO.class);
 		return dao.getUserImage(user_email);
 	}
+
+	@Override
+	public void deletePost(HashMap<String, String> param) {
+		log.info("@# 게시물 삭제");
+		SNSMyPageDAO dao = sqlSession.getMapper(SNSMyPageDAO.class);
+		dao.deletePost(param);
+	}
+	
 	
 	
 }

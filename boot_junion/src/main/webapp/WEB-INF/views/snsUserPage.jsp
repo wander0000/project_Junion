@@ -263,12 +263,14 @@
                                                             action="${pageContext.request.contextPath}/snsUserPage">
                                                             <input type="hidden" name="user_email"
                                                                 value="${user_email}">
-                                                                <!-- 글자수 제한 100 -->
+                                                            <!-- 글자수 제한 100 -->
                                                             <textarea name="sns_intro" rows="4"
-                                                                style="width:100%; border-radius: 5px; padding: 5px; margin-top: 20px;" maxlength="100">${userIntro.sns_intro}</textarea>
+                                                                style="width:100%; border-radius: 5px; padding: 5px; margin-top: 20px;"
+                                                                maxlength="100">${userIntro.sns_intro}</textarea>
                                                             <div class="modifyButton">
                                                                 <button type="submit" class="postButton">수정 완료</button>
-                                                                <button type="button" id="cancelEdit" class="postButton">취소</button>
+                                                                <button type="button" id="cancelEdit"
+                                                                    class="postButton">취소</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -774,4 +776,28 @@
                     });
                 });
             });
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $('.option h5').click(function () {
+                    const snsNum = $(this).closest('.detailBox').data('sns-num');
+
+                    if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+                        $.ajax({
+                            url: '/deletePost', // 서버에서 처리할 URL
+                            type: 'POST',
+                            data: { sns_num: snsNum },
+                            success: function (response) {
+                                alert('게시글이 삭제되었습니다.');
+                                location.reload(); // 페이지 새로고침
+                            },
+                            error: function (xhr, status, error) {
+                                alert('게시글 삭제에 실패했습니다.');
+                            }
+                        });
+                    }
+                });
+            });
+
         </script>
