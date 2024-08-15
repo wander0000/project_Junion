@@ -246,11 +246,39 @@
                                             <div class="profileInfo">
                                                 <img class="img" src="/images/1.jpg" alt="">
                                                 <h3 class="name">${userInfo.user_name}</h3>
-                                                <p class="intro">${userIntro.sns_intro}</p>
-                                                <div class="profileButton">
-                                                    <button class="following">팔로잉</button>
-                                                    <button class="message">메시지</button>
-                                                </div>
+                                                <!-- </div> -->
+                                                <p class="intro">
+                                                    <c:if test="${user_email == sessionScope.login_email}">
+                                                        <span class="icon" id="editIntroIcon">
+                                                            <i class="fa-regular fa-pen-to-square"></i>
+                                                        </span>
+                                                    </c:if>
+                                                    ${userIntro.sns_intro}
+                                                </p>
+
+                                                <!-- 사용자 자신의 페이지인 경우 소개 수정 폼 추가 -->
+                                                <c:if test="${user_email == sessionScope.login_email}">
+                                                    <div id="introEditForm" style="display: none;">
+                                                        <form id="modifyIntroForm" method="post"
+                                                            action="${pageContext.request.contextPath}/snsUserPage">
+                                                            <input type="hidden" name="user_email"
+                                                                value="${user_email}">
+                                                                <!-- 글자수 제한 100 -->
+                                                            <textarea name="sns_intro" rows="4"
+                                                                style="width:100%; border-radius: 5px; padding: 5px; margin-top: 20px;" maxlength="100">${userIntro.sns_intro}</textarea>
+                                                            <div class="modifyButton">
+                                                                <button type="submit" class="postButton">수정 완료</button>
+                                                                <button type="button" id="cancelEdit" class="postButton">취소</button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </c:if>
+                                                <c:if test="${user_email != sessionScope.login_email}">
+                                                    <div class="profileButton">
+                                                        <button class="following">팔로잉</button>
+                                                        <button class="message">메시지</button>
+                                                    </div>
+                                                </c:if>
                                             </div>
                                             <div class="profileCon follower">
                                                 <div class="follow">
@@ -373,6 +401,9 @@
                                                                     </div><!--left 끝-->
                                                                     <div class="nameBox">
                                                                         <h4>${dto.sns_name}</h4>
+                                                                        <!-- <span class="icon"> -->
+                                                                        <i class="fa-regular fa-pen-to-square"></i>
+                                                                        <!-- </span> -->
                                                                     </div><!--nameBox 끝-->
                                                                     <div class="right">
                                                                         <c:if
@@ -712,5 +743,35 @@
                     uploadResultContainer.empty().append(str);
                 }
 
+            });
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $('#editIntroIcon').click(function () {
+                    $('.intro').hide(); // 기존 소개 텍스트 숨기기
+                    $('#introEditForm').show(); // 소개 수정 폼 보이기
+                });
+
+                $('#cancelEdit').click(function () {
+                    $('#introEditForm').hide(); // 수정 폼 숨기기
+                    $('.intro').show(); // 기존 소개 텍스트 다시 보이기
+                });
+
+                $('#modifyIntroForm').submit(function (event) {
+                    event.preventDefault();
+                    $.ajax({
+                        url: $(this).attr('action'),
+                        type: 'POST',
+                        data: $(this).serialize(),
+                        success: function (response) {
+                            alert('소개가 수정되었습니다.');
+                            location.reload(); // 페이지 새로고침하여 변경 사항 반영
+                        },
+                        error: function () {
+                            alert('소개 수정에 실패했습니다.');
+                        }
+                    });
+                });
             });
         </script>

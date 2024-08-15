@@ -20,6 +20,8 @@ public interface SNSMyPageService {
 
 	public SNSIntroDTO getSNSIntro(String user_email); //자기소개
 	
+	public void modifySNSIntro(HashMap<String, String> param); // 자기소개 수정
+	
 	public List<SNSIntroDTO> getSNSStack(String user_email); //개인 스택
 	
 	public List<SNSIntroDTO> getSNSJob(String user_email); //개인 선호 직무

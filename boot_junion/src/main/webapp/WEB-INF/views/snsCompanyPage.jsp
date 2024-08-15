@@ -30,8 +30,11 @@
                                         <div class="profileInfo">
                                             <img class="img" src="/images/n.png" alt="">
                                             <h3 class="name">${company.com_name}</h3>
-                                            <p class="com_content">${company.com_content}</p>
+                                            <!-- <p class="com_content">${company.com_content}</p> -->
                                             <button class="following">팔로잉</button>
+                                            <a href="comDetail?com_email=${com_email}" type="button"
+                                                class="detailPage">상세
+                                                페이지</a>
                                         </div>
                                         <div class="profileCon follower">
                                             <div class="follow">
@@ -63,8 +66,6 @@
                                             </div>
                                         </div>
 
-                                        <a href="comDetail?com_email=${com_email}" type="button" class="detailPage">상세
-                                            페이지</a>
                                     </div>
                                     <div class="content info">
                                         <div class="tabWrap">

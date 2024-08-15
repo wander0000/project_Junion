@@ -34,13 +34,20 @@
     	WHERE
 		    user_email = #{user_email}
     </select>
-    
-	
+    	
     <select id="getSNSIntro" resultType="com.boot.DTO.SNSIntroDTO">
     	select user_email, sns_intro
     	from sns_intro_tb 
     	where user_email = #{user_email}
     </select>
+    
+<!--    data가 없으면 insert, data가 있으면 update 쿼리 작동-->
+    <update id="modifySNSIntro">
+    	INSERT INTO sns_intro_tb(user_email, sns_intro) 
+		VALUES(#{user_email}, #{sns_intro}) 
+		ON DUPLICATE KEY UPDATE 
+		sns_intro = VALUES(sns_intro);
+    </update>
 
 	<select id="getSNSStack" resultType="com.boot.DTO.SNSIntroDTO">
 		SELECT ut.user_email, us.stack_name

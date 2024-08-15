@@ -61,12 +61,39 @@ section.snsMypage
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding:40px 0;
+    padding:40px 0 20px;
+}
+
+.profileInfo .postButton
+{
+    padding:8px 20px;
+    border: 1px solid #e5e5ec;
+    font-size: 14px;
+    background:#fff;
+    border-radius: 6px;
+    margin-top: 20px;
+    cursor: pointer;
+}
+
+.profileInfo .postButton:hover
+{
+    background:#FFA500;
+    color: #fff;
+    border: 1px solid #FFA500;
+}
+
+.profileInfo .icon
+{
+    margin-top: 20px;
+    margin-left: 170px;
 }
 
 .profileInfo .intro
 {
-    margin-top: 20px;
+    /* margin-top: 20px; */
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
 .profileInfo .img
