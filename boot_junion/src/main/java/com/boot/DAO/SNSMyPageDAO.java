@@ -31,4 +31,6 @@ public interface SNSMyPageDAO {
 	public List<SNSIntroDTO> getSNSJob(String user_email);
 	
 	public List<UserImageUploadDTO> getUserImage(String user_email); //개인 사진
+	
+	public void deletePost(HashMap<String, String> param); //게시글 삭제
 }

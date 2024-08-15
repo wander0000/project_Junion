@@ -70,4 +70,13 @@
 			from user_attach where user_email=#{user_email}
     </select>
 	
+   <delete id="deletePost"> <!-- 글 삭제 버튼-->
+		delete st, sct, slt, sa
+			from sns_tb st
+			join sns_comment_tb sct on st.sns_num = sct.sns_num
+			join sns_like_tb slt on st.sns_num = slt.sns_num
+			join sns_attach sa on st.sns_num = sa.sns_num
+			where st.sns_num = #{sns_num}
+    </delete>
+	
 </mapper>

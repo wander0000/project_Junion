@@ -78,10 +78,22 @@ public class SNSMyPageController {
 	    List<SNSIntroDTO> getSNSJob = snsMyPageService.getSNSJob(user_email);
 	    model.addAttribute("SNSJob", getSNSJob);
 	    
+	    snsMyPageService.deletePost(param);
+	    
 	    model.addAttribute("user_email", user_email);
 	    
 //		model.addAttribute("snsPostList", snsPostList);
 		return "/snsUserPage";
+	}
+	
+	@RequestMapping("/deletePost")
+	public String deletePost(@RequestParam HashMap<String, String> param, HttpServletRequest httpServletRequest) {
+	    log.info("@# deletePost");
+	    
+	    // 게시글 삭제 로직 호출
+	    snsMyPageService.deletePost(param);
+	    
+	    return "redirect:/snsUserPage"; // 삭제 후 다시 사용자 페이지로 리다이렉트
 	}
 	
 	@RequestMapping("/snsCompanyPage")
