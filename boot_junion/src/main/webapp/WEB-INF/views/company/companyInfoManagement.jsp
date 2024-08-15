@@ -45,7 +45,8 @@
                     <div class="tabCon common">
 
                         <!-- 섹션시작 -->
-                        <section class="tabCon common disN" >            
+                        <!-- <section class="tabCon common disN" >             -->
+                        <section class="disN" >            
                             <div class="wrap">
                 
                 

@@ -79,6 +79,10 @@ main .toptitle .toptitle2
     gap: 20px;
 }
 
+.disN
+{
+    display: none;
+}
 
 .disB 
 {
