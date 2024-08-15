@@ -39,6 +39,10 @@
 			   AS sns_intro
 		FROM user_tb u
 		WHERE user_email != #{login_email}
+		AND user_email NOT IN (SELECT follow_email
+						 	   FROM sns_follow_tb 
+							   WHERE login_email = #{login_email}
+							   AND follow_user_type = 1)
 		AND user_type != 3
   		<include refid="orderType"></include>
 	</select>
@@ -66,6 +70,10 @@
 			   AS stack_names
 		FROM com_tb c
 		WHERE user_type != 3
+		AND com_email NOT IN (SELECT follow_email
+						 	   FROM sns_follow_tb 
+							   WHERE login_email = #{login_email}
+							   AND follow_user_type = 2)
 		  <include refid="orderType2"></include>
 	</select>
 	

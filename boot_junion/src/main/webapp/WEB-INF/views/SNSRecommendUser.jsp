@@ -48,7 +48,7 @@
                                             <p class="profCareer">${user.user_email}</p>
                                             <!-- <p class="profCareer">${user.stack_names}</p> -->
                                         </div>
-                                        <button class="btn2">팔로우</button>
+                                        <button class="followbtn">팔로우</button>
                                     </div>
                                     <div class="profComm">
                                         <p>
@@ -78,7 +78,7 @@
                                             <p><h3 class="profName">${com.com_name}</h3></p>
                                             <p class="profCareer">${com.com_email}</p>
                                         </div>
-                                        <button class="btn2">팔로우</button>
+                                        <button class="followbtn">팔로우</button>
                                     </div>
                                     <div class="profComm">
                                         <p>
@@ -170,7 +170,7 @@
             };
             console.log("@# followData=>"+JSON.stringify(followData));
 
-            var button = $(this).find('.btn2');
+            var button = $(this).find('.followbtn');
 
             // 페이지 로드 시 팔로우 상태 확인
             $.ajax({
@@ -199,18 +199,26 @@
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(followData),
-                    success: function(response) {
-                        if (response === 'success') {
-                            if (button.hasClass('followed')) {
-                                button.removeClass('followed');
-                                button.text('팔로우');
-                            } else {
-                                button.addClass('followed');
-                                button.text('팔로잉');
-                            }
-                        } else {
-                            alert('상태 변경 실패');
-                        }
+                    // success: function(response) {
+                    //     if (response === 'success') {
+                    //         if (button.hasClass('followed')) {
+                    //             button.removeClass('followed');
+                    //             button.text('팔로우');
+                    //         } else {
+                    //             button.addClass('followed');
+                    //             button.text('팔로잉');
+                    //         }
+                    // } else {
+                    //     alert('상태 변경 실패');
+                    // }
+                    success: function(isFollowed) {
+                    if (isFollowed) {
+                        button.addClass('followed');
+                        button.text('팔로잉');
+                    } else {
+                        button.removeClass('followed');
+                        button.text('팔로우');
+                    }
                     },
                     error: function(xhr, status, error) {
                         console.error('팔로우 상태 변경 실패:', error);

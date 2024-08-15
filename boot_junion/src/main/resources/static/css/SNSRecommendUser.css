@@ -118,7 +118,7 @@ h3, p {
     font-size: 12px;
 }
 
-.btn2 {
+.followbtn {
     background-color: #FFA500;
     /* border: none; */
     border: solid 1px #FFA500;
@@ -130,7 +130,7 @@ h3, p {
     cursor: pointer;
     margin-top: 2px;
 }
-.btn2.followed {
+.followbtn.followed {
     background-color: #ffffff;
     border: solid 1px #dadada;
     color: #000;

@@ -41,7 +41,7 @@ public class SNSRecommendUserService {
 		List<String> stackNames = dao.getStackNames(login_email);
 		log.info("@# stackNames=>"+stackNames);
 		
-		List<SNSRecommendUserDTO> comList = dao.RecommendComList(stackNames);
+		List<SNSRecommendUserDTO> comList = dao.RecommendComList(stackNames, login_email);
 //		log.info("@# comList=>"+comList);
 		
 		
