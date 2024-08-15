@@ -66,6 +66,12 @@ public class SNSMyPageController {
 	    SNSIntroDTO introDTO = snsMyPageService.getSNSIntro(user_email);
 	    model.addAttribute("userIntro", introDTO);
 	    
+	    // SNS 소개 정보 수정
+	    if (param.containsKey("sns_intro") && !param.get("sns_intro").isEmpty()) {
+	        log.info("@# Modifying SNS Intro for user: " + user_email);
+	        snsMyPageService.modifySNSIntro(param);
+	    }
+	    
 	    List<SNSIntroDTO> getSNSStack = snsMyPageService.getSNSStack(user_email);
 	    model.addAttribute("SNSStack", getSNSStack);
 	    

@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.boot.DAO.ResumeDAO;
 import com.boot.DAO.SNSMyPageDAO;
 import com.boot.DTO.CompanyInfoDTO;
 import com.boot.DTO.ResumeDTO;
@@ -65,6 +66,12 @@ public class SNSMyPageServiceImpl implements SNSMyPageService {
 		SNSMyPageDAO dao = sqlSession.getMapper(SNSMyPageDAO.class);
 		SNSIntroDTO introDTO = dao.getSNSIntro(user_email);
 		return introDTO;
+	}
+	
+	@Override
+	public void modifySNSIntro(HashMap<String, String> param) {
+		SNSMyPageDAO dao = sqlSession.getMapper(SNSMyPageDAO.class);
+		dao.modifySNSIntro(param);
 	}
 
 	@Override

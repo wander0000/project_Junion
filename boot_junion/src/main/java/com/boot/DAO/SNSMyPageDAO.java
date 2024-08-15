@@ -24,6 +24,8 @@ public interface SNSMyPageDAO {
 
 	public SNSIntroDTO getSNSIntro(String user_email);
 	
+	public void modifySNSIntro(HashMap<String, String> param);
+	
 	public List<SNSIntroDTO> getSNSStack(String user_email);
 	
 	public List<SNSIntroDTO> getSNSJob(String user_email);
