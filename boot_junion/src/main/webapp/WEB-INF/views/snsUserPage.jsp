@@ -452,7 +452,10 @@
 
                                         <!-- 모달 구조 (첫 번째 HTML 블록 끝부분에 추가) -->
                                         <div id="writeFeedback" class="feedbackModal">
-                                            <form class="feedbackPopupBox">
+                                            <form class="feedbackPopupBox" method="post"
+                                                action="${pageContext.request.contextPath}/writeFeedback">
+                                                <input type="hidden" name="user_type" value="${sessionScope.login_usertype}" />
+                                                <input type="hidden" name="resume_num" value="${resumeInfo.resume_num}">
                                                 <div class="boxButton">
                                                     <!-- <h5 id="cancelButton">취소</h5> -->
                                                     <i id="writeCancelButton" class="fa-solid fa-xmark fa-xl"></i>
@@ -464,17 +467,20 @@
                                                         </ul>
                                                     </div>
                                                     <div class="titleContent">
-                                                        <input type="text" value="나성엽" name="assessor">
+                                                        <input type="text" value="${sessionScope.login_name}"
+                                                            name="assessor" readonly>
                                                     </div>
                                                 </div> <!--boxTitle 끝-->
                                                 <div class="boxContent">
-                                                    <textarea placeholder="포트폴리오를 평가 해주세요!" name="feedback"></textarea>
+                                                    <textarea placeholder="포트폴리오를 평가 해주세요!"
+                                                        name="feedback_content"></textarea>
                                                 </div>
                                                 <div class="feedbackSubmit">
                                                     <button type="submit" class="postButton">등록</button>
                                                 </div>
                                             </form> <!--feedbackPopupBox 끝-->
                                         </div> <!-- 모달 끝 -->
+
 
                                         <!-- 모달 구조 (첫 번째 HTML 블록 끝부분에 추가) -->
                                         <div id="viewFeedback" class="viewFeedback">
@@ -798,3 +804,39 @@
             });
 
         </script>
+
+<script>
+    $(document).ready(function() {
+        // 폼 제출 이벤트를 가로채기
+        $('.feedbackPopupBox').on('submit', function(event) {
+            event.preventDefault(); // 폼의 기본 제출 방지
+
+            // 폼 데이터를 수집
+            var formData = $(this).serialize();
+
+            // AJAX 요청을 통해 데이터 전송
+            $.ajax({
+                url: $(this).attr('action'), // 폼의 action 속성에 지정된 URL
+                type: 'POST',
+                data: formData,
+                success: function(response) {
+                    // 데이터 전송 성공 시 알림
+                    alert('피드백이 성공적으로 등록되었습니다.');
+                    // 모달 창 닫기
+                    $('#writeFeedback').hide();
+                    // 페이지 새로고침
+                    location.reload();
+                },
+                error: function(xhr, status, error) {
+                    // 데이터 전송 실패 시 알림
+                    alert('피드백 등록에 실패했습니다. 다시 시도해주세요.');
+                }
+            });
+        });
+
+        // 모달 닫기 버튼 클릭 시
+        $('#writeCancelButton').on('click', function() {
+            $('#writeFeedback').hide(); // 모달 닫기
+        });
+    });
+</script>

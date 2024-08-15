@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Mapper;
 
 import com.boot.DTO.CompanyInfoDTO;
 import com.boot.DTO.ResumeDTO;
+import com.boot.DTO.SNSFeedbackDTO;
 import com.boot.DTO.SNSIntroDTO;
 import com.boot.DTO.UserDTO;
 import com.boot.DTO.UserImageUploadDTO;
@@ -33,4 +34,7 @@ public interface SNSMyPageDAO {
 	public List<UserImageUploadDTO> getUserImage(String user_email); //개인 사진
 	
 	public void deletePost(HashMap<String, String> param); //게시글 삭제
+	
+	public void writeFeedback(SNSFeedbackDTO snsFeedbackDTO); //피드백 작성
+	
 }

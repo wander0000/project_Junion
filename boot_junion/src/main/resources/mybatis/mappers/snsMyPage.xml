@@ -78,5 +78,10 @@
 			left join sns_attach sa on st.sns_num = sa.sns_num
 			where st.sns_num = #{sns_num}
     </delete>
+    
+    <insert id="writeFeedback">
+        insert into sns_feedback_tb(login_email, user_type, resume_num, feedback_content, feedback_date)
+			values(#{login_email}, #{user_type}, #{resume_num}, #{feedback_content}, #{feedback_date})        
+    </insert>
 	
 </mapper>
