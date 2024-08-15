@@ -304,6 +304,8 @@
             } else {
                 $('.navigationSNS').css('display', 'flex');
                 $('.navigationChat').hide(); // .navigationChat 숨김
+				$('#searchQuery').val(''); // 검색 입력 필드 비우기
+            	$('#searchResultBox').html(''); // 검색 결과 초기화
             }
         });
 
@@ -317,6 +319,8 @@
             } else {
                 $('.navigationChat').css('display', 'flex');
                 $('.navigationSNS').hide(); // .navigationSNS 숨김
+				$('#searchQuery').val(''); // 검색 입력 필드 비우기
+				$('#searchResultBox').html(''); // 검색 결과 초기화
             }
         });
 
@@ -331,6 +335,10 @@
 			if (link) {
 				window.location.href = link;
 			}
+
+			// 검색 입력 필드와 결과 초기화
+			$('#searchQuery').val(''); 
+        	$('#searchResultBox').html(''); 
         });
 
        // '글 작성' 메뉴 항목을 클릭했을 때 모달 열기
@@ -345,19 +353,17 @@
 			event.preventDefault();
 			$('#writeModal').hide();
 			$('body').removeClass('body-no-scroll');
+			$('#snsPost')[0].reset(); // 폼 초기화
+			$('.uploadResultPost ul').empty(); // 업로드된 파일 목록 초기화
+			$('.uploadFile').css({"display":"flex"}); // 파일 업로드 버튼 다시 보이기
 		});
 
-        // 폼 제출 시 처리 (예: 데이터 유효성 검사 및 AJAX로 서버에 전송)
-        // $('.popupBox').on('submit', function(event) {
-        //     event.preventDefault();
-        //     // 여기서 폼 데이터를 서버로 전송하는 로직을 추가할 수 있습니다.
-        //     alert('작성 완료!');
-        //     $('#writeModal').hide();
-        //     $('body').css({
-        //         'overflow': 'auto',
-        //         'margin-right': '0' // 오른쪽 마진 원래대로
-        //     });
-        // });
+		// xIcon 클릭 시 입력 필드 비우기
+		$('.searchInputBox .xIcon').on('click', function() {
+			$('#searchQuery').val(''); // 입력 필드 비우기
+			$('#searchQuery').focus(); // 입력 필드에 포커스
+			$('#searchResultBox').html(''); // 검색 결과도 초기화 (옵션)
+		});
 
 
 		var formObj = $("form[id='snsPost']");
@@ -546,12 +552,6 @@
 			});//end of click
 		});//end of change 
 
-		// xIcon 클릭 시 입력 필드 비우기
-		$('.searchInputBox .xIcon').on('click', function() {
-			$('#searchQuery').val(''); // 입력 필드 비우기
-			$('#searchQuery').focus(); // 입력 필드에 포커스
-			$('#searchResultBox').html(''); // 검색 결과도 초기화 (옵션)
-		});
 
 		// JSP에서 login_email과 login_usertype 값을 가져옴
 		var login_email = "<c:out value='${login_email}'/>";
@@ -610,7 +610,7 @@
 						console.log("@#result",result);
 						console.log(result.name); // 값이 제대로 있는지 확인
 						resultHtml += `
-							<div class="searchResult" data-sns-email="` + result.sns_email + `">
+							<div class="searchResult" data-sns-email="\${result.sns_email}" data-user-type="\${result.user_type}">
 								<div class="left">
 									<div class="UserImage">
 										<ul>
@@ -619,8 +619,10 @@
 									</div>
 								</div><!--left 끝-->
 								<div class="nameBox">
-									<h4>`+result.sns_name+`</h4>
-									<h5>`+result.sns_email+`</h5>
+									<a href="#" class="userProfileLink" style="color: var(--color-black);">
+										<h4>\${result.sns_name}</h4>
+									</a>
+									<h5>\${result.sns_email}</h5>
 								</div><!--nameBox 끝-->
 								<div class="right">
 									<button type="button">
@@ -633,6 +635,19 @@
 						loadImage(result);
 					});
 					$('#searchResultBox').html(resultHtml);
+
+					// 링크 추가를 각 결과 항목에 대해 처리
+					$('.searchResult').each(function() {
+						var snsEmail = $(this).data('sns-email');
+						var userType = $(this).data('user-type');
+						var userProfileLink = $(this).find('.userProfileLink');
+
+						if (userType == 1) {
+							userProfileLink.attr('href', 'snsUserPage?user_email=' + snsEmail);
+						} else if (userType == 2) {
+							userProfileLink.attr('href', 'snsCompanyPage?com_email=' + snsEmail);
+						}
+					});
 				},
 				error: function() {
 					$('#searchResultBox').html('<p>No results found.</p>');
@@ -644,6 +659,7 @@
 	}
 
 	function loadImage(result) {
+
 		if (result.user_type) {
 			var url;
 			var emailParam = '';
