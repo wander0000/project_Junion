@@ -625,7 +625,7 @@
 									<h5>\${result.sns_email}</h5>
 								</div><!--nameBox 끝-->
 								<div class="right">
-									<button type="button">
+									<button type="button" class="buttonNone">
 										팔로우
 									</button>
 								</div><!--right 끝-->
@@ -641,6 +641,12 @@
 						var snsEmail = $(this).data('sns-email');
 						var userType = $(this).data('user-type');
 						var userProfileLink = $(this).find('.userProfileLink');
+						var buttonNone = $(this).find('.buttonNone');
+						var loginEmail = "<c:out value='${login_email}'/>";
+
+						if (snsEmail == loginEmail && userType == 1) {
+							buttonNone.css('display', 'none');
+						}
 
 						if (userType == 1) {
 							userProfileLink.attr('href', 'snsUserPage?user_email=' + snsEmail);
