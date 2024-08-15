@@ -403,9 +403,6 @@
                                                                     </div><!--left 끝-->
                                                                     <div class="nameBox">
                                                                         <h4>${dto.sns_name}</h4>
-                                                                        <!-- <span class="icon"> -->
-                                                                        <i class="fa-regular fa-pen-to-square"></i>
-                                                                        <!-- </span> -->
                                                                     </div><!--nameBox 끝-->
                                                                     <div class="right">
                                                                         <c:if
