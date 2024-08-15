@@ -20,14 +20,16 @@ public class SNSFollowController {
 	private SNSFollowService followService;
 	
     @PostMapping("/toggle")
-    public void toggleFollow(@RequestBody SNSFollowDTO followDTO) {
+    public int toggleFollow(@RequestBody SNSFollowDTO followDTO) {
     	log.info("@# toggleFollow");
     	log.info("@# followDTO=>"+followDTO);
     	
+    	followService.toggleFollow(followDTO);
 //        boolean success = followService.toggleFollow(followDTO);
 //        log.info("@# success=>"+success);
         
 //        return success ? "success" : "error";
+        return followService.isFollowed(followDTO);
     }
 
     @PostMapping("/status")
