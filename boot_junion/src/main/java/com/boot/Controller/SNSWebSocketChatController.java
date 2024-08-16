@@ -11,8 +11,10 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.boot.DTO.SNSChat;
+import com.boot.DTO.SNSRoom;
 import com.boot.Service.SNSChatService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,7 +31,7 @@ public class SNSWebSocketChatController {
     
     // 채팅 화면을 보여주는 메서드
     @GetMapping("/SNSChat")
-    public String chatView(Model model, HttpServletRequest request) {
+    public String chatView(@RequestParam String receiver_id, Model model, HttpServletRequest request) {
     	log.info("@# chatView");
     	HttpSession session = request.getSession();
     	
@@ -38,8 +40,24 @@ public class SNSWebSocketChatController {
 		} else {
 	    	String login_email = (String)session.getAttribute("login_email");
 	    	log.info("@# login_email=>"+login_email);
-	    	model.addAttribute("login_email",login_email);
-	    	// 필요 시 모델에 데이터 추가 가능
+//	    	model.addAttribute("login_email",login_email);
+	    	
+	    	int roomcheck = chatService.checkRooms(login_email, receiver_id);
+	    	
+	    	if (roomcheck == 1) {
+				SNSRoom room = null;
+				room.setSender_id(login_email);
+				room.setReceiver_id(receiver_id);
+				
+				chatService.createRoom(room);
+				int roomNum = chatService.getRooms(login_email, receiver_id);
+				model.addAttribute("roomNum",roomNum);
+				
+				log.info("@# room=>"+room);
+			} else {
+
+			}
+	    	
 	    	return "SNSChat"; // JSP 파일명 (chat.jsp)
 		}
     }
