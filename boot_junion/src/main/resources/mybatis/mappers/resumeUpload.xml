@@ -13,7 +13,7 @@
 		from resume_attach where resume_num=#{resume_num}
     </select>
     
-    <delete id="resumeDeleteFile">
+    <delete id="deleteResumeImage">
 		delete from resume_attach where resume_num=#{resume_num}
     </delete>
 </mapper>
