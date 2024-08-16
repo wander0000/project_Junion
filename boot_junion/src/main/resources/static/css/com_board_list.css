@@ -133,7 +133,7 @@ section
 .board .head
 {
     font-size: var(--font-size32);
-    font-weight: 400;
+
     /* line-height: 2; */
 }
 

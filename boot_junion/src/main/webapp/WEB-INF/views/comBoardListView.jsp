@@ -33,7 +33,7 @@
 
 	                <div class="headbox">
 	                    <h5 class="head">
-	                        기업커뮤니티
+	                        기업 커뮤니티
 	                    </h5>
 	                </div> 
 

@@ -39,7 +39,7 @@
 						
 		                    <div class="titlebox">
 		                        <h5 class="title">
-		                            ${boardDetailView.board_title}${login_email}
+		                            ${boardDetailView.board_title}
 		                        </h5>
 		                    </div> 
 		                    <div class="namebox">
