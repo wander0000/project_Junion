@@ -38,7 +38,7 @@
                     </div> <!-- 라스트라인 끝 -->
                     <div class="boardcontent">
                         <div class="contentbox">
-                            <span class="content"></span> 
+                            <pre class="content"></pre> 
                         </div> 
                     </div><!-- 콘텐트 끝-->
                     <div class="buttonbox">
