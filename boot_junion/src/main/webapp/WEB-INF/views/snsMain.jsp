@@ -231,18 +231,20 @@
                         <!-- </div> -->
                     </div> <!--numberCount 끝-->
 
-                    <form>
-                        <div class="commentBox">
-                            <span class="icon">
-                                <i class="fa-regular fa-heart"></i>
-                            </span>
-                            <!-- <input type="text" placeholder="댓글 달기 ..."> -->
+                    <div class="commentBox">
+                        <span class="icon">
+                            <i class="fa-regular fa-heart"></i>
+                        </span>
+                        <form id="commentForm">
+                            <input type="hidden" name="sns_num" value="${dto.sns_num}">
+                            <input type="hidden" name="login_email" value="${login_email}">
+                            <input type="hidden" name="user_type" value="${login_usertype}">
                             <div class="textarea-wrap">
-                                <textarea placeholder="댓글 달기..."></textarea>
+                                <textarea name="sns_comment_content" placeholder="댓글 달기..."></textarea>
                             </div>
                             <input type="submit" value="게시">
-                        </div> <!--commentBox 끝-->
-                    </form>
+                        </form>
+                    </div> <!--commentBox 끝-->
                 </div> <!--commentBottom 끝-->
             </div> <!--detailComment 끝-->
 
@@ -475,10 +477,59 @@ function showUploadResult(uploadResultArr, uploadResultContainer){
 }
 
 
-
-
-
 </script>
+<script>
+    $(document).ready(function () {
+        $('#commentForm').on('submit', function (e) {
+            e.preventDefault(); // 기본 폼 제출 방지
+    
+            var formData = {
+                sns_num: $('input[name="sns_num"]').val(),
+                login_email: $('input[name="login_email"]').val(),
+                user_type: $('input[name="user_type"]').val(),
+                sns_comment_content: $('textarea[name="sns_comment_content"]').val()
+            };
+    
+            $.ajax({
+                url: '${pageContext.request.contextPath}/api/commentWrite',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(formData),
+                success: function(response) {
+                    if (response) {
+                        var newComment = '<div class="commentCon">' +
+                                            '<div class="left">' +
+                                                '<div class="commentUserImage">' +
+                                                    '<ul>' +
+                                                        '<img src="${pageContext.request.contextPath}/images/people.svg" alt="#" class="img">' +
+                                                    '</ul>' +
+                                                '</div>' +
+                                                '<div class="nameBox">' +
+                                                    '<h4>' + response.login_email + '</h4>' +
+                                                '</div>' +
+                                            '</div>' +
+                                            '<div class="right">' +
+                                                '<h4>' + response.sns_comment_content + '</h4>' +
+                                                '<h5>'+response.sns_comment_date+'</h5>' +
+                                            '</div>' +
+                                         '</div>';
+    
+                        $('.commentContent').append(newComment); // 새로운 댓글을 댓글 목록에 추가
+    
+                        // 폼 초기화
+                        $('#commentForm textarea').val('');
+                    } else {
+                        alert('댓글 작성에 실패했습니다. 다시 시도해 주세요.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('댓글 작성 중 오류 발생:', error);
+                    alert('댓글 작성에 실패했습니다. 다시 시도해 주세요.');
+                }
+            });
+        });
+    });
+    </script>
 
 </body>
 </html>

@@ -33,11 +33,40 @@
     	where sns_num = #{sns_num}
     </select>
     
-    <insert id="snsWrite" parameterType="com.boot.DTO.SNSDTO" useGeneratedKeys="true" keyProperty="sns_num"> <!-- 글 작성 버튼 -->
+<!--게시글 작성-->
+    <insert id="snsWrite" parameterType="com.boot.DTO.SNSDTO" useGeneratedKeys="true" keyProperty="sns_num"> 
 		insert into sns_tb (login_email, user_type, sns_title, sns_content, sns_date) 
 		values (#{login_email}, #{user_type}, #{sns_title}, #{sns_content}, now())
     </insert>
     
+<!--댓글 작성-->
+    <insert id="snsCommentWrite" parameterType="com.boot.DTO.SNSDTO" useGeneratedKeys="true" keyProperty="sns_comment_num">
+		insert into sns_comment_tb (sns_num, login_email, user_type, sns_comment_content, sns_comment_date) 
+		values (#{sns_num}, #{login_email}, #{user_type}, #{sns_comment_content}, now())
+    </insert>
+    
+    <select id="snsCommentList" resultType="com.boot.DTO.SNSDTO">
+		SELECT 
+		    s.sns_comment_num,
+		    s.sns_num,
+		    s.login_email,
+		    s.user_type,
+		    s.sns_comment_content,
+		    s.sns_comment_date,
+		    CASE
+		        WHEN s.user_type = 1 THEN u.user_name
+		        WHEN s.user_type = 2 THEN c.com_name
+		        ELSE NULL
+		    END AS sns_name
+		FROM 
+		    sns_comment_tb s
+		LEFT JOIN 
+		    user_tb u ON s.login_email = u.user_email AND s.user_type = 1
+		LEFT JOIN 
+		    com_tb c ON s.login_email = c.com_email AND s.user_type = 2 order by s.sns_comment_date desc;
+    </select>
+    
+<!--검색-->
     <select id="searchName" resultType="com.boot.DTO.SNSDTO">
 
 		    SELECT 
