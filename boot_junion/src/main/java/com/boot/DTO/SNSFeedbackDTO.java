@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class SNSFeedbackDTO {
 	private String login_email;
+	private String user_name;
 	private int resume_num;
     private char user_type;
     private String feedback_content;

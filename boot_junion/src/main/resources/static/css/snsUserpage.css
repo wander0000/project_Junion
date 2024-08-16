@@ -834,14 +834,15 @@ section.snsMypage
 
 a.addResume
 {
+    width: 89px;
     padding:8px 20px;
     border: 1px solid #e5e5ec;
     font-size: 14px;
     background:#fff;
     border-radius: 6px;
-    margin-top: 20px;
+    /* margin-top: 20px; */
     cursor: pointer;
-    margin-left: auto;
+    /* margin-left: auto; */
 }
 
 a.addResume:hover

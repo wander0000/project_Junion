@@ -10,7 +10,7 @@
             <!-- import font-awesome, line-awesome -->
             <link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
             <!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/main.css"> -->
-            <link rel="stylesheet" href="${pageContext.request.contextPath}css/snsUserPage.css">
+            <link rel="stylesheet" href="${pageContext.request.contextPath}/css/snsUserPage.css">
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
             <!-- import js -->
             <script src="https://code.jquery.com/jquery-3.6.3.min.js"
@@ -230,6 +230,16 @@
                     padding-left: 0px;
                     margin-bottom: 0px;
                 }
+
+                #feedbackDate {
+                    margin-left: auto;
+                    margin-top: auto;
+                    font-size: 14px;
+                }
+
+                #feedbackWriteUser {
+                    font-size: 20px;
+                }
             </style>
         </head>
 
@@ -314,76 +324,88 @@
                                                 <div class="tab board">게시글</div>
                                             </div>
                                             <div class="contentInfoWrap active">
-                                                <!-- <div class="nullResume">
-                                                    <h2>등록된 이력서가 없습니다.</h5>
-                                                </div> -->
-                                                <select name="" id="resumeSelect">
+                                                <c:if test="${resumeInfo == null}">
+                                                    <div class="nullResume">
+                                                        <h2>등록된 이력서가 없습니다.</h2>
+                                                    </div>
+                                                    <c:if test="${user_email == sessionScope.login_email}">
+                                                        <a href="resumeList"
+                                                        type="button" class="addResume">이력서 등록하기</a>
+                                                    </c:if>
+                                                </c:if>
+                                                <!-- <select name="" id="resumeSelect">
                                                     <option value="">이력서1</option>
                                                     <option value="">이력서2</option>
                                                     <option value="">이력서3</option>
-                                                </select>
-                                                <div class="infoConWrap">
-                                                    <h3 class="infoConWrapTitle">경력</h3>
-                                                    <div class="infoCon">
-                                                        <div style="display: flex; flex-direction: column;">
-                                                            <div class="infoConTitle">${resumeInfo.resume_comName}</div>
-                                                            <div class="infoConSubTitleWrap">
-                                                                <h5 class="infoConPosition">${resumeInfo.resume_comPart}
-                                                                </h5>
-                                                                <h5 class="infoConCareer">
-                                                                    ${resumeInfo.career_years}년${resumeInfo.career_months}개월
-                                                                </h5>
+                                                </select> -->
+                                                <c:if test="${resumeInfo != null}">
+                                                    <div class="infoConWrap">
+                                                        <h3 class="infoConWrapTitle">경력</h3>
+                                                        <div class="infoCon">
+                                                            <div style="display: flex; flex-direction: column;">
+                                                                <div class="infoConTitle">${resumeInfo.resume_comName}
+                                                                </div>
+                                                                <div class="infoConSubTitleWrap">
+                                                                    <h5 class="infoConPosition">
+                                                                        ${resumeInfo.resume_comPart}
+                                                                    </h5>
+                                                                    <h5 class="infoConCareer">
+                                                                        ${resumeInfo.career_years}년${resumeInfo.career_months}개월
+                                                                    </h5>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="infoConWrap">
-                                                    <h3 class="infoConWrapTitle">학력</h3>
-                                                    <div class="infoCon">
-                                                        <div style="display: flex; flex-direction: column;">
-                                                            <div class="infoConTitle">${resumeInfo.resume_eduName}</div>
-                                                            <div class="infoConSubTitleWrap">
-                                                                <h5 class="infoConPosition">
-                                                                    ${resumeInfo.resume_eduMajor}</h5>
-                                                                <h5 class="infoConCareer">
-                                                                    ${resumeInfo.edu_years}년${resumeInfo.edu_months}개월
-                                                                </h5>
+                                                    <div class="infoConWrap">
+                                                        <h3 class="infoConWrapTitle">학력</h3>
+                                                        <div class="infoCon">
+                                                            <div style="display: flex; flex-direction: column;">
+                                                                <div class="infoConTitle">${resumeInfo.resume_eduName}
+                                                                </div>
+                                                                <div class="infoConSubTitleWrap">
+                                                                    <h5 class="infoConPosition">
+                                                                        ${resumeInfo.resume_eduMajor}</h5>
+                                                                    <h5 class="infoConCareer">
+                                                                        ${resumeInfo.edu_years}년${resumeInfo.edu_months}개월
+                                                                    </h5>
+                                                                </div>
                                                             </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div class="infoConWrap">
-                                                    <h3 class="infoConWrapTitle">포트폴리오</h3>
-                                                    <!-- <p>현재 로그인한 사용자의 이메일: ${sessionScope.login_email}</p>
+                                                    <div class="infoConWrap">
+                                                        <h3 class="infoConWrapTitle">포트폴리오</h3>
+                                                        <!-- <p>현재 로그인한 사용자의 이메일: ${sessionScope.login_email}</p>
                                                     <p>현재 페이지의 사용자 이메일: ${user_email}</p> -->
-                                                    <div class="infoCon">
-                                                        <div style="display: flex; flex-direction: column;">
-                                                            <div class="infoConTitle">
-                                                                ${resumeInfo.resume_portfolio_name}</div>
-                                                            <h5 class="infoConPosition">
-                                                                <a href="http://${resumeInfo.resume_portfolio_url}"
-                                                                    style="color:#111">${resumeInfo.resume_portfolio_url}</a>
-                                                            </h5>
-                                                        </div>
-                                                        <c:if test="${user_email != sessionScope.login_email}">
-                                                            <button class="estimatePortfolio">평가하기</button>
-                                                        </c:if>
-                                                        <c:if test="${user_email == sessionScope.login_email}">
-                                                            <button class="viewEstimate">평가보기</button>
-                                                        </c:if>
-                                                    </div>
-                                                </div>
-                                                <div class="infoConWrap">
-                                                    <h3 class="infoConWrapTitle">자격 / 수상</h3>
-                                                    <div class="infoCon">
-                                                        <div style="display: flex; flex-direction: column;">
-                                                            <div class="infoConTitle">
-                                                                ${resumeInfo.resume_licenseContent}</div>
-                                                            <h5 class="infoConPosition">${resumeInfo.resume_licenseDate}
-                                                            </h5>
+                                                        <div class="infoCon">
+                                                            <div style="display: flex; flex-direction: column;">
+                                                                <div class="infoConTitle">
+                                                                    ${resumeInfo.resume_portfolio_name}</div>
+                                                                <h5 class="infoConPosition">
+                                                                    <a href="https://${resumeInfo.resume_portfolio_url}"
+                                                                        style="color:#111">${resumeInfo.resume_portfolio_url}</a>
+                                                                </h5>
+                                                            </div>
+                                                            <c:if test="${user_email != sessionScope.login_email}">
+                                                                <button class="estimatePortfolio">평가하기</button>
+                                                            </c:if>
+                                                            <c:if test="${user_email == sessionScope.login_email}">
+                                                                <button class="viewEstimate">평가보기</button>
+                                                            </c:if>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                    <div class="infoConWrap">
+                                                        <h3 class="infoConWrapTitle">자격 / 수상</h3>
+                                                        <div class="infoCon">
+                                                            <div style="display: flex; flex-direction: column;">
+                                                                <div class="infoConTitle">
+                                                                    ${resumeInfo.resume_licenseContent}</div>
+                                                                <h5 class="infoConPosition">
+                                                                    ${resumeInfo.resume_licenseDate}
+                                                                </h5>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </c:if>
                                             </div> <!-- contentInfoWrap -->
                                             <div class="contentBoard">
                                                 <div class="contentBoardWrap">
@@ -524,8 +546,8 @@
                                                                                 class="img">
                                                                         </ul>
                                                                     </div>
-                                                                    <h5>${dto.login_email}</h5>
-                                                                    <h5>${dto.feedback_date}</h5>
+                                                                    <h5 id="feedbackWriteUser">${dto.user_name}</h5>
+                                                                    <h5 id="feedbackDate">${dto.feedback_date}</h5>
                                                                 </button>
 
                                                                 <div class="accordionContent">

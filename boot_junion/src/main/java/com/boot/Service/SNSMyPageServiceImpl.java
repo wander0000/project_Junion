@@ -26,13 +26,15 @@ public class SNSMyPageServiceImpl implements SNSMyPageService {
 
 
     @Override
-//	public List<ResumeDTO> resumeInfo(HashMap<String, String> param) {
-	public ResumeDTO resumeInfo(HashMap<String, String> param) {
+	public List<ResumeDTO> resumeInfo(HashMap<String, String> param) {
+//	public ResumeDTO resumeInfo(HashMap<String, String> param) {
 		log.info("@# SNSServiceImpl snsResume");
 			
 		SNSMyPageDAO dao = sqlSession.getMapper(SNSMyPageDAO.class);
-//		List<ResumeDTO> resumeDTO = dao.resumeInfo(param);
-		ResumeDTO resumeDTO = dao.resumeInfo(param);
+		List<ResumeDTO> resumeDTO = dao.resumeInfo(param);
+//		ResumeDTO resumeDTO = dao.resumeInfo(param);
+		  
+	    log.info("@# Retrieved Resumes: " + resumeDTO);
 		
 		return resumeDTO;
 	}

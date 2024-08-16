@@ -4,19 +4,33 @@
 
 <mapper namespace="com.boot.DAO.SNSMyPageDAO">
 
-	<select id="resumeInfo" resultType="com.boot.DTO.ResumeDTO">
-		select rt.resume_num, ut.user_email, rt.resume_title, rt.resume_comName, rt.resume_comPart,
-			TIMESTAMPDIFF(YEAR, rt.career_start, rt.career_end) AS career_years,
-			MOD(TIMESTAMPDIFF(MONTH, rt.career_start, rt.career_end), 12) AS career_months,
-	        rt.resume_eduName, rt.resume_eduMajor,
-	        TIMESTAMPDIFF(YEAR, rt.resume_eduStart, rt.resume_eduEnd) AS edu_years,
-			MOD(TIMESTAMPDIFF(MONTH, rt.resume_eduStart, rt.resume_eduEnd), 12) AS edu_months,
-	        rt.resume_portfolio_name, rt.resume_portfolio_url, rt.resume_licenseContent, rt.resume_licenseDate
-		from user_tb ut
-		join resume_tb rt
-		on ut.user_email = rt.user_email
-		where ut.user_email = #{user_email}
-    </select>
+<!--	<select id="resumeInfo" resultType="com.boot.DTO.ResumeDTO">-->
+<!--		select rt.resume_num, ut.user_email, rt.resume_title, rt.resume_comName, rt.resume_comPart,-->
+<!--			TIMESTAMPDIFF(YEAR, rt.career_start, rt.career_end) AS career_years,-->
+<!--			MOD(TIMESTAMPDIFF(MONTH, rt.career_start, rt.career_end), 12) AS career_months,-->
+<!--	        rt.resume_eduName, rt.resume_eduMajor,-->
+<!--	        TIMESTAMPDIFF(YEAR, rt.resume_eduStart, rt.resume_eduEnd) AS edu_years,-->
+<!--			MOD(TIMESTAMPDIFF(MONTH, rt.resume_eduStart, rt.resume_eduEnd), 12) AS edu_months,-->
+<!--	        rt.resume_portfolio_name, rt.resume_portfolio_url, rt.resume_licenseContent, rt.resume_licenseDate-->
+<!--		from user_tb ut-->
+<!--		join resume_tb rt-->
+<!--		on ut.user_email = rt.user_email-->
+<!--		where ut.user_email = #{user_email}-->
+<!--    </select>-->
+    
+    <select id="resumeInfo" resultType="com.boot.DTO.ResumeDTO">
+	    SELECT rt.resume_num, ut.user_email, rt.resume_title, rt.resume_comName, rt.resume_comPart,
+	           TIMESTAMPDIFF(YEAR, rt.career_start, rt.career_end) AS career_years,
+	           MOD(TIMESTAMPDIFF(MONTH, rt.career_start, rt.career_end), 12) AS career_months,
+	           rt.resume_eduName, rt.resume_eduMajor,
+	           TIMESTAMPDIFF(YEAR, rt.resume_eduStart, rt.resume_eduEnd) AS edu_years,
+	           MOD(TIMESTAMPDIFF(MONTH, rt.resume_eduStart, rt.resume_eduEnd), 12) AS edu_months,
+	           rt.resume_portfolio_name, rt.resume_portfolio_url, rt.resume_licenseContent, rt.resume_licenseDate
+	    FROM user_tb ut
+	    JOIN resume_tb rt ON ut.user_email = rt.user_email
+	    WHERE ut.user_email = #{user_email}
+	</select>
+
     
 	<select id="companyInfo" resultType="com.boot.DTO.CompanyInfoDTO">
 		select com_email, com_pw, com_name, com_tel, com_person, 
@@ -85,9 +99,11 @@
     </insert>
     
     <select id="getFeedback" resultType="com.boot.DTO.SNSFeedbackDTO">
-		select login_email, user_type, resume_num, feedback_content, feedback_date 
-			from sns_feedback_tb
-			where resume_num = #{resume_num}
+		select sft.login_email, ut.user_name, sft.user_type, sft.resume_num, sft.feedback_content, sft.feedback_date 
+			from sns_feedback_tb sft
+            join user_tb ut
+            on sft.login_email = ut.user_email
+			where sft.resume_num = #{resume_num}
     </select>
 	
 </mapper>
