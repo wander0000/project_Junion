@@ -38,7 +38,8 @@ public class SNSMyPageController {
 	private SNSService snsService;
 
 	@RequestMapping("/snsUserPage")
-	public String SNSUserPage(@RequestParam HashMap<String, String> param, Model model, HttpServletRequest httpServletRequest, String user_email) {
+	public String SNSUserPage(@RequestParam HashMap<String, String> param, Model model, 
+			HttpServletRequest httpServletRequest, String user_email, Integer resume_num) {
 	    log.info("@# snsUserPage 시작");
 
 	    HttpSession session = httpServletRequest.getSession();
@@ -57,7 +58,14 @@ public class SNSMyPageController {
 
 	    // 이력서 정보 가져오기
 	    ResumeDTO resumeDTO = snsMyPageService.resumeInfo(param);
+	    log.info("@# resumeDTO" + resumeDTO);
 	    model.addAttribute("resumeInfo", resumeDTO);
+	    
+	    // resume_num 가져오기
+	    if (resumeDTO != null) {
+	        resume_num = resumeDTO.getResume_num();
+	        param.put("resume_num", String.valueOf(resume_num));  // resume_num을 param에 추가
+	    }
 
 	    // 유저 정보 가져오기
 	    UserDTO userDTO = snsMyPageService.getUserInfo(user_email);
@@ -80,6 +88,9 @@ public class SNSMyPageController {
 
 	    List<SNSIntroDTO> getSNSJob = snsMyPageService.getSNSJob(user_email);
 	    model.addAttribute("SNSJob", getSNSJob);
+	    
+	    List<SNSFeedbackDTO> getFeedback = snsMyPageService.getFeedback(param);
+	    model.addAttribute("SNSFeedback", getFeedback);
 
 	    // 게시물 삭제
 	    snsMyPageService.deletePost(param);

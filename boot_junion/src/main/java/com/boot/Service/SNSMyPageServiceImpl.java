@@ -112,6 +112,12 @@ public class SNSMyPageServiceImpl implements SNSMyPageService {
 		
 	}
 	
-	
+	@Override
+	public List<SNSFeedbackDTO> getFeedback(HashMap<String, String> param) {
+		SNSMyPageDAO dao= sqlSession.getMapper(SNSMyPageDAO.class);
+		List<SNSFeedbackDTO> snsFeedback = dao.getFeedback(param);
+		log.info("@# SNSFeedback =>"+snsFeedback);
+		return snsFeedback;
+	}
 	
 }
