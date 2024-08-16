@@ -55,6 +55,7 @@
     var socket = new SockJS('/ws');
     var stompClient = Stomp.over(socket);
     // var roomId = new URLSearchParams(window.location.search).get('chatRoom_id');
+    var roomId = "${roomNum}";
     var senderId = "${login_email}";
     var receiverId = "jisu@gmail.com";// 테스트용 이메일
 
@@ -88,8 +89,8 @@
                 var chatMessage = {
                     sender_id: senderId,  // 발신자 ID
                     receiver_id: receiverId, // 수신자 ID
-                    // roomId: roomId,    // 채팅방 ID
-                    chatRoom_id: 1,    // 채팅방 ID
+                    roomId: roomId,    // 채팅방 ID
+                    // chatRoom_id: 1,    // 채팅방 ID
                     message: messageContent
                 };
                 console.log("@# chatMessage=>"+chatMessage);
@@ -110,8 +111,8 @@
                     var chatMessage = {
                         sender_id: senderId,  // 발신자 ID
                         receiver_id: receiverId,  // 수신자 ID
-                        // roomId: roomId,    // 채팅방 ID
-                        chatRoom_id: 1,  // 채팅방 ID, 실제 사용 시 변수 사용 가능
+                        roomId: roomId,    // 채팅방 ID
+                        // chatRoom_id: 1,  // 채팅방 ID, 실제 사용 시 변수 사용 가능
                         message: messageContent
                     };
 
@@ -124,11 +125,11 @@
 
     function loadMessages() {
         console.log("@# loadMessages=>"+loadMessages);
-        // if (roomId) {
-        if (1) {
+        if (roomId) {
+        // if (1) {
             $.ajax({
-                // url: '/api/messages/room/' + roomId,
-                url: '/api/messages/room/' + 1,
+                url: '/api/messages/room/' + roomId,
+                // url: '/api/messages/room/' + 1,
                 method: 'GET',
                 success: function(messages) {
                     $('#messages').empty();

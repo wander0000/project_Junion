@@ -10,6 +10,8 @@ import com.boot.DTO.SNSRoom;
 @Mapper
 public interface SNSChatDAO {
     public List<SNSRoom> selectAllRooms(String senderId);
+    public int checkRooms(String senderId, String receiverId);
+    public int getRooms(String senderId, String receiverId);
     public void insertRoom(SNSRoom room);
     
     public List<SNSChat> selectMessagesByRoomId(int roomId);

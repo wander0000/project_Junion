@@ -21,19 +21,33 @@ public class SNSChatService {
         this.snsChatDAO = snsChatDAO;
     }
 
-//    roomService
+    // roomService
+    // 모든 채팅방 조회
     public List<SNSRoom> getAllRooms(String senderId) {
     	log.info("@# getAllRooms");
         return snsChatDAO.selectAllRooms(senderId);
     }
 
+    // 채팅방 유무 조회
+    public int checkRooms(String senderId, String receiverId) {
+    	log.info("@# checkRooms");
+    	return snsChatDAO.checkRooms(senderId, receiverId);
+    }
+    
+    // 채팅방 조회
+    public int getRooms(String senderId, String receiverId) {
+    	log.info("@# getRooms");
+    	return snsChatDAO.getRooms(senderId, receiverId);
+    }
+
+    // 채팅방 생성
     public void createRoom(SNSRoom snsRoom) {
     	log.info("@# createRoom");
     	snsChatDAO.insertRoom(snsRoom);
     }
     
     
-//    chatService
+    // chatService
     public List<SNSChat> getMessagesByRoomId(int roomId) {
     	log.info("@# getMessagesByRoomId");
     	log.info("@# roomId=>"+roomId);

@@ -121,6 +121,7 @@
     }
     // 프로필 코멘트 길이 제한-끝
 
+    // 프로필 이미지 불러옴
     $(document).ready(function () {   
         $('.prof').each(function () {
             var user_type = $(this).data('user-type');
@@ -199,18 +200,6 @@
                     type: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(followData),
-                    // success: function(response) {
-                    //     if (response === 'success') {
-                    //         if (button.hasClass('followed')) {
-                    //             button.removeClass('followed');
-                    //             button.text('팔로우');
-                    //         } else {
-                    //             button.addClass('followed');
-                    //             button.text('팔로잉');
-                    //         }
-                    // } else {
-                    //     alert('상태 변경 실패');
-                    // }
                     success: function(isFollowed) {
                     if (isFollowed) {
                         button.addClass('followed');
