@@ -405,7 +405,7 @@
 						console.log("Ajax success:", result);
 					console.log(result);
 					showUploadResult(result); // 파일 업로드 결과 표시 함수 호출
-					$(".uploadDiv").css('display', 'none');
+					// $(".uploadDiv").css('display', 'none');
 					},
 					error: function (xhr, status, error) {
 						console.error('Error fetching file list for resume_num ' + resume_num + ':', error);
@@ -504,6 +504,7 @@
 			// 업로드된 파일 목록 표시
 			function showUploadResult(uploadResultArr) {
 					if (!uploadResultArr || uploadResultArr.length === 0) {
+						$(".uploadDiv").css('display', 'flex');
 						return;
 					}
 					//회원정보 부분에 사진 보이게

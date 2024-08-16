@@ -102,7 +102,65 @@
 
 
 					/*회원정보 테이블*/
+
 					.userInfoTable
+					{
+					width: 1030px;
+					border: 1px solid var(--input-gray);
+					/* border-radius: 10px; */
+					box-sizing: border-box;
+					border-collapse: collapse;
+					font-size: var(--font-size16);
+					overflow: hidden; /* 자식 요소가 부모의 경계에서 벗어나는 것을 방지 */
+					}
+					.userInfoTable .tr
+					{
+					/* display: flex; */
+					/* justify-content: space-between; */
+					width: 100%;
+					height: 60px;
+					display: table;
+					table-layout: fixed;
+					border-collapse: collapse;
+					border-bottom: 1px solid var(--input-gray);
+					/* padding: 5px 20px; */
+					box-sizing: border-box;
+					}
+
+					.th, .td
+					{
+					display: flex;
+					/* border-bottom: 1px solid var(--input-gray); */
+					/* box-sizing: border-box; */
+					
+					width: auto;
+					/* text-align: start; */
+					align-items: center;
+					}
+
+					/* 마지막 줄의 th와 td에서 border-bottom 제거 */
+					.tr:last-child 
+					{
+					border-bottom: none;
+					}
+					.userInfoTable .th
+					{
+					width: 300px;
+					background-color: var(--button-gray);
+					display: table-cell;
+					vertical-align: middle;
+					font-weight: 600;
+					padding: 0 40px;
+					}
+
+					.userInfoTable .td
+					{
+					width: calc(100% - 300px); /* 나머지 공간을 차지 */
+					display: table-cell;
+					vertical-align: middle;
+					padding: 0 20px;
+					}
+					/* .userInfoTable
 					{
 						width: 1030px;
 						border: 1px solid var(--input-gray);
@@ -119,12 +177,12 @@
 
 					
 					/*테이블의 행열*/
-					.userInfoTable th, td {
+					/* .userInfoTable th, td {
 						border: 1px solid var(--input-gray);
 						padding: 0 20px;
 						text-align: start;
 						height: 60px;
-					}
+					}  */
 					
 					/*수정내용 input박스*/
 					.userInfoTable .inputbox {
@@ -254,46 +312,46 @@
 												</label> -->
 											</div>
 											<div class="infoConRight">
-												<table class="userInfoTable">
-													<tr>
-														<th>이름</th>
-														<td><input class="inputbox readonly" type="text" name="user_name"
-																value="${userInfo.user_name}" readonly="readonly"></td>
-													</tr>
-													<tr>
-														<th>이메일</th>
-														<td><input class="inputbox readonly" type="text" name="user_email"
-																value="${userInfo.user_email}" readonly="readonly"></td>
-													</tr>
-													<tr>
-														<th>생년월일</th>
-														<td>
+												<div class="userInfoTable">
+													<div class="tr">
+														<div class="th">이름</div>
+														<div class="td"><input class="inputbox readonly" type="text" name="user_name"
+																value="${userInfo.user_name}" readonly="readonly"></div>
+													</div>
+													<div class="tr">
+														<div class="th">이메일</div>
+														<div class="td"><input class="inputbox readonly" type="text" name="user_email"
+																value="${userInfo.user_email}" readonly="readonly"></div>
+													</div>
+													<div class="tr">
+														<div class="th">생년월일</div>
+														<div class="td">
 															<input class="inputbox" type="text" name="user_birthdate" id="user_birthdate" value="${userInfo.user_birthdate}"
 																placeholder="생년월일을 1900-01-01형식으로 입력하세요" required>
 															<div class="check_font" id="birth_check"></div>
-														</td>
-													</tr>
-													<tr>
-														<th>성별</th>
-														<td>
+														</div>
+													</div>
+													<div class="tr">
+														<div class="th">성별</div>
+														<div class="td">
 															<input class="inputbox" type="text" name="user_gender"
 																id="user_gender" value="${userInfo.user_gender}"
 																placeholder="성별을 입력하세요" required>
 															<div class="check_font" id="gender_check"></div>
-														</td>
-													</tr>
-													<tr>
-														<th>휴대폰</th>
-														<td>
+														</div>
+													</div>
+													<div class="tr">
+														<div class="th">휴대폰</div>
+														<div class="td">
 															<input class="inputbox" type="text" name="user_tel"
 																id="user_tel" value="${userInfo.user_tel}"
 																placeholder="전화번호를 입력하세요">
 															<div class="check_font" id="tel_check"></div>
-														</td>
-													</tr>
-													<tr>
-														<th>희망직무</th>
-														<td class="disF wide">
+														</div>
+													</div>
+													<div class="tr">
+														<div class="th">희망직무</div>
+														<div class="disF wide td">
 															<div class="position">
 																<input class="inputbox" type="text" id="jobInput"
 																	name="user_job" value="${user_job}"
@@ -301,11 +359,11 @@
 																	readonly>
 																<div class="check_font" id="job_check"></div>
 															</div>
-														</td>
-													</tr>
-													<tr>
-														<th>기술스택</th>
-														<td class="disF wide">
+														</div>
+													</div>
+													<div class="tr">
+														<div class="th">기술스택</div>
+														<div class="disF wide td">
 															<div class="stack">
 																<input class="inputbox" type="text" id="stackInput"
 																	name="user_stack" value="${user_stack}"
@@ -313,11 +371,11 @@
 																	readonly>
 																<div class="check_font" id="stack_check"></div>
 															</div>
-														</td>
-													</tr>
-													<tr>
-														<th>희망근무지역</th>
-														<td class="disF">
+														</div>
+													</div>
+													<div class="tr">
+														<div class="th">희망근무지역</div>
+														<div class="disF td">
 															<div class="workLocation">
 																<div class="search_box">
 																	<select onchange="categoryChange(this)"
@@ -374,17 +432,17 @@
 																<div class="check_font" id="location_check"
 																	style="display: none;"></div>
 															</div>
-														</td>
-													</tr>
-													<tr>
-														<th>비밀번호 확인</th>
-														<td>
+														</div>
+													</div>
+													<div class="tr">
+														<div class="th">비밀번호 확인</div>
+														<div class="td">
 															<input class="inputbox" type="password" name="user_pw" placeholder="회원정보 보호를 위해 비밀번호를 입력하세요" required>
 															<input type="hidden" name="session_pw" value="<%= session_pw %>">
 															<div class="check_font" id="password_check"	style="display: none;"></div>
-														</td>
-													</tr>
-												</table>
+														</div>
+													</div>
+												</div>
 											</div><!-- infoCon right 끝 -->
 										</div> <!-- infoConWrap 끝-->
 									</form><!-- userInfoForm 끝 -->

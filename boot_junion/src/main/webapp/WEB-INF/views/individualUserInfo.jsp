@@ -86,28 +86,58 @@ main
 {
   width: 1030px;
   border: 1px solid var(--input-gray);
-  border-radius: 10px;
+  /* border-radius: 10px; */
   box-sizing: border-box;
   border-collapse: collapse;
   font-size: var(--font-size16);
+  overflow: hidden; /* 자식 요소가 부모의 경계에서 벗어나는 것을 방지 */
 }
-.userInfoTable th
+.userInfoTable .tr
+{
+  /* display: flex; */
+  /* justify-content: space-between; */
+  width: 100%;
+  height: 60px;
+  display: table;
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-bottom: 1px solid var(--input-gray);
+  /* padding: 5px 20px; */
+  box-sizing: border-box;
+}
+
+.th, .td
+{
+  display: flex;
+  /* border-bottom: 1px solid var(--input-gray); */
+  /* box-sizing: border-box; */
+  
+  width: auto;
+  /* text-align: start; */
+  align-items: center;
+}
+
+/* 마지막 줄의 th와 td에서 border-bottom 제거 */
+.tr:last-child 
+{
+  border-bottom: none;
+}
+.userInfoTable .th
 {
   width: 300px;
   background-color: var(--button-gray);
+  display: table-cell;
+  vertical-align: middle;
+  font-weight: 600;
+  padding: 0 40px;
 }
 
-.userInfoTable td
+.userInfoTable .td
 {
-  /* width: 730px; */
-}
-.userInfoTable th, td
-{
-  /* border-bottom: 1px solid var(--input-gray); */
-  border: 1px solid var(--input-gray);
+  width: calc(100% - 300px); /* 나머지 공간을 차지 */
+  display: table-cell;
+  vertical-align: middle;
   padding: 0 20px;
-  text-align: start;
-  height: 60px;
 }
 
 /*희망직무, 기술스택 버튼들 */
@@ -127,7 +157,7 @@ main
   width: inherit;
 }
 
-.userInfoTable td .Btn
+.userInfoTable .td .Btn
 {
   background-color: #f7f7f7;
 	border: 1px solid var(--input-gray);
@@ -188,52 +218,52 @@ main
                                     <!-- <img src="images/people.svg" alt="#" class="resumeImage"> -->
                                 </div>
                                 <div class="infoCon right">
-                                    <table class="userInfoTable">	
-                                        <tr>
-                                            <th>이름</th>
-                                            <td>${userInfo.user_name}</td>
-                                        </tr>
-                                        <tr>
-                                          <th>이메일</th>
-                                          <td>${userInfo.user_email}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>생년월일</th>
-                                            <td>${userInfo.user_birthdate}</td>
-                                        </tr>
-                                        <tr>
-                                            <th>성별</th>
-                                            <td>${userInfo.user_gender}</td>  
-                                        </tr>
-                                        <tr>
-                                            <th>휴대폰</th>
-                                            <td>${userInfo.user_tel}</td>
-                                        </tr>
-                                        <tr>
-                                          <th>희망직무</th>
-                                          <td class="disF">
-                                              <div class="position" id="position">
+                                    <div class="userInfoTable">	
+                                        <div class="tr">
+                                            <div class="th">이름</div>
+                                            <div class="td">${userInfo.user_name}</div>
+                                        </div>
+                                        <div class="tr">
+                                          <div class="th">이메일</div>
+                                          <div class="td">${userInfo.user_email}</div>
+                                        </div>
+                                        <div class="tr">
+                                            <div class="th">생년월일</div>
+                                            <div class="td">${userInfo.user_birthdate}</div>
+                                        </div>
+                                        <div class="tr">
+                                            <div class="th">성별</div>
+                                            <div class="td">${userInfo.user_gender}</div>  
+                                        </div>
+                                        <div class="tr">
+                                            <div class="th">휴대폰</div>
+                                            <div class="td">${userInfo.user_tel}</div>
+                                        </div>
+                                        <div class="tr">
+                                          <div class="th">희망직무</div>
+                                          <div class="disF td">
+                                              <div class="position " id="position">
                                                   <c:forEach items="${userInfo.jobInfo}" var="dto">
                                                     <input type="button" class="Btn" value="${dto.job_name}">
                                                   </c:forEach>
                                               </div>
-                                          </td>
-                                        </tr>
-                                        <tr>
-                                            <th>기술스택</th>
-                                            <td class="disF">
+                                          </div>
+                                        </div>
+                                        <div class="tr">
+                                            <div class="th">기술스택</div>
+                                            <div class="disF td">
                                                 <div class="stack" id="stack">
                                                   <c:forEach items="${userInfo.stackInfo}" var="dto">
                                                     <input type="button" class="Btn" value="${dto.stack_name}">
                                                   </c:forEach>  
                                                 </div>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                          <th>희망근무지역</th>
-                                          <td>${userInfo.user_location} ${userInfo.user_location2}</td>
-                                      </tr>
-                                    </table>
+                                            </div>
+                                        </div>
+                                        <div class="tr">
+                                          <div class="th">희망근무지역</div>
+                                          <div class="td">${userInfo.user_location} ${userInfo.user_location2}</div>
+                                      </div>
+                                    </div>
                                 </div><!-- infoCon right 끝 -->
                             </div> <!-- infoConWrap 끝-->
                             <div class="modifyBtn">
