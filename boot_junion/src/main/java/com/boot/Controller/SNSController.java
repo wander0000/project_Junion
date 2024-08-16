@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -98,5 +100,28 @@ public class SNSController {
         log.info("@# filteredList: " + filteredList);
 
         return filteredList;
+    }
+    
+    // 댓글 작성 처리 (추가된 부분)
+    @PostMapping("/api/commentWrite")
+    @ResponseBody
+    public SNSDTO commentWrite(@RequestBody SNSDTO snsDTO, HttpSession session) {
+        log.info("@# commentWrite");
+
+        // 세션에서 사용자 정보 가져오기
+        String login_email = (String) session.getAttribute("login_email");
+        char user_type = (char) session.getAttribute("login_usertype");
+
+        // SNSDTO 객체에 로그인한 사용자 정보 설정
+        snsDTO.setLogin_email(login_email);
+        snsDTO.setUser_type(user_type);
+
+        // 댓글 작성 서비스 호출
+        snsService.snsCommentWrite(snsDTO);
+
+        log.info("@# CommentDTO=>" + snsDTO);
+
+        // 작성된 댓글 정보를 반환 (JSON 형식)
+        return snsDTO;
     }
 }
