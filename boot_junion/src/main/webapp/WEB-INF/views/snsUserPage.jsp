@@ -246,7 +246,6 @@
                                             <div class="profileInfo">
                                                 <img class="img" src="/images/1.jpg" alt="">
                                                 <h3 class="name">${userInfo.user_name}</h3>
-                                                <!-- </div> -->
                                                 <p class="intro">
                                                     <c:if test="${user_email == sessionScope.login_email}">
                                                         <span class="icon" id="editIntroIcon">
@@ -263,7 +262,6 @@
                                                             action="${pageContext.request.contextPath}/snsUserPage">
                                                             <input type="hidden" name="user_email"
                                                                 value="${user_email}">
-                                                            <!-- 글자수 제한 100 -->
                                                             <textarea name="sns_intro" rows="4"
                                                                 style="width:100%; border-radius: 5px; padding: 5px; margin-top: 20px;"
                                                                 maxlength="100">${userIntro.sns_intro}</textarea>
@@ -314,74 +312,87 @@
                                                 <div class="tab board">게시글</div>
                                             </div>
                                             <div class="contentInfoWrap active">
-                                                <select name="" id="resumeSelect">
-                                                    <option value="">이력서1</option>
-                                                    <option value="">이력서2</option>
-                                                    <option value="">이력서3</option>
-                                                </select>
-                                                <div class="infoConWrap">
-                                                    <h3 class="infoConWrapTitle">경력</h3>
-                                                    <div class="infoCon">
-                                                        <div style="display: flex; flex-direction: column;">
-                                                            <div class="infoConTitle">${resumeInfo.resume_comName}</div>
-                                                            <div class="infoConSubTitleWrap">
-                                                                <h5 class="infoConPosition">${resumeInfo.resume_comPart}
-                                                                </h5>
-                                                                <h5 class="infoConCareer">
-                                                                    ${resumeInfo.career_years}년${resumeInfo.career_months}개월
-                                                                </h5>
+                                                <c:choose>
+                                                    <c:when test="${resumeInfo == null}">
+                                                        <div class="nullResume">
+                                                            <h2 class="nullResumeText">등록된 이력서가 없습니다.</h2>
+                                                            <c:if test="${user_email == sessionScope.login_email}">
+                                                                <a href="${pageContext.request.contextPath}/resumeList"
+                                                                    class="addResume">이력서 등록하기</a>
+                                                            </c:if>
+                                                        </div>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <select name="" id="resumeSelect">
+                                                            <option value="">이력서1</option>
+                                                            <option value="">이력서2</option>
+                                                            <option value="">이력서3</option>
+                                                        </select>
+                                                        <div class="infoConWrap">
+                                                            <h3 class="infoConWrapTitle">경력</h3>
+                                                            <div class="infoCon">
+                                                                <div style="display: flex; flex-direction: column;">
+                                                                    <div class="infoConTitle">
+                                                                        ${resumeInfo.resume_comName}</div>
+                                                                    <div class="infoConSubTitleWrap">
+                                                                        <h5 class="infoConPosition">
+                                                                            ${resumeInfo.resume_comPart}</h5>
+                                                                        <h5 class="infoConCareer">
+                                                                            ${resumeInfo.career_years}년${resumeInfo.career_months}개월
+                                                                        </h5>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="infoConWrap">
-                                                    <h3 class="infoConWrapTitle">학력</h3>
-                                                    <div class="infoCon">
-                                                        <div style="display: flex; flex-direction: column;">
-                                                            <div class="infoConTitle">${resumeInfo.resume_eduName}</div>
-                                                            <div class="infoConSubTitleWrap">
-                                                                <h5 class="infoConPosition">
-                                                                    ${resumeInfo.resume_eduMajor}</h5>
-                                                                <h5 class="infoConCareer">
-                                                                    ${resumeInfo.edu_years}년${resumeInfo.edu_months}개월
-                                                                </h5>
+                                                        <div class="infoConWrap">
+                                                            <h3 class="infoConWrapTitle">학력</h3>
+                                                            <div class="infoCon">
+                                                                <div style="display: flex; flex-direction: column;">
+                                                                    <div class="infoConTitle">
+                                                                        ${resumeInfo.resume_eduName}</div>
+                                                                    <div class="infoConSubTitleWrap">
+                                                                        <h5 class="infoConPosition">
+                                                                            ${resumeInfo.resume_eduMajor}</h5>
+                                                                        <h5 class="infoConCareer">
+                                                                            ${resumeInfo.edu_years}년${resumeInfo.edu_months}개월
+                                                                        </h5>
+                                                                    </div>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                                <div class="infoConWrap">
-                                                    <h3 class="infoConWrapTitle">포트폴리오</h3>
-                                                    <p>현재 로그인한 사용자의 이메일: ${sessionScope.login_email}</p>
-                                                    <p>현재 페이지의 사용자 이메일: ${user_email}</p>
-                                                    <div class="infoCon">
-                                                        <div style="display: flex; flex-direction: column;">
-                                                            <div class="infoConTitle">
-                                                                ${resumeInfo.resume_portfolio_name}</div>
-                                                            <h5 class="infoConPosition">
-                                                                <a href="http://${resumeInfo.resume_portfolio_url}"
-                                                                    style="color:#111">${resumeInfo.resume_portfolio_url}</a>
-                                                            </h5>
+                                                        <div class="infoConWrap">
+                                                            <h3 class="infoConWrapTitle">포트폴리오</h3>
+                                                            <div class="infoCon">
+                                                                <div style="display: flex; flex-direction: column;">
+                                                                    <div class="infoConTitle">
+                                                                        ${resumeInfo.resume_portfolio_name}</div>
+                                                                    <h5 class="infoConPosition">
+                                                                        <a href="http://${resumeInfo.resume_portfolio_url}"
+                                                                            style="color:#111">${resumeInfo.resume_portfolio_url}</a>
+                                                                    </h5>
+                                                                </div>
+                                                                <c:if test="${user_email != sessionScope.login_email}">
+                                                                    <button class="estimatePortfolio">평가하기</button>
+                                                                </c:if>
+                                                                <c:if test="${user_email == sessionScope.login_email}">
+                                                                    <button class="viewEstimate">평가보기</button>
+                                                                </c:if>
+                                                            </div>
                                                         </div>
-                                                        <c:if test="${user_email != sessionScope.login_email}">
-                                                            <button class="estimatePortfolio">평가하기</button>
-                                                        </c:if>
-                                                        <c:if test="${user_email == sessionScope.login_email}">
-                                                            <button class="viewEstimate">평가보기</button>
-                                                        </c:if>
-                                                    </div>
-                                                </div>
-                                                <div class="infoConWrap">
-                                                    <h3 class="infoConWrapTitle">자격 / 수상</h3>
-                                                    <div class="infoCon">
-                                                        <div style="display: flex; flex-direction: column;">
-                                                            <div class="infoConTitle">
-                                                                ${resumeInfo.resume_licenseContent}</div>
-                                                            <h5 class="infoConPosition">${resumeInfo.resume_licenseDate}
-                                                            </h5>
+                                                        <div class="infoConWrap">
+                                                            <h3 class="infoConWrapTitle">자격 / 수상</h3>
+                                                            <div class="infoCon">
+                                                                <div style="display: flex; flex-direction: column;">
+                                                                    <div class="infoConTitle">
+                                                                        ${resumeInfo.resume_licenseContent}</div>
+                                                                    <h5 class="infoConPosition">
+                                                                        ${resumeInfo.resume_licenseDate}</h5>
+                                                                </div>
+                                                            </div>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            </div> <!-- contentInfoWrap -->
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </div>
                                             <div class="contentBoard">
                                                 <div class="contentBoardWrap">
                                                     <c:if test="${user_email == sessionScope.login_email}">
@@ -396,14 +407,13 @@
                                                                     <div class="left">
                                                                         <div class="UserImage">
                                                                             <ul>
-                                                                                <!-- <img src="images/people.svg" alt="#"
-                                                                                    class="img"> -->
+                                                                                <!-- 이미지 삽입 부분 -->
                                                                             </ul>
                                                                         </div>
-                                                                    </div><!--left 끝-->
+                                                                    </div>
                                                                     <div class="nameBox">
                                                                         <h4>${dto.sns_name}</h4>
-                                                                    </div><!--nameBox 끝-->
+                                                                    </div>
                                                                     <div class="right">
                                                                         <c:if
                                                                             test="${user_email != sessionScope.login_email}">
@@ -416,17 +426,15 @@
                                                                                     class="fa-solid fa-ellipsis-vertical"></i>
                                                                             </span>
                                                                             <div class="option">
-                                                                                <!-- <h5>수정하기</h5> -->
                                                                                 <h5>삭제하기</h5>
                                                                             </div>
                                                                         </c:if>
-                                                                    </div><!--right 끝-->
-                                                                </div> <!--userBox 끝-->
-
+                                                                    </div>
+                                                                </div>
                                                                 <div class="detailContent">
                                                                     <div class="mainGetResult">
                                                                         <ul>
-
+                                                                            <!-- 업로드된 파일 목록 삽입 부분 -->
                                                                         </ul>
                                                                     </div>
                                                                     <div class="textArea">
@@ -438,12 +446,7 @@
                                                                         ${dto.sns_content}</h5>
                                                                     <button type="button" class="more-btn"
                                                                         style="display:none;">더보기</button>
-                                                                    <!-- <div class="detailTitle">
-                                                                        <h4>${dto.sns_title}</h4>
-                                                                    </div>
-                                                                    <textarea readonly>${dto.sns_content}</textarea> -->
-                                                                </div> <!--detailContent 끝-->
-
+                                                                </div>
                                                                 <div class="iconBox">
                                                                     <span class="icon">
                                                                         <i class="fa-regular fa-heart"></i>
@@ -452,94 +455,20 @@
                                                                         <i class="fa-regular fa-comment"></i>
                                                                     </span>
                                                                     <h5>${dto.sns_date}</h5>
-                                                                </div> <!--iconBox 끝-->
-
-                                                            </div> <!--detailBox 끝-->
-                                                        </c:if>
-                                                    </c:forEach>
-                                                </div> <!-- contentBoardWrap -->
-                                            </div> <!-- contentBoard 끝-->
-                                        </div>
-
-                                        <!-- 모달 구조 (첫 번째 HTML 블록 끝부분에 추가) -->
-                                        <div id="writeFeedback" class="feedbackModal">
-                                            <form class="feedbackPopupBox" method="post"
-                                                action="${pageContext.request.contextPath}/writeFeedback">
-                                                <input type="hidden" name="user_type"
-                                                    value="${sessionScope.login_usertype}" />
-                                                <input type="hidden" name="resume_num" value="${resumeInfo.resume_num}">
-                                                <div class="boxButton">
-                                                    <!-- <h5 id="cancelButton">취소</h5> -->
-                                                    <i id="writeCancelButton" class="fa-solid fa-xmark fa-xl"></i>
-                                                </div> <!--boxButton 끝-->
-                                                <div class="boxTitle">
-                                                    <div class="uploadResultAB">
-                                                        <ul>
-                                                            <img src="images/people.svg" alt="#" class="img">
-                                                        </ul>
-                                                    </div>
-                                                    <div class="titleContent">
-                                                        <input type="text" value="${sessionScope.login_name}"
-                                                            name="assessor" readonly>
-                                                    </div>
-                                                </div> <!--boxTitle 끝-->
-                                                <div class="boxContent">
-                                                    <textarea placeholder="포트폴리오를 평가 해주세요!"
-                                                        name="feedback_content"></textarea>
-                                                </div>
-                                                <div class="feedbackSubmit">
-                                                    <button type="submit" class="postButton">등록</button>
-                                                </div>
-                                            </form> <!--feedbackPopupBox 끝-->
-                                        </div> <!-- 모달 끝 -->
-
-
-                                        <!-- 모달 구조 (첫 번째 HTML 블록 끝부분에 추가) -->
-                                        <div id="viewFeedback" class="viewFeedback">
-                                            <input type="hidden" name="resume_num" value="${resumeInfo.resume_num}">
-                                            <%-- resume_num의 값이 제대로 설정되는지 확인하는 로그 --%>
-                                                <div>resume_num:
-                                                    <c:out value="${resumeInfo.resume_num}" />
-                                                </div>
-
-                                                <div class="feedbackPopupBox">
-                                                    <div class="boxButton">
-                                                        <i id="viewCancelButton" class="fa-solid fa-xmark fa-xl"></i>
-                                                    </div>
-
-                                                    <!-- Accordion Start -->
-                                                    <div class="accordion">
-                                                        <c:if test="${empty SNSFeedback}">
-                                                            <p>No feedback available.</p>
-                                                        </c:if>
-                                                        <c:forEach var="dto" items="${SNSFeedback}">
-                                                            <div class="accordionItem">
-                                                                <button class="accordionButton">
-                                                                    <div class="uploadResultC">
-                                                                        <ul>
-                                                                            <img src="images/people.svg" alt="#"
-                                                                                class="img">
-                                                                        </ul>
-                                                                    </div>
-                                                                    <h5>${dto.login_email}</h5>
-                                                                    <h5>${dto.feedback_date}</h5>
-                                                                </button>
-
-                                                                <div class="accordionContent">
-                                                                    <p>${dto.feedback_content}</p>
                                                                 </div>
                                                             </div>
-                                                        </c:forEach>
-                                                    </div>
-                                                    <!-- Accordion End -->
-                                                </div> <!--feedbackPopupBox 끝-->
-                                        </div> <!-- 모달 끝 -->
-
+                                                        </c:if>
+                                                    </c:forEach>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </section>
                             </main>
                     </div>
             </div>
         </body>
+
 
         </html>
         <script>

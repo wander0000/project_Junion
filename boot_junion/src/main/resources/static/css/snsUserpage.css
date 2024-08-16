@@ -831,3 +831,27 @@ section.snsMypage
 	margin-left: auto;
 	color: var(--color-gray);
 }
+
+a.addResume
+{
+    padding:8px 20px;
+    border: 1px solid #e5e5ec;
+    font-size: 14px;
+    background:#fff;
+    border-radius: 6px;
+    margin-top: 20px;
+    cursor: pointer;
+    margin-left: auto;
+}
+
+a.addResume:hover
+{
+    background:#FFA500;
+    color: #fff;
+    border: 1px solid #FFA500;
+} 
+
+h2.nullResumeText
+{
+    margin-bottom: 20px;
+}
