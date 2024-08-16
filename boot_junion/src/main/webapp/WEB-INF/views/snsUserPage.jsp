@@ -396,8 +396,8 @@
                                                                     <div class="left">
                                                                         <div class="UserImage">
                                                                             <ul>
-                                                                                <img src="images/people.svg" alt="#"
-                                                                                    class="img">
+                                                                                <!-- <img src="images/people.svg" alt="#"
+                                                                                    class="img"> -->
                                                                             </ul>
                                                                         </div>
                                                                     </div><!--left 끝-->
@@ -425,12 +425,23 @@
 
                                                                 <div class="detailContent">
                                                                     <div class="mainGetResult">
-                                                                        <ul></ul>
+                                                                        <ul>
+
+                                                                        </ul>
                                                                     </div>
-                                                                    <div class="detailTitle">
+                                                                    <div class="textArea">
+                                                                        <div class="detailTitle">
+                                                                            <h4 class="snsntitle">${dto.sns_title}</h4>
+                                                                        </div>
+                                                                    </div>
+                                                                    <h5 class="snsn" id="snsnTextarea" readonly>
+                                                                        ${dto.sns_content}</h5>
+                                                                    <button type="button" class="more-btn"
+                                                                        style="display:none;">더보기</button>
+                                                                    <!-- <div class="detailTitle">
                                                                         <h4>${dto.sns_title}</h4>
                                                                     </div>
-                                                                    <textarea readonly>${dto.sns_content}</textarea>
+                                                                    <textarea readonly>${dto.sns_content}</textarea> -->
                                                                 </div> <!--detailContent 끝-->
 
                                                                 <div class="iconBox">
@@ -454,7 +465,8 @@
                                         <div id="writeFeedback" class="feedbackModal">
                                             <form class="feedbackPopupBox" method="post"
                                                 action="${pageContext.request.contextPath}/writeFeedback">
-                                                <input type="hidden" name="user_type" value="${sessionScope.login_usertype}" />
+                                                <input type="hidden" name="user_type"
+                                                    value="${sessionScope.login_usertype}" />
                                                 <input type="hidden" name="resume_num" value="${resumeInfo.resume_num}">
                                                 <div class="boxButton">
                                                     <!-- <h5 id="cancelButton">취소</h5> -->
@@ -484,67 +496,45 @@
 
                                         <!-- 모달 구조 (첫 번째 HTML 블록 끝부분에 추가) -->
                                         <div id="viewFeedback" class="viewFeedback">
-                                            <div class="feedbackPopupBox">
-                                                <div class="boxButton">
-                                                    <!-- <h5 id="cancelButton">취소</h5> -->
-                                                    <i id="viewCancelButton" class="fa-solid fa-xmark fa-xl"></i>
-                                                </div> <!--boxButton 끝-->
-
-                                                <!-- Accordion Start -->
-                                                <div class="accordion">
-                                                    <div class="accordionItem">
-                                                        <button class="accordionButton">
-                                                            <div class="uploadResultC">
-                                                                <ul>
-                                                                    <img src="images/people.svg" alt="#" class="img">
-                                                                </ul>
-                                                            </div>
-                                                            <h5>나성엽</h5>
-                                                        </button>
-
-                                                        <div class="accordionContent">
-                                                            <p>피드백입니다~@# 피드백입니다~@# 피드백입니다~@# 피드백입니다~@# </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="accordionItem">
-                                                        <button class="accordionButton">
-                                                            <div class="uploadResultC">
-                                                                <ul>
-                                                                    <img src="images/people.svg" alt="#" class="img">
-                                                                </ul>
-                                                            </div>
-                                                            <h5>루피</h5>
-                                                        </button>
-
-                                                        <div class="accordionContent">
-                                                            <p>피드백입니다~@# 피드백입니다~@# 피드백입니다~@# 피드백입니다~@# </p>
-                                                        </div>
-                                                    </div>
-                                                    <div class="accordionItem">
-                                                        <button class="accordionButton">
-                                                            <div class="uploadResultC">
-                                                                <ul>
-                                                                    <img src="images/people.svg" alt="#" class="img">
-                                                                </ul>
-                                                            </div>
-                                                            <h5>짱구</h5>
-                                                        </button>
-
-                                                        <div class="accordionContent">
-                                                            <p>피드백입니다~@# 피드백입니다~@# 피드백입니다~@# 피드백입니다~@# </p>
-                                                        </div>
-                                                    </div>
-                                                    <!-- <div class="accordionItem">
-					                <button class="accordionButton">Section 2</button>
-					                <div class="accordionContent">
-					                    <p>This is the content for section 2.</p>
-					                </div>
-					            </div> -->
+                                            <input type="hidden" name="resume_num" value="${resumeInfo.resume_num}">
+                                            <%-- resume_num의 값이 제대로 설정되는지 확인하는 로그 --%>
+                                                <div>resume_num:
+                                                    <c:out value="${resumeInfo.resume_num}" />
                                                 </div>
-                                                <!-- Accordion End -->
 
-                                            </div> <!--feedbackPopupBox 끝-->
+                                                <div class="feedbackPopupBox">
+                                                    <div class="boxButton">
+                                                        <i id="viewCancelButton" class="fa-solid fa-xmark fa-xl"></i>
+                                                    </div>
+
+                                                    <!-- Accordion Start -->
+                                                    <div class="accordion">
+                                                        <c:if test="${empty SNSFeedback}">
+                                                            <p>No feedback available.</p>
+                                                        </c:if>
+                                                        <c:forEach var="dto" items="${SNSFeedback}">
+                                                            <div class="accordionItem">
+                                                                <button class="accordionButton">
+                                                                    <div class="uploadResultC">
+                                                                        <ul>
+                                                                            <img src="images/people.svg" alt="#"
+                                                                                class="img">
+                                                                        </ul>
+                                                                    </div>
+                                                                    <h5>${dto.login_email}</h5>
+                                                                    <h5>${dto.feedback_date}</h5>
+                                                                </button>
+
+                                                                <div class="accordionContent">
+                                                                    <p>${dto.feedback_content}</p>
+                                                                </div>
+                                                            </div>
+                                                        </c:forEach>
+                                                    </div>
+                                                    <!-- Accordion End -->
+                                                </div> <!--feedbackPopupBox 끝-->
                                         </div> <!-- 모달 끝 -->
+
                                 </section>
                             </main>
                     </div>
@@ -805,38 +795,38 @@
 
         </script>
 
-<script>
-    $(document).ready(function() {
-        // 폼 제출 이벤트를 가로채기
-        $('.feedbackPopupBox').on('submit', function(event) {
-            event.preventDefault(); // 폼의 기본 제출 방지
+        <script>
+            $(document).ready(function () {
+                // 폼 제출 이벤트를 가로채기
+                $('.feedbackPopupBox').on('submit', function (event) {
+                    event.preventDefault(); // 폼의 기본 제출 방지
 
-            // 폼 데이터를 수집
-            var formData = $(this).serialize();
+                    // 폼 데이터를 수집
+                    var formData = $(this).serialize();
 
-            // AJAX 요청을 통해 데이터 전송
-            $.ajax({
-                url: $(this).attr('action'), // 폼의 action 속성에 지정된 URL
-                type: 'POST',
-                data: formData,
-                success: function(response) {
-                    // 데이터 전송 성공 시 알림
-                    alert('피드백이 성공적으로 등록되었습니다.');
-                    // 모달 창 닫기
-                    $('#writeFeedback').hide();
-                    // 페이지 새로고침
-                    location.reload();
-                },
-                error: function(xhr, status, error) {
-                    // 데이터 전송 실패 시 알림
-                    alert('피드백 등록에 실패했습니다. 다시 시도해주세요.');
-                }
+                    // AJAX 요청을 통해 데이터 전송
+                    $.ajax({
+                        url: $(this).attr('action'), // 폼의 action 속성에 지정된 URL
+                        type: 'POST',
+                        data: formData,
+                        success: function (response) {
+                            // 데이터 전송 성공 시 알림
+                            alert('피드백이 성공적으로 등록되었습니다.');
+                            // 모달 창 닫기
+                            $('#writeFeedback').hide();
+                            // 페이지 새로고침
+                            location.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            // 데이터 전송 실패 시 알림
+                            alert('피드백 등록에 실패했습니다. 다시 시도해주세요.');
+                        }
+                    });
+                });
+
+                // 모달 닫기 버튼 클릭 시
+                $('#writeCancelButton').on('click', function () {
+                    $('#writeFeedback').hide(); // 모달 닫기
+                });
             });
-        });
-
-        // 모달 닫기 버튼 클릭 시
-        $('#writeCancelButton').on('click', function() {
-            $('#writeFeedback').hide(); // 모달 닫기
-        });
-    });
-</script>
+        </script>

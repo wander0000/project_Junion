@@ -83,5 +83,11 @@
         insert into sns_feedback_tb(login_email, user_type, resume_num, feedback_content, feedback_date)
 			values(#{login_email}, #{user_type}, #{resume_num}, #{feedback_content}, #{feedback_date})        
     </insert>
+    
+    <select id="getFeedback" resultType="com.boot.DTO.SNSFeedbackDTO">
+		select login_email, user_type, resume_num, feedback_content, feedback_date 
+			from sns_feedback_tb
+			where resume_num = #{resume_num}
+    </select>
 	
 </mapper>
