@@ -57,16 +57,26 @@ public class SNSMyPageController {
 	    model.addAttribute("snsList", snsList);
 
 	    // 이력서 정보 가져오기
-	    ResumeDTO resumeDTO = snsMyPageService.resumeInfo(param);
-	    log.info("@# resumeDTO" + resumeDTO);
-	    model.addAttribute("resumeInfo", resumeDTO);
+	    List<ResumeDTO> resumeList = snsMyPageService.resumeInfo(param);
+//	    ResumeDTO resumeDTO = snsMyPageService.resumeInfo(param);
+	    log.info("@# resumeList" + resumeList);
+	    model.addAttribute("resumeList", resumeList);
 	    
-	    // resume_num 가져오기
-	    if (resumeDTO != null) {
-	        resume_num = resumeDTO.getResume_num();
-	        param.put("resume_num", String.valueOf(resume_num));  // resume_num을 param에 추가
+	    // 특정 resume_num에 해당하는 이력서 선택
+	    if (resumeList != null && !resumeList.isEmpty()) {
+	        ResumeDTO selectedResume = resumeList.get(0); // 기본적으로 첫 번째 이력서를 선택
+	        if (resume_num != null) {
+	            for (ResumeDTO resume : resumeList) {
+	                // 여기서 resume.getResume_num()이 int라면, resume_num.intValue()로 변환하여 비교
+	                if (resume.getResume_num() == resume_num) { 
+	                    selectedResume = resume;
+	                    break;
+	                }
+	            }
+	        }
+	        model.addAttribute("resumeInfo", selectedResume);
+	        param.put("resume_num", String.valueOf(selectedResume.getResume_num()));
 	    }
-
 	    // 유저 정보 가져오기
 	    UserDTO userDTO = snsMyPageService.getUserInfo(user_email);
 	    log.info("@# UserInfo: " + userDTO);

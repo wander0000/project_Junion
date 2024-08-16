@@ -12,8 +12,8 @@ import com.boot.DTO.UserImageUploadDTO;
 
 public interface SNSMyPageService {
 	
-//	public List<ResumeDTO> resumeInfo(HashMap<String, String> param); //이력서 정보
-	public ResumeDTO resumeInfo(HashMap<String, String> param); //이력서 정보
+	public List<ResumeDTO> resumeInfo(HashMap<String, String> param); //이력서 정보
+//	public ResumeDTO resumeInfo(HashMap<String, String> param); //이력서 정보
 	
 	public CompanyInfoDTO companyInfo(String email); //기업 정보
 	
