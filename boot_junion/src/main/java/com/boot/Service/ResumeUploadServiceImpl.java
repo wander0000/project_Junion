@@ -71,7 +71,8 @@ public class ResumeUploadServiceImpl implements ResumeUploadService{
 	
 	@Override
 	public void deleteResumeImage(int resume_num) {//특정 이미지 하나만 삭제
-		log.info("@# 사용자 사진 업로드 Impl  deleteUserImage");
+		log.info("@# 사용자 사진 업로드 Impl  deleteResumeImage");
+		log.info("@# 사용자 사진 업로드 Impl  resume_num=>" + resume_num);
 		
 		ResumeUploadDAO dao = sqlSession.getMapper(ResumeUploadDAO.class);
 		

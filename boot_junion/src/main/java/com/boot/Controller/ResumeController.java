@@ -247,17 +247,17 @@ public class ResumeController {
 		
 //		 핵심 파라미터 = resume num 가져오기
 		ResumeDTO dto = resumeService.resumeInfo(param);		
-		log.info("@# resumeModify ResumeDTO dto======>"+dto);
+		log.info("@# resumeModify param 정보 넣은 ResumeDTO dto======>"+dto);
 		log.info("@# resumeModify param======>"+param);
-		log.info("@# resumeModify param======>"+dto.getResume_comPart());
-		log.info("@# resumeModify param======>"+dto.getResume_comPosition());
+		log.info("@# resumeModify ResumeDTO dto.getResume_comPart()======>"+dto.getResume_comPart());
+		log.info("@# resumeModify  ResumeDTO dto.getResume_comPosition()======>"+dto.getResume_comPosition());
 		model.addAttribute("resumeInfo", dto);	
 		
 		
 		// 파일 수정 if문 시작
 		if (resumeDTO.getResumeUploadList() != null) {//파일(이미지) 있으면
 			resumeDTO.getResumeUploadList().forEach(attach -> {
-				log.info("@# 보드컨트롤러 write / attach 호출=>"+attach);
+				log.info("@# resume컨트롤러 write / attach 호출=>"+attach);
 				List<ResumeUploadDTO> list = service.resumeGetFileList(dto.getResume_num());//현재 DB에 있는 파일내용 가져와서
 					
 				for (int i = 0; i < list.size(); i++) {//파일갯수만큼
