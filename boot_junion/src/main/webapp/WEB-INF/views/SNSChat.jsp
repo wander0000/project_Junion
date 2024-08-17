@@ -57,7 +57,7 @@
     // var roomId = new URLSearchParams(window.location.search).get('chatRoom_id');
     var roomId = "${roomNum}";
     var senderId = "${login_email}";
-    var receiverId = "jisu@gmail.com";// 테스트용 이메일
+    var receiverId = "${receiver_id}";
 
     console.log("@# socket=>"+socket)
     console.log("@# stompClient=>"+stompClient)
@@ -89,7 +89,7 @@
                 var chatMessage = {
                     sender_id: senderId,  // 발신자 ID
                     receiver_id: receiverId, // 수신자 ID
-                    roomId: roomId,    // 채팅방 ID
+                    chatRoom_id: roomId,    // 채팅방 ID
                     // chatRoom_id: 1,    // 채팅방 ID
                     message: messageContent
                 };
@@ -111,7 +111,7 @@
                     var chatMessage = {
                         sender_id: senderId,  // 발신자 ID
                         receiver_id: receiverId,  // 수신자 ID
-                        roomId: roomId,    // 채팅방 ID
+                        chatRoom_id: roomId,    // 채팅방 ID
                         // chatRoom_id: 1,  // 채팅방 ID, 실제 사용 시 변수 사용 가능
                         message: messageContent
                     };
