@@ -40,14 +40,16 @@ public class SNSWebSocketChatController {
 		} else {
 	    	String login_email = (String)session.getAttribute("login_email");
 	    	log.info("@# login_email=>"+login_email);
-//	    	model.addAttribute("login_email",login_email);
+	    	
+	    	model.addAttribute("receiver_id",receiver_id);
 	    	
 	    	int roomcheck = chatService.checkRooms(login_email, receiver_id);
 	    	
-	    	if (roomcheck == 1) {
-				SNSRoom room = null;
-				room.setSender_id(login_email);
-				room.setReceiver_id(receiver_id);
+	    	if (roomcheck != 1) {
+				SNSRoom room = new SNSRoom();
+				room.setSenderId(login_email);
+				room.setReceiverId(receiver_id);
+				log.info("@# room=>"+room);
 				
 				chatService.createRoom(room);
 				int roomNum = chatService.getRooms(login_email, receiver_id);
@@ -55,7 +57,8 @@ public class SNSWebSocketChatController {
 				
 				log.info("@# room=>"+room);
 			} else {
-
+				int roomNum = chatService.getRooms(login_email, receiver_id);
+				model.addAttribute("roomNum",roomNum);
 			}
 	    	
 	    	return "SNSChat"; // JSP 파일명 (chat.jsp)
@@ -67,9 +70,9 @@ public class SNSWebSocketChatController {
 //    public SNSChat sendMessage(SNSChat chat) {
     public SNSChat sendMessage(@Payload SNSChat chat) {
     	log.info("@# sendMessage");
-    	log.info("@# chat=>"+chat);
         chat.setTimestamp(new Timestamp(System.currentTimeMillis()));
         chatService.addMessage(chat);
+        log.info("@# chat=>"+chat);
         return chat;
     }
 }

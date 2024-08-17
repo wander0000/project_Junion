@@ -288,7 +288,7 @@
                                                 <c:if test="${user_email != sessionScope.login_email}">
                                                     <div class="profileButton">
                                                         <button class="following">팔로잉</button>
-                                                        <button class="message">메시지</button>
+                                                        <button class="message" onclick="location.href='SNSChat?receiver_id=${user_email}';">메시지</button>
                                                     </div>
                                                 </c:if>
                                             </div>
