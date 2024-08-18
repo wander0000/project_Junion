@@ -124,4 +124,10 @@ public class SNSController {
         // 작성된 댓글 정보를 반환 (JSON 형식)
         return snsDTO;
     }
+    
+    @GetMapping("/api/snsCommentList")
+    @ResponseBody
+    public List<SNSDTO> snsCommentList(@RequestParam("sns_num") int snsNum) {
+        return snsService.snsCommentList(snsNum);
+    }
 }

@@ -12,7 +12,7 @@ public interface SNSService {
 	public void snsWrite(SNSDTO snsDTO);
 	
 	public void snsCommentWrite(SNSDTO snsDTO);
-	public ArrayList<SNSDTO> snsCommentList();
+	public ArrayList<SNSDTO> snsCommentList(int sns_num);
 	
 	List<SNSDTO> searchName(String searchName);
 	
