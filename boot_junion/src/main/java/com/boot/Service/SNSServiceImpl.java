@@ -79,9 +79,9 @@ public class SNSServiceImpl implements SNSService{
 	}
 
 	@Override
-	public ArrayList<SNSDTO> snsCommentList() {
+	public ArrayList<SNSDTO> snsCommentList(int sns_num) {
 		SNSDAO dao = sqlSession.getMapper(SNSDAO.class);
-		ArrayList<SNSDTO> list = dao.snsCommentList();
+		ArrayList<SNSDTO> list = dao.snsCommentList(sns_num);
 		return list;
 	}
 

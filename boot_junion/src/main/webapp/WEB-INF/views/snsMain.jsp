@@ -362,6 +362,20 @@ $(document).ready(function () {
         $("#popupModal").css("display", "flex");
         $("body").addClass("modal-open"); // 모달 열릴 때 스크롤 방지
 
+        // sns_num에 해당하는 댓글 가져오기
+        $.ajax({
+                url: '/api/snsCommentList',
+                type: 'GET',
+                data: { sns_num: snsNum },
+                dataType: 'json',
+                success: function(data) {
+                    showComments(data); // 댓글 표시
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching comments for sns_num ' + snsNum + ':', error);
+                }
+            });
+
         // snsNum을 이용하여 모달에 사진 데이터 로드
         $.ajax({
             url: '/snsGetFileList',
@@ -403,6 +417,32 @@ $(document).ready(function () {
                 }
             });
         }
+    }
+
+    // 댓글 표시 함수
+    function showComments(comments) {
+        var commentContent = $(".commentContent");
+        commentContent.empty(); // 기존 댓글 초기화
+
+        $(comments).each(function(i, comment) {
+            var newComment = '<div class="commentCon">' +
+                                '<div class="left">' +
+                                    '<div class="commentUserImage">' +
+                                        '<ul>' +
+                                            '<img src="/images/people.svg" alt="#" class="img">' +
+                                        '</ul>' +
+                                    '</div>' +
+                                    '<div class="nameBox">' +
+                                        '<h4>' + comment.login_email + '</h4>' +
+                                    '</div>' +
+                                '</div>' +
+                                '<div class="right">' +
+                                    '<h4>' + comment.sns_comment_content + '</h4>' +
+                                    '<h5>' + comment.sns_comment_date + '</h5>' +
+                                '</div>' +
+                            '</div>';
+            commentContent.append(newComment);
+        });
     }
 
     // 모달 닫기 함수
@@ -482,40 +522,37 @@ function showUploadResult(uploadResultArr, uploadResultContainer){
     $(document).ready(function () {
         $('#commentForm').on('submit', function (e) {
             e.preventDefault(); // 기본 폼 제출 방지
-    
+
             var formData = {
                 sns_num: $('input[name="sns_num"]').val(),
                 login_email: $('input[name="login_email"]').val(),
                 user_type: $('input[name="user_type"]').val(),
                 sns_comment_content: $('textarea[name="sns_comment_content"]').val()
             };
-    
+
             $.ajax({
-                url: '${pageContext.request.contextPath}/api/commentWrite',
+                url: '/api/commentWrite',
                 type: 'POST',
                 contentType: 'application/json',
                 data: JSON.stringify(formData),
                 success: function(response) {
                     if (response) {
-                        var newComment = '<div class="commentCon">' +
-                                            '<div class="left">' +
-                                                '<div class="commentUserImage">' +
-                                                    '<ul>' +
-                                                        '<img src="${pageContext.request.contextPath}/images/people.svg" alt="#" class="img">' +
-                                                    '</ul>' +
-                                                '</div>' +
-                                                '<div class="nameBox">' +
-                                                    '<h4>' + response.login_email + '</h4>' +
-                                                '</div>' +
-                                            '</div>' +
-                                            '<div class="right">' +
-                                                '<h4>' + response.sns_comment_content + '</h4>' +
-                                                '<h5>'+response.sns_comment_date+'</h5>' +
-                                            '</div>' +
-                                         '</div>';
-    
-                        $('.commentContent').append(newComment); // 새로운 댓글을 댓글 목록에 추가
-    
+                        var snsNum = formData.sns_num;
+
+                        // 댓글 작성 후 댓글 목록 다시 불러오기
+                        $.ajax({
+                            url: '/api/snsCommentList',
+                            type: 'GET',
+                            data: { sns_num: snsNum },
+                            dataType: 'json',
+                            success: function(data) {
+                                showComments(data); // 댓글 표시
+                            },
+                            error: function(xhr, status, error) {
+                                console.error('Error fetching comments after submission for sns_num ' + snsNum + ':', error);
+                            }
+                        });
+
                         // 폼 초기화
                         $('#commentForm textarea').val('');
                     } else {
@@ -528,6 +565,7 @@ function showUploadResult(uploadResultArr, uploadResultContainer){
                 }
             });
         });
+
     });
     </script>
 
