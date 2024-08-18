@@ -121,15 +121,15 @@ public class SNSMyPageController {
 	    return "redirect:/snsUserPage"; // 삭제 후 다시 사용자 페이지로 리다이렉트
 	}
 	
-	@RequestMapping("/deleteFeedback")
-	public String deleteFeedback(@RequestParam HashMap<String, String> param, HttpServletRequest httpServletRequest) {
-		log.info("@# deleteFeedback 시작");
-		
-		// 게시글 삭제 로직 호출
-		snsMyPageService.deleteFeedback(param);
-		
-		return "redirect:/snsUserPage"; // 삭제 후 다시 사용자 페이지로 리다이렉트
-	}
+//	@RequestMapping("/deleteFeedback")
+//	public String deleteFeedback(@RequestParam HashMap<String, String> param, HttpServletRequest httpServletRequest) {
+//		log.info("@# deleteFeedback 시작");
+//		
+//		// 게시글 삭제 로직 호출
+//		snsMyPageService.deleteFeedback(param);
+//		
+//		return "redirect:/snsUserPage"; // 삭제 후 다시 사용자 페이지로 리다이렉트
+//	}
 
 	@RequestMapping("/writeFeedback")
 	public String writeFeedback(@ModelAttribute SNSFeedbackDTO snsFeedbackDTO, HttpServletRequest httpServletRequest) {
