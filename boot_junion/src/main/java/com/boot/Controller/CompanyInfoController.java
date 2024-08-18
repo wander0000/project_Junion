@@ -54,8 +54,30 @@ public class CompanyInfoController {
 	}
 	
 	
+	@RequestMapping("/companyMini")
+	public String companyMini(HttpServletRequest request, Model model){//기업 정보 관리 메인
+//		log.info("@# company_InfoManagement");
+		log.info("@# companyInfoManagement");
+		
+		
+		HttpSession session = request.getSession();
+		String email = (String) session.getAttribute("login_email");
+		
+		
+//		List <CompanyAttachDTO> list = mainService.mainComFileList(email);
+//		log.info("자 파일의 경로는?"+list);
+//		model.addAttribute("fileLsit", list);// 기업 이미지를 가져옴
+		
+		CompanyInfoDTO dto = infoService.companyInfo(email);
+		model.addAttribute("companyInfo", dto);
+		
+		
+		return "company/companyMini";
+	}
+
+	
 	@RequestMapping("/companyInfoManagement")
-	public String company_InfoManagement(HttpServletRequest request, Model model) throws Exception{//기업 정보 관리 메인
+	public String company_InfoManagement(HttpServletRequest request, Model model) throws Exception{//기업 정보 관리 상세
 //		log.info("@# company_InfoManagement");
 		log.info("@# companyInfoManagement");
 		
@@ -73,7 +95,7 @@ public class CompanyInfoController {
 		
 		SimpleDateFormat format = new SimpleDateFormat("yyyy");
 		
-		 
+		
 		if (dto.getCom_year() != null) {// com_tb의 com_year 값이 있다면 simpleDateFormat 클래스의 메소드로 연도만 자름
 			String year = dto.getCom_year();
 			Date date = format.parse(year);
