@@ -5,7 +5,14 @@
 <mapper namespace="com.boot.DAO.SNSChatDAO">
     
     <select id="selectAllRooms" resultType="com.boot.DTO.SNSRoom">
-        SELECT * FROM chatRoom_tb WHERE sender_id = #{senderId}
+		SELECT distinct
+			chatRoom_id,
+		    CASE 
+		        WHEN sender_id = #{senderId} THEN receiver_id
+		        ELSE sender_id
+		    END AS other_id
+		FROM chat_tb
+		WHERE sender_id = #{senderId} OR receiver_id = #{senderId};
     </select>
     
     <select id="checkRooms" resultType="int">

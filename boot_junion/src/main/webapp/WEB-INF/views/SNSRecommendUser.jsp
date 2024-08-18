@@ -121,8 +121,8 @@
     }
     // 프로필 코멘트 길이 제한-끝
 
-    // 프로필 이미지 불러옴
     $(document).ready(function () {   
+        // 프로필 이미지 불러옴
         $('.prof').each(function () {
             var user_type = $(this).data('user-type');
             var snsEmail = $(this).data('user-email')
@@ -218,6 +218,7 @@
         });
     });
 
+    // 프로필 이미지 불러옴
     function showUploadResult(uploadResultArr, uploadResultContainer){
         if (!uploadResultArr || uploadResultArr.length == 0) {
             return;
