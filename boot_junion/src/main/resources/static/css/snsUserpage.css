@@ -52,7 +52,7 @@ section.snsMypage
     flex-direction: column;
     width: 240px;
     border-radius: 6px;
-    max-height: 550px;
+    height: max-content;
 }
 
 .profileInfo 
@@ -421,6 +421,7 @@ section.snsMypage
     font-weight: 500;
 } */
 
+
 .right span.icon 
 {
     margin-left: auto;
@@ -495,11 +496,11 @@ section.snsMypage
 	cursor: pointer;
 }
 
-.contentBoard .detailBox .userBox .nameBox h4
+.userBox .nameBox .nana
 {
-	margin: 18px;
-	font-size: var(--font-size14);
-	cursor: pointer;
+	font-weight: 500;
+	font-size: 18px;
+	margin-left: 10px;
 }
 
 .contentBoard .detailBox .userBox .right
@@ -651,6 +652,8 @@ section.snsMypage
 	margin-top: 8px;
 	cursor: pointer;
 }
+
+/* 게시글 끝 */
 
 .infoCon button.viewEstimate 
 {
@@ -962,6 +965,7 @@ h2.nullResumeText
 .feedbackPopupBox .boxTitle {
     display: flex;
     align-items: center;
+    padding-left: 20px;
 }
 
 .feedbackPopupBox .boxTitle .uploadResultAB img {
@@ -1088,4 +1092,297 @@ h2.nullResumeText
 
 #feedbackWriteUser {
     font-size: 20px;
+}
+
+.popupDetail
+{
+	width: 1000px;
+	height: 670px;
+	border: 1px solid var(--border-color-gray);
+	border-radius: 15px;
+	display: flex;
+}
+
+.popupDetail .detailBox
+{
+	width: 600px;
+	height: 670px;
+	border-right: 1px solid var(--border-color-gray);
+	padding: 0 28px;
+}
+
+.popupDetail .detailBox .userBox
+{
+	display: flex;
+	align-items: center;
+	margin: 14px 0
+}
+
+.popupDetail .detailBox .userBox .popupUserImage img
+{
+	width: 48px;
+	height: 48px;
+	cursor: pointer;
+	border-radius: 50%;
+}
+
+.popupDetail .detailBox .userBox .nameBox h4
+{
+	margin: 18px;
+	font-size: var(--font-size16);
+	cursor: pointer;
+}
+
+.popupDetail .detailBox .userBox .right
+{
+	margin-left: auto;
+}
+
+.popupDetail .detailBox .userBox .right button
+{
+	width: 58px;
+	height: 30px;
+	border-radius: 6px;
+	background-color: var(--color-white);
+	border: solid 1px var(--border-color-gray);
+	color: var(--color-black);
+	font-size: var(--font-size12);
+	cursor: pointer;
+}
+
+.popupDetail .detailContent
+{
+	text-align: center;
+	height: 85%;
+	display: flex;
+    flex-direction: column;
+}
+
+.popupDetail .detailContent .popupGetResult
+{
+	text-align: center;
+}
+
+.popupDetail .detailContent .popupGetResult img
+{
+	width: 600px;
+	height: 360px;
+	border-radius: 6px;
+}
+
+.popupDetail .detailContent h4
+{
+	text-align: left;
+	margin: 12px 0 0 4px;
+	font-size: var(--font-size16);
+}
+.popupDetail .detailContent .popupTextarea
+{
+	display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.popupDetail .detailContent textarea
+{
+	width: 600px;
+	height: 100%;
+	font-size: var(--font-size14);
+	font-weight: 300;
+	margin: 12px 0 8px 4px;
+	resize: none;
+	border: none;
+	outline: none;
+	line-height: 1.5;
+	
+	
+	overflow-y: scroll; /*  */
+}
+
+/* 스크롤바의 폭 너비 */
+.popupDetail .detailContent textarea::-webkit-scrollbar {
+    width: 10px;  
+}
+
+.popupDetail .detailContent textarea::-webkit-scrollbar-thumb {
+    background: #FFA500; /* 스크롤바 색상 */
+    border-radius: 10px; /* 스크롤바 둥근 테두리 */
+}
+
+.popupDetail .detailContent textarea::-webkit-scrollbar-track {
+	background: rgba(255, 165, 0, 0.25); /* 스크롤바 뒷 배경 색상, 투명도 50% */
+	border-radius: 10px; /* 스크롤바 둥근 테두리 */
+}
+.popupDetail .detailContent h5
+{
+	margin-left: auto;
+    font-size: var(--font-size12);
+    color: var(--color-gray);
+    font-weight: 400;
+    width: fit-content;
+	margin-top: auto;
+}
+
+.popupDetail .detailComment
+{
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+}
+
+.popupDetail .detailComment .xIcon
+{
+	display: flex;
+	justify-content: right;
+	margin: 20px 20px 12px;
+	cursor: pointer;
+	color: var(--color-gray);
+}
+
+.popupDetail .detailComment .commentContent
+{
+	height: 100%;
+}
+.popupDetail .detailComment .commentCon
+{
+	display: flex;
+	align-items: start;
+	justify-content: flex-start;
+	margin: 8px 0;
+}
+
+.popupDetail .detailComment .commentCon .left
+{
+	display: flex;
+	align-items: center;
+	margin-right: 12px;
+}
+
+.popupDetail .detailComment .commentCon .left .commentUserImage img
+{
+	width: 36px;
+	height: 36px;
+	margin: 0 12px 0px 20px;
+	border-radius: 50%;
+}
+
+.popupDetail .detailComment .nameBox
+{
+	display: flex;
+	justify-content: flex-start;
+}
+
+.popupDetail .detailComment .nameBox h4
+{
+	font-size: var(--font-size12);
+	margin: 0;
+	align-items: center;
+	white-space: nowrap;
+}
+
+.popupDetail .detailComment .right
+{
+	margin: 12px 20px 0 0;
+}
+.popupDetail .detailComment .right h4
+{
+	font-size: var(--font-size12);
+	font-weight: 400;
+}
+.popupDetail .detailComment .right h5
+{
+	font-size: 10px;
+	font-weight: 400;
+	color: var(--color-gray);
+}
+
+.popupDetail .detailComment .commentBottom
+{
+	margin-top: auto;
+	/* padding: 20px; */
+}
+
+.popupDetail .detailComment .commentBottom .numberCount
+{
+	display: flex;
+}
+
+.popupDetail .detailComment .commentBottom .numberCount h5
+{
+	margin: 4px 0px 12px 12px  ;
+	font-size: var(--font-size12);
+	color: var(--color-gray);
+}
+
+.popupDetail .detailComment .commentBottom .commentBox
+{
+	height: 60px;
+	display: flex;
+	align-items: center;
+	border-top: 1px solid var(--border-color-gray);
+}
+
+.popupDetail .detailComment .commentBottom .commentBox .icon
+{
+	font-size: var(--font-size24);
+	margin-left: 12px;
+}
+
+.textarea-wrap 
+{
+    display: flex;
+    align-items: center; /* 세로 가운데 정렬 */
+    width: 240px;
+    height: 40px;
+    margin-left: 12px; /* 좌측 여백 추가 */
+}
+
+.popupDetail .detailComment .commentBottom .commentBox textarea
+{
+	font-size: var(--font-size14);
+	border: none;
+	outline: none;
+	width: 100%;
+    height: 100%;
+	resize: none;
+}
+.popupDetail .detailComment .commentBottom .commentBox input[type="submit"]
+{
+	font-size: var(--font-size14);
+	border: none;
+	background-color: var(--color-white);
+	color: var(--color-gray);
+	cursor: pointer;
+}
+
+/* 모달 스타일 */
+.modal {
+	display: none; /* 초기에는 숨겨진 상태 */
+	position: fixed;
+	z-index: 1000;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.5); /* 반투명한 배경 */
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+/* 모달 콘텐츠 스타일 */
+.modal-content {
+	background-color: #fefefe;
+	border: 1px solid #888;
+	width: auto;
+	max-width: 1000px; /* 최대 너비 설정 */
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+	animation: modalopen 0.3s; /* 모달 열리는 애니메이션 */
+	border-radius: 15px;
+	overflow: hidden;
+}
+
+body.modal-open {
+	overflow: hidden;
 }
