@@ -15,232 +15,6 @@
             <!-- import js -->
             <script src="https://code.jquery.com/jquery-3.6.3.min.js"
                 integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-            <style>
-                /* CSS 스타일 추가 */
-                .feedbackModal {
-                    display: none;
-                    /* 초기에는 숨김 */
-                    position: fixed;
-                    z-index: 1000;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                    overflow: auto;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    /* 반투명 배경 */
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                .feedbackModal .feedbackPopupBox {
-                    background-color: #fff;
-                    margin: auto;
-                    padding: 20px;
-                    border: 1px solid #888;
-                    width: 480px;
-                    border-radius: 15px;
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                .viewFeedback {
-                    display: none;
-                    /* 초기에는 숨김 */
-                    position: fixed;
-                    z-index: 1000;
-                    left: 0;
-                    top: 0;
-                    width: 100%;
-                    height: 100%;
-                    overflow: auto;
-                    background-color: rgba(0, 0, 0, 0.5);
-                    /* 반투명 배경 */
-                    justify-content: center;
-                    align-items: center;
-                }
-
-                .viewFeedback .feedbackPopupBox {
-                    background-color: #fff;
-                    margin: auto;
-                    padding: 20px;
-                    border: 1px solid #888;
-                    width: 480px;
-                    border-radius: 15px;
-                    display: flex;
-                    flex-direction: column;
-                }
-
-                .feedbackPopupBox button {
-                    background: none;
-                    border: none;
-                    font-weight: 400;
-                    font-size: var(--font-size16);
-                    color: var(--color-gray);
-                    cursor: pointer;
-                    display: flex;
-                    align-items: center;
-                }
-
-                .feedbackPopupBox {
-                    width: 480px;
-                    height: 670px;
-                    border: 1px solid var(--border-color-gray);
-                    border-radius: 15px;
-                }
-
-                .feedbackPopupBox .boxButton {
-                    display: flex;
-                    justify-content: flex-end;
-                    margin: 20px;
-                }
-
-                .feedbackPopupBox .boxButton h5 {
-                    font-weight: 400;
-                    font-size: var(--font-size16);
-                    color: var(--color-gray);
-                    cursor: pointer;
-                }
-
-                .feedbackPopupBox .postButton {
-                    color: #fff;
-                    border: 1px solid #e5e5ec;
-                    border-color: #FFA500;
-                    border-radius: 10px;
-                    padding: 2px 8px;
-                    background-color: #FFA500;
-                }
-
-                .feedbackPopupBox .boxTitle {
-                    display: flex;
-                    align-items: center;
-                }
-
-                .feedbackPopupBox .boxTitle .uploadResultAB img {
-                    width: 40px;
-                    height: 40px;
-                    margin: 0px 20px 0px 30px;
-                }
-
-                .feedbackPopupBox .boxTitle .titleContent input {
-                    border: none;
-                    outline: none;
-                    width: 320px;
-                    height: 40px;
-                    font-size: var(--font-size14);
-                }
-
-                .feedbackPopupBox .uploadImage input {
-                    display: none;
-                }
-
-                .feedbackPopupBox .uploadImage .uploadFile {
-                    display: flex;
-                    align-items: center;
-                    margin: 20px 36px 0px 36px;
-                    padding: 0 0 20px 0;
-                    cursor: pointer;
-                    border-bottom: solid 1px var(--border-color-gray);
-                }
-
-                .feedbackPopupBox .uploadImage .uploadFile .icon {
-                    font-size: 24px;
-                }
-
-                .feedbackPopupBox .uploadImage .uploadFile h5 {
-                    font-weight: 400;
-                    font-size: var(--font-size14);
-                    margin-left: 12px;
-                }
-
-                .feedbackPopupBox .boxContent textarea {
-                    border: none;
-                    outline: none;
-                    width: 400px;
-                    height: 400px;
-                    font-size: var(--font-size14);
-                    margin: 20px;
-                    resize: none;
-                }
-
-                .uploadResultAB ul {
-                    padding-left: 0px;
-                    margin-bottom: 0px;
-                }
-
-                .feedbackSubmit {
-                    display: flex;
-                    justify-content: flex-end;
-                    padding: 0px 20px;
-                }
-
-                /*
-				아코디언 css
-				*/
-
-                .accordion {
-                    width: 420px;
-                    padding: 20px;
-                }
-
-                .accordionItem {
-                    margin-bottom: 10px;
-                    border: 1px solid #ddd;
-                    border-radius: 5px;
-                }
-
-                .accordionButton {
-                    background-color: #f9f9f9;
-                    color: #444;
-                    cursor: pointer;
-                    padding: 10px;
-                    width: 100%;
-                    text-align: left;
-                    outline: none;
-                    font-size: 16px;
-                    border: none;
-                    transition: background-color 0.2s ease;
-                    border-radius: 5px;
-                }
-
-                .accordionButton:hover {
-                    background-color: #eee;
-                }
-
-                .accordionContent {
-                    padding: 20px;
-                    display: none;
-                    overflow: hidden;
-                    background-color: #f9f9f9;
-                    border-top: 1px solid #ddd;
-                    border-radius: 0 0 5px 5px;
-                }
-
-                .accordionItem .accordionButton .uploadResultC img {
-                    width: 40px;
-                    height: 40px;
-                    margin: 0px 20px 0px 10px;
-                }
-
-                .accordionItem .accordionButton h5 {
-                    margin-bottom: 0px;
-                }
-
-                .uploadResultC ul {
-                    padding-left: 0px;
-                    margin-bottom: 0px;
-                }
-
-                #feedbackDate {
-                    margin-left: auto;
-                    margin-top: auto;
-                    font-size: 14px;
-                }
-
-                #feedbackWriteUser {
-                    font-size: 20px;
-                }
-            </style>
         </head>
 
         <body>
@@ -288,7 +62,8 @@
                                                 <c:if test="${user_email != sessionScope.login_email}">
                                                     <div class="profileButton">
                                                         <button class="following">팔로잉</button>
-                                                        <button class="message" onclick="location.href='SNSChat?receiver_id=${user_email}';">메시지</button>
+                                                        <button class="message"
+                                                            onclick="location.href='SNSChat?receiver_id=${user_email}';">메시지</button>
                                                     </div>
                                                 </c:if>
                                             </div>
@@ -329,8 +104,8 @@
                                                         <h2>등록된 이력서가 없습니다.</h2>
                                                     </div>
                                                     <c:if test="${user_email == sessionScope.login_email}">
-                                                        <a href="resumeList"
-                                                        type="button" class="addResume">이력서 등록하기</a>
+                                                        <a href="resumeList" type="button" class="addResume">이력서
+                                                            등록하기</a>
                                                     </c:if>
                                                 </c:if>
                                                 <!-- <select name="" id="resumeSelect">
@@ -551,7 +326,8 @@
                                                                 </button>
 
                                                                 <div class="accordionContent">
-                                                                    <p>${dto.feedback_content}</p>
+                                                                    <p class="accordionFeedback">${dto.feedback_content}
+                                                                    </p>
                                                                 </div>
                                                             </div>
                                                         </c:forEach>
@@ -826,6 +602,15 @@
                 $('.feedbackPopupBox').on('submit', function (event) {
                     event.preventDefault(); // 폼의 기본 제출 방지
 
+                    // textarea 내용 확인
+                    var feedbackContent = $('textarea[name="feedback_content"]').val().trim();
+
+                    if (feedbackContent === "") {
+                        alert("피드백을 입력하세요.");
+                        $('textarea[name="feedback_content"]').focus();
+                        return; // 폼 제출 중지
+                    }
+
                     // 폼 데이터를 수집
                     var formData = $(this).serialize();
 
@@ -854,4 +639,5 @@
                     $('#writeFeedback').hide(); // 모달 닫기
                 });
             });
+
         </script>
