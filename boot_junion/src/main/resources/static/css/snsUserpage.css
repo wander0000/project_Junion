@@ -923,6 +923,7 @@ h2.nullResumeText
     cursor: pointer;
     display: flex;
     align-items: center;
+    padding: 20px;
 }
 
 .feedbackPopupBox {
