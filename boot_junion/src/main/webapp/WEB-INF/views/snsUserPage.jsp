@@ -334,12 +334,12 @@
                                                         <c:forEach var="dto" items="${SNSFeedback}">
                                                             <div class="accordionItem">
                                                                 <button class="accordionButton">
-                                                                    <div class="uploadResultC">
+                                                                    <!-- <div class="uploadResultC">
                                                                         <ul>
                                                                             <img src="images/people.svg" alt="#"
                                                                                 class="img">
                                                                         </ul>
-                                                                    </div>
+                                                                    </div> -->
                                                                     <h5 id="feedbackWriteUser">${dto.user_name}</h5>
                                                                     <h5 id="feedbackDate">${dto.feedback_date}</h5>
                                                                 </button>
