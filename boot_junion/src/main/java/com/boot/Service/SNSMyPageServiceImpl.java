@@ -122,4 +122,10 @@ public class SNSMyPageServiceImpl implements SNSMyPageService {
 		return snsFeedback;
 	}
 	
+	@Override
+	public void deleteFeedback(HashMap<String, String> param) {
+		log.info("@# 게시물 삭제");
+		SNSMyPageDAO dao = sqlSession.getMapper(SNSMyPageDAO.class);
+		dao.deleteFeedback(param);
+	}
 }
