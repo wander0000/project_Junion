@@ -451,16 +451,16 @@
 
 
 
-     // 24.07.09 하진 : 비밀번호 변경 팝업 -> 외부 팝업으로 구현
-     // 24.08.11 하진 : 비밀번호 변경 팝업 크기 수정
-     function pwchange() {// 비밀번호 설정 외부 팝업 띄우는 코드
-            // window.name = "부모창 이름"; 
+    //  // 24.07.09 하진 : 비밀번호 변경 팝업 -> 외부 팝업으로 구현
+    //  // 24.08.11 하진 : 비밀번호 변경 팝업 크기 수정
+    //  function pwchange() {// 비밀번호 설정 외부 팝업 띄우는 코드
+    //         // window.name = "부모창 이름"; 
         
-            var popupURL = "/companyPW";
-            // var popupProperties = "width=500, height=300, resizable = no, scrollbars = no";
-            var popupProperties = "width=550, height=400, resizable = no, scrollbars = no";
-            window.open(popupURL, "companyPW.jsp", popupProperties);    
-        }
+    //         var popupURL = "/companyPW";
+    //         // var popupProperties = "width=500, height=300, resizable = no, scrollbars = no";
+    //         var popupProperties = "width=550, height=400, resizable = no, scrollbars = no";
+    //         window.open(popupURL, "companyPW.jsp", popupProperties);    
+    //     }
 
         // 24.07.27 하진 : 연혁 계산 및 값이 없을 경우, 문자가 보이지 않도록 하는 로직
         var locationC = $("#localyear").val();

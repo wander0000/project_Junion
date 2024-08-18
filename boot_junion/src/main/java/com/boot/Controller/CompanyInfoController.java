@@ -132,7 +132,7 @@ public class CompanyInfoController {
 		infoService.modify_Info(param);
 //		info.companyInfo(param.get);
 //		return "redirect:company_InfoManagement";
-		return "redirect:companyInfoManagement";
+		return "redirect:companyMini";
 	}
 
 	@RequestMapping("/companyPW")
