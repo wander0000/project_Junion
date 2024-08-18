@@ -38,4 +38,6 @@ public interface SNSMyPageDAO {
 	public void writeFeedback(SNSFeedbackDTO snsFeedbackDTO); //피드백 작성
 	
 	public List<SNSFeedbackDTO> getFeedback(HashMap<String, String> param); // 피드백 불러오기
+	
+	public void deleteFeedback(HashMap<String, String> param); //게시글 삭제
 }

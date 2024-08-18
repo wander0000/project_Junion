@@ -1085,10 +1085,18 @@ h2.nullResumeText
     margin-bottom: 0px;
 }
 
-#feedbackDate {
+.rightFeedback 
+{
     margin-left: auto;
     margin-top: auto;
     font-size: 14px;
+    display: flex;
+    align-items: center;
+    gap: 10px
+}
+.rightFeedback .deleteIcon
+{
+    font-size: 18px;
 }
 
 #feedbackWriteUser {
