@@ -19,7 +19,7 @@
     <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
     <!-- import js -->
     <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
-    <script src="js/index.js"></script>
+    <!-- <script src="js/index.js"></script> -->
     <!--kakao map -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=48ca63ceb0746787c922c8da8f33b705&libraries=services"></script>
 
@@ -33,218 +33,216 @@
         <header>
             <%@ include file="../dropdown.jsp" %>
         </header>    
-        <main>
-            <div class="containe">
-                
+        <section>
+            <div class="tabCon">
                 
                 <div class="toptitle">
-                    <h3 class="toptitle1" style="font-size: 32px;" >기업 기본 정보</h3>
-                    <h3 class="toptitle2" style="font-size: 32px;" >기업 상세 정보</h3>
+                    <h3 class="toptitle1">기업 기본 정보</h3>
+                    <h3 class="toptitle2">기업 상세 정보</h3>
                 </div>
-                
-                    <div class="tabCon common">
 
-                        <!-- 섹션시작 -->
-                        <!-- <section class="tabCon common disN" >             -->
-                        <section class="disN" >            
-                            <div class="wrap">
-                
-                
-                                <div class="left">
-                
-                
-                                    <!-- 컴퍼니 시작 -->
-                
-                                    <div class="company">
-                                        
-                                        <div class="uploadResult">
-                                           
-                                        </div>
-                                        <!-- <img class="imgg" src="../images/companyInfo.svg" alt="#"> -->
+
+
+                <div class="detail"><!-- 상세정보 탭 시작 -->
+    
+                        <div class="company">
+                            
+                            <div class="uploadResult">
+                                
+                                <!-- <img class="imgg" src="companyInfo.svg" alt="#"> -->
+                            </div>
+                            <!-- </div> -->
+                            <div class="comInfo">
+                                <!-- <div class="sub1"> -->
+                                    <!-- <h5 class="name">${companyInfo.com_name}</h5> -->
+                                    <h5 class="title">주니온</h5>
+                                    <h5 class="contentValue" id="localyear">${companyInfo.com_location}ㆍ업력 <span class="getyear"></span></h5>
+                                    <!-- <h5 class="contentValue" id="localyear">서울 성동구ㆍ업력 <span class="getyear"></span></h5> -->
+                                    <!-- <h5 class="locationC" id="localyear">${companyInfo.com_location}<span class="getyear"></span></h5> -->
+                                <!-- </div> -->
+                            </div>
+                        </div>
+    
+    
+                        <!-- 컬럼 시작 -->
+    
+    
+                        <div class="comInfo"> 
+                            <!-- <div class="col1"> -->
+                            <div class="underLine">
+                                <h5 class="title">회사 소개</h5>
+                                <!-- 회사 소개 -->
+                            </div>
+                            <!-- <div class="detail"> -->
+                                <!-- ${companyInfo.com_content} -->
+                            <div class="introduce">${companyInfo.com_content}
+                                <!-- 주니온은 여러분의 취업을 응원합니다.<br>
+
+                                신생 회사 주니온입니다. 저희는 신입 개발자분들의 취업을 위해 만들어진 플랫폼으로, CS 지식과 SNS 등의 기능을 통해 현장의 목소리를 들을 수 있게 하고자 했고,
+                                사용자 UI를 중요시 하기 때문에.. -->
+
+                            </div>
+                        </div>
+                            <!-- </div> -->
+
+                            <!-- <div class="col2"> -->
+                            <div class="comInfo">
+                                <!-- <div class="columnA"> -->
+                                <div class="underLine">
+                                    <h5 class="title">기술 스택</h5>
+                                </div>
+                                <!-- <div class="boerder"></div> -->
+                                <div class="contentValue">
+                                    <div class="detail" id="stack">
+                                        <!-- ${companyInfo.com_stack} -->
                                     </div>
-                                    <div class="main">
-                                        <div class="sub1">
-                                            <h5 class="name">${companyInfo.com_name}</h5>
-                                            <h5 class="locationC" id="localyear">${companyInfo.com_location}ㆍ업력 <span class="getyear"></span></h5>
-                                            <!-- <h5 class="locationC" id="localyear">${companyInfo.com_location}<span class="getyear"></span></h5> -->
+                                </div>
+                            </div><!--col2-->
+        
+                            <!-- <div class="col7"> -->
+                            <div class="comInfo">
+                                <!-- <div class="columnA"> -->
+                                <div class="underLine">
+                                    <h5 class="title">회사 위치</h5>
+                                </div>
+                                <!-- <div class="columnBB"> -->
+                                <div class="contentValue">
+                                    <!--지도가 들어갈 위치-->
+                                    <!-- <div id="map" style="width:100%;height:350px;"></div> -->
+                                    <div id="map"></div>
+                                    <h5 class="type" id="comAddress">${companyInfo.com_location}</h5>
+                                    <!-- <h5 class="comloc" id="comAddress">부산 중앙대로 213</h5> -->
+                                </div>
+                            </div>
+        
+                            <!-- <div class="col8"> -->
+                            <div class="comInfo">
+                                <!-- <div class="columnA"> -->
+                                <div class="underLine">
+                                    <h5 class="title">기업정보</h5>
+                                </div>
+                                <div class="contentValue">
+                                    <div class="tableColumn"> 
+                                        <div class="type">
+                                        <!-- <div class="comname1"> -->
+                                            <!-- <h5 class="name"> -->
+                                                연혁
+                                            <!-- </h5> -->
                                         </div>
-                                    </div>
-                
-                
-                                    <!-- 컬럼 시작 -->
-                
-                
-                                    <div class="column"> 
-                
-                
-                                    <div class="col1">
-                                        <div class="columnA">
-                                            <h5 class="title">회사 소개</h5>
-                                        </div>
-                                        <div class="boerder"></div>
-                                        <div class="columnAA">
-                                            <h5 class="detail">
-                                                <!-- ${companyInfo.com_content} -->
-                                                <div class="introduce"><c:out value="${companyInfo.com_content}" /></div>
-                                            </h5>
+                                        <div class="type">
+                                        <!-- <div class="comname2"> -->
+                                            <!-- <h5 class="name" id="yearlenght"> -->
+                                                <span class="getyear"></span>(<span>${year}</span>년 설립)
+                                            <!-- </h5> -->
                                         </div>
                                     </div>
 
-                                    <div class="col2">
-                                        <div class="columnA">
-                                            <h5 class="title">기술 스택</h5>
+                                    <div class="tableColumn"> 
+                                        <div class="type">
+                                        <!-- <div class="comname1"> -->
+                                            <!-- <h5 class="name"> -->
+                                                매출액 (<span class="nowYear"></span>년)
+                                            <!-- </h5> -->
                                         </div>
-                                        <div class="boerder"></div>
-                                        <div class="columnAA">
-                                            <div class="detail" id="stack">
-                                                <!-- ${companyInfo.com_stack} -->
-                                            </div>
-                                        </div>
-                                    </div><!--col2-->
-                
-                                    <div class="col7">
-                                        <div class="columnA">
-                                            <h5 class="title">회사 위치</h5>
-                                        </div>
-                                        <div class="columnBB">
-                                            <!--지도가 들어갈 위치-->
-                                            <div id="map" style="width:100%;height:350px;"></div>
-                                            <!-- <div id="map"></div> -->
-                                            <h5 class="comloc" id="comAddress">${companyInfo.com_location}</h5>
+                                        <div class="type">
+                                        <!-- <div class="comname2"> -->
+                                            <!-- <h5 class="name" id="salay"> -->
+                                                ${companyInfo.com_sale}만원
+                                            <!-- </h5> -->
                                         </div>
                                     </div>
-                
-                                    <div class="col8">
-                                        <div class="columnA">
-                                                <h5 class="title">
-                                                    기업정보
-                                                </h5>
-                                            </div>
-                                            <div class="content">
-                                                <div class="comname1">
-                                                    <h5 class="name">
-                                                        연혁
-                                                    </h5>
-                                                </div>
-                                                <div class="comname2">
-                                                    <h5 class="name" id="yearlenght">
-                                                        <span class="getyear"></span>(<span>${year}</span>년 설립)
-                                                    </h5>
-                                                </div>
-                                                <div class="comname1">
-                                                    <h5 class="name">
-                                                        매출액 (<span class="nowYear"></span>년)
-                                                    </h5>
-                                                </div>
-                                                <div class="comname2">
-                                                    <h5 class="name" id="salay">
-                                                        ${companyInfo.com_sale}만원
-                                                    </h5>
-                                                </div>
-                                                <div class="comname1">
-                                                    <h5 class="name">
-                                                        기업유형
-                                                    </h5>
-                                                </div>
-                                                <div class="comname2">
-                                                    <h5 class="name">
-                                                        ${companyInfo.com_type} 
-                                                    </h5>
-                                                </div>
-                                                <div class="comname1">
-                                                    <h5 class="name">
-                                                        평균연봉
-                                                    </h5>
-                                                </div>
-                                                <div class="comname2">
-                                                    <h5 class="name" id="money">
-                                                        ${companyInfo.com_salary}만원
-                                                    </h5>
-                                                </div>
-                                                <div class="comname1">
-                                                    <h5 class="name">
-                                                        대표자명
-                                                    </h5>
-                                                </div>
-                                                <div class="comname2">
-                                                    <h5 class="name">
-                                                        ${companyInfo.com_CEO} 
-                                                    </h5>
-                                                </div>
-                                                <div class="comname1">
-                                                    <h5 class="name">
-                                                        홈페이지
-                                                    </h5>
-                                                </div>
-                                                <div class="comname2">
-                                                    <h5 class="name">
-                                                        ${companyInfo.com_site} 
-                                                    </h5>
-                                                </div>
-                                                <div class="comname1">
-                                                    <h5 class="name">
-                                                        가입 사원수 (인원)
-                                                    </h5>
-                                                </div>
-                                                <div class="comname2">
-                                                    <h5 class="name" id="people">
-                                                        ${companyInfo.com_employee}명 
-                                                    </h5>
-                                                </div>
-                                            </div>
-                                    </div>
-                
-                
-                
-                                </div><!-- 컬럼 끝 -->
-								<div class="modify">
-								    <input type="button" value="기업정보수정" class="commodify" onclick="location.href='companyInfoDetailUpdate'">
-								</div>
-                                </div><!-- left 끝 -->
-					
-                
-                            </div><!-- wrap 끝 -->
-                        </section><!-- section 끝 -->
-                        
-                    </div>
-                    
-                    <div class="tabCon detail">
-                        <!-- <table class="detail disB" width="1200px" height="300px"> -->
-                        <table class="detail disB">
-                            <tr>
-                                <th>기업이메일</th>
-                                <td>${companyInfo.com_email}</td>
-                            </tr>
-                            <tr>
-                                <th>사업자등록번호 </th>
-                                <!-- <td class="social_number">${companyInfo.com_serial_number}</td> -->
-                                <td class="social_number"></td>
-                            </tr>
-                            <tr>
-                                <th>이름</th>
-                                <td class="modifytext">${companyInfo.com_person}</td>
-                            </tr>
-                            <tr>
-                                <th>연락처</th>
-                                <td class="modifytext">${companyInfo.com_tel}</td>
-                            </tr>
-                            <tr>
-                                <th>비밀번호</th>
-                                <td><input type="button" value="변경하기" class="changepw" onclick="pwchange()"></td>
-                            </tr>
-                        </table>
-<!--						 table끝 -->
-                        
-                    <div class="modify">
-                        <input type="button" value="기업정보수정" class="commodify" onclick="location.href='companyInfoUpdate'">
-                    </div>
-                    </div>
 
-            </div><!-- containe끝 -->
-        </main>
+                                    <div class="tableColumn"> 
+                                        <!-- <div class="comname1"> -->
+                                        <div class="type">
+                                            <!-- <h5 class="name"> -->
+                                                기업유형
+                                            <!-- </h5> -->
+                                        </div>
+                                        <!-- <div class="comname2"> -->
+                                        <div class="type">
+                                            <!-- <h5 class="name"> -->
+                                                ${companyInfo.com_type} 
+                                                <!-- 유한회사 -->
+                                            <!-- </h5> -->
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="tableColumn"> 
+                                        <div class="type">
+                                        <!-- <div class="comname1"> -->
+                                            <!-- <h5 class="name"> -->
+                                                평균연봉
+                                            <!-- </h5> -->
+                                        </div>
+                                        <div class="type">
+                                        <!-- <div class="comname2"> -->
+                                            <!-- <h5 class="name" id="money"> -->
+                                                ${companyInfo.com_salary}만원
+                                            <!-- </h5> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="tableColumn"> 
+                                        <div class="type">
+                                        <!-- <div class="comname1"> -->
+                                            <!-- <h5 class="name"> -->
+                                                대표자명
+                                            <!-- </h5> -->
+                                        </div>
+                                        <div class="type">
+                                        <!-- <div class="comname2"> -->
+                                            <!-- <h5 class="name"> -->
+                                                <!-- ${companyInfo.com_CEO}  -->
+                                                mapSeeker 
+                                            <!-- </h5> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="tableColumn"> 
+                                        <div class="type">
+                                        <!-- <div class="comname1"> -->
+                                            <!-- <h5 class="name"> -->
+                                                홈페이지
+                                            <!-- </h5> -->
+                                        </div>
+                                        <div class="type">
+                                        <!-- <div class="comname2"> -->
+                                            <!-- <h5 class="name"> -->
+                                                ${companyInfo.com_site} 
+                                            <!-- </h5> -->
+                                        </div>
+                                    </div>
+
+                                    <div class="tableColumn"> 
+                                        <div class="type">
+                                        <!-- <div class="comname1"> -->
+                                            <!-- <h5 class="name"> -->
+                                                가입 사원수 (인원)
+                                            <!-- </h5> -->
+                                        </div>
+                                        <div class="type">
+                                        <!-- <div class="comname2"> -->
+                                            <!-- <h5 class="name" id="people"> -->
+                                                ${companyInfo.com_employee}명 
+                                            <!-- </h5> -->
+                                        </div>
+                                    </div>
+                                </div><!--contentValue 끝-->
+                            </div><!--comInfo 끝-->
+                            
+                            <div class="modify">
+                                <input type="button" value="기업정보수정" class="commodify" onclick="location.href='companyInfoDetailUpdate'">
+                            </div>
+                </div><!-- detail 끝 -->
+                            
+                <!-- </div>tabCon common -->
+
+            </div><!-- tabCon     ///containe끝 -->
+        </section>
     
     </div><!-- main-content -->
-</div>    
+</div> <!--container-->   
 <%@ include file="../footer.jsp" %>
     
 </body>
@@ -253,6 +251,28 @@
 
     $(document).ready(function () {
 
+        // // tab
+        // $(".toptitle1").on("click",function(e){
+        //     $(".detail").css({"display":"none"});
+        //     $(".common").css({"display":"block"});
+        // });
+        // $(".toptitle2").on("click",function(e){
+        //     $(".common").css({"display":"none"});
+        //     $(".detail").css({"display":"block"});
+        //     // $(".disN.wrap").css({"display":"block"});
+        // });// tab 기능
+        // tab
+        $(".toptitle1").on("click",function(e){
+        // $(".detail").css({"display":"none"});
+        // $(".common").css({"display":"block"});
+        location.href="companyMini"
+        });
+        $(".toptitle2").on("click",function(e){
+            // $(".common").css({"display":"none"});
+            // $(".detail").css({"display":"block"});
+            location.href="companyInfoManagement"
+            // $(".disN.wrap").css({"display":"block"});
+        });// tab 기능
          /*
         2024-8-06 서연주(comRegistModify 참고)
         이미지 파일 로딩//즉시실행함수
@@ -281,15 +301,18 @@
 
 
         // 업로드된 파일 목록 표시
+        // 24.08.18 하진 : dom 구조 재쌓은 후 경로 수정
         function showUploadResult(uploadResultArr) {
            
             var uploadUL = $(".uploadResult");
             var str = "";
             if (!uploadResultArr || uploadResultArr.length === 0) {
                 alert("업로드파일없음")
-                var company = $(".company");
+                // var company = $(".company");
+                // var company = $(".detail");
                 var altImg = "<img class='imgg' src='../images/companyInfo.svg' alt='#'>";
-                company.append(altImg);
+                // company.append(altImg);
+                uploadUL.append(altImg);
                 return;
             }
             var rootURL = "<%=request.getScheme()%>";
@@ -304,7 +327,8 @@
                 str += "<div style='background:url("+rootURL+"/userImageDisplay?fileName=" + fileCallPath +")'>";
                 str += "<div class='photo'>";
                 str += "<span style='display:none;'>" + obj.fileName + "</span>";
-                str += "<img src='/comDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
+                // str += "<img class='fileImage' src='/comDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
+                str += "<img class='fileImage' src='/comDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
                 str += "</div>";
             }
 
@@ -386,12 +410,7 @@
     $('.nowYear').text(nowYear);
 
 
-    // 24.08.06 하진 : 사업자 번호 출력 형식 수정 
-    let serialNumber = "${companyInfo.com_serial_number}";
-    let getFormat = serialNumber.substring(0,3) + "-" + serialNumber.substring(3,5)+"-"+serialNumber.substring(5);
-    console.log(getFormat);
-    let socialNumberElement = document.querySelector('.social_number');
-    socialNumberElement.textContent = getFormat;
+ 
 
 
     // 24.08.03 ~ 08.04 : 하진 - 지도 API 적용
@@ -428,6 +447,10 @@
     });    
 
     });//end of ready
+
+
+
+
      // 24.07.09 하진 : 비밀번호 변경 팝업 -> 외부 팝업으로 구현
      // 24.08.11 하진 : 비밀번호 변경 팝업 크기 수정
      function pwchange() {// 비밀번호 설정 외부 팝업 띄우는 코드
@@ -440,7 +463,7 @@
         }
 
         // 24.07.27 하진 : 연혁 계산 및 값이 없을 경우, 문자가 보이지 않도록 하는 로직
-        var locationC = $(".main .sub1 .locationC").val();
+        var locationC = $("#localyear").val();
         var getyear = "${companyInfo.experience_years}";
         console.log(getyear);
         console.log(locationC);

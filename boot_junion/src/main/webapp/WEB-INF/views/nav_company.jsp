@@ -218,7 +218,8 @@
 	                </a>
 	            </li>-->
 	            <li>
-	                <a href="companyInfoManagement">
+	                <!-- <a href="companyInfoManagement"> -->
+	                <a href="companyMini">
 	                    <span class="icon">
 	                        <i class="fa-regular fa-building"></i>
 	                    </span>
