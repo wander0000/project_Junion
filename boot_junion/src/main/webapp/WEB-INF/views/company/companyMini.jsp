@@ -23,162 +23,161 @@
     <!--kakao map -->
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=48ca63ceb0746787c922c8da8f33b705&libraries=services"></script>
     <style>
-        :root 
-{
-  /* 컬러 모음 */
-  --main-color:#FFA500;
-  --color-black: #111;
-  --color-white: #fff;
-  --color-gray: #787878;
-  --input-gray: #e5e5ec;
-  --button-gray: #f7f7f7;
-  --border-color-gray: #dadada;
-  --font-size32: 32px;
-  --font-size24: 24px;
-  --font-size20: 20px;
-  --font-size16: 16px;
-  --font-size14: 14px;
-  --font-size12: 12px;
-}
+    :root 
+    {
+    /* 컬러 모음 */
+    --main-color:#FFA500;
+    --color-black: #111;
+    --color-white: #fff;
+    --color-gray: #787878;
+    --input-gray: #e5e5ec;
+    --button-gray: #f7f7f7;
+    --border-color-gray: #dadada;
+    --font-size32: 32px;
+    --font-size24: 24px;
+    --font-size20: 20px;
+    --font-size16: 16px;
+    --font-size14: 14px;
+    --font-size12: 12px;
+    }
 
-/* section : 기본 틀 */
-section 
-{
-  /* display: flex;
-  justify-content: center; */
-  /* padding-top: 90px; */
-  padding: 90px 0 90px 40px;
-  /* max-width: clac(100%-240px); */
+    /* section : 기본 틀 */
+    section 
+    {
+    /* display: flex;
+    justify-content: center; */
+    /* padding-top: 90px; */
+    padding: 90px 0 90px 60px;
+    /* max-width: clac(100%-240px); */
 
-  
-}
+    
+    }
 
-/* .mainContent
-{ */
-  /* max-width:1200px; */
-  /* display: flex; */
-  /* justify-content: center; */
-  
-/* } */
-
-
-/* 헤더밑 타이틀*/
-section .toptitle
-{
-  /* font-size: var(--font-size32); */
-  text-align: left;
-  /* width: 100%; */
-  margin-bottom: 40px;
-  gap: 40px;
-  /* margin : 0 40px 20px 0;  */
-  display: flex;
-  /* margin-right: 40px; */
-} 
-
-.toptitle1, .toptitle2
-{
-  /* margin-right: 40px; */
-  font-size: var(--font-size32);
-  cursor: pointer;
-}
-/* 
-.toptitle2
-{
-  margin-right: 20px;
-  font-size: var(--font-size32);
-  cursor: pointer;
-} */
+    /* .mainContent
+    { */
+    /* max-width:1200px; */
+    /* display: flex; */
+    /* justify-content: center; */
+    
+    /* } */
 
 
-
-/* 기본 정보 */
-/* .simpleData
-{
-    border: 1px solid var(--color-gray);
-} */
- .common, .detail
- {
-    max-width: 730px;
- }
-.table
-{
-    border: 1px solid var(--color-gray);
-    border-bottom: none;
+    /* 헤더밑 타이틀*/
+    section .toptitle
+    {
+    /* font-size: var(--font-size32); */
+    text-align: left;
+    /* width: 100%; */
+    margin-bottom: 40px;
+    gap: 40px;
+    /* margin : 0 40px 20px 0;  */
     display: flex;
-    /* height: 50px; */
-    align-items: center;
-    /* max-width: 730px; */
-    /* gap: 40px; */
-}
+    /* margin-right: 40px; */
+    } 
 
-.table:first-child
-{
-    border-top: 1px solid var(--color-gray);
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-}
+    .toptitle1, .toptitle2
+    {
+    /* margin-right: 40px; */
+    font-size: var(--font-size32);
+    cursor: pointer;
+    }
+    /* 
+    .toptitle2
+    {
+    margin-right: 20px;
+    font-size: var(--font-size32);
+    cursor: pointer;
+    } */
 
-.table:last-child
-{
-    border-bottom: 1px solid var(--color-gray);
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-}
 
-.table .disTitle
-{
+
+    /* 기본 정보 */
+    /* .simpleData
+    {
+        border: 1px solid var(--color-gray);
+    } */
+    .common, .detail
+    {
+        max-width: 730px;
+    }
+    .table
+    {
+        border: 1px solid var(--color-gray);
+        border-bottom: none;
+        display: flex;
+        /* height: 50px; */
+        align-items: center;
+        /* max-width: 730px; */
+        /* gap: 40px; */
+    }
+
+    .table:first-child
+    {
+        border-top: 1px solid var(--color-gray);
+        border-top-left-radius: 6px;
+        border-top-right-radius: 6px;
+    }
+
+    .table:last-child
+    {
+        border-bottom: 1px solid var(--color-gray);
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+    }
+
+    .table .disTitle
+    {
+        height: 50px;
+        background-color: var(--button-gray);
+        width:200px;
+        display: flex;
+        align-items: center;
+        border-right: 1px solid var(--color-gray);
+        padding-left: 20px;
+    }
+
+    .table .disContnet
+    {
+        width: calc(100%-200px);
+        padding-left: 20px;
+    }
+
+    .changepw
+    {
+    border: 1px solid var(--color-gray);
+    font-size: var(--font-size14);
+    padding: 5px 20px;
+    border-radius: 6px;
+    }
+
+
+    /*기업정보수정 버튼*/
+    .modify
+    {
+    /* width: 100%; */
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+    }
+
+    .modify .commodify
+    {
+    
     height: 50px;
-    background-color: var(--button-gray);
-    width:200px;
-    display: flex;
-    align-items: center;
-    border-right: 1px solid var(--color-gray);
-    padding-left: 20px;
-}
+    border-radius: 6px;
+    border: none;
+    /* margin-top: 40px; */
+    background-color: var(--color-gray);
+    color: var(--color-white);
+    padding: 5px 20px;
+    cursor: pointer;
+    }
 
-.table .disContnet
-{
-    width: calc(100%-200px);
-    padding-left: 20px;
-}
-
-.disContnet.changepw
-{
-  border: 1px solid var(--color-gray);
-  font-size: var(--font-size14);
-  padding: 5px 20px;
-  border-radius: 6px;
-  /* cursor: pointer; */
-}
-
-
-/*기업정보수정 버튼*/
-.modify
-{
-  /* width: 100%; */
-  display: flex;
-  justify-content: center;
-  margin-top: 50px;
-}
-
-.modify .commodify
-{
-  
-  height: 50px;
-  border-radius: 6px;
-  border: none;
-  /* margin-top: 40px; */
-  background-color: var(--color-gray);
-  color: var(--color-white);
-  padding: 5px 20px;
-  cursor: pointer;
-}
-
-/*비밀번호 변경 팝업 예정*/
-.popU
-{
-    display: none;
-}
+    /*비밀번호 변경 팝업 예정*/
+    .popU
+    {
+        display: none;
+    }
 
     </style>
 </head>
@@ -272,6 +271,12 @@ section .toptitle
                     </div><!--popU-->
                     
                 </div><!--기본정보 탭 끝(common)-->
+            </div><!-- tabCon     ///containe끝 -->
+        </section>
+    
+    </div><!-- main-content -->
+</div> <!--container-->   
+<%@ include file="../footer.jsp" %>
 </body>
 <script>
 

@@ -332,11 +332,12 @@
    
             /*
                 2024-07-24 하지수 
-                유효성 검사
+                유효성 검사 사용
             */
             var requiredFields = [
                 {name: "com_name", message: "기업명을 입력해주세요."},
-                {name: "com_foundation", message: "창립일을 입력해주세요."},
+                // {name: "com_foundation", message: "창립일을 입력해주세요."},
+                {name: "com_year", message: "창립일을 입력해주세요."},
                 {name: "com_content", message: "회사 소개를 입력해주세요."},
                 {name: "com_sale", message: "매출액을 입력해주세요."},
                 {name: "com_type", message: "회사 유형을 선택해주세요."},
