@@ -277,6 +277,17 @@ display:inline-block;
 
 }
 
+.menubox .notImage
+{
+    width: 270px;
+    height: 180px;
+    /* background-image: url(../images/company.svg); */
+    background-position: center;
+    background-color: var(--button-gray);
+    border-radius: 10px;
+
+}
+
 .menubox .scrap
 {
     position: absolute;
@@ -769,6 +780,8 @@ $(document).ready(function() {
    
    function showUploadResult(uploadResultArr, uploadResultContainer){
        if (!uploadResultArr || uploadResultArr.length == 0) {
+            var tb = "<div class='notImage'>";
+            uploadResultContainer.empty().append(tb);    
            return;
        }
    
