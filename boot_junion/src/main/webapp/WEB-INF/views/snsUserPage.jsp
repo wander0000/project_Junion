@@ -701,7 +701,7 @@
 
         <script>
             $(document).ready(function () {
-                $('.delete h5').click(function () {
+                $('.option h5').click(function () {
                     const snsNum = $(this).closest('.detailBox').data('sns-num');
 
                     if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
