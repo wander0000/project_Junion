@@ -585,6 +585,7 @@ display:inline-block;
             <input type="hidden" name="pageNum" value="${paging.std.pageNum}">
             <input type="hidden" name="amount" value="${paging.std.amount}">
             <!-- hidden 값 미스매치로 페이지가 나오지 않는 오류 있었음 -->
+            <input type="hidden" name="orderType" value="${paging.std.orderType}">
             <input type="hidden" name="keyword" value="${paging.std.keyword}">
             <input type="hidden" name="careerType" value="${paging.std.careerType}">
             <input type="hidden" name="stackType" value="${paging.std.stackType}">
