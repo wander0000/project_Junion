@@ -674,6 +674,8 @@
 							userProfileLink.attr('href', 'snsCompanyPage?com_email=' + snsEmail);
 						}
 
+						followFunction();
+
 					// 	if (snsEmail == loginEmail && userType == 1) {
 					// 		$(this).find('.followbtn').hide();
 					// 	}

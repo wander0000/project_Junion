@@ -315,13 +315,13 @@ font-size: var(--color-black);
 	// 팔로우 기능
 	// BY 나성엽
 	$(document).ready(function () {
-		followFunction()
+		followFunction();
 	});
 	function followFunction(){
         $('.prof').each(function () {
             var followEmail = $(this).closest('.prof').data('user-email');
             var followUserType = $(this).closest('.prof').data('user-type');
-            var loginEmail = $(this).closest('.prof').data('login-email');
+            var loginEmail = "${login_email}";
             console.log("@# followEmail=>"+followEmail);
             console.log("@# followUserType=>"+followUserType);
             console.log("@# loginEmail=>"+loginEmail);
@@ -364,7 +364,7 @@ font-size: var(--color-black);
 			}
 
             // 버튼 클릭 시 팔로우 상태 토글 및 색상 변경
-            button.on('click', function () {
+            button.off('click').on('click', function () {
                 $.ajax({
                     url: '/follow/toggle',
                     type: 'POST',
@@ -378,7 +378,8 @@ font-size: var(--color-black);
                         button.removeClass('followed');
                         button.text('팔로우');
                     }
-					followStatus();
+					// followStatus();
+					followFunction();
                     },
                     error: function(xhr, status, error) {
                         console.error('팔로우 상태 변경 실패:', error);
