@@ -27,14 +27,16 @@
                                     <div class="bgH"></div>
                                     <div class="contentWrap">
                                         <div class="content profile">
-                                            <div class="profileInfo">
-                                                <div class="UserInfoImage">
+                                            <div class="profileInfo" data-login-email="${login_email}"
+                                            data-user-type="${userInfo.user_type}" data-user-email="${user_email}">
+                                                <div class="UserProfileImage">
                                                     <ul>
-                                                        <img src="images/people.svg" alt="#" class="img">
+                                                        <!-- <img src="images/people.svg" alt="#" class="img"> -->
                                                     </ul>
                                                 </div>
                                                 <!-- <img class="img" src="/images/1.jpg" alt=""> -->
                                                 <h3 class="name">${userInfo.user_name}</h3>
+                                                
                                                 <!-- </div> -->
                                                 <p class="intro">
                                                     <c:if test="${user_email == sessionScope.login_email}">
@@ -340,7 +342,8 @@
                                                                     <div class="rightFeedback">
                                                                         <h5 id="feedbackDate">${dto.feedback_date}</h5>
                                                                         <span class="deleteIcon">
-                                                                            <i class="fa-regular fa-trash-can fa-lg"></i>
+                                                                            <i
+                                                                                class="fa-regular fa-trash-can fa-lg"></i>
                                                                         </span>
                                                                     </div>
                                                                 </button>
@@ -1016,5 +1019,63 @@
                 uploadResultContainer.empty().append(str);
             }
 
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                // 프로필 이미지 불러옴
+                $('.profileInfo').each(function () {
+                    var user_type = $(this).data('user-type');
+                    var snsEmail = $(this).data('user-email')
+
+                    var uploadResultContainer = $(this).find('.UserProfileImage ul');
+
+                    if (user_type) {
+                        var url;
+                        var emailParam = '';
+
+                        if (user_type == 1) {
+                            url = '/getUserImageList';
+                            emailParam = { user_email: snsEmail }
+                        } else if (user_type == 2) {
+                            url = '/mainComFileList';
+                            emailParam = { com_email: snsEmail }
+                        }
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            data: emailParam, // 이메일만 데이터로 전송
+                            dataType: 'json',
+                            success: function (data) {
+                                showUploadResult(data, uploadResultContainer);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error fetching file list for email ' + email + ':', error);
+                            }
+                        });
+                    }
+                });
+            });
+            // 프로필 이미지 불러옴
+            function showUploadResult(uploadResultArr, uploadResultContainer) {
+                if (!uploadResultArr || uploadResultArr.length == 0) {
+                    return;
+                }
+
+                var str = "";
+
+                $(uploadResultArr).each(function (i, obj) {
+                    var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+                    str += "<li data-path='" + obj.uploadPath + "'";
+                    str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+                    str += "<div>";
+                    str += "<span style='display:none;'>" + obj.fileName + "</span>";
+                    str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";
+                    str += "</div></li>";
+                });
+
+                uploadResultContainer.empty().append(str);
+            }
 
         </script>

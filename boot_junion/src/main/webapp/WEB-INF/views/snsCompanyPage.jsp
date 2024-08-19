@@ -27,9 +27,16 @@
                                 <div class="bgH"></div>
                                 <div class="contentWrap">
                                     <div class="content profile">
-                                        <div class="profileInfo">
-                                            <img class="img" src="/images/n.png" alt="">
+                                        <div class="profileInfo" data-login-email="${login_email}"
+                                            data-user-type="${company.user_type}" data-user-email="${com_email}">
+                                            <div class="UserProfileImage">
+                                                <ul>
+                                                    <!-- <img class="img" src="/images/n.png" alt=""> -->
+                                                </ul>
+                                            </div>
                                             <h3 class="name">${company.com_name}</h3>
+                                            <p>User Type: ${company.user_type}</p>
+                                            <p>User Email: ${com_email}</p>
                                             <!-- <p class="com_content">${company.com_content}</p> -->
                                             <button class="following">팔로잉</button>
                                             <a href="comDetail?com_email=${com_email}" type="button"
@@ -597,4 +604,62 @@
             }
 
 
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                // 프로필 이미지 불러옴
+                $('.profileInfo').each(function () {
+                    var user_type = $(this).data('user-type');
+                    var snsEmail = $(this).data('user-email')
+
+                    var uploadResultContainer = $(this).find('.UserProfileImage ul');
+
+                    if (user_type) {
+                        var url;
+                        var emailParam = '';
+
+                        if (user_type == 1) {
+                            url = '/getUserImageList';
+                            emailParam = { user_email: snsEmail }
+                        } else if (user_type == 2) {
+                            url = '/mainComFileList';
+                            emailParam = { com_email: snsEmail }
+                        }
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            data: emailParam, // 이메일만 데이터로 전송
+                            dataType: 'json',
+                            success: function (data) {
+                                showUploadResult(data, uploadResultContainer);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error fetching file list for email ' + email + ':', error);
+                            }
+                        });
+                    }
+                });
+                // 프로필 이미지 불러옴
+                function showUploadResult(uploadResultArr, uploadResultContainer) {
+                    if (!uploadResultArr || uploadResultArr.length == 0) {
+                        return;
+                    }
+
+                    var str = "";
+
+                    $(uploadResultArr).each(function (i, obj) {
+                        var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+                        str += "<li data-path='" + obj.uploadPath + "'";
+                        str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+                        str += "<div>";
+                        str += "<span style='display:none;'>" + obj.fileName + "</span>";
+                        str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";
+                        str += "</div></li>";
+                    });
+
+                    uploadResultContainer.empty().append(str);
+                }
+            });
         </script>
