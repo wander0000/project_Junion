@@ -57,7 +57,7 @@
                                                             <!-- 글자수 제한 100 -->
                                                             <textarea name="sns_intro" rows="4"
                                                                 style="width:100%; border-radius: 5px; padding: 5px; margin-top: 20px;"
-                                                                maxlength="100">${userIntro.sns_intro}</textarea>
+                                                                minlength="10" maxlength="100">${userIntro.sns_intro}</textarea>
                                                             <div class="modifyButton">
                                                                 <button type="submit" class="postButton">수정 완료</button>
                                                                 <button type="button" id="cancelEdit"
@@ -163,7 +163,7 @@
                                                                 <div class="infoConTitle">
                                                                     ${resumeInfo.resume_portfolio_name}</div>
                                                                 <h5 class="infoConPosition">
-                                                                    <a href="https://${resumeInfo.resume_portfolio_url}"
+                                                                    <a href="${resumeInfo.resume_portfolio_url}"
                                                                         style="color:#111">${resumeInfo.resume_portfolio_url}</a>
                                                                 </h5>
                                                             </div>
