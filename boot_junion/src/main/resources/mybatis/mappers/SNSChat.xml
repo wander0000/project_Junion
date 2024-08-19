@@ -5,14 +5,45 @@
 <mapper namespace="com.boot.DAO.SNSChatDAO">
     
     <select id="selectAllRooms" resultType="com.boot.DTO.SNSRoom">
-		SELECT distinct
-			chatRoom_id,
-		    CASE 
-		        WHEN sender_id = #{senderId} THEN receiver_id
-		        ELSE sender_id
-		    END AS other_id
-		FROM chat_tb
-		WHERE sender_id = #{senderId} OR receiver_id = #{senderId};
+		WITH recent_messages AS (
+		    SELECT t1.chat_id, 
+		           t1.sender_id, 
+		           t1.receiver_id, 
+		           t1.chatRoom_id, 
+		           t1.message, 
+		           t1.timestamp
+		    FROM chat_tb t1
+		    JOIN (
+		        SELECT chatRoom_id, MAX(chat_id) AS latest_chat_id
+		        FROM chat_tb
+		        GROUP BY chatRoom_id
+		    ) t2
+		    ON t1.chatRoom_id = t2.chatRoom_id
+		    AND t1.chat_id = t2.latest_chat_id
+		),
+		related_users AS (
+		    SELECT DISTINCT
+				   chatRoom_id,
+		           CASE 
+		               WHEN sender_id = #{senderId} THEN receiver_id
+		               ELSE sender_id
+		           END AS other_id
+		    FROM chatroom_tb
+		    WHERE sender_id = #{senderId} OR receiver_id = #{senderId}
+		)
+		SELECT u.user_name,
+			   rm.chatRoom_id,
+		       rm.sender_id,
+		       rm.message,
+		       rm.timestamp
+		FROM user_tb u
+		JOIN related_users ru ON u.user_email = ru.other_id
+		JOIN recent_messages rm ON rm.chatRoom_id = ru.chatRoom_id
+		WHERE rm.chatRoom_id IN (
+		    SELECT DISTINCT chatRoom_id 
+		    FROM chatroom_tb 
+		    WHERE sender_id = #{senderId} OR receiver_id = #{senderId}
+		);
     </select>
     
     <select id="checkRooms" resultType="int">
