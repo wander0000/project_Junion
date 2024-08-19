@@ -213,10 +213,10 @@ main
                                 <div class="infoCon left">
                                     <div class="uploadResult">
                                         <ul >
+                                          <!-- <img src='images/circle-user.png' alt='#'> -->
                           
                                         </ul>
                                     </div>
-                                    <!-- <img src="images/people.svg" alt="#" class="resumeImage"> -->
                                 </div>
                                 <div class="infoCon right">
                                     <div class="userInfoTable">	
@@ -302,7 +302,7 @@ $(document).ready(function () {
 						data: { user_email: user_email },
 						dataType: 'json',
 						success: function (data) {
-							console.log("Ajax success:", data);
+							console.log("Ajax getUserImageList success:", data);
 							showUploadResult(data);
 						},
 						error: function (xhr, status, error) {
@@ -316,19 +316,22 @@ $(document).ready(function () {
 				function showUploadResult(uploadResultArr) {
 
           var uploadUL = $(".uploadResult ul");
-          // var altImg = $(".left");
+          var altImg = $(".left");
           var str = "";
           
           if (!uploadResultArr || uploadResultArr.length === 0) {//저장된 파일없으면 대체이미지 보여주기
             str += "<img src='images/circle-user.png' alt='#'>" 
-            uploadUL.append(str);
-            // altImg.append(str);
+            // uploadUL.append(str);
+            altImg.append(str);
             // $(".uploadResult").css('display', 'none');
 						return;
 					}
           
 
-					$(uploadResultArr).each(function (i, obj) {
+					// $(uploadResultArr).each(function (i, obj) {
+          if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
+            var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기
+            console.log("obj 내용:", obj);
 						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 
 						str += "<li data-path='" + obj.uploadPath + "'";
@@ -337,7 +340,8 @@ $(document).ready(function () {
 						str += "<span style='display:none;'>" + obj.fileName + "</span>";
 						str += "<img src='/userImageDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
 						str += "</div></li>";
-					});
+					// });
+          }
 
 					uploadUL.append(str);
 
