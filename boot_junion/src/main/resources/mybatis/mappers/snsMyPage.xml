@@ -33,7 +33,7 @@
 
     
 	<select id="companyInfo" resultType="com.boot.DTO.CompanyInfoDTO">
-		select com_email, com_pw, com_name, com_tel, com_person, 
+		select com_email, com_pw, com_name, com_tel, com_person, user_type,
 				com_location, com_year, com_content, com_sale, com_type, com_salary, 
 				com_CEO, com_site, com_employee , TIMESTAMPDIFF(YEAR, com_year, CURDATE()) AS experience_years 
 			from com_tb
@@ -42,7 +42,7 @@
 	
 	<select id="getUserInfo" resultType="com.boot.DTO.UserDTO">
 		SELECT
-		    user_email, user_name
+		    user_email, user_name, user_type
 		FROM 
 		    user_tb
     	WHERE
