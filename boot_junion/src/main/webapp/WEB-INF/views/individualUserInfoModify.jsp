@@ -556,7 +556,12 @@
 							alert("파일이 업로드 되었습니다.");
 							console.log(result);
 							showUploadResult(result); // 파일 업로드 결과 표시 함수 호출
-							$(".uploadDiv").css('display', 'none');
+							// $(".uploadDiv").css('display', 'none');
+						}
+						,error: function (xhr, status, error) {
+							console.error('Error: ' + error); // HTTP 상태 코드, 에러 메시지
+							console.error('Response Text: ' + xhr.responseText); // 서버가 반환한 에러 메시지
+							alert('파일 업로드 중 오류가 발생했습니다. 이미지파일 여부와 5MB이상인지 확인해주세요. '); // 사용자에게 알림
 						}
 					});
 				});
