@@ -649,7 +649,7 @@
 									<h5>\${result.sns_email}</h5>
 								</div><!--nameBox 끝-->
 								<div class="right">
-									<button type="button" class="buttonNone">
+									<button type="button" class="followbtn">
 										팔로우
 									</button>
 								</div><!--right 끝-->
@@ -665,18 +665,69 @@
 						var snsEmail = $(this).data('sns-email');
 						var userType = $(this).data('user-type');
 						var userProfileLink = $(this).find('.userProfileLink');
-						var buttonNone = $(this).find('.buttonNone');
 						var loginEmail = "<c:out value='${login_email}'/>";
 
-						if (snsEmail == loginEmail && userType == 1) {
-							buttonNone.css('display', 'none');
-						}
 
 						if (userType == 1) {
 							userProfileLink.attr('href', 'snsUserPage?user_email=' + snsEmail);
 						} else if (userType == 2) {
 							userProfileLink.attr('href', 'snsCompanyPage?com_email=' + snsEmail);
 						}
+
+						if (snsEmail == loginEmail && userType == 1) {
+							$(this).find('.followbtn').hide();
+						}
+
+						var followData = {
+							loginEmail: loginEmail,
+							followEmail: snsEmail,
+							followUserType: userType
+						};
+
+						var button = $(this).find('.followbtn');
+
+						// 페이지 로드 시 팔로우 상태 확인
+						$.ajax({
+							url: '/follow/status',
+							type: 'POST',
+							contentType: 'application/json',
+							data: JSON.stringify(followData),
+							success: function(isFollowed) {
+								if (isFollowed) {
+									button.addClass('followed');
+									button.text('팔로잉');
+								} else {
+									button.removeClass('followed');
+									button.text('팔로우');
+								}
+							},
+							error: function(xhr, status, error) {
+								console.error('팔로우 상태 확인 실패:', error);
+							}
+						});
+
+						// 버튼 클릭 시 팔로우 상태 토글 및 색상 변경
+						button.off('click').on('click', function () {
+							$.ajax({
+								url: '/follow/toggle',
+								type: 'POST',
+								contentType: 'application/json',
+								data: JSON.stringify(followData),
+								success: function(isFollowed) {
+								if (isFollowed) {
+									button.addClass('followed');
+									button.text('팔로잉');
+								} else {
+									button.removeClass('followed');
+									button.text('팔로우');
+								}
+								},
+								error: function(xhr, status, error) {
+									console.error('팔로우 상태 변경 실패:', error);
+									alert('팔로우 상태 변경 실패');
+								}
+							});
+						});
 					});
 				},
 				error: function() {
