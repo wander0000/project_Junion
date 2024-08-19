@@ -38,7 +38,7 @@
                                 data-user-email="${user.user_email}">
                                     <div class="profInfo">
                                         <div class="UserImage">
-                                            <a href="snsUserPage?user_email= + '${user.user_email}'">
+                                            <a href="snsUserPage?user_email=${user.user_email}">
                                                 <ul>
                                                     <img src="images/people.svg" alt="#" class="img">
                                                 </ul>
@@ -46,7 +46,7 @@
                                         </div>
                                         <!-- <img class="prof-img"></img> -->
                                         <div class="info">
-                                            <a href="snsUserPage?user_email= + '${user.user_email}'">
+                                            <a href="snsUserPage?user_email=${user.user_email}">
                                                 <p><h3 class="profName">${user.user_name}</h3></p>
                                                 <p class="profCareer">${user.user_email}</p>
                                                 <!-- <p class="profCareer">${user.stack_names}</p> -->
@@ -74,14 +74,14 @@
                                     data-user-email="${com.com_email}">
                                     <div class="profInfo">
                                         <div class="UserImage">
-                                            <a href="snsCompanyPage?com_email= + '${com.com_email}'">
+                                            <a href="snsCompanyPage?com_email=${com.com_email}">
                                                 <ul>
                                                     <img src="images/people.svg" alt="#" class="img">
                                                 </ul>
                                             </a>
                                         </div>
                                         <div class="info">
-                                            <a href="snsCompanyPage?com_email= + '${com.com_email}'">
+                                            <a href="snsCompanyPage?com_email=${com.com_email}">
                                                 <p><h3 class="profName">${com.com_name}</h3></p>
                                                 <p class="profCareer">${com.com_email}</p>
                                             </a>

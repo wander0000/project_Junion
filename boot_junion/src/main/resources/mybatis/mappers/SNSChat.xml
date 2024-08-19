@@ -44,7 +44,8 @@
 		    SELECT DISTINCT chatRoom_id 
 		    FROM chatroom_tb 
 		    WHERE sender_id = #{senderId} OR receiver_id = #{senderId}
-		);
+		)
+		ORDER BY timestamp desc
     </select>
     
     <select id="checkRooms" resultType="int">
