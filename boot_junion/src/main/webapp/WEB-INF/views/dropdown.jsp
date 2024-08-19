@@ -158,9 +158,20 @@
     // 개인회원 업로드된 파일 목록 표시
     function showUploadResultUser(uploadResultArr) {
         
+        
         //드랍다운 부분에 사진 보이게(사진 여러개라면  하나만 보이게)
         var uploadUL = $(".userWrapper");
         var str = "";
+
+
+        if (!uploadResultArr || uploadResultArr.length === 0) {//저장된 파일없으면 대체이미지 보여주기
+            $(".uploadResult").css('display', 'none');
+            str += "<img src='images/circle-user.png' alt='#'>" 
+            uploadUL.prepend(str);
+            // altImg.append(str);
+            // $(".uploadResult").css('display', 'none');
+						return;
+					}
 
         if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
             var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기
