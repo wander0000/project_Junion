@@ -252,6 +252,9 @@
         timestampSpan.classList.add('message-time');
         timestampSpan.textContent = currentTimestamp;
 
+        // 새로운 타임스탬프 추가
+        timestampSpan.setAttribute('data-timestamp', message.timestamp);
+
         if (message.sender_id === senderId){
             if (currentTimestamp === lastTimestamp) { // 이전 메시지와 시간이 같다면
                 var lastMessageTime = document.querySelector('.message:last-child .message-time');
@@ -282,6 +285,20 @@
         lastTimestamp = currentTimestamp; // 현재 메시지의 시간을 저장
     }
     
+
+    // 업데이트한 시간으로 바꿈
+    function updateTimes() {
+        $('.message-time').each(function() {
+            var timestamp = $(this).attr('data-timestamp');
+            if (timestamp) {
+                var newTime = timeAgo(new Date(timestamp));
+                $(this).text(newTime);
+            }
+        });
+    }
+
+    // 1초마다 시간 업데이트
+    setInterval(updateTimes, 1000);  
 
 
     // 메시지 입력 후 스크롤 맨 밑으로 이동

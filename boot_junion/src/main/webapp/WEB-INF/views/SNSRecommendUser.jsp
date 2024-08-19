@@ -33,20 +33,24 @@
                         <div class="profList">
                             <c:forEach items="${userList}" var="user">
                                 <div class="prof"
-                                    data-login-email="${login_email}"
-                                    data-user-type="${user.user_type}"
-                                    data-user-email="${user.user_email}">
+                                data-login-email="${login_email}"
+                                data-user-type="${user.user_type}"
+                                data-user-email="${user.user_email}">
                                     <div class="profInfo">
                                         <div class="UserImage">
-                                            <ul>
-                                                <img src="images/people.svg" alt="#" class="img">
-                                            </ul>
+                                            <a href="snsUserPage?user_email= + '${user.user_email}'">
+                                                <ul>
+                                                    <img src="images/people.svg" alt="#" class="img">
+                                                </ul>
+                                            </a>
                                         </div>
                                         <!-- <img class="prof-img"></img> -->
                                         <div class="info">
-                                            <p><h3 class="profName">${user.user_name}</h3></p>
-                                            <p class="profCareer">${user.user_email}</p>
-                                            <!-- <p class="profCareer">${user.stack_names}</p> -->
+                                            <a href="snsUserPage?user_email= + '${user.user_email}'">
+                                                <p><h3 class="profName">${user.user_name}</h3></p>
+                                                <p class="profCareer">${user.user_email}</p>
+                                                <!-- <p class="profCareer">${user.stack_names}</p> -->
+                                            </a>
                                         </div>
                                         <button class="followbtn">팔로우</button>
                                     </div>
@@ -70,13 +74,17 @@
                                     data-user-email="${com.com_email}">
                                     <div class="profInfo">
                                         <div class="UserImage">
-                                            <ul>
-                                                <img src="images/people.svg" alt="#" class="img">
-                                            </ul>
+                                            <a href="snsCompanyPage?com_email= + '${com.com_email}'">
+                                                <ul>
+                                                    <img src="images/people.svg" alt="#" class="img">
+                                                </ul>
+                                            </a>
                                         </div>
                                         <div class="info">
-                                            <p><h3 class="profName">${com.com_name}</h3></p>
-                                            <p class="profCareer">${com.com_email}</p>
+                                            <a href="snsCompanyPage?com_email= + '${com.com_email}'">
+                                                <p><h3 class="profName">${com.com_name}</h3></p>
+                                                <p class="profCareer">${com.com_email}</p>
+                                            </a>
                                         </div>
                                         <button class="followbtn">팔로우</button>
                                     </div>
