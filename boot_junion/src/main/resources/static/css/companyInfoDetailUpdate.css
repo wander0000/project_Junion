@@ -70,7 +70,8 @@ section
 .col1
 {
 
-	width: 720px;
+	/* width: 720px; */
+	width: 100%;
 }
 
 /*.wrap .company*/
@@ -298,6 +299,7 @@ section
     font-size: var(--font-size14);
     /* border-radius: 10px; */
     border-radius: 6px;
+    box-sizing: border-box;
 	white-space: pre-wrap;
 
 }
@@ -443,7 +445,8 @@ button.saveTech
   border: 1px solid var(--input-gray);
   border-radius: 6px;
   padding: 12px 20px;
-  margin: 6px 10px;
+  /* margin: 6px 10px; */
+  margin: 6px 10px 0 0;
   /* min-width: 120px; */
   width: initial;
   cursor: pointer;

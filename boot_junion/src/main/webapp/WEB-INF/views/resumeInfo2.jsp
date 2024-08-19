@@ -297,15 +297,27 @@
         });
 
         // 기술스택값 짤라서 뿌리기
+        // 24.08.19 하진 : 스택값이 없을 경우, tech 태그 생성 방지 및 기술.스택 부분 숨김처리 추가
         const userStack = "<c:out value='${resumeInfo.stack_name}'/>";
-        const stacks = userStack.split(',');
-        let str = "";
-        for( let i=0; i < stacks.length; i++) 
-        {
-            str += "<input type='button' class='tech' value='"+stacks[i].trim()+"'>";       
+        if(userStack){
+            const stacks = userStack.split(',');
+            let str = "";
+            for( let i=0; i < stacks.length; i++) 
+            {
+                str += "<input type='button' class='tech' value='"+stacks[i].trim()+"'>";       
+            }
+            
+            $(".Bodycon.tech").html(str);
+        }else{// 스택값이 없을 경우, 기술.스택 부분 숨김 처리
+                $(".techWrap").css("display","none");
+            }
+
+
+        var intro = "${resumeInfo.resume_intro}";
+        if(!intro){
+            $(".introduceWrap").css("display","none");
         }
-        
-        $(".Bodycon.tech").html(str);
+
 
         // 나이계산하기
         const today = new Date();
