@@ -313,12 +313,19 @@ $(document).ready(function () {
 
 				// 이미지 파일 표시
 				function showUploadResult(uploadResultArr) {
-					if (!uploadResultArr || uploadResultArr.length === 0) {
+
+          var uploadUL = $(".uploadResult ul");
+          // var altImg = $(".left");
+          var str = "";
+          
+          if (!uploadResultArr || uploadResultArr.length === 0) {//저장된 파일없으면 대체이미지 보여주기
+            str += "<img src='images/circle-user.png' alt='#'>" 
+            uploadUL.append(str);
+            // altImg.append(str);
+            // $(".uploadResult").css('display', 'none');
 						return;
 					}
-
-					var uploadUL = $(".uploadResult ul");
-					var str = "";
+          
 
 					$(uploadResultArr).each(function (i, obj) {
 						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
