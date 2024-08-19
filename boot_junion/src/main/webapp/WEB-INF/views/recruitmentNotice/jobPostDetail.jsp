@@ -537,6 +537,7 @@
 <body>
     <div class="container">
         <%@ include file="../header.jsp" %>
+		<%@ include file="../quickMenu.jsp" %>
 
 
 <!-- 섹션-->

@@ -137,7 +137,8 @@
 <!--	<div class="quickMenu">-->
 		<ul>
 			<li class="quickMenuCon">
-				<a class="menuCon" href="cardPageList">
+				<!-- <a class="menuCon" href="cardPageList"> -->
+				<a class="menuCon" href="jobPostList">
 					<span class="icon">
 						<i class="fa-regular fa-address-card"></i>
 					</span>
