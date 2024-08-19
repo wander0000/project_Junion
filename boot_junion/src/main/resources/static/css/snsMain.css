@@ -64,12 +64,12 @@
 	font-size: var(--font-size12);
 	cursor: pointer;
 	
-	&:hover 
+	/* &:hover 
 	{
 	    background: var(--main-color);
 	    color: #fff;
 		border: solid 1px var(--main-color);
-	}
+	} */
 	
 }
 
