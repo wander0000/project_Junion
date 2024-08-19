@@ -65,7 +65,7 @@
 						flex-direction: column;
 						/* justify-content:center;  */
 						overflow: hidden; /* 컨테이너 영역 밖 요소 숨김 */
-						position: relative;
+						/* position: relative; */
 					}
 
 
@@ -83,12 +83,23 @@
 						-webkit-mask-position: 50% 25%;
 						/* clip-path: circle(100px at center); */
 						overflow: hidden; /* 컨테이너 영역 밖 요소 숨김 */
-						position: relative;
+						/* position: relative; */
 					}
 
 					.userImage img::before 
 					{
 						content:"";
+					}
+
+					.uploadDiv{
+						display: flex;
+						align-items: center;
+						color: var(--color-gray);
+						height: 200px;
+						border: 1px solid #dadada;
+						width: 100%;
+						box-sizing: border-box;
+						justify-content: center;
 					}
 
 					.uploadText {
@@ -553,10 +564,10 @@
 						url: "userUploadAjaxAction",
 						processData: false,
 						contentType: false,
-						success: function (result) {
+						success: function (data) {
 							alert("파일이 업로드 되었습니다.");
-							console.log(result);
-							showUploadResult(result); // 파일 업로드 결과 표시 함수 호출
+							console.log("파일업로드 result"+data);
+							showUploadResult(data); // 파일 업로드 결과 표시 함수 호출
 							// $(".uploadDiv").css('display', 'none');
 						}
 						,error: function (xhr, status, error) {
@@ -588,7 +599,10 @@
 
 				// 업로드된 파일 목록 표시
 				function showUploadResult(uploadResultArr) {
+					console.log("showUploadResult에 넘어온 uploadResultArr"+uploadResultArr);
 					if (!uploadResultArr || uploadResultArr.length === 0) {
+						$(".uploadResult").css('display', 'none');
+						console.log("uploadResult 나타나지않게 하고 리턴");
 						return;
 					}
 					//회원정보 부분에 사진 보이게
@@ -596,7 +610,9 @@
 					var str = "";
 					var rootURL = "<%=request.getScheme()%>";
 
-					$(uploadResultArr).each(function (i, obj) {
+					$(uploadResultArr).each(function (i, obj) {//파일 여러개일때 전부 다 보여줘는
+					//if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
+					//	var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기 파일 하나만 보여주기
 						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 
 						str += "<li data-path='" + obj.uploadPath + "'";
@@ -607,6 +623,7 @@
 						str += "<img src='/userImageDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
 						str += "</div></li>";
 					});
+					//}
 
 					uploadUL.append(str);
 					$(".uploadDiv").css('display', 'none');
