@@ -53,25 +53,17 @@
 	margin-left: auto;
 }
 
-.snsMain .detailBox .userBox .right button
+/* .snsMain .detailBox .userBox .right button
 {
-	/* width: 58px;
+	width: 58px;
 	height: 30px;
 	border-radius: 6px;
 	background-color: var(--color-white);
 	border: solid 1px var(--border-color-gray);
 	color: var(--color-black);
 	font-size: var(--font-size12);
-	cursor: pointer; */
-	
-	/* &:hover 
-	{
-	    background: var(--main-color);
-	    color: #fff;
-		border: solid 1px var(--main-color);
-	} */
-	
-}
+	cursor: pointer;
+} */
 
 .snsMain .detailBox .detailContent
 {

@@ -17,6 +17,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.boot.DTO.SNSDTO;
+import com.boot.DTO.SNSRecommendUserDTO;
+import com.boot.Service.SNSRecommendUserService;
 import com.boot.Service.SNSService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -27,22 +29,23 @@ public class SNSController {
 
     @Autowired
     private SNSService snsService;
+    
+    @Autowired
+    private SNSRecommendUserService snsRecommendService;
+    
 
     @RequestMapping("/snsMain")
     public String snsMain(HttpServletRequest httpServletRequest, Model model) {
         log.info("@# snsMain");
 
         HttpSession session = httpServletRequest.getSession();
-        Object userType = session.getAttribute("login_usertype");
-        Object email = session.getAttribute("login_email");
-        
+        int userType = Integer.parseInt(String.valueOf(session.getAttribute("login_usertype")));
+        String email = (String) session.getAttribute("login_email");
 
-        // 사용자가 로그인하지 않은 경우
-        if (userType == null || email == null) {
-            // 로그인 페이지로 리디렉션
-            return "redirect:/login"; 
+        if (userType == 2) {
+            return "redirect:/snsCompanyPage?com_email="+email;
         }
-        
+
         // 로그인한 경우
         model.addAttribute("login_usertype", userType);
         model.addAttribute("login_email", email);
@@ -53,6 +56,12 @@ public class SNSController {
 
         // 모델에 SNS 목록 추가
         model.addAttribute("snsList", snsList);
+        
+        List<SNSRecommendUserDTO> userList = snsRecommendService.RecommendUserList(email);
+    	model.addAttribute("userList",userList);
+    	
+    	List<SNSRecommendUserDTO> comList = snsRecommendService.RecommendComList(email);
+    	model.addAttribute("comList",comList);
 
         return "snsMain"; // snsMain 페이지 반환
     }
