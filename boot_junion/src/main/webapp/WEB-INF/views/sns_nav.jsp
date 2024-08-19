@@ -291,6 +291,7 @@
 </html>
 <script>
     $(document).ready(function() {
+
         // 스크롤바 너비 계산
         var scrollbarWidth = window.innerWidth - document.documentElement.clientWidth;
 
@@ -368,9 +369,26 @@
 
 		var formObj = $("form[id='snsPost']");
 
-		$("input[type='submit']").on("click", function(e){
+		$("#snsPost input[type='submit']").on("click", function(e){
 			e.preventDefault();
 			console.log("submit clicked");
+
+			//유효성 검사
+			var requiredFields = [
+                {name: "sns_content", message: "내용을 입력해주세요."}
+			];
+
+			// 유효성 반복 + 포커스 이동
+            for (var i = 0; i < requiredFields.length; i++) {
+                var field = requiredFields[i];
+
+				var fieldValue = $("[name='" + field.name + "']").val().trim();
+				if (fieldValue === "") {
+					alert(field.message);
+					$("[name='" + field.name + "']").focus();
+					return;
+				}
+            } //유효성 검사 끝 --
 
 			var str="";
 
