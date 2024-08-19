@@ -566,7 +566,7 @@
 						contentType: false,
 						success: function (data) {
 							alert("파일이 업로드 되었습니다.");
-							console.log("파일업로드 result"+data);
+							console.log("Ajax userUploadAjaxAction success:", data);
 							showUploadResult(data); // 파일 업로드 결과 표시 함수 호출
 							// $(".uploadDiv").css('display', 'none');
 						}
@@ -610,9 +610,10 @@
 					var str = "";
 					var rootURL = "<%=request.getScheme()%>";
 
-					$(uploadResultArr).each(function (i, obj) {//파일 여러개일때 전부 다 보여줘는
-					//if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
-					//	var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기 파일 하나만 보여주기
+					// $(uploadResultArr).each(function (i, obj) {//파일 여러개일때 전부 다 보여줘는
+					if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
+						var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기 파일 하나만 보여주기
+						console.log("업로드 이미지 객체는 =>"+obj);
 						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 
 						str += "<li data-path='" + obj.uploadPath + "'";
@@ -622,8 +623,8 @@
 						str += "<span style='display:none;'>" + obj.fileName + "</span>";
 						str += "<img src='/userImageDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
 						str += "</div></li>";
-					});
-					//}
+					// });
+					}
 
 					uploadUL.append(str);
 					$(".uploadDiv").css('display', 'none');
