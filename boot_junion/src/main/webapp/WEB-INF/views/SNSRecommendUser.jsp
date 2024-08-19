@@ -155,7 +155,9 @@
             }
         });
 
+        /*
         // 팔로우 기능
+        // BY 나성엽
         $('.prof').each(function () {
             var followEmail = $(this).closest('.prof').data('user-email');
             var followUserType = $(this).closest('.prof').data('user-type');
@@ -216,6 +218,7 @@
                 });
             });
         });
+        */
     });
 
     // 프로필 이미지 불러옴

@@ -252,4 +252,112 @@ font-size: var(--color-black);
 			uploadResultContainer.empty().append(str);
 		}
 	})
+
+// ----------------------------------------------- 나성엽 -----------------------------------------
+
+	// 채팅 입력시간 계산하는 메소드
+    // BY 나성엽
+    function timeAgo(date) {
+        const MINUTE = 60;
+        const HOUR = MINUTE * 60;
+        const DAY = HOUR * 24;
+        const WEEK = DAY * 7;
+        const MONTH = DAY * 30;
+        const YEAR = DAY * 365;
+
+        const seconds = Math.floor((new Date() - date) / 1000);
+        let interval = seconds / YEAR;
+
+        if (interval > 1) {
+            return Math.floor(interval) + "년 전";
+        }
+        interval = seconds / MONTH;
+        if (interval > 1) {
+            return Math.floor(interval) + "개월 전";
+        }
+        interval = seconds / WEEK;
+        if (interval > 1) {
+            return Math.floor(interval) + "주 전";
+        }
+        interval = seconds / DAY;
+        if (interval > 1) {
+            return Math.floor(interval) + "일 전";
+        }
+        interval = seconds / HOUR;
+        if (interval > 1) {
+            return Math.floor(interval) + "시간 전";
+        }
+        interval = seconds / MINUTE;
+        if (interval > 1) {
+            return Math.floor(interval) + "분 전";
+        }
+        return "방금";
+    }
+
+	// 팔로우 기능
+	// BY 나성엽
+	$(document).ready(function () {  
+        $('.prof').each(function () {
+            var followEmail = $(this).closest('.prof').data('user-email');
+            var followUserType = $(this).closest('.prof').data('user-type');
+            var loginEmail = $(this).closest('.prof').data('login-email');
+            console.log("@# followEmail=>"+followEmail);
+            console.log("@# followUserType=>"+followUserType);
+            console.log("@# loginEmail=>"+loginEmail);
+            
+            var followData = {
+                loginEmail: loginEmail,
+                followEmail: followEmail,
+                followUserType: followUserType
+            };
+            console.log("@# followData=>"+JSON.stringify(followData));
+
+            var button = $(this).find('.followbtn');
+
+            // 페이지 로드 시 팔로우 상태 확인
+            $.ajax({
+                url: '/follow/status',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(followData),
+                success: function(isFollowed) {
+                    if (isFollowed) {
+                        button.addClass('followed');
+                        button.text('팔로잉');
+                    } else {
+                        button.removeClass('followed');
+                        button.text('팔로우');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('팔로우 상태 확인 실패:', error);
+                }
+            });
+
+            // 버튼 클릭 시 팔로우 상태 토글 및 색상 변경
+            button.on('click', function () {
+                $.ajax({
+                    url: '/follow/toggle',
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(followData),
+                    success: function(isFollowed) {
+                    if (isFollowed) {
+                        button.addClass('followed');
+                        button.text('팔로잉');
+                    } else {
+                        button.removeClass('followed');
+                        button.text('팔로우');
+                    }
+                    },
+                    error: function(xhr, status, error) {
+                        console.error('팔로우 상태 변경 실패:', error);
+                        alert('팔로우 상태 변경 실패');
+                    }
+                });
+            });
+        });
+    });
+
+// ----------------------------------------------- 나성엽 끝 -----------------------------------------
 </script>

@@ -25,6 +25,10 @@
 	z-index: 10;
 }
 
+a:visited {
+	color : black;
+}
+
 /* 네비게이션 */
 .navigation
 {
