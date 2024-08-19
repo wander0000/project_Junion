@@ -18,6 +18,7 @@
 <!--		where ut.user_email = #{user_email}-->
 <!--    </select>-->
     
+<!--    이력서 정보-->
     <select id="resumeInfo" resultType="com.boot.DTO.ResumeDTO">
 	    SELECT rt.resume_num, ut.user_email, rt.resume_title, rt.resume_comName, rt.resume_comPart,
 	           TIMESTAMPDIFF(YEAR, rt.career_start, rt.career_end) AS career_years,
@@ -31,7 +32,7 @@
 	    WHERE ut.user_email = #{user_email}
 	</select>
 
-    
+<!--    기업 정보-->
 	<select id="companyInfo" resultType="com.boot.DTO.CompanyInfoDTO">
 		select com_email, com_pw, com_name, com_tel, com_person, user_type,
 				com_location, com_year, com_content, com_sale, com_type, com_salary, 
@@ -40,6 +41,7 @@
 			where com_email = #{com_email}
     </select>
 	
+<!--	개인 정보-->
 	<select id="getUserInfo" resultType="com.boot.DTO.UserDTO">
 		SELECT
 		    user_email, user_name, user_type
@@ -49,6 +51,7 @@
 		    user_email = #{user_email}
     </select>
     	
+<!--    sns 자기소개-->
     <select id="getSNSIntro" resultType="com.boot.DTO.SNSIntroDTO">
     	select user_email, sns_intro
     	from sns_intro_tb 
@@ -63,6 +66,7 @@
 		sns_intro = VALUES(sns_intro);
     </update>
 
+<!--	개인 선호 스택-->
 	<select id="getSNSStack" resultType="com.boot.DTO.SNSIntroDTO">
 		SELECT ut.user_email, us.stack_name
 			from user_tb ut
@@ -71,6 +75,7 @@
 		    where ut.user_email = #{user_email}
     </select>
 	
+<!--	개인 선호 직무-->
 	<select id="getSNSJob" resultType="com.boot.DTO.SNSIntroDTO">
 	    SELECT ut.user_email, uj.job_name
 			from user_tb ut
@@ -79,11 +84,13 @@
 		    where ut.user_email = #{user_email}
     </select>
     
+<!--    개인 이미지 불러오기-->
     <select id="getUserImage" resultType="com.boot.DTO.UserImageUploadDTO">
 		uuid, uploadPath, fileName, image, user_email
 			from user_attach where user_email=#{user_email}
     </select>
 	
+<!--	게시글 삭제-->
    <delete id="deletePost"> <!-- 글 삭제 버튼-->
 		delete st, sct, slt, sa
 			from sns_tb st
@@ -93,12 +100,13 @@
 			where st.sns_num = #{sns_num}
     </delete>
     
-    
+<!--    피드백 작성-->
     <insert id="writeFeedback">
         insert into sns_feedback_tb(login_email, user_type, resume_num, feedback_content, feedback_date)
 			values(#{login_email}, #{user_type}, #{resume_num}, #{feedback_content}, #{feedback_date})        
     </insert>
     
+<!--    피드백 불러오기-->
     <select id="getFeedback" resultType="com.boot.DTO.SNSFeedbackDTO">
 		select sft.login_email, ut.user_name, sft.user_type, sft.resume_num, sft.feedback_content, sft.feedback_date 
 			from sns_feedback_tb sft
@@ -107,15 +115,17 @@
 			where sft.resume_num = #{resume_num}
     </select>
     
-	
-   <delete id="deleteFeedback"> <!-- 글 삭제 버튼-->
-		delete 
-			from sns_feedback_tb
-			where login_email = #{login_email} 
-			  and resume_num = #{resume_num}
-    </delete>
+<!--	피드백 삭제?-->
+<!--   <delete id="deleteFeedback">  글 삭제 버튼-->
+<!--		delete -->
+<!--			from sns_feedback_tb-->
+<!--			where login_email = #{login_email} -->
+<!--			  and resume_num = #{resume_num}-->
+<!--    </delete>-->
     
+<!--    팔로우수 카운트-->
     <select id="followCount" resultType="com.boot.DTO.SNSFollowDTO">
 		select count(*) as followCount from sns_follow_tb where follow_email = #{follow_email}
     </select>
+    
 </mapper>
