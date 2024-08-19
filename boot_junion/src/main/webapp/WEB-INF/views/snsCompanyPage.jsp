@@ -35,8 +35,8 @@
                                                 </ul>
                                             </div>
                                             <h3 class="name">${company.com_name}</h3>
-                                            <p>User Type: ${company.user_type}</p>
-                                            <p>User Email: ${com_email}</p>
+                                            <!-- <p>User Type: ${company.user_type}</p>
+                                            <p>User Email: ${com_email}</p> -->
                                             <!-- <p class="com_content">${company.com_content}</p> -->
                                             <button class="following">팔로잉</button>
                                             <a href="comDetail?com_email=${com_email}" type="button"
@@ -282,16 +282,16 @@
             $(document).ready(function () {
 
                 // 각 detailBox 내에서 .option 활성화
-                // $('span.icon').click(function () {
+                $('span.icon').click(function () {
                 // 현재 아이콘의 가장 가까운 .detailBox를 찾고 그 안의 .option을 활성화
-                //     $(this).closest('.detailBox').find('.option').addClass('active');
-                // });
+                    $(this).closest('.detailBox').find('.option').addClass('active');
+                });
 
                 // .option의 h5 클릭 시, 해당 .option을 비활성화
-                // $('.option h5').click(function () {
+                $('.option h5').click(function () {
                 // 클릭된 h5의 부모 .option을 비활성화
-                //     $(this).closest('.option').removeClass('active');
-                // });
+                    $(this).closest('.option').removeClass('active');
+                });
 
                 // '작성하기' 버튼 클릭 시 모달 열기
                 $('.writing').on('click', function (event) {
@@ -603,6 +603,30 @@
                 uploadResultContainer.empty().append(str);
             }
 
+
+        </script>
+
+        <script>
+            $(document).ready(function () {
+                $('.option h5').click(function () {
+                    const snsNum = $(this).closest('.detailBox').data('sns-num');
+
+                    if (confirm('정말로 이 게시글을 삭제하시겠습니까?')) {
+                        $.ajax({
+                            url: '/deletePost', // 서버에서 처리할 URL
+                            type: 'POST',
+                            data: { sns_num: snsNum },
+                            success: function (response) {
+                                alert('게시글이 삭제되었습니다.');
+                                location.reload(); // 페이지 새로고침
+                            },
+                            error: function (xhr, status, error) {
+                                alert('게시글 삭제에 실패했습니다.');
+                            }
+                        });
+                    }
+                });
+            });
 
         </script>
 
