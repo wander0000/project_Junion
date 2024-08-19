@@ -32,7 +32,7 @@
                     <div id="personal" class="form-box active">
                         <div class="profList">
                             <c:forEach items="${userList}" var="user">
-                                <div class="prof"
+                                <div class="prof profBox"
                                 data-login-email="${login_email}"
                                 data-user-type="${user.user_type}"
                                 data-user-email="${user.user_email}">
@@ -68,7 +68,7 @@
                     <div id="corporate" class="form-box">
                         <div class="profList">
                             <c:forEach items="${comList}" var="com">
-                                <div class="prof"
+                                <div class="prof profBox"
                                     data-login-email="${login_email}"
                                     data-user-type="${com.user_type}"
                                     data-user-email="${com.com_email}">
