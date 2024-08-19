@@ -41,12 +41,7 @@
     --font-size12: 12px;
     }
 
-
-    .tabCon
-    {
-    width: 1200px;
-    }
-
+    
     /* section : 기본 틀 */
     section 
     {
@@ -54,6 +49,11 @@
     justify-content: center;
     padding-top: 50px;  
 
+    }
+
+    .tabCon
+    {
+    width: 1200px;
     }
 
     /* 헤더밑 타이틀*/
@@ -181,6 +181,7 @@
 <body>
 <div class="container">
 	<%@ include file="../nav_company.jsp" %>
+    <%@ include file="../quickMenu.jsp" %>
 	
 <!--	${companyInfo}-->
     <div class="mainContent">

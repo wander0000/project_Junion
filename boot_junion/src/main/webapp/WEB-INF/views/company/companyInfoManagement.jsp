@@ -27,6 +27,7 @@
 <body>
 <div class="container">
 	<%@ include file="../nav_company.jsp" %>
+    <%@ include file="../quickMenu.jsp" %>
 	
 <!--	${companyInfo}-->
     <div class="mainContent">

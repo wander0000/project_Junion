@@ -28,6 +28,7 @@
 
 <div class="container">
 	<%@ include file="nav_company.jsp" %>
+	<%@ include file="quickMenu.jsp" %>
     
     <div class="mainContent">
         <header>

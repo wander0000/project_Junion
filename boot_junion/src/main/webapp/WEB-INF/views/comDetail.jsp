@@ -544,6 +544,7 @@ font-weight: 200; */
 
 <body>
 	<%@ include file="header.jsp" %>
+	<%@ include file="quickMenu.jsp" %>
 
 	
 <!-- 섹션-->

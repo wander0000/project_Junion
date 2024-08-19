@@ -37,6 +37,7 @@
     <!-- <section style="padding-top: 90px;">     -->
     <main>
         <%@ include file="../header.jsp" %>
+        <%@ include file="../quickMenu.jsp" %>
         <section>    
         <!-- <section>     -->
                   
@@ -562,19 +563,21 @@
             var today = now.toISOString().substring(0,10);
             document.getElementById("Date").setAttribute("max", today);
         
-            $("span").text(now.getFullYear());
+            // $("span").text(now.getFullYear());
+            $(".nowYear").text(now.getFullYear());
         
+        
+
+                    
+            // 24.07.24 하진
+            // 지도
         
             var mapContainer = document.getElementById('map'), // 지도를 표시할 div
                 mapOption = {
                     center: new daum.maps.LatLng(37.537187, 127.005476), // 지도의 중심좌표
                     level: 5 // 지도의 확대 레벨(크기가 클수록 상세 확대창을 보여줌)
                 };
-        
-        
-            // 24.07.24 하진
-            // 지도
-        
+
             //지도를 미리 생성
             var map = new daum.maps.Map(mapContainer, mapOption);
             //주소-좌표 변환 객체를 생성
@@ -586,10 +589,10 @@
             });
         
         
-            $(".maptext").click(function () {
+            $(".maptext").click(function () {//주소 input 창 클릭시 주소 검색 버튼 클릭 로직
                 $("#searchComAdress").click();
-
             })
+
             function sample5_execDaumPostcode() {
                 new daum.Postcode({
                     oncomplete: function(data) {
@@ -601,10 +604,9 @@
                         // 주소로 상세 정보를 검색
                         geocoder.addressSearch(data.address, function(results, status) {
                             // 정상적으로 검색이 완료됐으면
+                            
                             if (status === daum.maps.services.Status.OK) {
-        
                                 var result = results[0]; //첫번째 결과의 값을 활용
-        
                                 // 해당 주소에 대한 좌표를 받아서
                                 var coords = new daum.maps.LatLng(result.y, result.x);
                                 // 지도를 보여준다.
