@@ -336,25 +336,29 @@ font-size: var(--color-black);
 
             var button = $(this).find('.followbtn');
 
+			followStatus();
+
             // 페이지 로드 시 팔로우 상태 확인
-            $.ajax({
-                url: '/follow/status',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(followData),
-                success: function(isFollowed) {
-                    if (isFollowed) {
-                        button.addClass('followed');
-                        button.text('팔로잉');
-                    } else {
-                        button.removeClass('followed');
-                        button.text('팔로우');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('팔로우 상태 확인 실패:', error);
-                }
-            });
+			function followStatus() {
+				$.ajax({
+					url: '/follow/status',
+					type: 'POST',
+					contentType: 'application/json',
+					data: JSON.stringify(followData),
+					success: function(isFollowed) {
+						if (isFollowed) {
+							button.addClass('followed');
+							button.text('팔로잉');
+						} else {
+							button.removeClass('followed');
+							button.text('팔로우');
+						}
+					},
+					error: function(xhr, status, error) {
+						console.error('팔로우 상태 확인 실패:', error);
+					}
+				});
+			}
 
             // 버튼 클릭 시 팔로우 상태 토글 및 색상 변경
             button.on('click', function () {
@@ -371,6 +375,7 @@ font-size: var(--color-black);
                         button.removeClass('followed');
                         button.text('팔로우');
                     }
+					followStatus();
                     },
                     error: function(xhr, status, error) {
                         console.error('팔로우 상태 변경 실패:', error);

@@ -222,9 +222,9 @@
 				</div> <!--chatTitleBox 끝-->
 				<div class="chatContentBox">
 
-					<div class="chatName">
+					<!-- <div class="chatName">
 						<h5>대화상대</h5>
-					</div>
+					</div> -->
 
 					<!-- <c:forEach var="room" items="${rooms}"> -->
 						<!-- <div class="chatContent">
@@ -746,7 +746,7 @@
 		var loginEmail = "${login_email}"; // JSP에서 로그인 이메일을 가져옴
 		console.log("@# loginEmail=>"+loginEmail);
 		
-		// loadChatList();
+		loadChatList();
 
 		var socket = new SockJS('/ws');
 		var stompClient = Stomp.over(socket);
@@ -773,7 +773,7 @@
 			});
 		});
 
-		// 주기적으로 시간을 업데이트하는 함수
+		// 업데이트한 시간으로 바꿈
 		function updateChatTimes() {
 			$('.chatTime').each(function() {
 				var timestamp = $(this).attr('data-timestamp');
@@ -783,10 +783,10 @@
 			});
 		}
 
-		// 1분마다 시간을 업데이트
-		setInterval(updateChatTimes, 60000);
+		// 1초마다 시간을 업데이트
+		setInterval(updateChatTimes, 1000);
 
-		// function loadChatList() { // 굳이 필요 없어짐
+		function loadChatList() { 
 			$.ajax({
 				url: "/api/rooms",
 				type: "GET",
@@ -795,6 +795,13 @@
 					// 가져온 데이터를 JSP에 동적으로 렌더링
 					var chatContentBox = $(".chatContentBox");
 					chatContentBox.empty(); // 기존 채팅 목록을 비움
+
+					var chatName = `
+						<div class="chatName">
+							<h5>대화상대</h5>
+						</div>
+					`;
+					chatContentBox.append(chatName);
 
 					rooms.forEach(function(room) {
 						var chatContent = `
@@ -847,7 +854,7 @@
 					console.log("Error fetching chat rooms: ", error);
 				}
 			});
-		// }
+		}
     });
 
 	// 프로필 이미지 불러옴
