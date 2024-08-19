@@ -37,7 +37,7 @@
                                             <h3 class="name">${company.com_name}</h3>
                                             <c:if test="${com_email != sessionScope.login_email}">
                                                 <button type="button" class="followbtn"
-                                                    style="width: 80px; height: 34px; color: #111; margin-block: auto; margin-bottom: 20px;">팔로우</button>
+                                                    style="width: 80px; height: 34px; margin-block: auto; margin-bottom: 20px;">팔로우</button>
                                             </c:if>
                                             <a href="comDetail?com_email=${com_email}" type="button"
                                                 class="detailPage">상세
