@@ -139,13 +139,13 @@ public class JoinController {
 		String arr [] = job_name.split(",");
 		for(int i = 0; i<arr.length; i++) 
 		{
-			joinService.insertJob(user_email, arr[i]); 
+			joinService.insertJob(arr[i], user_email ); 
 		}
 		
 		String arr2 [] = stack_name.split(",");
 		for(int i = 0; i<arr2.length; i++) 
 		{
-			joinService.insertStack(user_email, arr2[i]); 
+			joinService.insertStack(arr2[i],user_email); 
 		}		     
 		
 		return "redirect:login";

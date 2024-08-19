@@ -74,8 +74,10 @@ public class DailyCSController {
 			String session_email = (String)session.getAttribute("login_email");
 			model.addAttribute("session_email",session_email);
 			
-			ArrayList<DailyCSDTO> list = dailyCSService.questionList(cri3);		
-			model.addAttribute("list", list);		
+			ArrayList<DailyCSDTO> list = dailyCSService.questionList(cri3);	
+			log.info("dailyCSList list====>"+list);
+			model.addAttribute("list", list);	
+			
 		
 			int total = dailyCSService.dailyCSGetTotalCount();
 			model.addAttribute("pageMaker", new DailyCSPageDTO(total,cri3));
@@ -88,10 +90,16 @@ public class DailyCSController {
 	}
 	
 	@PostMapping("/searchTab")
-	public String searchTab(dailyCSCriteria cri3, Model model, @RequestParam("cs_type") String cs_type) 
+	public String searchTab(dailyCSCriteria cri3, Model model, @RequestParam("cs_type") String cs_type, HttpServletRequest request) 
 	{			
-//		ArrayList<DailyCSDTO> list = dailyCSService.searchTab(cs_type,cri3);	
+//		ArrayList<DailyCSDTO> list = dailyCSService.searchTab(cs_type,cri3);
+		HttpSession session = request.getSession();
+		String session_email = (String)session.getAttribute("login_email");
+		
+		model.addAttribute("session_email",session_email);
+		
 		ArrayList<DailyCSDTO> list = dailyCSService.searchTab(cri3);	
+		log.info("searchTab list====>"+list);
 		log.info("searchTab cs_type====>"+cs_type);
 		model.addAttribute("list", list);		
 		model.addAttribute("cs_type", cs_type);		
@@ -103,6 +111,7 @@ public class DailyCSController {
 		
 		return "dailyCS";
 	}
+	
 	
 	
 	
