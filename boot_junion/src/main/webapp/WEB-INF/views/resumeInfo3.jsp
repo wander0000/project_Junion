@@ -21,7 +21,8 @@
 </head>
 <body>
 	<div class="container">
-		<%@ include file="header.jsp" %>		 
+		<%@ include file="header.jsp" %>
+        <%@ include file="quickMenu.jsp" %>		 
 		<section>
             <div class="sectionInner">
 				<div class="infoWrap">
@@ -160,7 +161,7 @@
                     <h3 class="sectionTitle introduce">자기소개서</h3>
                     <div class="sectionConBody introduce">
                         <div class="Bodycon introduce">                            
-                            <h5 style="text-wrap: wrap; max-width: 100%; width: 100%;">${resumeInfo.resume_intro}</h5>
+                            <h5 style="text-wrap: wrap; max-width: 100%; width: 100%; line-height: 30px;">${resumeInfo.resume_intro}</h5>
                         </div>                        
         			</div> <!-- sectionConBody 끝 -->
             	</div> <!-- introduceWrap 끝 -->

@@ -38,6 +38,14 @@
   --font-size12: 12px;
 }
 
+
+    main
+    {
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;  
+    }
+
 /* section : 기본 틀 */
 /* section  */
 .containe 
@@ -45,8 +53,12 @@
   /* display: flex;
   justify-content: center; */
   /* padding-top: 90px; */
-  padding: 90px 0 90px 60px;
+  /* padding: 90px 0 90px 60px; */
   /* max-width: clac(100%-240px); */
+  /* display: flex; */
+    /* justify-content: center; */
+    /* padding-top: 50px; */
+    width: 1200px;  
 
   
 }
@@ -54,17 +66,24 @@
 /* 헤더밑 타이틀*/
 .containe .toptitle
 {
-  text-align: left;
+  /* text-align: left;
   margin-bottom: 40px;
   gap: 40px;
-  display: flex;
+  display: flex; */
+    width: 100%;
+    margin-bottom: 40px;
+    gap: 40px;
+    /* margin : 0 40px 20px 0;  */
+    display: flex;
 } 
 
 .toptitle1
 {
   /* margin-right: 40px; */
   font-size: var(--font-size32);
-  cursor: pointer;
+font-weight: 600;
+cursor: pointer;
+text-align: left;
 }
 
 
@@ -74,33 +93,34 @@
 {
     border: 1px solid var(--color-gray);
 } */
- .common, .detail
+ /* .common, .detail
  {
     max-width: 730px;
- }
+ } */
 .table
 {
-    border: 1px solid var(--color-gray);
+    border: 1px solid var(--input-gray);
     border-bottom: none;
     display: flex;
     /* height: 50px; */
     align-items: center;
+    width: 100%;
     /* max-width: 730px; */
     /* gap: 40px; */
 }
 
 .table:first-child
 {
-    border-top: 1px solid var(--color-gray);
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
+    border-top: 1px solid var(--input-gray);
+    border-top-left-radius: 8px;
+    border-top-right-radius: 8px;
 }
 
 .table:last-child
 {
-    border-bottom: 1px solid var(--color-gray);
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
+    border-bottom: 1px solid var(--input-gray);
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 .table .disTitle
@@ -110,7 +130,7 @@
     width:200px;
     display: flex;
     align-items: center;
-    border-right: 1px solid var(--color-gray);
+    border-right: 1px solid var(--input-gray);
     padding-left: 20px;
 }
 
@@ -124,13 +144,15 @@
 {
   height: 50px;
   /* width: 100%; */
-  width: 485px;
+  /* width: 485px; */
+  width: 980px;
+  box-sizing: border-box;
   padding-left: 20px;
 }
 
 .disContnet.changepw
 {
-  border: 1px solid var(--color-gray);
+  border: 1px solid var(--input-gray);
   font-size: var(--font-size14);
   padding: 5px 20px;
   border-radius: 6px;
@@ -164,6 +186,7 @@
 <body>
     <div class="container">
         <%@ include file="../nav_company.jsp" %>
+        <%@ include file="../quickMenu.jsp" %>
         <div class="mainContent">
             <header>
                 <%@ include file="../dropdown.jsp" %>

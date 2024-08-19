@@ -22,6 +22,7 @@
 <body>
 	<div class="container">
 		<%@ include file="header.jsp" %>
+		<%@ include file="quickMenu.jsp" %>
 			<main>
             <div class="mainInner">
                 <!-- <form id="registUpload" method="post" action="registerNotice" class="post" name="notice"> -->

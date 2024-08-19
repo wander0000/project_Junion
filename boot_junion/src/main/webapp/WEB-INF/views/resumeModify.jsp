@@ -23,6 +23,7 @@
 <body>
 	<div class="container">
 		<%@ include file="header.jsp" %>
+		<%@ include file="quickMenu.jsp" %>
 		
 		<section>			
             <div class="sectionInner">

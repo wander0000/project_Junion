@@ -278,6 +278,7 @@
 		<body>
 			<div class="container">
 				<%@ include file="nav_individual.jsp" %>
+				<%@ include file="quickMenu.jsp" %>
 					<div class="mainContent">
 						<header>
 							<%@ include file="dropdown.jsp" %>

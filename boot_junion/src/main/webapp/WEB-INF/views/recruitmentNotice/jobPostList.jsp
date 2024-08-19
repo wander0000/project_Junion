@@ -151,6 +151,7 @@ section
 {
     background: var(--main-color);
     color: var(--color-white);
+    border: 1px soild var(--main-color);
 }
 
 
@@ -375,6 +376,7 @@ display:inline-block;
 <body>
 <div class="container">
     <%@ include file="../header.jsp" %>
+    <%@ include file="../quickMenu.jsp" %>
 </div>
 
 
