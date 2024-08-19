@@ -113,6 +113,8 @@ public class JoinServiceImpl implements JoinService{
 	public void insertJob(String job_name, String user_email) {
 //	public void insertJob(HashMap<String, String> param) {
 		JoinDAO dao = sqlSession.getMapper(JoinDAO.class);
+		log.info("@#@# ServiceImpl job_name======>"+job_name);
+		log.info("@#@# ServiceImpl user_email======>"+user_email);
 		dao.insertJob(job_name, user_email);		
 //		dao.insertJob(param);		
 	}

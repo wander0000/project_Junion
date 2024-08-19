@@ -1,5 +1,6 @@
 package com.boot.Controller;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -217,6 +218,9 @@ public class ResumeController {
 		
 		UserDTO dtos = resumeService.userInfo(login_email);
 		model.addAttribute("userInfo",dtos);
+		
+		String[] stackNames = dto.getStack_name().split(",");
+		model.addAttribute("stackNameList", Arrays.asList(stackNames));
 		
 		return "resumeModify";
 	}

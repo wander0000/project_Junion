@@ -291,8 +291,7 @@ section
 	                
 <!--	                <form method="post" action="joinIndividualTwoOK">-->
 	                <form method="post" action="insertTwo">
-						<input type="hidden" name="user_email" value="${user_email}">		
-						${user_email}			
+						<input type="hidden" name="user_email" value="${user_email}">								
 	                    <div>
 	                        <div class="inputName">희망직무</div>
 	                        <input type="text" class="wishJob" id="wishJob" name="job_name" placeholder="희망직무를 선택해 주세요" readonly>

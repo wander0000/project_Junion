@@ -221,12 +221,19 @@
 	                    </div>                    
 	                    <div class="sectionConBody tech">
 	                        <div class="Bodycon tech">
-								<input type="hidden" class="techValue" id="techValue" name="stack_name" value="${resumeInfo.stack_name}"> <!-- resume_stack value 저장장소-->
+								<input type="text" class="techValue" id="techValue" name="stack_name" value="${resumeInfo.stack_name}"> <!-- resume_stack value 저장장소-->
 	                            <div class="techCon">
 	                                <div class="buttonTitle">기술</div>
 	                                <div class="buttonWrap">	                                    
 										<c:forEach var="dto" items="${stack_name}">
-											<input type="button" class="tech <c:if test='${fn:contains(resumeInfo.stack_name, dto.stack_name)}'> active</c:if>" name="stack_name" value="${dto.stack_name}">
+										    <c:choose>
+										        <c:when test="${stackNameList.contains(dto.stack_name)}">
+										            <input type="button" class="tech active" name="stack_name" value="${dto.stack_name}">
+										        </c:when>
+										        <c:otherwise>
+										            <input type="button" class="tech" name="stack_name" value="${dto.stack_name}">
+										        </c:otherwise>
+										    </c:choose>
 										</c:forEach>
 	                                </div>
 	                            </div>    
