@@ -267,16 +267,15 @@ public class ResumeController {
 			});
 		}// 파일 수정 if문 끝
 		
-		resumeService.resumeModify(dto);//이력서 수정
+//		resumeService.resumeModify(dto);//이력서 수정
+		resumeService.resumeModify(param);//이력서 수정
 		
 		int resume_num = resumeDTO.getResume_num();
 		
-		log.info("@# resume resumeDTO  resume_num==>>" + resume_num);
-		
+		log.info("@# resume resumeDTO  resume_num==>>" + resume_num);		
 		String arr3 [] = stack_name.split(",");
 		
-		log.info("@# resume resumeDTO  arr3==>>" + arr3);
-		
+		log.info("@# resume resumeDTO  arr3==>>" + arr3);		
 		resumeService.deleteResumeStack(String.valueOf(resume_num));
 		
 		for(int i = 0; i<arr3.length; i++) 
