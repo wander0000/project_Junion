@@ -55,14 +55,14 @@
 
 .snsMain .detailBox .userBox .right button
 {
-	width: 58px;
+	/* width: 58px;
 	height: 30px;
 	border-radius: 6px;
 	background-color: var(--color-white);
 	border: solid 1px var(--border-color-gray);
 	color: var(--color-black);
 	font-size: var(--font-size12);
-	cursor: pointer;
+	cursor: pointer; */
 	
 	/* &:hover 
 	{
@@ -251,7 +251,7 @@
 	margin-left: auto;
 }
 
-.snsMain .rightCon .userBox .right button
+/* .snsMain .rightCon .userBox .right button
 {
 	width: 58px;
 	height: 30px;
@@ -261,7 +261,7 @@
 	color: var(--color-white);
 	font-size: var(--font-size12);
 	cursor: pointer;
-}
+} */
 
 .snsMain .rightCon .more
 {
@@ -314,7 +314,7 @@
 	margin-left: auto;
 }
 
-.popupDetail .detailBox .userBox .right button
+/* .popupDetail .detailBox .userBox .right button
 {
 	width: 58px;
 	height: 30px;
@@ -324,7 +324,7 @@
 	color: var(--color-black);
 	font-size: var(--font-size12);
 	cursor: pointer;
-}
+} */
 
 .popupDetail .detailContent
 {

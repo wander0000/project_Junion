@@ -38,7 +38,8 @@
                             data-sns-date="${dto.sns_date}"
                             data-user-type="${dto.user_type}"
                             data-user-email="${dto.login_email}"
-                            data-login-email="${login_email}">
+                            data-login-email="${login_email}"
+                            >
                             <div class="userBox">
                                 <div class="left">
                                     <div class="UserImage">
@@ -84,7 +85,7 @@
                                 <span class="commentIcon">
                                     <i class="fa-regular fa-comment"></i>
                                 </span>
-                                <h5 class="datete">${dto.sns_date}</h5>
+                                <h5 class="datete" id="timeAgoText_${dto.sns_num}"></h5>
                             </div> <!--iconBox 끝-->
             
                         </div> <!--detailBox 끝-->
@@ -163,7 +164,7 @@
                         <h4 id="modalSnsName" class="snsnsn"></h4>
                     </div><!--nameBox 끝-->
                     <div class="right">
-                        <button type="button">
+                        <button type="button" class="followbtn">
                             팔로잉
                         </button>
                     </div><!--right 끝-->
@@ -241,15 +242,19 @@
 $(document).ready(function () {
 
     $('.detailBox').each(function () {
-        var sns_num = $(this).data('sns-num');
+        var snsNum = $(this).data('sns-num');
+
+        var snsDate = $(this).data('sns-date');
+        var timeAgoText = timeAgo(new Date(snsDate));
+        $('#timeAgoText_' + snsNum).text(timeAgoText);
         
         var uploadResultContainer = $(this).find('.mainGetResult ul');
 
-        if (sns_num) {
+        if (snsNum) {
             $.ajax({
                 url: '/snsGetFileList',
                 type: 'GET',
-                data: { sns_num: sns_num },
+                data: { sns_num: snsNum },
                 dataType: 'json',
                 success: function(data) {
                     showUploadResult(data, uploadResultContainer);
@@ -312,14 +317,17 @@ $(document).ready(function () {
         var snsDate = detailBox.data('sns-date');
         var user_type = detailBox.data('user-type');
         var snsEmail = detailBox.data('user-email');
+        var loginEmail = detailBox.data('login-email');
 
         console.log("sns_num: " + snsNum);
         console.log("snsName: " + snsName);
         console.log("snsTitle: " + snsTitle);
         console.log("snsContent: " + snsContent);
         console.log("snsDate: " + snsDate);
+        console.log("snsEmail: " + snsEmail);
+        console.log("loginEmail: " + loginEmail);
 
-        openModal(snsNum, snsName, snsTitle, snsContent, snsDate, user_type, snsEmail);
+        openModal(snsNum, snsName, snsTitle, snsContent, snsDate, user_type, snsEmail, loginEmail);
     });
 
     // 모달 닫기
@@ -335,17 +343,81 @@ $(document).ready(function () {
     });
 
     // 모달 열기 함수
-    function openModal(snsNum, snsName, snsTitle, snsContent, snsDate, user_type, snsEmail) {
+    function openModal(snsNum, snsName, snsTitle, snsContent, snsDate, user_type, snsEmail, loginEmail) {
         console.log("Opening modal for sns_num: " + snsNum); // 가져온 sns_num 확인
         console.log("Opening modal for snsUserType: " + user_type); // 가져온 sns_num 확인
         console.log("Opening modal for snsEmail: " + snsEmail); // 가져온 sns_num 확인
         $("#modalSnsName").text(snsName);
         $("#modalSnsTitle").text(snsTitle);
         $("#modalSnsContent").text(snsContent);
-        $("#modalSnsDate").text(snsDate);
+
+        // 시간을 timeAgo 함수로 변환
+        var modalTimeAgo = timeAgo(new Date(snsDate));
+        $("#modalSnsDate").text(modalTimeAgo);
 
         $("#popupModal").css("display", "flex");
         $("body").addClass("modal-open"); // 모달 열릴 때 스크롤 방지
+
+        // 팔로우 버튼 설정
+        var button = $("#popupModal .followbtn");
+
+        // 로그인 사용자와 게시글 작성자가 같다면 팔로우 버튼 숨기기
+        if (snsEmail == loginEmail && user_type == 1) {
+            button.hide();
+        } else {
+            button.show(); // 팔로우 버튼이 숨겨져 있던 상태라면 다시 보이게 하기
+        }
+        
+        var followData = {
+            loginEmail: loginEmail,
+            followEmail: snsEmail,
+            followUserType: user_type
+        };
+        
+
+        // 페이지 로드 시 팔로우 상태 확인
+        $.ajax({
+            url: '/follow/status',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(followData),
+            success: function(isFollowed) {
+                if (isFollowed) {
+                    button.addClass('followed');
+                    button.text('팔로잉');
+                } else {
+                    button.removeClass('followed');
+                    button.text('팔로우');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('팔로우 상태 확인 실패:', error);
+            }
+        });
+
+        // 버튼 클릭 시 팔로우 상태 토글 및 색상 변경
+        button.off('click').on('click', function () {
+            $.ajax({
+                url: '/follow/toggle',
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(followData),
+                success: function(isFollowed) {
+                if (isFollowed) {
+                    button.addClass('followed');
+                    button.text('팔로잉');
+                } else {
+                    button.removeClass('followed');
+                    button.text('팔로우');
+                }
+                },
+                error: function(xhr, status, error) {
+                    console.error('팔로우 상태 변경 실패:', error);
+                    alert('팔로우 상태 변경 실패');
+                }
+            });
+        });
+
 
         // sns_num을 댓글 폼에 설정
         $('input[name="sns_num"]').val(snsNum);

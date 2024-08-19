@@ -126,12 +126,12 @@ font-size: var(--color-black);
     /* border: none; */
     border: solid 1px #FFA500;
     color: white;
-    height: 28px;
-    width: 53px;
+    height: 30px;
+    width: 58px;
     /* padding: 10px 20px; */
-    border-radius: 5px;
+    border-radius: 6px;
     cursor: pointer;
-    margin-top: 2px;
+    /* margin-top: 2px; */
 }
 .followbtn.followed {
     background-color: #ffffff;
