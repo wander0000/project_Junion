@@ -232,6 +232,7 @@ section
 .wrap .column .columnAA .detail
 {
     font-weight: 100;
+	line-height: 30px;
 
 }
 .wrap .column .columnAA .detail,

@@ -11,7 +11,7 @@
 <!--    <link rel="stylesheet" href="css/default.css">-->
 <!--    <link rel="stylesheet" href="css/style.css">-->
 	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/default.css">
-	<link rel="stylesheet" href="${pageContext.request.contextPath}/css/companyInfoMamagement.css">
+	<!-- <link rel="stylesheet" href="${pageContext.request.contextPath}/css/companyInfoMamagement.css"> -->
     <!-- import font-awesome, line-awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/line-awesome/1.3.0/line-awesome/css/line-awesome.min.css">
@@ -44,12 +44,12 @@
 
     .tabCon
     {
-        width: 1200px;
+    width: 1200px;
     }
+
     /* section : 기본 틀 */
     section 
     {
-    /* max-width: clac(100%-240px); */
     display: flex;
     justify-content: center;
     padding-top: 50px;  
@@ -61,7 +61,7 @@
     {
     /* font-size: var(--font-size32); */
     /* text-align: left; */
-    /* width: 100%; */
+    width: 100%;
     margin-bottom: 40px;
     gap: 40px;
     /* margin : 0 40px 20px 0;  */
@@ -95,26 +95,27 @@
 
     .table
     {
-        border: 1px solid var(--color-gray);
+        border: 1px solid var(--input-gray);
         border-bottom: none;
         /* padding: 20px; */
         display: flex;
         /* height: 50px; */
         align-items: center;
+        width: 100%;
         /* max-width: 730px; */
         /* gap: 40px; */
     }
 
     .table:first-child
     {
-        border-top: 1px solid var(--color-gray);
+        border-top: 1px solid var(--input-gray);
         border-top-left-radius: 8px;
         border-top-right-radius: 8px;
     }
 
     .table:last-child
     {
-        border-bottom: 1px solid var(--color-gray);
+        border-bottom: 1px solid var(--input-gray);
         border-bottom-left-radius: 8px;
         border-bottom-right-radius: 8px;
     }
@@ -126,22 +127,24 @@
         width:200px;
         display: flex;
         align-items: center;
-        border-right: 1px solid var(--color-gray);
+        border-right: 1px solid var(--input-gray);
         padding-left: 20px;
     }
 
     .table .disContnet
     {
+        /* width: calc(100%-200px); */
         width: calc(100%-200px);
         padding-left: 20px;
     }
 
     .changepw
     {
-    border: 1px solid var(--color-gray);
+    border: 1px solid var(--input-gray);
     font-size: var(--font-size14);
     padding: 5px 20px;
     border-radius: 6px;
+    cursor: pointer;
     }
 
 

@@ -134,7 +134,8 @@
 		           </div>
 		           <div class="sectionInnerConJoin company">
 		               <div class="img"></div>
-		               <img src="images/company.svg" alt="#" class="company">
+		               <!-- <img src="images/company.svg" alt="#" class="company"> -->
+		               <img src="images/companylogo.svg" alt="#" class="company">
 		               <h3 class="txt">기업회원</h3>
 		               <button class="join" onclick="location.href='joinCompany'">회원가입</button>
 		           </div>

@@ -193,8 +193,8 @@
                                         <div class="type">
                                         <!-- <div class="comname2"> -->
                                             <!-- <h5 class="name"> -->
-                                                <!-- ${companyInfo.com_CEO}  -->
-                                                mapSeeker 
+                                                ${companyInfo.com_CEO} 
+                                                <!-- mapSeeker  -->
                                             <!-- </h5> -->
                                         </div>
                                     </div>
