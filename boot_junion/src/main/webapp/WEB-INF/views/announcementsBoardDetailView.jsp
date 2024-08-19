@@ -89,11 +89,12 @@
     <script>
         $(document).ready(function() {
             var loginEmail = '${login_email}'; // JSP에서 서버 측 데이터 삽입
+			
             var boardNo = window.location.pathname.split('/').pop(); // 예: /announcementRest/1 -> 1
 
             // AJAX 요청을 통해 공지사항 상세 정보를 가져옵니다.
             $.ajax({
-                url: '/announcementRest/' + boardNo,
+                url: '/announcementRest/data/' + boardNo,
                 type: 'GET',
                 contentType: 'application/json',
                 dataType: 'json',
@@ -122,7 +123,7 @@
 
             $('#editButton').click(function() {
                 $.ajax({
-                    url: '/announcementRest/' + boardNo,
+                    url: '/announcementRest/data/' + boardNo,
                     type: 'GET',
                     contentType: 'application/json',
                     dataType: 'json',

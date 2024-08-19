@@ -33,12 +33,11 @@ public class announcementRestController {
         result.put("result", Boolean.TRUE);
         result.put("data", announcements);
         log.info("Announcements list fetched successfully");
-        log.info("Announcements list fetched successfully");
         return ResponseEntity.ok(result);
     }
 
     @ResponseBody
-    @GetMapping(value = "/{board_no}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(value = "/data/{board_no}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<announcementsBoardDTO> getAnnouncementById(@PathVariable int board_no) {
         log.info("Fetching announcement with board_no: {}", board_no);
         announcementsBoardDTO announcement = boardService.findByBoardno(board_no);
@@ -63,7 +62,7 @@ public class announcementRestController {
         }
     }
 
-    @PostMapping("")
+    @PostMapping("/write")
     public ResponseEntity<Map<String, Object>> writeAnnouncement(@RequestBody announcementsBoardDTO boardDTO) {
         log.info("Writing new announcement: {}", boardDTO);
         Map<String, Object> result = new HashMap<>();

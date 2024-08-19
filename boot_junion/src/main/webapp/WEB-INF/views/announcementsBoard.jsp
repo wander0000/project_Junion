@@ -94,7 +94,8 @@
 	                    $.each(response.data, function(idx, item) {
 	                        $('<div class="trtr">')
 
-	                            .append($('<div class="tdtd">').html('<a class="aaaa" href="' + '${pageContext.request.contextPath}/announcementRest/' + item.board_no + '">' + item.board_title + '</a>')) // Title with link
+	                            .append($('<div class="tdtd">').html('<a class="aaaa" href="' + '${pageContext.request.contextPath}/announcementRest/' + 
+									item.board_no + '">' +"[공지]&nbsp;"+ item.board_title + '</a>')) // Title with link
 
 	                            .appendTo($tbody);
 	                    });
@@ -134,7 +135,7 @@
 	            }
 
 	            $.ajax({
-	                url: '${pageContext.request.contextPath}/announcementRest', // 서버로 데이터를 전송할 API URL
+	                url: '${pageContext.request.contextPath}/announcementRest/write', // 서버로 데이터를 전송할 API URL
 	                type: 'POST',
 	                contentType: 'application/json',
 	                dataType: 'json',
