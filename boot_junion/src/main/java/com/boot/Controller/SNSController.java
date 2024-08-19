@@ -111,13 +111,16 @@ public class SNSController {
         // 세션에서 사용자 정보 가져오기
         String login_email = (String) session.getAttribute("login_email");
         char user_type = (char) session.getAttribute("login_usertype");
+        String login_name = (String) session.getAttribute("login_name");
 
         // SNSDTO 객체에 로그인한 사용자 정보 설정
         snsDTO.setLogin_email(login_email);
         snsDTO.setUser_type(user_type);
+        snsDTO.setSns_name(login_name);
 
         // 댓글 작성 서비스 호출
         snsService.snsCommentWrite(snsDTO);
+        
 
         log.info("@# CommentDTO=>" + snsDTO);
 

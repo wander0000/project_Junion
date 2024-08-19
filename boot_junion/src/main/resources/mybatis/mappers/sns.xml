@@ -46,28 +46,35 @@
     </insert>
     
     <select id="snsCommentList" parameterType="int" resultType="com.boot.DTO.SNSDTO">
-	    SELECT 
-	        s.sns_comment_num,
-	        s.sns_num,
-	        s.login_email,
-	        s.user_type,
-	        s.sns_comment_content,
-	        s.sns_comment_date,
-	        CASE
-	            WHEN s.user_type = 1 THEN u.user_name
-	            WHEN s.user_type = 2 THEN c.com_name
-	            ELSE NULL
-	        END AS sns_name
-	    FROM 
-	        sns_comment_tb s
-	    LEFT JOIN 
-	        user_tb u ON s.login_email = u.user_email AND s.user_type = 1
-	    LEFT JOIN 
-	        com_tb c ON s.login_email = c.com_email AND s.user_type = 2 
-	    WHERE
-	        s.sns_num = #{sns_num} 
-	    ORDER BY 
-	        s.sns_comment_date DESC;
+	    SELECT
+		    s.sns_comment_num,
+		    s.sns_num,
+		    s.login_email AS sns_email,
+		    s.user_type,
+		    s.sns_comment_content,
+		    s.sns_comment_date,
+		    CASE
+		        WHEN s.user_type = 1 THEN u.user_name
+		        WHEN s.user_type = 2 THEN c.com_name
+		        ELSE NULL
+		    END AS sns_name
+		FROM
+		    sns_comment_tb s
+		LEFT JOIN user_tb u ON s.login_email = u.user_email AND s.user_type = 1
+		LEFT JOIN com_tb c ON s.login_email = c.com_email AND s.user_type = 2
+		WHERE s.sns_num = #{sns_num}
+		ORDER BY s.sns_comment_date DESC;
+	</select>
+	
+	<select id="getSnsName" resultType="com.boot.DTO.SNSDTO">
+		SELECT 
+		    CASE 
+		        WHEN #{user_type} = 1 THEN 
+		            (SELECT user_name FROM user_tb WHERE user_email = #{login_email})
+		        WHEN #{user_type} = 2 THEN 
+		            (SELECT com_name FROM com_tb WHERE com_email = #{login_email})
+		    END AS sns_name;
+
 	</select>
 
     

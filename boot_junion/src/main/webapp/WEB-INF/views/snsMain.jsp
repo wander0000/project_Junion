@@ -30,14 +30,15 @@
             <div class="snsMain">
                 <div class="leftCon">
                     <c:forEach items="${snsList}" var="dto">
-                        <div class="detailBox"
+                        <div class="detailBox prof"
                             data-sns-num="${dto.sns_num}"
                             data-sns-name="${dto.sns_name}"
                             data-sns-title="${dto.sns_title}"
                             data-sns-content="${dto.sns_content}"
                             data-sns-date="${dto.sns_date}"
                             data-user-type="${dto.user_type}"
-                            data-user-email="${dto.login_email}">
+                            data-user-email="${dto.login_email}"
+                            data-login-email="${login_email}">
                             <div class="userBox">
                                 <div class="left">
                                     <div class="UserImage">
@@ -55,7 +56,7 @@
                                     </h5>
                                 </div><!--nameBox 끝-->
                                 <div class="right">
-                                    <button type="button">
+                                    <button type="button" class="followbtn">
                                         팔로잉
                                     </button>
                                 </div><!--right 끝-->
@@ -203,22 +204,6 @@
                             <h5>방금</h5>
                         </div><!--right 끝-->
                     </div> <!--commentCon 끝-->
-                    <div class="commentCon">
-                        <div class="left">
-                            <div class="commentUserImage">
-                                <ul>
-                                    <img src="images/people.svg" alt="#" class="img">
-                                </ul>
-                            </div>
-                            <div class="nameBox">
-                                <h4>김정우</h4>
-                            </div><!--nameBox 끝-->
-                        </div><!--left 끝-->
-                        <div class="right">
-                            <h4>우와 짱이다...!</h4>
-                            <h5>5분 전</h5>
-                        </div><!--right 끝-->
-                    </div> <!--commentCon 끝-->
                 </div> <!--commentContent 끝-->
 
                 <div class="commentBottom">
@@ -227,7 +212,7 @@
                             <h5>좋아요 5개</h5>
                         <!-- </div> -->
                         <!-- <div class="comment"> -->
-                            <h5>댓글 4개</h5>
+                            <h5 class="comment">댓글 4개</h5>
                         <!-- </div> -->
                     </div> <!--numberCount 끝-->
 
@@ -239,7 +224,6 @@
                             <input type="hidden" name="sns_num" value="${sns_num}">
                             <input type="hidden" name="login_email" value="${login_email}">
                             <input type="hidden" name="user_type" value="${login_usertype}">
-                            <input type="hidden" name="sns_name" value="${sns_name}">
                             <div class="textarea-wrap">
                                 <textarea name="sns_comment_content" placeholder="댓글 달기..."></textarea>
                             </div>
@@ -365,22 +349,10 @@ $(document).ready(function () {
 
         // sns_num을 댓글 폼에 설정
         $('input[name="sns_num"]').val(snsNum);
-        // sns_name을 commentForm에 저장
-        $('input[name="sns_name"]').val(snsName);
 
-        // sns_num에 해당하는 댓글 가져오기
-        $.ajax({
-                url: '/api/snsCommentList',
-                type: 'GET',
-                data: { sns_num: snsNum },
-                dataType: 'json',
-                success: function(data) {
-                    showComments(data); // 댓글 표시
-                },
-                error: function(xhr, status, error) {
-                    console.error('Error fetching comments for sns_num ' + snsNum + ':', error);
-                }
-            });
+        // 댓글 목록을 불러오기
+        loadComments(snsNum);
+
 
         // snsNum을 이용하여 모달에 사진 데이터 로드
         $.ajax({
@@ -425,13 +397,74 @@ $(document).ready(function () {
         }
     }
 
+     // 댓글 작성 및 목록 갱신
+     $('#commentForm').on('submit', function (e) {
+        e.preventDefault(); // 기본 폼 제출 방지
+
+        var commentContent = $('textarea[name="sns_comment_content"]').val().trim();
+
+        // 댓글 내용이 비어있는지 확인
+        if (commentContent === "") {
+            // alert("댓글을 입력해주세요.");
+            return; // 폼 제출 중지
+        }
+
+        var formData = {
+            sns_num: $('input[name="sns_num"]').val(),
+            login_email: $('input[name="login_email"]').val(),
+            user_type: $('input[name="user_type"]').val(),
+            sns_comment_content: $('textarea[name="sns_comment_content"]').val(),
+        };
+
+        console.log(formData); // 콘솔에 데이터를 출력하여 확인
+
+        $.ajax({
+            url: '/api/commentWrite',
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(formData),
+            success: function(response) {
+                if (response) {
+                    loadComments(formData.sns_num); // 댓글 목록 새로고침
+                    $('#commentForm textarea').val(''); // 폼 초기화
+                } else {
+                    alert('댓글 작성에 실패했습니다. 다시 시도해 주세요.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('댓글 작성 중 오류 발생:', error);
+                alert('댓글 작성에 실패했습니다. 다시 시도해 주세요.');
+            }
+        });
+    });
+
+    // 댓글 목록 불러오기 함수
+    function loadComments(snsNum) {
+        $.ajax({
+            url: '/api/snsCommentList',
+            type: 'GET',
+            data: { sns_num: snsNum },
+            dataType: 'json',
+            success: function(data) {
+                var commentCount = data.length; // 가져온 댓글의 수
+                $('.numberCount h5.comment').text('댓글 ' + commentCount + '개'); // 댓글 수 업데이트
+
+                showComments(data); // 댓글 목록 표시
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching comments for sns_num ' + snsNum + ':', error);
+            }
+        });
+    }
+
     // 댓글 표시 함수
     function showComments(comments) {
         var commentContent = $(".commentContent");
+        
         commentContent.empty(); // 기존 댓글 초기화
 
         $(comments).each(function(i, comment) {
-            var newComment = '<div class="commentCon">' +
+            var newComment = '<div class="commentCon" data-sns-email="' + comment.sns_email + '" data-user-type="' + comment.user_type + '">' +
                                 '<div class="left">' +
                                     '<div class="commentUserImage">' +
                                         '<ul>' +
@@ -439,7 +472,7 @@ $(document).ready(function () {
                                         '</ul>' +
                                     '</div>' +
                                     '<div class="nameBox">' +
-                                        '<h4>' + comment.sns_name + '</h4>' +
+                                        '<h4 class="userProfileLink">' + comment.sns_name + '</h4>' +
                                     '</div>' +
                                 '</div>' +
                                 '<div class="right">' +
@@ -447,9 +480,55 @@ $(document).ready(function () {
                                     '<h5>' + comment.sns_comment_date + '</h5>' +
                                 '</div>' +
                             '</div>';
+
+            loadImage(comment);
             commentContent.append(newComment);
+
+            // 각 댓글에 대해 링크 및 버튼 처리
+            var newCommentElement = commentContent.find('.commentCon').last(); // 방금 추가한 요소를 선택
+            var snsEmail = comment.sns_email;
+            var userType = comment.user_type;
+            var userProfileLink = newCommentElement.find('.userProfileLink');
+
+            // 사용자 유형에 따라 링크 설정
+            if (userType == 1) {
+                userProfileLink.wrap('<a href="snsUserPage?user_email=' + snsEmail + '"></a>');
+            } else if (userType == 2) {
+                userProfileLink.wrap('<a href="snsCompanyPage?com_email=' + snsEmail + '"></a>');
+            }
+
         });
     }
+
+    function loadImage(comment) {
+        if (comment.user_type) {
+            var url;
+            var emailParam = '';
+
+            if (comment.user_type == 1) {
+                url = '/getUserImageList';
+                emailParam = { user_email: comment.sns_email };
+            } else if (comment.user_type == 2) {
+                url = '/mainComFileList';
+                emailParam = { com_email: comment.sns_email };
+            }
+
+            $.ajax({
+                url: url,
+                type: 'GET',
+                data: emailParam,
+                dataType: 'json',
+                success: function(imageData) {
+                    var uploadResultContainer = $(".commentCon[data-sns-email='" + comment.sns_email + "'] .commentUserImage ul");
+                    showUploadResult(imageData, uploadResultContainer);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching file list for email ' + comment.sns_email + ':', error);
+                }
+            });
+        }
+    }
+
 
     // 모달 닫기 함수
     function closeModal() {
@@ -524,69 +603,6 @@ function showUploadResult(uploadResultArr, uploadResultContainer){
 
 
 </script>
-<script>
-    $(document).ready(function () {
-
-        $('#commentForm').on('submit', function (e) {
-            e.preventDefault(); // 기본 폼 제출 방지
-
-            var formData = {
-                sns_num: $('input[name="sns_num"]').val(),
-                login_email: $('input[name="login_email"]').val(),
-                user_type: $('input[name="user_type"]').val(),
-                sns_comment_content: $('textarea[name="sns_comment_content"]').val(),
-                sns_name: $('input[name="sns_name"]').val() // 폼에 저장된 sns_name을 포함
-            };
-
-            console.log(formData); // 콘솔에 데이터를 출력하여 확인
-
-            $.ajax({
-                url: '/api/commentWrite',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(formData),
-                success: function(response) {
-                    if (response) {
-                        // 댓글 목록에 새 댓글 추가
-                        var newComment = '<div class="commentCon">' +
-                                            '<div class="left">' +
-                                                '<div class="commentUserImage">' +
-                                                    '<ul>' +
-                                                        '<img src="/images/people.svg" alt="#" class="img">' +
-                                                    '</ul>' +
-                                                '</div>' +
-                                                '<div class="nameBox">' +
-                                                    '<h4>' + formData.sns_name + '</h4>' + // sns_name 사용
-                                                '</div>' +
-                                            '</div>' +
-                                            '<div class="right">' +
-                                                '<h4>' + response.sns_comment_content + '</h4>' +
-                                                '<h5>방금</h5>' + // 작성 시간이 '방금'으로 표시됨
-                                            '</div>' +
-                                        '</div>';
-
-                        $('.commentContent').append(newComment); // 새로운 댓글을 댓글 목록에 추가
-
-                        // 폼 초기화
-                        $('#commentForm textarea').val('');
-                    } else {
-                        alert('댓글 작성에 실패했습니다. 다시 시도해 주세요.');
-                    }
-                },
-                error: function(xhr, status, error) {
-                    console.error('댓글 작성 중 오류 발생:', error);
-                    alert('댓글 작성에 실패했습니다. 다시 시도해 주세요.');
-                }
-            });
-        });
-
-
-
-
-
-
-    });
-    </script>
 
 </body>
 </html>

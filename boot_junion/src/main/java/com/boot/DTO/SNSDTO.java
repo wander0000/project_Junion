@@ -31,4 +31,6 @@ public class SNSDTO {
 	private int sns_comment_num; //댓글 넘버
 	private String sns_comment_content; // 댓글 내용
 	private String sns_comment_date; //댓글 날짜
+	
+	private int commentCount; //댓글 갯수
 }

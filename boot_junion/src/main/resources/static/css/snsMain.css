@@ -418,6 +418,7 @@
 .popupDetail .detailComment .commentContent
 {
 	height: 100%;
+	overflow: auto;
 }
 .popupDetail .detailComment .commentCon
 {
@@ -503,6 +504,10 @@
 	font-size: var(--font-size24);
 	margin-left: 12px;
 }
+.popupDetail .detailComment .commentBottom .commentBox #commentForm
+{
+	display: flex;
+}
 
 .textarea-wrap 
 {
@@ -529,6 +534,11 @@
 	background-color: var(--color-white);
 	color: var(--color-gray);
 	cursor: pointer;
+}
+
+.userProfileLink
+{
+	color: var(--color-black);
 }
 
 /* 모달 스타일 */
