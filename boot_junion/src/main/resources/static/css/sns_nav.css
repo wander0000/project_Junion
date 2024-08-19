@@ -358,9 +358,10 @@ a:visited {
 
 .chatContent .UserImage img
 {
-	width: 53px;
-	height: 53px;
-	border-radius: 50%;
+	max-width: 53px;
+	max-height: 53px;
+	min-width: 53px;
+	min-height: 53px;
 }
 
 .chatContent .nameBox

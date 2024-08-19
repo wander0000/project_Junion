@@ -743,6 +743,8 @@
 
 	$(document).ready(function() {
 		var loginEmail = "${login_email}"; // JSP에서 로그인 이메일을 가져옴
+		var isFirstChat = true; // 접속 후 첫 채팅인지 확인하기 위한 플래그
+
 		console.log("@# loginEmail=>"+loginEmail);
 		
 		loadChatList();
@@ -760,15 +762,35 @@
 				var message = JSON.parse(messageOutput.body);
 				var chatContentBox = $(".chatContentBox");
 				var chatContent = chatContentBox.find(`.chatContent[data-user-email="\${message.receiver_id}"]`);
-				console.log("@# SNS_nav message.receiver_id=>"+message.receiver_id);
 				console.log("@# SNS_nav message.message=>"+message.message);
+				console.log("@# SNS_nav message.receiver_id=>"+message.receiver_id);
 				console.log("@# SNS_nav message.chatContent=>"+chatContent);
 				// loadChatList();
 
+				// updateChatMessage(message);
+
 				// 해당 유저의 채팅 메시지와 시간을 업데이트
 				// chatContent.empty();
-				chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나 :' : message.receiver_id} \${message.message}`);
-            	chatContent.find('.chatTime').attr('data-timestamp', message.timestamp).html(timeAgo(new Date(message.timestamp)));
+				// if (chatContent.length > 0) {
+				// 	chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나 :' : message.receiver_id} \${message.message}`);
+				// 	chatContent.find('.chatTime').attr('data-timestamp', message.timestamp).html(timeAgo(new Date(message.timestamp)));
+				// } else {
+				// 	loadChatList()
+				// }
+
+				// 첫 채팅 메시지라면 loadChatList() 실행
+				if (isFirstChat) {
+					loadChatList();
+					isFirstChat = false; // 첫 채팅 이후에는 다시 실행되지 않도록 플래그 업데이트
+				} else {
+					// 해당 유저의 채팅 메시지와 시간을 업데이트
+					if (chatContent.length > 0) {
+						chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나' : message.receiver_id}" :" \${message.message}`);
+						chatContent.find('.chatTime').attr('data-timestamp', message.timestamp).html(timeAgo(new Date(message.timestamp)));
+					} else {
+						loadChatList();
+					}
+				}
 			});
 		});
 
@@ -817,7 +839,7 @@
 									<div class="nameBox">
 										<h4>\${room.user_name}</h4>
 										<div class="chatMessage">
-											<h5>\${room.sender_id == loginEmail ? '나 :' : room.user_name} \${room.message}</h5>
+											<h5>\${room.sender_id == loginEmail ? '나' : room.user_name} : \${room.message}</h5>
 											<h5 class="chatTime" data-timestamp="\${room.timestamp}">\${timeAgo(new Date(room.timestamp))}</h5>
 										</div>
 									</div>
@@ -826,8 +848,8 @@
 						`;
 						chatContentBox.append(chatContent);
 
-							// 프로필 이미지 불러옴
-							$('.chatContent').each(function () {
+						// 프로필 이미지 불러옴
+						$('.chatContent').each(function () {
 							var snsEmail = $(this).data('user-email')
 							
 							var uploadResultContainer = $(this).find('.UserImage ul');
@@ -855,6 +877,46 @@
 			});
 		}
     });
+
+	/*
+	function updateChatMessage(message) {
+        // var chatContentBox = $(".chatContentBox");
+        // var chatContent = chatContentBox.find(`.chatContent[data-user-email="${message.user_email}"]`);
+		var chatContentBox = $(".chatContentBox");
+		var chatContent = chatContentBox.find(`.chatContent[data-user-email="\${message.receiver_id}"]`);
+
+        if (chatContent.length > 0) {
+            // 해당 유저의 채팅 메시지와 시간을 업데이트
+            // chatContent.find('.chatMessage h5').first().html(`${message.sender_id == loginEmail ? '나 :' : message.user_name} ${message.content}`);
+            // chatContent.find('.chatTime').html(timeAgo(new Date(message.timestamp)));
+			chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나 :' : message.receiver_id} \${message.message}`);
+			chatContent.find('.chatTime').attr('data-timestamp', message.timestamp).html(timeAgo(new Date(message.timestamp)));
+        } else {
+            // 해당 유저의 채팅이 없다면 새롭게 추가 (필요 시)
+            var newChatContent = `
+                <a href="SNSChat?receiver_id=\${message.receiver_id}">
+                    <div class="chatContent" data-user-email="\${message.receiver_id}">
+                        <div class="left">
+                            <div class="UserImage">
+                                <ul>
+                                    <img src="images/people.svg" alt="#" class="img">
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="nameBox">
+                            <h4>\${message.user_name}</h4>
+                            <div class="chatMessage">
+                                <h5>\${message.sender_id == loginEmail ? '나 :' : message.user_name} \${message.message}</h5>
+                                <h5 class="chatTime">\${timeAgo(new Date(message.timestamp))}</h5>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+            `;
+            chatContentBox.append(newChatContent);
+        }
+	}
+	*/
 
 	// 프로필 이미지 불러옴
 	function showUploadResult(uploadResultArr, uploadResultContainer){
