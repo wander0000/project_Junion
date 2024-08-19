@@ -161,7 +161,7 @@
 				</a>
 			</li>
 			<li class="quickMenuCon">
-				<a class="menuCon" href="">
+				<a class="menuCon" href="announcements">
 					<span class="icon">
 						<i class="fa-solid fa-volume-high"></i>
 					</span>
