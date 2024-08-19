@@ -209,6 +209,11 @@
     font-size: var(--font-size32);
     cursor: pointer;
     }
+/* 
+    .toptitle1
+    {
+    color: var(--input-gray);
+    } */
     /* 
     .toptitle2
     {

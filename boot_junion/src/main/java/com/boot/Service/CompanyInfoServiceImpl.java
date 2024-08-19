@@ -130,15 +130,15 @@ public class CompanyInfoServiceImpl implements CompanyInfoService{
 	}
 
 
-	@Override
-	public CompanyInfoDTO companyInfoUpdate(String email) {//기업 정보 수정 페이지 이동
-
-		CompanyInfoDAO dao= sqlSession.getMapper(CompanyInfoDAO.class);
-		CompanyInfoDTO dto = dao.companyInfoUpdate(email);
-		log.info("@# CompanyInfoImpl companyInfoUpdate dto=>"+dto);
-		
-		return dto;
-	}
+//	@Override
+//	public CompanyInfoDTO companyInfoUpdate(String email) {//기업 정보 수정 페이지 이동
+//
+//		CompanyInfoDAO dao= sqlSession.getMapper(CompanyInfoDAO.class);
+//		CompanyInfoDTO dto = dao.companyInfoUpdate(email);
+//		log.info("@# CompanyInfoImpl companyInfoUpdate dto=>"+dto);
+//		
+//		return dto;
+//	}
 	
 	@Override
 	public void modify_Detail(CompanyInfoDTO companyInfoDTO) {

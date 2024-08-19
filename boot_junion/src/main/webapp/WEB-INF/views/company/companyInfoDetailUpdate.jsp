@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -117,7 +118,8 @@
                                             <div class="buttonTitle">기술</div>
                                             <div class="buttonWrap">	                                    
                                                 <c:forEach var="dto" items="${stack_name}">
-                                                    <input type="button" class="tech" name="com_stack" value="${dto.stack_name}">
+                                                    <!-- <input type="button" class="tech" name="com_stack" value="${dto.stack_name}"> -->
+                                                    <input type="button" class="tech <c:if test='${fn:contains(companyInfo.com_stack, dto.stack_name)}'> active</c:if>" name="com_stack" value="${dto.stack_name}">
                                                 </c:forEach>
                                             </div>
                                         </div>    
@@ -125,7 +127,8 @@
                                             <div class="buttonTitle">디자인</div>
                                             <div class="buttonWrap">
                                                 <c:forEach var="dto" items="${stack_name2}">
-                                                    <input type="button" class="tech" name="com_stack" value="${dto.stack_name}">
+                                                    <!-- <input type="button" class="tech" name="com_stack" value="${dto.stack_name}"> -->
+                                                    <input type="button" class="tech <c:if test='${fn:contains(companyInfo.com_stack, dto.stack_name)}'> active</c:if>" name="com_stack" value="${dto.stack_name}">
                                                 </c:forEach>
                                             </div>
                                         </div>
@@ -133,7 +136,8 @@
                                             <div class="buttonTitle">기획</div>
                                             <div class="buttonWrap">
                                                 <c:forEach var="dto" items="${stack_name3}">
-                                                    <input type="button" class="tech" name="com_stack" value="${dto.stack_name}">
+                                                    <!-- <input type="button" class="tech" name="com_stack" value="${dto.stack_name}"> -->
+                                                    <input type="button" class="tech <c:if test='${fn:contains(companyInfo.com_stack, dto.stack_name)}'> active</c:if>" name="com_stack" value="${dto.stack_name}">
                                                 </c:forEach>
                                             </div>
                                         </div>                        
@@ -300,6 +304,8 @@
         }
 
 
+        
+
         //기술스택 버튼 활성화, 값 저장
         $('.Bodycon.tech input.tech').click(function(){
             console.log("click!!");
@@ -312,6 +318,7 @@
 		// 제출 버튼 클릭 시
 		submit.on('click', function() {
         // 'on' 클래스가 있는 버튼들의 값을 배열에 저장
+            alert("스택 값이 선택되었습니다.");
 			var buttonValues = [];
 			buttons.filter('.active').each(function() {
 				buttonValues.push($(this).val());

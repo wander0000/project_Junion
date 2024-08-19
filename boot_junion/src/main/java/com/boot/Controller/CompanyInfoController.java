@@ -68,7 +68,7 @@ public class CompanyInfoController {
 //		log.info("자 파일의 경로는?"+list);
 //		model.addAttribute("fileLsit", list);// 기업 이미지를 가져옴
 		
-		CompanyInfoDTO dto = infoService.companyInfo(email);
+		CompanyInfoDTO dto = infoService.InfoMini(email);
 		model.addAttribute("companyInfo", dto);
 		
 		
@@ -171,7 +171,8 @@ public class CompanyInfoController {
 		
 		HttpSession session = request.getSession();
 		String com_email = (String)session.getAttribute("login_email");
-		CompanyInfoDTO dto = infoService.companyInfoUpdate(com_email);
+//		CompanyInfoDTO dto = infoService.companyInfoUpdate(com_email);
+		CompanyInfoDTO dto = infoService.companyInfo(com_email);
 		model.addAttribute("companyInfo", dto);
 		log.info("@# stack ==>" + dto);
 				

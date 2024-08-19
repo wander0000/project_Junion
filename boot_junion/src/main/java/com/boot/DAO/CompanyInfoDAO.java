@@ -19,7 +19,7 @@ public interface CompanyInfoDAO {
 		public CompanyInfoDTO InfoMini(String email);//기업 기본정보 조회 페이지
 		public void modify_Info(HashMap<String, String> param);//기업 기본정보 수정
 		public void comPWchange(HashMap<String, String> param);//기업 마이페이지, 비밀번호 변경 팝업 값으로 비밀번호 변경
-		public CompanyInfoDTO companyInfoUpdate(String com_email);//기업 상세정보 수정 페이지
+//		public CompanyInfoDTO companyInfoUpdate(String com_email);//기업 상세정보 수정 페이지
 
 	//하진 : 기업 정보 관리 관련 - 스택값 수정 관련 메소드
 	public ArrayList<CompanyInfoDTO> getStackList(String com_email);//기업상세정보 수정시 기존 스택 정보를 1. 우선 전부 조회
