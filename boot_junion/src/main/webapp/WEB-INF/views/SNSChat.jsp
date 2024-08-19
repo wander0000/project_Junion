@@ -35,6 +35,18 @@
             <%@ include file="sns_header.jsp" %> 
             <main>
                 ${login_email}
+                <div class="chatContent">
+                    <div class="left">
+                        <div class="UserImage">
+                            <ul>
+                                <img src="images/people.svg" alt="#" class="img">
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="nameBox">
+                        <h4>${rooms.user_name}</h4>
+                    </div>
+                </div>
                 <div id="chat-room">
                     <div id="messages">
                         <!-- 메시지 목록이 여기 출력됩니다. -->
@@ -307,6 +319,27 @@
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
     }
 
+
+    // 프로필 이미지 불러옴
+    $('.chatContent').each(function () {
+        var snsEmail = $(this).data('user-email')
+        
+        var uploadResultContainer = $(this).find('.UserImage ul');
+
+        $.ajax({
+            url: '/getUserImageList',
+            type: 'GET',
+            data: {user_email: snsEmail}, // 이메일만 데이터로 전송
+            dataType: 'json',
+            success: function(data) {
+                showUploadResult(data, uploadResultContainer);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching file list for email ' + email + ':', error);
+            }
+        });
+    });
+    // 프로필 이미지 끝
 </script>
 
 
