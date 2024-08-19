@@ -70,7 +70,7 @@
                                                 <c:if test="${user_email != sessionScope.login_email}">
                                                     <div class="profileButton prof" data-login-email="${login_email}"
                                                     data-user-type="${userInfo.user_type}" data-user-email="${user_email}">
-                                                        <button type="button" class="followbtn" style="width: 80px; height: 34px;">팔로잉</button>
+                                                        <button type="button" class="followbtn" style="width: 80px; height: 34px; margin-top: 20px;">팔로잉</button>
                                                         <button class="message"
                                                             onclick="location.href='SNSChat?receiver_id=${user_email}';">메시지</button>
                                                     </div>
