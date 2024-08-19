@@ -225,7 +225,8 @@
 	.textarea
 	{
 	white-space: pre-wrap;/*줄바꿈을 그대로 출력*/
-	line-height :1.5;/* 글자 위아래 간격 조절 (1.5배) */
+	/* line-height :1.5;*//*글자 위아래 간격 조절 (1.5배) */
+	line-height :30px;/* 글자 위아래 간격 조절 */
 	max-width: 720px;
 	}
 
