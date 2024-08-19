@@ -225,22 +225,28 @@
 					<div class="chatName">
 						<h5>대화상대</h5>
 					</div>
-					<div class="chatContent">
-						<div class="left">
-							<div class="UserImage">
-								<ul>
-									<img src="images/people.svg" alt="#" class="img">
-								</ul>
-							</div>
-						</div><!--left 끝-->
-						<div class="nameBox">
-							<h4>김정우</h4>
-							<div class="chatMessage">
-								<h5>나 : 확인용 메시지!!</h5>
-								<h5 class="chatTime">5시간</h5>
-							</div>
-						</div><!--nameBox 끝-->
-					</div><!--chatContent 끝-->
+
+					<!-- <c:forEach var="room" items="${rooms}"> -->
+						<!-- <div class="chatContent">
+							<div class="left">
+								<div class="UserImage">
+									<ul>
+										<img src="images/people.svg" alt="#" class="img">
+									</ul>
+								</div>
+							</div> -->
+							<!--left 끝-->
+							<!-- <div class="nameBox">
+								<h4>${room.user_name}</h4>
+								<div class="chatMessage">
+									<h5>${room.sender_id == login_email ? '나 :' : room.user_name} ${room.message}</h5>
+									<h5 class="chatTime">timeAgo(room.timestamp)</h5>
+								</div>
+							</div> -->
+							<!--nameBox 끝-->
+						<!-- </div> -->
+					<!-- </c:forEach> -->
+					<!--chatContent 끝-->
 
 				</div> <!--chatContentBox 끝-->
 			</div> <!--navChat 끝-->
@@ -732,4 +738,139 @@
 
 		uploadResultContainer.empty().append(str);
 	}
+
+
+// ----------------------------------------------------- 나성엽 -------------------------------------------------
+
+	$(document).ready(function() {
+		var loginEmail = "${login_email}"; // JSP에서 로그인 이메일을 가져옴
+		console.log("@# loginEmail=>"+loginEmail);
+		
+		// loadChatList();
+
+		var socket = new SockJS('/ws');
+		var stompClient = Stomp.over(socket);
+		var message;
+
+		// 웹소켓에 연결해서 채팅 메시지 바로바로 업데이트 되어 출력
+		stompClient.connect({}, function(frame) {
+			console.log('Connected: ' + frame);
+
+			// 채팅 메시지를 수신했을 때의 처리
+			stompClient.subscribe('/sub/public', function(messageOutput) {
+				var message = JSON.parse(messageOutput.body);
+				var chatContentBox = $(".chatContentBox");
+				var chatContent = chatContentBox.find(`.chatContent[data-user-email="\${message.receiver_id}"]`);
+				console.log("@# SNS_nav message.receiver_id=>"+message.receiver_id);
+				console.log("@# SNS_nav message.message=>"+message.message);
+				console.log("@# SNS_nav message.chatContent=>"+chatContent);
+				// loadChatList();
+
+				// 해당 유저의 채팅 메시지와 시간을 업데이트
+				// chatContent.empty();
+				chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나 :' : message.receiver_id} \${message.message}`);
+            	chatContent.find('.chatTime').attr('data-timestamp', message.timestamp).html(timeAgo(new Date(message.timestamp)));
+			});
+		});
+
+		// 주기적으로 시간을 업데이트하는 함수
+		function updateChatTimes() {
+			$('.chatTime').each(function() {
+				var timestamp = $(this).attr('data-timestamp');
+				if (timestamp) {
+					$(this).html(timeAgo(new Date(timestamp)));
+				}
+			});
+		}
+
+		// 1분마다 시간을 업데이트
+		setInterval(updateChatTimes, 60000);
+
+		// function loadChatList() { // 굳이 필요 없어짐
+			$.ajax({
+				url: "/api/rooms",
+				type: "GET",
+				data: { senderId: loginEmail },
+				success: function(rooms) {
+					// 가져온 데이터를 JSP에 동적으로 렌더링
+					var chatContentBox = $(".chatContentBox");
+					chatContentBox.empty(); // 기존 채팅 목록을 비움
+
+					rooms.forEach(function(room) {
+						var chatContent = `
+							<a href="SNSChat?receiver_id=\${room.user_email}">
+								<div class="chatContent"
+									data-user-email="\${room.user_email}">
+									<div class="left">
+										<div class="UserImage">
+											<ul>
+												<img src="images/people.svg" alt="#" class="img">
+											</ul>
+										</div>
+									</div>
+									<div class="nameBox">
+										<h4>\${room.user_name}</h4>
+										<div class="chatMessage">
+											<h5>\${room.sender_id == loginEmail ? '나 :' : room.user_name} \${room.message}</h5>
+											<h5 class="chatTime" data-timestamp="\${room.timestamp}">\${timeAgo(new Date(room.timestamp))}</h5>
+										</div>
+									</div>
+								</div>
+							</a>
+						`;
+						chatContentBox.append(chatContent);
+
+							// 프로필 이미지 불러옴
+							$('.chatContent').each(function () {
+							var snsEmail = $(this).data('user-email')
+							
+							var uploadResultContainer = $(this).find('.UserImage ul');
+
+							$.ajax({
+								url: '/getUserImageList',
+								type: 'GET',
+								data: {user_email: snsEmail}, // 이메일만 데이터로 전송
+								dataType: 'json',
+								success: function(data) {
+									showUploadResult(data, uploadResultContainer);
+								},
+								error: function(xhr, status, error) {
+									console.error('Error fetching file list for email ' + email + ':', error);
+								}
+							});
+						});
+						// 프로필 이미지 끝
+					});
+					// 채팅목록 불러오기 끝
+				},
+				error: function(error) {
+					console.log("Error fetching chat rooms: ", error);
+				}
+			});
+		// }
+    });
+
+	// 프로필 이미지 불러옴
+	function showUploadResult(uploadResultArr, uploadResultContainer){
+        if (!uploadResultArr || uploadResultArr.length == 0) {
+            return;
+        }
+
+        var str = "";
+
+        $(uploadResultArr).each(function (i, obj) {
+            var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+            str += "<li data-path='" + obj.uploadPath + "'";
+            str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+            str += "<div>";
+            str += "<span style='display:none;'>" + obj.fileName + "</span>";
+            str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+            str += "</div></li>";
+        });
+
+        uploadResultContainer.empty().append(str);
+    }
+
+// ----------------------------------------------------- 나성엽 끝 -------------------------------------------------
 </script>

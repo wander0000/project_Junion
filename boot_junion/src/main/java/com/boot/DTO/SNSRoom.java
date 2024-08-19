@@ -12,6 +12,7 @@ public class SNSRoom {
     
     private String user_name;
     private String sender_id;
+    private String user_email;
     private String message;
     private Timestamp timestamp;
 }

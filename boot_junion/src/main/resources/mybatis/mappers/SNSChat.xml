@@ -32,6 +32,7 @@
 		    WHERE sender_id = #{senderId} OR receiver_id = #{senderId}
 		)
 		SELECT u.user_name,
+			   u.user_email,
 			   rm.chatRoom_id,
 		       rm.sender_id,
 		       rm.message,

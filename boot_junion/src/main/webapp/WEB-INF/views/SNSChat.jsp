@@ -167,7 +167,9 @@
     }
     */
 
+    /*
     // 채팅 입력시간 계산하는 메소드
+    // BY 나성엽
     function timeAgo(date) {
         const MINUTE = 60;
         const HOUR = MINUTE * 60;
@@ -204,6 +206,7 @@
         }
         return "방금";
     }
+    */
 
     /*
     function showMessage(message) {
