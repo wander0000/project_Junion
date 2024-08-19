@@ -96,42 +96,59 @@
                 <div class="rightCon">
                     <h5 class="profile">추천 프로필</h5>
         
-                    <div class="userBox">
-                        <div class="left">
-                            <div class="UserImage">
-                                <ul>
-                                    <img src="images/people.svg" alt="#" class="img">
-                                </ul>
-                            </div>
-                        </div><!--left 끝-->
-                        <div class="nameBox">
-                            <h4>이재현</h4>
-                            <h5>경력 3년차</h5>
-                        </div><!--nameBox 끝-->
-                        <div class="right">
-                            <button type="button">
-                                팔로우
-                            </button>
-                        </div><!--right 끝-->
-                    </div> <!--userBox 끝-->
-                    <div class="userBox">
-                        <div class="left">
-                            <div class="UserImage">
-                                <ul>
-                                    <img src="images/people.svg" alt="#" class="img">
-                                </ul>
-                            </div>
-                        </div><!--left 끝-->
-                        <div class="nameBox">
-                            <h4>이재현</h4>
-                            <h5>경력 3년차</h5>
-                        </div><!--nameBox 끝-->
-                        <div class="right">
-                            <button type="button">
-                                팔로우
-                            </button>
-                        </div><!--right 끝-->
-                    </div> <!--userBox 끝-->
+                    <c:forEach items="${userList}" var="user" varStatus="status">
+                        <c:if test="${status.index < 2}">
+                            <div class="userBox prof" 
+                                data-user-type="${user.user_type}"
+                                data-user-email="${user.user_email}">
+                                <div class="left">
+                                    <div class="UserImage">
+                                        <ul>
+                                            <img src="images/people.svg" alt="#" class="img">
+                                        </ul>
+                                    </div>
+                                </div><!--left 끝-->
+                                <div class="nameBox">
+                                    <h4>
+                                        <a href="snsUserPage?user_email=${user.user_email}">${user.user_name}</a>
+                                    </h4>
+                                    <h5>${user.user_email}</h5>
+                                </div><!--nameBox 끝-->
+                                <div class="right">
+                                    <button type="button" class="followbtn">
+                                        팔로우
+                                    </button>
+                                </div><!--right 끝-->
+                            </div> <!--userBox 끝-->
+                        </c:if>
+                    </c:forEach>
+
+                    <c:forEach items="${comList}" var="com" varStatus="status">
+                        <c:if test="${status.index < 2}">
+                            <div class="userBox prof" 
+                                data-user-type="${com.user_type}"
+                                data-user-email="${com.com_email}">
+                                <div class="left">
+                                    <div class="UserImage">
+                                        <ul>
+                                            <img src="images/people.svg" alt="#" class="img">
+                                        </ul>
+                                    </div>
+                                </div><!--left 끝-->
+                                <div class="nameBox">
+                                    <h4>
+                                        <a href="snsCompanyPage?com_email=${com.com_email}">${com.com_name}</a>
+                                    </h4>
+                                    <h5>${com.com_email}</h5>
+                                </div><!--nameBox 끝-->
+                                <div class="right">
+                                    <button type="button" class="followbtn">
+                                        팔로우
+                                    </button>
+                                </div><!--right 끝-->
+                            </div> <!--userBox 끝-->
+                        </c:if>
+                    </c:forEach>
         
                     
                         <h5 class="more">
@@ -151,7 +168,7 @@
 <div id="popupModal" class="modal">
     <div class="modal-content">
         <div class="popupDetail">
-            <div class="detailBox">
+            <div class="detailBox prof">
                 <div class="userBox">
                     <div class="left">
                         <div class="popupUserImage">
@@ -266,7 +283,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.detailBox').each(function () {
+    $('.detailBox, .rightCon .userBox .prof').each(function () {
         var user_type = $(this).data('user-type');
         var snsEmail = $(this).data('user-email');
         
@@ -328,6 +345,8 @@ $(document).ready(function () {
         console.log("loginEmail: " + loginEmail);
 
         openModal(snsNum, snsName, snsTitle, snsContent, snsDate, user_type, snsEmail, loginEmail);
+        // detailBox.addClass('prof');
+        // followFunction();
     });
 
     // 모달 닫기
@@ -358,65 +377,12 @@ $(document).ready(function () {
         $("#popupModal").css("display", "flex");
         $("body").addClass("modal-open"); // 모달 열릴 때 스크롤 방지
 
-        // 팔로우 버튼 설정
-        var button = $("#popupModal .followbtn");
-
-        // 로그인 사용자와 게시글 작성자가 같다면 팔로우 버튼 숨기기
-        if (snsEmail == loginEmail && user_type == 1) {
-            button.hide();
-        } else {
-            button.show(); // 팔로우 버튼이 숨겨져 있던 상태라면 다시 보이게 하기
-        }
+        // 모달 내 prof 요소에 data-* 속성 설정
+        $("#popupModal .prof").data("user-type", user_type)
+                            .data("user-email", snsEmail);
         
-        var followData = {
-            loginEmail: loginEmail,
-            followEmail: snsEmail,
-            followUserType: user_type
-        };
-        
+        followFunction();
 
-        // 페이지 로드 시 팔로우 상태 확인
-        $.ajax({
-            url: '/follow/status',
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(followData),
-            success: function(isFollowed) {
-                if (isFollowed) {
-                    button.addClass('followed');
-                    button.text('팔로잉');
-                } else {
-                    button.removeClass('followed');
-                    button.text('팔로우');
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('팔로우 상태 확인 실패:', error);
-            }
-        });
-
-        // 버튼 클릭 시 팔로우 상태 토글 및 색상 변경
-        button.off('click').on('click', function () {
-            $.ajax({
-                url: '/follow/toggle',
-                type: 'POST',
-                contentType: 'application/json',
-                data: JSON.stringify(followData),
-                success: function(isFollowed) {
-                if (isFollowed) {
-                    button.addClass('followed');
-                    button.text('팔로잉');
-                } else {
-                    button.removeClass('followed');
-                    button.text('팔로우');
-                }
-                },
-                error: function(xhr, status, error) {
-                    console.error('팔로우 상태 변경 실패:', error);
-                    alert('팔로우 상태 변경 실패');
-                }
-            });
-        });
 
 
         // sns_num을 댓글 폼에 설정
