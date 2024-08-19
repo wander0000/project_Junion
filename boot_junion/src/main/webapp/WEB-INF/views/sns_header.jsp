@@ -120,6 +120,24 @@ text-decoration: none;
 display: block;
 font-size: var(--color-black);
 }
+
+.followbtn {
+    background-color: #FFA500;
+    /* border: none; */
+    border: solid 1px #FFA500;
+    color: white;
+    height: 28px;
+    width: 53px;
+    /* padding: 10px 20px; */
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 2px;
+}
+.followbtn.followed {
+    background-color: #ffffff;
+    border: solid 1px #dadada;
+    color: #000;
+}
 </style>									
 </head>
 <body>
@@ -304,6 +322,10 @@ font-size: var(--color-black);
             console.log("@# followEmail=>"+followEmail);
             console.log("@# followUserType=>"+followUserType);
             console.log("@# loginEmail=>"+loginEmail);
+
+			if (followEmail == loginEmail && followUserType == 1) {
+				$(this).find('.followbtn').hide();
+			}
             
             var followData = {
                 loginEmail: loginEmail,
