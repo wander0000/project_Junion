@@ -320,14 +320,14 @@ a:visited {
 
 .searchResult .right button
 {
-	width: 58px;
+	/* width: 58px;
 	height: 30px;
 	border-radius: 6px;
 	background-color: var(--main-color);
 	border: 1px var(--main-color);
 	color: white;
 	font-size: var(--font-size12);
-	cursor: pointer;
+	cursor: pointer; */
 }
 
 .navChat .chatTitleBox
