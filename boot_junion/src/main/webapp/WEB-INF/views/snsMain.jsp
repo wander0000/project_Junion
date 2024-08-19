@@ -477,7 +477,7 @@ $(document).ready(function () {
                                 '</div>' +
                                 '<div class="right">' +
                                     '<h4>' + comment.sns_comment_content + '</h4>' +
-                                    '<h5>' + comment.sns_comment_date + '</h5>' +
+                                    '<h5>' + timeAgo(new Date(comment.sns_comment_date)) + '</h5>' +
                                 '</div>' +
                             '</div>';
 
