@@ -48,18 +48,29 @@
 <!--  	기업 정보 관리 페이지 정보 뿌리기   -->
 <!--  24.07.24(수) 하진 : 테이블 정규화로 인해 쿼리 수정  -> join  -->
 <!--  24.07.25(목) 하진 : 테이블 정규화로 인해 쿼리 수정  -> join시 여러 stack 값을 가져와야 함  -->
-<!--   24.07.27(토) 하진 : 업력 계산 함수 추가 or js 처리 중 방식 고민중... -->
+<!--  24.07.27(토) 하진 : 업력 계산 함수 추가 or js 처리 중 방식 고민중... -->
+<!--  24.08.19(월) 하진 : 페이지 분리로 인해 기업정보 상세페이지 뿌릴 내용만 출력하게 수정-->
+<!-- 기업 정보(상세) 관리 페이지 뿌릴 내용도 이 쿼리를 씀  -->
 	<select id="companyInfo" resultType="com.boot.DTO.CompanyInfoDTO"> 
-		select c.com_email as com_email, c.com_pw, c.com_name, c.com_serial_number, c.com_tel, c.com_person, 
-				cs.com_stack as com_stack, c.com_location, c.com_year, c.com_content, c.com_sale, c.com_type, c.com_salary, 
+		select c.com_email as com_email,c.com_name,	cs.com_stack as com_stack, c.com_location, 
+				c.com_year, c.com_content, c.com_sale, c.com_type, c.com_salary, 
 				c.com_CEO, c.com_site, c.com_employee , TIMESTAMPDIFF(YEAR, c.com_year, CURDATE()) AS experience_years 
 			from com_tb c 
 			left join(select com_email, GROUP_CONCAT(stack SEPARATOR ', ') AS com_stack 
 			from com_stack 
 			where com_email=#{com_email} group by com_email) cs on c.com_email = cs.com_email 
 			where c.com_email=#{com_email} 
+<!--		select c.com_email as com_email, c.com_pw, c.com_name, c.com_serial_number, c.com_tel, c.com_person, -->
+<!--				cs.com_stack as com_stack, c.com_location, c.com_year, c.com_content, c.com_sale, c.com_type, c.com_salary, -->
+<!--				c.com_CEO, c.com_site, c.com_employee , TIMESTAMPDIFF(YEAR, c.com_year, CURDATE()) AS experience_years -->
+<!--			from com_tb c -->
+<!--			left join(select com_email, GROUP_CONCAT(stack SEPARATOR ', ') AS com_stack -->
+<!--			from com_stack -->
+<!--			where com_email=#{com_email} group by com_email) cs on c.com_email = cs.com_email -->
+<!--			where c.com_email=#{com_email} -->
 		</select>
 		
+<!--	24.08.19 하진 : 페이지 분리로 인해 기업정보 기본페이지 뿌릴 내용도 이 쿼리를 씀-->
 <!--  	기업 정보(기본) 관리 페이지 정보 뿌릴 내용   -->
 	<select id="InfoMini" resultType="com.boot.DTO.CompanyInfoDTO">
 		select com_email, com_serial_number, com_tel, com_person from com_tb where com_email=#{com_email}
@@ -76,10 +87,16 @@
 	</update>
 
 <!-- 기업 정보(상세) 관리 페이지 뿌릴 내용  -->
-	<select id="companyInfoUpdate" resultType="com.boot.DTO.CompanyInfoDTO"> 
-		select com_name, com_year, com_content, com_location, com_sale, com_salary, com_CEO, com_type,
-			com_site, com_employee from com_tb where com_email=#{com_email} 
-	</select>
+<!--	<select id="companyInfoUpdate" resultType="com.boot.DTO.CompanyInfoDTO"> -->
+<!--		select c.com_email as com_email,c.com_name,	cs.com_stack as com_stack, c.com_location, -->
+<!--					c.com_year, c.com_content, c.com_sale, c.com_type, c.com_salary, -->
+<!--					c.com_CEO, c.com_site, c.com_employee-->
+<!--				from com_tb c -->
+<!--				left join(select com_email, GROUP_CONCAT(stack SEPARATOR ', ') AS com_stack -->
+<!--				from com_stack -->
+<!--				where com_email=#{com_email} group by com_email) cs on c.com_email = cs.com_email -->
+<!--				where c.com_email=#{com_email} -->
+<!--	</select>-->
 	
 <!-- 기업 상세정보 수정  -->
 	<update id="modify_Detail"> 

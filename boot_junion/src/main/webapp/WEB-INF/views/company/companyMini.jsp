@@ -77,14 +77,12 @@
     cursor: pointer;
     text-align: left;
     }
-    /* 
-    .toptitle2
+    
+    /* .toptitle2
     {
-    margin-right: 20px;
-    font-size: var(--font-size32);
-    cursor: pointer;
-    } */
-
+    color: var(--input-gray);
+    }
+ */
 
 
     /* 기본 정보 */
@@ -282,12 +280,12 @@
         $(".toptitle1").on("click",function(e){
         // $(".detail").css({"display":"none"});
         // $(".common").css({"display":"block"});
-        location.href="companyMini"
+        location.href="companyMini";
         });
         $(".toptitle2").on("click",function(e){
             // $(".common").css({"display":"none"});
             // $(".detail").css({"display":"block"});
-            location.href="companyInfoManagement"
+            location.href="companyInfoManagement";
             // $(".disN.wrap").css({"display":"block"});
         });// tab 기능
 
