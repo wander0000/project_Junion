@@ -41,32 +41,26 @@
     --font-size12: 12px;
     }
 
+
+    .tabCon
+    {
+        width: 1200px;
+    }
     /* section : 기본 틀 */
     section 
     {
-    /* display: flex;
-    justify-content: center; */
-    /* padding-top: 90px; */
-    padding: 90px 0 90px 60px;
     /* max-width: clac(100%-240px); */
+    display: flex;
+    justify-content: center;
+    padding-top: 50px;  
 
-    
     }
-
-    /* .mainContent
-    { */
-    /* max-width:1200px; */
-    /* display: flex; */
-    /* justify-content: center; */
-    
-    /* } */
-
 
     /* 헤더밑 타이틀*/
     section .toptitle
     {
     /* font-size: var(--font-size32); */
-    text-align: left;
+    /* text-align: left; */
     /* width: 100%; */
     margin-bottom: 40px;
     gap: 40px;
@@ -79,7 +73,9 @@
     {
     /* margin-right: 40px; */
     font-size: var(--font-size32);
+    font-weight: 600;
     cursor: pointer;
+    text-align: left;
     }
     /* 
     .toptitle2
@@ -96,14 +92,12 @@
     {
         border: 1px solid var(--color-gray);
     } */
-    .common, .detail
-    {
-        max-width: 730px;
-    }
+
     .table
     {
         border: 1px solid var(--color-gray);
         border-bottom: none;
+        /* padding: 20px; */
         display: flex;
         /* height: 50px; */
         align-items: center;
@@ -114,15 +108,15 @@
     .table:first-child
     {
         border-top: 1px solid var(--color-gray);
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
+        border-top-left-radius: 8px;
+        border-top-right-radius: 8px;
     }
 
     .table:last-child
     {
         border-bottom: 1px solid var(--color-gray);
-        border-bottom-left-radius: 6px;
-        border-bottom-right-radius: 6px;
+        border-bottom-left-radius: 8px;
+        border-bottom-right-radius: 8px;
     }
 
     .table .disTitle
