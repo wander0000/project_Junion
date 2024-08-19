@@ -314,7 +314,10 @@ font-size: var(--color-black);
 
 	// 팔로우 기능
 	// BY 나성엽
-	$(document).ready(function () {  
+	$(document).ready(function () {
+		followFunction()
+	});
+	function followFunction(){
         $('.prof').each(function () {
             var followEmail = $(this).closest('.prof').data('user-email');
             var followUserType = $(this).closest('.prof').data('user-type');
@@ -384,7 +387,8 @@ font-size: var(--color-black);
                 });
             });
         });
-    });
+	}
+    
 
 // ----------------------------------------------- 나성엽 끝 -----------------------------------------
 </script>
