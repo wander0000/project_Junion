@@ -12,6 +12,7 @@ import com.boot.DAO.SNSMyPageDAO;
 import com.boot.DTO.CompanyInfoDTO;
 import com.boot.DTO.ResumeDTO;
 import com.boot.DTO.SNSFeedbackDTO;
+import com.boot.DTO.SNSFollowDTO;
 import com.boot.DTO.SNSIntroDTO;
 import com.boot.DTO.UserDTO;
 import com.boot.DTO.UserImageUploadDTO;
@@ -127,5 +128,12 @@ public class SNSMyPageServiceImpl implements SNSMyPageService {
 		log.info("@# 게시물 삭제");
 		SNSMyPageDAO dao = sqlSession.getMapper(SNSMyPageDAO.class);
 		dao.deleteFeedback(param);
+	}
+
+	@Override
+	public SNSFollowDTO followCount(String user_email) {
+		SNSMyPageDAO dao = sqlSession.getMapper(SNSMyPageDAO.class);
+		SNSFollowDTO followCount = dao.followCount(user_email);
+		return followCount;
 	}
 }

@@ -190,6 +190,7 @@ section.snsMypage
     height: 90px;
     border-radius: 50%;
     /* cursor: pointer; */
+    margin-bottom: 10px;
 }
 
 .UserProfileImage img
@@ -1061,6 +1062,7 @@ h2.nullResumeText
 }
 
 .accordionContent {
+    font-size: 14px;
     padding: 20px;
     display: none;
     overflow: hidden;

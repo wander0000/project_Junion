@@ -28,7 +28,7 @@
                                     <div class="contentWrap">
                                         <div class="content profile">
                                             <div class="profileInfo" data-login-email="${login_email}"
-                                            data-user-type="${userInfo.user_type}" data-user-email="${user_email}">
+                                                data-user-type="${userInfo.user_type}" data-user-email="${user_email}">
                                                 <div class="UserProfileImage">
                                                     <ul>
                                                         <!-- <img src="images/people.svg" alt="#" class="img"> -->
@@ -36,7 +36,7 @@
                                                 </div>
                                                 <!-- <img class="img" src="/images/1.jpg" alt=""> -->
                                                 <h3 class="name">${userInfo.user_name}</h3>
-                                                
+
                                                 <!-- </div> -->
                                                 <p class="intro">
                                                     <c:if test="${user_email == sessionScope.login_email}">
@@ -57,7 +57,8 @@
                                                             <!-- 글자수 제한 100 -->
                                                             <textarea name="sns_intro" rows="4"
                                                                 style="width:100%; border-radius: 5px; padding: 5px; margin-top: 20px;"
-                                                                minlength="10" maxlength="100">${userIntro.sns_intro}</textarea>
+                                                                minlength="10"
+                                                                maxlength="100">${userIntro.sns_intro}</textarea>
                                                             <div class="modifyButton">
                                                                 <button type="submit" class="postButton">수정 완료</button>
                                                                 <button type="button" id="cancelEdit"
@@ -81,7 +82,7 @@
                                                         <i class="fa-regular fa-thumbs-up" style="cursor: pointer;"></i>
                                                     </span>
                                                 </div>
-                                                <h3 class="followerNum">20</h3>
+                                                <h3 class="followerNum">${followCount.followCount}</h3>
                                             </div>
                                             <div class="profileCon position">
                                                 <h5 class="proflieConTitle">희망 직무</h5>
@@ -164,7 +165,7 @@
                                                                     ${resumeInfo.resume_portfolio_name}</div>
                                                                 <h5 class="infoConPosition">
                                                                     <a href="${resumeInfo.resume_portfolio_url}"
-                                                                        style="color:#111">${resumeInfo.resume_portfolio_url}</a>
+                                                                        style="color:#111" target="_blank">${resumeInfo.resume_portfolio_url}</a>
                                                                 </h5>
                                                             </div>
                                                             <c:if test="${user_email != sessionScope.login_email}">
@@ -337,14 +338,19 @@
                                                                         </ul>
                                                                     </div> -->
                                                                     <div class="leftFeedback">
+                                                                        <!-- <div class="UserProfileImage">
+                                                                            <ul> -->
+                                                                        <!-- <img src="images/people.svg" alt="#" class="img"> -->
+                                                                        <!-- </ul>
+                                                                        </div> -->
                                                                         <h5 id="feedbackWriteUser">${dto.user_name}</h5>
                                                                     </div>
                                                                     <div class="rightFeedback">
                                                                         <h5 id="feedbackDate">${dto.feedback_date}</h5>
-                                                                        <span class="deleteIcon">
+                                                                        <!-- <span class="deleteIcon">
                                                                             <i
                                                                                 class="fa-regular fa-trash-can fa-lg"></i>
-                                                                        </span>
+                                                                        </span> -->
                                                                     </div>
                                                                 </button>
 
@@ -488,10 +494,27 @@
                     $('.contentBoard').addClass('active');
                 });
 
-                // 각 detailBox 내에서 .option 활성화
                 $('span.icon').click(function () {
-                    // 현재 아이콘의 가장 가까운 .detailBox를 찾고 그 안의 .option을 활성화
-                    $(this).closest('.detailBox').find('.option').addClass('active');
+                    var $currentOption = $(this).closest('.detailBox').find('.option');
+
+                    if ($currentOption.hasClass('active')) {
+                        // 이미 활성화된 경우 비활성화
+                        $currentOption.removeClass('active');
+                    } else {
+                        // 다른 활성화된 .option 비활성화
+                        $('.option').removeClass('active');
+                        // 클릭된 .icon의 .detailBox 내의 .option을 활성화
+                        $currentOption.addClass('active');
+                    }
+                });
+                // 문서의 나머지 부분 클릭 시 활성화된 .option 비활성화
+                $(document).on('click', function (event) {
+                    var $target = $(event.target);
+
+                    // 클릭된 요소가 .option이나 .icon 내부가 아닐 경우
+                    if (!$target.closest('.option').length && !$target.closest('span.icon').length) {
+                        $('.option').removeClass('active'); // 모든 .option을 비활성화
+                    }
                 });
 
                 // .option의 h5 클릭 시, 해당 .option을 비활성화

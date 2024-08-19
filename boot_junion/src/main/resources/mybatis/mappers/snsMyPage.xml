@@ -106,6 +106,7 @@
             on sft.login_email = ut.user_email
 			where sft.resume_num = #{resume_num}
     </select>
+    
 	
    <delete id="deleteFeedback"> <!-- 글 삭제 버튼-->
 		delete 
@@ -114,4 +115,7 @@
 			  and resume_num = #{resume_num}
     </delete>
     
+    <select id="followCount" resultType="com.boot.DTO.SNSFollowDTO">
+		select count(*) as followCount from sns_follow_tb where follow_email = #{follow_email}
+    </select>
 </mapper>
