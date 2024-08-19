@@ -108,6 +108,14 @@ public class SNSMyPageController {
 	    log.info("@#follow_email: " + user_email);
 	    model.addAttribute("followCount", followCount);
 	    
+//	    팔로잉 List
+	    List<SNSFollowDTO> followingList = snsMyPageService.followerList(param);
+	    model.addAttribute("following", followingList);
+
+//	    팔로워 List
+	    List<SNSFollowDTO> followerList = snsMyPageService.followerList(param);
+	    model.addAttribute("follower", followerList);
+	    
 	    // 게시물 삭제
 	    snsMyPageService.deletePost(param);
 
