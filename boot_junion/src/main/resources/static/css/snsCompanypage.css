@@ -94,7 +94,7 @@ section.snsCompanyPage
     height: 60px;
 }
 
-.profileInfo button.following, .estimatePortfolio 
+.profileInfo button.followbtn, .estimatePortfolio 
 {
     padding:8px 20px;
     border: 1px solid #e5e5ec;
@@ -105,7 +105,7 @@ section.snsCompanyPage
     cursor: pointer;
 }
 
-.profileInfo button.following:hover , .estimatePortfolio:hover 
+.profileInfo button.followbtn:hover , .estimatePortfolio:hover 
 {
     background:#FFA500;
     color: #fff;

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.boot.DTO.CompanyInfoDTO;
 import com.boot.DTO.ResumeDTO;
 import com.boot.DTO.SNSFeedbackDTO;
+import com.boot.DTO.SNSFollowDTO;
 import com.boot.DTO.SNSIntroDTO;
 import com.boot.DTO.UserDTO;
 import com.boot.DTO.UserImageUploadDTO;
@@ -40,4 +41,6 @@ public interface SNSMyPageDAO {
 	public List<SNSFeedbackDTO> getFeedback(HashMap<String, String> param); // 피드백 불러오기
 	
 	public void deleteFeedback(HashMap<String, String> param); //피드백 삭제
+
+	public SNSFollowDTO followCount(String user_email);
 }

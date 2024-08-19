@@ -20,6 +20,7 @@ import com.boot.DTO.CompanyInfoDTO;
 import com.boot.DTO.ResumeDTO;
 import com.boot.DTO.SNSDTO;
 import com.boot.DTO.SNSFeedbackDTO;
+import com.boot.DTO.SNSFollowDTO;
 import com.boot.DTO.SNSIntroDTO;
 import com.boot.DTO.UserDTO;
 import com.boot.Service.SNSMyPageService;
@@ -88,7 +89,7 @@ public class SNSMyPageController {
 
 	    // SNS 소개 정보 수정
 	    if (param.containsKey("sns_intro") && !param.get("sns_intro").isEmpty()) {
-	        log.info("@# Modifying SNS Intro for user: " + user_email);
+	        log.info("Modifying SNS Intro for user: " + user_email);
 	        snsMyPageService.modifySNSIntro(param);
 	    }
 
@@ -102,6 +103,11 @@ public class SNSMyPageController {
 	    List<SNSFeedbackDTO> getFeedback = snsMyPageService.getFeedback(param);
 	    model.addAttribute("SNSFeedback", getFeedback);
 
+	    SNSFollowDTO followCount = snsMyPageService.followCount(user_email);
+	    log.info("@#Follow count from DB: " + followCount.getFollowCount());
+	    log.info("@#follow_email: " + user_email);
+	    model.addAttribute("followCount", followCount);
+	    
 	    // 게시물 삭제
 	    snsMyPageService.deletePost(param);
 
@@ -167,7 +173,7 @@ public class SNSMyPageController {
 	
 	@RequestMapping("/snsCompanyPage")
 //	public String SNSCompanyPage(@RequestParam(value = "com_email", required = false) String com_email , Model model, HttpSession session) {
-	public String SNSCompanyPage(String com_email , Model model, HttpServletRequest httpServletRequest) {
+	public String SNSCompanyPage(String com_email, String user_email, Model model, HttpServletRequest httpServletRequest) {
 		log.info("@# snsCompanyPage");
 		
         HttpSession session = httpServletRequest.getSession();
@@ -184,6 +190,16 @@ public class SNSMyPageController {
 		CompanyInfoDTO companyDTO = snsMyPageService.companyInfo(com_email);
 		log.info("@# snsCompanyPage" + companyDTO);
 		model.addAttribute("company", companyDTO);
+		
+	    // 유저 정보 가져오기
+	    UserDTO userDTO = snsMyPageService.getUserInfo(user_email);
+	    log.info("@# UserInfo: " + userDTO);
+	    model.addAttribute("userInfo", userDTO);
+	    
+	    SNSFollowDTO followCount = snsMyPageService.followCount(com_email);
+	    log.info("@#Follow count from DB: " + followCount.getFollowCount());
+	    log.info("@#follow_email: " + com_email);
+	    model.addAttribute("followCount", followCount);
 		
 		return "/snsCompanyPage";
 	}
