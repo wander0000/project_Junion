@@ -848,6 +848,7 @@ h2.nullResumeText
     width: 320px;
     height: 40px;
     font-size: 18px;
+    margin-left: 5px;
 }
 
 .feedbackPopupBox .uploadImage input {
@@ -899,7 +900,7 @@ h2.nullResumeText
 */
 
 .accordion {
-    width: 420px;
+    /* width: 420px; */
     padding: 20px;
 }
 
@@ -1489,4 +1490,9 @@ body.modal-open {
     min-width: 40px;
     min-height: 40px;
     border-radius: 50%;
+}
+
+#viewCancelButton, #followerCancelButton, #followingCancelButton, #writeCancelButton, #viewCancelButton
+{
+    cursor: pointer;
 }
