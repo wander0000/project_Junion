@@ -5,8 +5,6 @@
 <mapper namespace="com.boot.DAO.SNSDAO">
     
     <select id="snsList" resultType="com.boot.DTO.SNSDTO">
-<!--    	select sns_num, login_email, user_type, sns_title, sns_content, sns_date-->
-<!--    	from sns_tb -->
 		SELECT 
 		    s.sns_num,
 		    s.login_email,
@@ -26,6 +24,34 @@
 		LEFT JOIN 
 		    com_tb c ON s.login_email = c.com_email AND s.user_type = 2 order by s.sns_date desc;
     </select>
+
+	<select id="snsFollowPostList" resultType="com.boot.DTO.SNSDTO">
+	    SELECT 
+	        s.sns_num,
+	        s.login_email,
+	        s.user_type,
+	        s.sns_title,
+	        s.sns_content,
+	        s.sns_date,
+	        CASE
+	            WHEN s.user_type = 1 THEN u.user_name
+	            WHEN s.user_type = 2 THEN c.com_name
+	            ELSE NULL
+	        END AS sns_name
+	    FROM 
+	        sns_tb s
+	    LEFT JOIN 
+	        user_tb u ON s.login_email = u.user_email AND s.user_type = 1
+	    LEFT JOIN 
+	        com_tb c ON s.login_email = c.com_email AND s.user_type = 2
+	    INNER JOIN 
+	        sns_follow_tb f ON s.login_email = f.follow_email
+	    WHERE 
+	        f.login_email = #{login_email}
+	    ORDER BY 
+	        s.sns_date DESC;
+	</select>
+
     
     <select id="findBySNSNum" resultType="com.boot.DTO.SNSDTO">
     	select sns_num, login_email, user_type, sns_title, sns_content, sns_date

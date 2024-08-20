@@ -35,8 +35,10 @@
 
 .snsMain .detailBox .userBox .UserImage img
 {
-	width: 36px;
-	height: 36px;
+	max-width: 36px;
+	max-height: 36px;
+	min-width: 36px;
+	min-height: 36px;
 	border-radius: 50%;
 	cursor: pointer;
 }
@@ -127,8 +129,10 @@
 
 .snsMain .detailBox .detailContent .mainGetResult img
 {
-	width: 600px;
-	height: 360px;
+	max-width: 600px;
+	max-height: 360px;
+	min-width: 600px;
+	min-height: 360px;
 	border-radius: 6px;
 	margin-top: 12px;
 }
@@ -214,10 +218,13 @@
 
 }
 
-.snsMain .rightCon .userBox .uploadResult img
+.snsMain .rightCon .userBox .UserImage img
 {
-	width: 40px;
-	height: 40px;
+	max-width: 40px;
+	max-height: 40px;
+	min-width: 40px;
+	min-height: 40px;
+	border-radius: 50%;
 	cursor: pointer;
 }
 
@@ -288,8 +295,10 @@
 
 .popupDetail .detailBox .userBox .popupUserImage img
 {
-	width: 48px;
-	height: 48px;
+	max-width: 48px;
+	max-height: 48px;
+	min-width: 48px;
+	min-height: 48px;
 	cursor: pointer;
 	border-radius: 50%;
 }
@@ -333,8 +342,10 @@
 
 .popupDetail .detailContent .popupGetResult img
 {
-	width: 600px;
-	height: 360px;
+	max-width: 600px;
+	max-height: 360px;
+	min-width: 600px;
+	min-height: 360px;
 	border-radius: 6px;
 }
 
@@ -429,8 +440,10 @@
 
 .popupDetail .detailComment .commentCon .left .commentUserImage img
 {
-	width: 36px;
-	height: 36px;
+	max-width: 36px;
+	max-height: 36px;
+	min-width: 36px;
+	min-height: 36px;
 	margin: 0 12px 0px 20px;
 	border-radius: 50%;
 }

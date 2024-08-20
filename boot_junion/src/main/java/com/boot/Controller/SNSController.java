@@ -39,11 +39,19 @@ public class SNSController {
         log.info("@# snsMain");
 
         HttpSession session = httpServletRequest.getSession();
-        int userType = Integer.parseInt(String.valueOf(session.getAttribute("login_usertype")));
         String email = (String) session.getAttribute("login_email");
+        Object userTypeObj = session.getAttribute("login_usertype");
 
+        // 로그인이 안 되어 있거나 userType이 null인 경우 login 페이지로 리디렉션
+        if (userTypeObj == null || email == null) {
+            return "redirect:/login";
+        }
+
+        int userType = Integer.parseInt(userTypeObj.toString());
+        
+        // userType이 2인 경우 snsCompanyPage로 리디렉션
         if (userType == 2) {
-            return "redirect:/snsCompanyPage?com_email="+email;
+            return "redirect:/snsCompanyPage?com_email=" + email;
         }
 
         // 로그인한 경우
@@ -51,6 +59,7 @@ public class SNSController {
         model.addAttribute("login_email", email);
 
         // SNS 목록 가져오기
+//        ArrayList<SNSDTO> snsFollowPostList = snsService.snsFollowPostList(email);
         ArrayList<SNSDTO> snsList = snsService.snsList();
         log.info("@# list" + snsList);
 

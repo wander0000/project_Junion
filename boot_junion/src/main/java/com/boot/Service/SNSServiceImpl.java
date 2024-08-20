@@ -85,6 +85,15 @@ public class SNSServiceImpl implements SNSService{
 		return list;
 	}
 
+	@Override
+	public ArrayList<SNSDTO> snsFollowPostList(String email) {
+		log.info("@#SNSServiceImpl snsFollowPostList");
+		
+		SNSDAO dao = sqlSession.getMapper(SNSDAO.class);
+		ArrayList<SNSDTO> list = dao.snsFollowPostList(email);
+		return list;
+	}
+
 
 }
 
