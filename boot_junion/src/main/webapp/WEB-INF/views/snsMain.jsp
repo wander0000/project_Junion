@@ -324,7 +324,7 @@ $(document).ready(function () {
         });
     });
 
-    $('.detailBox, .rightCon .userBox .prof').each(function () {
+    $('.detailBox, .rightCon .userBox').each(function () {
         var user_type = $(this).data('user-type');
         var snsEmail = $(this).data('user-email');
         
@@ -420,11 +420,11 @@ $(document).ready(function () {
         $("body").addClass("modal-open"); // 모달 열릴 때 스크롤 방지
 
         // 모달 내 prof 요소에 data-* 속성 설정
-        $("#popupModal .prof").data("user-type", user_type)
-        $("#popupModal .prof").data("sns-num", snsNum)
-        $("#popupModal .prof").data("login-email", loginEmail)
-        $("#popupModal .prof").data("login-usertype", loginUsertype)
-                            .data("user-email", snsEmail);
+        $("#popupModal .prof").data("user-type", user_type);
+        $("#popupModal .prof").data("sns-num", snsNum);
+        $("#popupModal .prof").data("login-email", loginEmail);
+        $("#popupModal .prof").data("login-usertype", loginUsertype);
+        $("#popupModal .prof").data("user-email", snsEmail);
         
         followFunction();
 
