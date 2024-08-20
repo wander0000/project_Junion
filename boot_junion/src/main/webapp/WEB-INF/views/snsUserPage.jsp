@@ -300,9 +300,9 @@
                                                     <!-- <h5 id="cancelButton">취소</h5> -->
                                                 </div> <!--boxButton 끝-->
                                                 <c:forEach var="dto" items="${follower}">
-                                                    <div class="followerBox" data-login-email="${login_email}"
-                                                        data-user-type="${userInfo.user_type}"
-                                                        data-user-email="${user_email}">
+                                                    <div class="followerBox  prof" data-login-email="${login_email}"
+                                                        data-user-type="${dto.userType}"
+                                                        data-user-email="${dto.loginEmail}">
                                                         <div class="UserImage">
                                                             <a href="snsUserPage?user_email=${dto.loginEmail}">
                                                                 <ul>
@@ -341,9 +341,9 @@
                                                     <!-- <h5 id="cancelButton">취소</h5> -->
                                                 </div> <!--boxButton 끝-->
                                                 <c:forEach var="dto" items="${following}">
-                                                    <div class="followingBox" data-login-email="${login_email}"
-                                                        data-user-type="${userInfo.user_type}"
-                                                        data-user-email="${user_email}">
+                                                    <div class="followingBox prof" data-login-email="${login_email}"
+                                                        data-user-type="${dto.userType}"
+                                                        data-user-email="${dto.followEmail}">
                                                         <div class="UserImage">
                                                             <a href="snsUserPage?user_email=${user.user_email}">
                                                                 <ul>
@@ -1186,64 +1186,6 @@
         <script>
             $(document).ready(function () {
                 // 프로필 이미지 불러옴
-                $('.followingBox').each(function () {
-                    var user_type = $(this).data('user-type');
-                    var snsEmail = $(this).data('user-email')
-
-                    var uploadResultContainer = $(this).find('.UserProfileImage ul');
-
-                    if (user_type) {
-                        var url;
-                        var emailParam = '';
-
-                        if (user_type == 1) {
-                            url = '/getUserImageList';
-                            emailParam = { user_email: snsEmail }
-                        } else if (user_type == 2) {
-                            url = '/mainComFileList';
-                            emailParam = { com_email: snsEmail }
-                        }
-                        $.ajax({
-                            url: url,
-                            type: 'GET',
-                            data: emailParam, // 이메일만 데이터로 전송
-                            dataType: 'json',
-                            success: function (data) {
-                                showUploadResult(data, uploadResultContainer);
-                            },
-                            error: function (xhr, status, error) {
-                                console.error('Error fetching file list for email ' + email + ':', error);
-                            }
-                        });
-                    }
-                });
-            });
-            // 프로필 이미지 불러옴
-            function showUploadResult(uploadResultArr, uploadResultContainer) {
-                if (!uploadResultArr || uploadResultArr.length == 0) {
-                    return;
-                }
-
-                var str = "";
-
-                $(uploadResultArr).each(function (i, obj) {
-                    var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
-
-                    str += "<li data-path='" + obj.uploadPath + "'";
-                    str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
-                    str += "<div>";
-                    str += "<span style='display:none;'>" + obj.fileName + "</span>";
-                    str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";
-                    str += "</div></li>";
-                });
-
-                uploadResultContainer.empty().append(str);
-            }
-
-        </script>
-        <script>
-            $(document).ready(function () {
-                // 프로필 이미지 불러옴
                 $('.profileInfo').each(function () {
                     var user_type = $(this).data('user-type');
                     var snsEmail = $(this).data('user-email')
@@ -1303,7 +1245,124 @@
         <script>
             $(document).ready(function () {
                 // 프로필 이미지 불러옴
+                $('.followingBox').each(function () {
+                    var user_type = $(this).data('user-type');
+                    var snsEmail = $(this).data('user-email')
+
+                    var uploadResultContainer = $(this).find('.UserProfileImage ul');
+
+                    if (user_type) {
+                        var url;
+                        var emailParam = '';
+
+                        if (user_type == 1) {
+                            url = '/getUserImageList';
+                            emailParam = { user_email: snsEmail }
+                        } else if (user_type == 2) {
+                            url = '/mainComFileList';
+                            emailParam = { com_email: snsEmail }
+                        }
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            data: emailParam, // 이메일만 데이터로 전송
+                            dataType: 'json',
+                            success: function (data) {
+                                showUploadResult(data, uploadResultContainer);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error fetching file list for email ' + email + ':', error);
+                            }
+                        });
+                    }
+                });
+            });
+            // 프로필 이미지 불러옴
+            function showUploadResult(uploadResultArr, uploadResultContainer) {
+                if (!uploadResultArr || uploadResultArr.length == 0) {
+                    return;
+                }
+
+                var str = "";
+
+                $(uploadResultArr).each(function (i, obj) {
+                    var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+                    str += "<li data-path='" + obj.uploadPath + "'";
+                    str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+                    str += "<div>";
+                    str += "<span style='display:none;'>" + obj.fileName + "</span>";
+                    str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";
+                    str += "</div></li>";
+                });
+
+                uploadResultContainer.empty().append(str);
+            }
+
+        </script>
+        <script>
+            $(document).ready(function () {
+                // 프로필 이미지 불러옴
                 $('.followerBox').each(function () {
+                    var user_type = $(this).data('user-type');
+                    var snsEmail = $(this).data('user-email')
+
+                    var uploadResultContainer = $(this).find('.UserImage ul');
+
+                    if (user_type) {
+                        var url;
+                        var emailParam = '';
+
+                        if (user_type == 1) {
+                            url = '/getUserImageList';
+                            emailParam = { user_email: snsEmail }
+                        } else if (user_type == 2) {
+                            url = '/mainComFileList';
+                            emailParam = { com_email: snsEmail }
+                        }
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            data: emailParam, // 이메일만 데이터로 전송
+                            dataType: 'json',
+                            success: function (data) {
+                                showUploadResult(data, uploadResultContainer);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error fetching file list for email ' + email + ':', error);
+                            }
+                        });
+                    }
+                });
+
+            });
+
+            // 프로필 이미지 불러옴
+            function showUploadResult(uploadResultArr, uploadResultContainer) {
+                if (!uploadResultArr || uploadResultArr.length == 0) {
+                    return;
+                }
+
+                var str = "";
+
+                $(uploadResultArr).each(function (i, obj) {
+                    var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+                    str += "<li data-path='" + obj.uploadPath + "'";
+                    str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+                    str += "<div>";
+                    str += "<span style='display:none;'>" + obj.fileName + "</span>";
+                    str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";
+                    str += "</div></li>";
+                });
+
+                uploadResultContainer.empty().append(str);
+            }
+        </script>
+        <script>
+            $(document).ready(function () {
+                // 프로필 이미지 불러옴
+                $('.followingBox').each(function () {
                     var user_type = $(this).data('user-type');
                     var snsEmail = $(this).data('user-email')
 

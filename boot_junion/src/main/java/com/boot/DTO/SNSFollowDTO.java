@@ -11,4 +11,5 @@ public class SNSFollowDTO {
     private int followingCount;
     private String follow_name;
     private String userName;
+    private String userType;
 }
