@@ -821,14 +821,14 @@
 					console.log("@#  roomNum=>"+roomNum);
 					console.log("@#  message.chatRoom_id=>"+message.chatRoom_id);
 					
-					if (roomNum == message.chatRoom_id) {
-						chatContent.find('.unread-count').html(``);
-					}
+					// if (roomNum == message.chatRoom_id) {
+					// 	chatContent.find('.unread-count').html(``);
+					// }
 
 					// 상대방이 보낸 메시지일 때만 알림 표시
-					// if (message.sender_id !== loginEmail) {
-					// 	showMessageNotification();
-					// };
+					if (message.sender_id != loginEmail && roomNum != message.chatRoom_id) {
+						showMessageNotification();
+					};
 
 					// markMessagesAsRead();
 
@@ -871,6 +871,16 @@
 				notification.fadeOut(300); // 3초 후 알림 숨기기
 			}, 3000); // 3초 동안 알림 표시
 		}
+
+		// '채팅' 메뉴 항목을 클릭했을 때의 이벤트 핸들러
+		$('.notification').on('click', function(event) {
+            event.preventDefault();
+
+			$('.navigationChat').css('display', 'flex');
+			$('.navigationSNS').hide(); // .navigationSNS 숨김
+			$('#searchQuery').val(''); // 검색 입력 필드 비우기
+			$('#searchResultBox').html(''); // 검색 결과 초기화
+        });
 
 
 		// 메시지를 읽음으로 표시하는 함수

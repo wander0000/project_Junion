@@ -74,6 +74,8 @@
     console.log("@# stompClient=>"+stompClient)
 
     $(document).ready(function() {
+        $('.iconChat').click();
+
         loadMessages();
 
         // STOMP 클라이언트를 사용하여 서버에 연결
