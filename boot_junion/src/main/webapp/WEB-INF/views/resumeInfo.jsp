@@ -300,11 +300,6 @@
         }
         
 
-        //24.08.19 하진 : 자소서 내용이 없을 경우, 해당 부분 숨김 처리
-        var intro = "<c:out value='${resumeInfo.resume_intro}'/>";
-        if(!intro){
-            $(".introduceWrap").css("display","none");
-        }
 
 
         // 나이계산하기
@@ -365,5 +360,11 @@
 
 		})();
 
+		
 	});
 </script>
+<c:if test="${empty resumeInfo.resume_intro}">
+    <script>
+        $(".introduceWrap").css("display", "none");
+    </script>
+</c:if>
