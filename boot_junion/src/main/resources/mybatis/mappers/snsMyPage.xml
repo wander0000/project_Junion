@@ -123,9 +123,14 @@
 <!--			  and resume_num = #{resume_num}-->
 <!--    </delete>-->
     
-<!--    팔로우수 카운트-->
-    <select id="followCount" resultType="com.boot.DTO.SNSFollowDTO">
-		select count(*) as followCount from sns_follow_tb where follow_email = #{follow_email}
+<!--    팔로워 카운트-->
+    <select id="followerCount" resultType="com.boot.DTO.SNSFollowDTO">
+		select count(*) as followerCount from sns_follow_tb where follow_email = #{follow_email}
+    </select>
+    
+<!--    팔로잉 카운트-->
+    <select id="followingCount" resultType="com.boot.DTO.SNSFollowDTO">
+		select count(*) as followingCount from sns_follow_tb where login_email = #{login_email}
     </select>
     
 <!--    팔로잉 list-->

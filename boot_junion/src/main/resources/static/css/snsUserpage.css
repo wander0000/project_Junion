@@ -1399,7 +1399,7 @@ body.modal-open {
 }
 
 /* 팔로잉 모달 */
-.proflieConTitle.following
+.followItem .followingNum
 {
     cursor: pointer;
 }
@@ -1453,12 +1453,10 @@ body.modal-open {
 {
     display: flex;
     align-items: center;
-    background-color: #f9f9f9;
     color: #444;
     cursor: pointer;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid #111;
     border-radius: 5px;
     padding: 20px;
     justify-content: space-between;
@@ -1471,4 +1469,18 @@ body.modal-open {
 .followingBox .followingInfo
 {
     margin-right: auto;
+}
+
+.followList {
+    display: flex; /* Aligns items in a row */
+    justify-content: space-between; /* Distributes space between them */
+}
+
+.followItem {
+    display: flex;
+    gap: 20px;
+    text-align: center;
+    margin-right: 10px;
+    justify-content: center;
+    align-items: center;
 }

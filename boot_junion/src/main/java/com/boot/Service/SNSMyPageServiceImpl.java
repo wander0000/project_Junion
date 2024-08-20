@@ -131,10 +131,17 @@ public class SNSMyPageServiceImpl implements SNSMyPageService {
 	}
 
 	@Override
-	public SNSFollowDTO followCount(String user_email) {
+	public SNSFollowDTO followerCount(String user_email) {
 		SNSMyPageDAO dao = sqlSession.getMapper(SNSMyPageDAO.class);
-		SNSFollowDTO followCount = dao.followCount(user_email);
-		return followCount;
+		SNSFollowDTO followerCount = dao.followerCount(user_email);
+		return followerCount;
+	}
+	
+	@Override
+	public SNSFollowDTO followingCount(String user_email) {
+		SNSMyPageDAO dao = sqlSession.getMapper(SNSMyPageDAO.class);
+		SNSFollowDTO followingCount = dao.followingCount(user_email);
+		return followingCount;
 	}
 
 	@Override

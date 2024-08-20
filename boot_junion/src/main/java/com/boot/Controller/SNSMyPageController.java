@@ -103,10 +103,13 @@ public class SNSMyPageController {
 	    List<SNSFeedbackDTO> getFeedback = snsMyPageService.getFeedback(param);
 	    model.addAttribute("SNSFeedback", getFeedback);
 
-	    SNSFollowDTO followCount = snsMyPageService.followCount(user_email);
-	    log.info("@#Follow count from DB: " + followCount.getFollowCount());
+	    SNSFollowDTO followerCount = snsMyPageService.followerCount(user_email);
 	    log.info("@#follow_email: " + user_email);
-	    model.addAttribute("followCount", followCount);
+	    model.addAttribute("followerCount", followerCount);
+	    
+	    SNSFollowDTO followingCount = snsMyPageService.followingCount(user_email);
+	    log.info("@#follow_email: " + user_email);
+	    model.addAttribute("followingCount", followingCount);
 	    
 	    param.put("login_email", user_email);
 //	    팔로잉 List
@@ -206,8 +209,7 @@ public class SNSMyPageController {
 	    log.info("@# UserInfo: " + userDTO);
 	    model.addAttribute("userInfo", userDTO);
 	    
-	    SNSFollowDTO followCount = snsMyPageService.followCount(com_email);
-	    log.info("@#Follow count from DB: " + followCount.getFollowCount());
+	    SNSFollowDTO followCount = snsMyPageService.followerCount(com_email);
 	    log.info("@#follow_email: " + com_email);
 	    model.addAttribute("followCount", followCount);
 		
