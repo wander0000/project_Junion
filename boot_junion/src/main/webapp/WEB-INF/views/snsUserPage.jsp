@@ -656,6 +656,17 @@
                     }
                 });
 
+                // 팔로워 모달 외부 클릭 시 모달 닫기
+                $(window).on('click', function (event) {
+                    if ($(event.target).is('#viewFollower')) {
+                        $('#viewFollower').hide();
+                        $('body').css({
+                            'overflow': 'auto',
+                            'margin-right': '0' // 오른쪽 마진 원래대로
+                        });
+                    }
+                });
+
                 // '작성하기' 버튼 클릭 시 모달 열기
                 $('.estimatePortfolio').on('click', function (event) {
                     event.preventDefault();
