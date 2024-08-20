@@ -204,7 +204,7 @@
                                                     </c:if>
                                                     <c:forEach items="${snsList}" var="dto">
                                                         <c:if test="${dto.login_email == user_email}">
-                                                            <div class="detailBox" data-sns-num="${dto.sns_num}"
+                                                            <div class="detailBox prof" data-sns-num="${dto.sns_num}"
                                                                 data-sns-name="${dto.sns_name}"
                                                                 data-sns-title="${dto.sns_title}"
                                                                 data-sns-content="${dto.sns_content}"
@@ -234,7 +234,7 @@
                                                                     <div class="right">
                                                                         <c:if
                                                                             test="${user_email != sessionScope.login_email}">
-                                                                            <button type="button">팔로잉</button>
+                                                                            <button type="button" class="followbtn">팔로잉</button>
                                                                         </c:if>
                                                                         <c:if
                                                                             test="${user_email == sessionScope.login_email}">
