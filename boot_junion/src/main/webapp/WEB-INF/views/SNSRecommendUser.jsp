@@ -32,7 +32,7 @@
                     <div id="personal" class="form-box active">
                         <div class="profList">
                             <c:forEach items="${userList}" var="user" varStatus="status">
-                                <c:if test="${status.index < 12}">
+                                <c:if test="${status.index < 16}">
                                     <div class="prof profBox"
                                     data-login-email="${login_email}"
                                     data-user-type="${user.user_type}"
@@ -57,7 +57,14 @@
                                         </div>
                                         <div class="profComm">
                                             <p>
-                                                ${user.sns_intro}
+                                                <c:choose>
+                                                    <c:when test="${empty user.sns_intro}">
+                                                        안녕하세요 ${user.user_name} 입니다!
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        ${user.sns_intro}
+                                                    </c:otherwise>
+                                                </c:choose>
                                             </p>
                                         </div>
                                     </div>
@@ -70,7 +77,7 @@
                     <div id="corporate" class="form-box">
                         <div class="profList">
                             <c:forEach items="${comList}" var="com" varStatus="status">
-                                <c:if test="${status.index < 12}">
+                                <c:if test="${status.index < 16}">
                                     <div class="prof profBox"
                                         data-login-email="${login_email}"
                                         data-user-type="${com.user_type}"
