@@ -360,67 +360,6 @@ section.snsMypage
     flex-direction: column;
 }
 
-/* .boardProCon
-{
-    width: 640px;
-    display: flex;
-    gap: 0 20px;
-    align-items: center;
-    font-size: 18px;
-    position: relative;
-}
-
-#boardEdit
-{
-    display: flex;
-    margin-left:auto;
-}
-
-.boardContent
-{
-    border-bottom: 1px solid #999;
-    padding-bottom: 16px;
-    font-size: 16px;
-}
-
-.boardContent .boardImg
-{
-    width: 640px;
-    height: 450px;
-    background-image: url(../2.jpg);
-    margin-bottom: 16px;
-}
-.boardContent .boardImg2
-{
-    width: 640px;
-    height: 450px;
-    background-image: url(../3.jpg);
-    margin-bottom: 16px;
-}
-
-.boardIcon
-{
-    display: flex;
-    align-items: center;
-}
-
-.left_icon
-{
-    display: flex;
-    gap: 16px;
-}
-
-.right_icon
-{
-    margin-left: auto;
-}
-
-.boardWriter 
-{
-    font-size: 18px;
-    margin-bottom: 0;
-    font-weight: 500;
-} */
 
 
 .right span.icon 
@@ -580,80 +519,6 @@ section.snsMypage
 	color: var(--color-gray);
 }
 
-.contentBoard .rightCon
-{
-	margin: 80px;
-	display: flex;
-	flex-direction: column;
-}
-
-.contentBoard .rightCon h5
-{
-	color: var(--color-gray);
-	font-size: var(--font-size14);
-}
-
-.contentBoard .rightCon .profile
-{
-	margin-bottom: 12px;
-}
-
-.contentBoard .rightCon .userBox
-{
-	display: flex;
-	align-items: center;
-	width: 240px;
-
-}
-
-.contentBoard .rightCon .userBox .uploadResult img
-{
-	width: 40px;
-	height: 40px;
-	cursor: pointer;
-}
-
-.contentBoard .rightCon .userBox .nameBox
-{
-	margin: 18px;
-}
-
-.contentBoard .rightCon .userBox .nameBox h4
-{
-	font-size: var(--font-size14);
-	cursor: pointer;
-}
-
-.contentBoard .rightCon .userBox .nameBox h5
-{
-	font-size: var(--font-size12);
-	color: var(--color-gray);
-}
-
-.contentBoard .rightCon .userBox .right
-{
-	margin-left: auto;
-}
-
-.contentBoard .rightCon .userBox .right button
-{
-	width: 58px;
-	height: 30px;
-	border-radius: 6px;
-	background-color: var(--main-color);
-	border: solid 1px var(--main-color);
-	color: var(--color-white);
-	font-size: var(--font-size12);
-	cursor: pointer;
-}
-
-.contentBoard .rightCon .more
-{
-	margin-left: auto;
-	margin-top: 8px;
-	cursor: pointer;
-}
-
 /* 게시글 끝 */
 
 .infoCon button.viewEstimate 
@@ -698,7 +563,7 @@ section.snsMypage
 
  .detailBox .userBox .right button
 {
-	width: 58px;
+	/* width: 58px;
 	height: 30px;
 	border-radius: 6px;
 	background-color: var(--color-white);
@@ -712,7 +577,7 @@ section.snsMypage
 	    background: var(--main-color);
 	    color: #fff;
 		border: solid 1px var(--main-color);
-	}
+	} */
 	
 }
 
@@ -1131,8 +996,10 @@ h2.nullResumeText
 
 .popupDetail .detailBox .userBox .popupUserImage img
 {
-	width: 48px;
-	height: 48px;
+	max-width: 48px;
+	max-height: 48px;
+	min-width: 48px;
+	min-height: 48px;
 	cursor: pointer;
 	border-radius: 50%;
 }
@@ -1149,7 +1016,7 @@ h2.nullResumeText
 	margin-left: auto;
 }
 
-.popupDetail .detailBox .userBox .right button
+/* .popupDetail .detailBox .userBox .right button
 {
 	width: 58px;
 	height: 30px;
@@ -1159,7 +1026,7 @@ h2.nullResumeText
 	color: var(--color-black);
 	font-size: var(--font-size12);
 	cursor: pointer;
-}
+} */
 
 .popupDetail .detailContent
 {
@@ -1176,8 +1043,10 @@ h2.nullResumeText
 
 .popupDetail .detailContent .popupGetResult img
 {
-	width: 600px;
-	height: 360px;
+	max-width: 600px;
+	max-height: 360px;
+	min-width: 600px;
+	min-height: 360px;
 	border-radius: 6px;
 }
 
@@ -1253,13 +1122,16 @@ h2.nullResumeText
 .popupDetail .detailComment .commentContent
 {
 	height: 100%;
+	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	gap:24px 0;
 }
 .popupDetail .detailComment .commentCon
 {
 	display: flex;
-	align-items: start;
+	align-items: center;
 	justify-content: flex-start;
-	margin: 8px 0;
 }
 
 .popupDetail .detailComment .commentCon .left
@@ -1271,8 +1143,10 @@ h2.nullResumeText
 
 .popupDetail .detailComment .commentCon .left .commentUserImage img
 {
-	width: 36px;
-	height: 36px;
+	max-width: 36px;
+	max-height: 36px;
+	min-width: 36px;
+	min-height: 36px;
 	margin: 0 12px 0px 20px;
 	border-radius: 50%;
 }
@@ -1293,12 +1167,13 @@ h2.nullResumeText
 
 .popupDetail .detailComment .right
 {
-	margin: 12px 20px 0 0;
+	
 }
 .popupDetail .detailComment .right h4
 {
 	font-size: var(--font-size12);
 	font-weight: 400;
+	word-break: break-all;
 }
 .popupDetail .detailComment .right h5
 {
@@ -1309,7 +1184,7 @@ h2.nullResumeText
 
 .popupDetail .detailComment .commentBottom
 {
-	margin-top: auto;
+	margin-top: 4px;
 	/* padding: 20px; */
 }
 
@@ -1337,6 +1212,11 @@ h2.nullResumeText
 {
 	font-size: var(--font-size24);
 	margin-left: 12px;
+	cursor: pointer;
+}
+.popupDetail .detailComment .commentBottom .commentBox #commentForm
+{
+	display: flex;
 }
 
 .textarea-wrap 
@@ -1364,6 +1244,11 @@ h2.nullResumeText
 	background-color: var(--color-white);
 	color: var(--color-gray);
 	cursor: pointer;
+}
+
+.userProfileLink
+{
+	color: var(--color-black);
 }
 
 /* 모달 스타일 */
@@ -1396,6 +1281,13 @@ h2.nullResumeText
 
 body.modal-open {
 	overflow: hidden;
+}
+
+.commentUserImage ul li > div 
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
 
 /* 팔로잉 모달 */
