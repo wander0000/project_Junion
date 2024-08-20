@@ -1459,6 +1459,7 @@ body.modal-open {
     font-size: 16px;
     border-radius: 5px;
     padding: 20px;
+    gap: 20px;
     justify-content: space-between;
 }
 
@@ -1546,6 +1547,7 @@ body.modal-open {
     font-size: 16px;
     border-radius: 5px;
     padding: 20px;
+    gap: 20px;
     justify-content: space-between;
 }
 
@@ -1556,4 +1558,32 @@ body.modal-open {
 .followerBox .followerInfo
 {
     margin-right: auto;
+}
+
+.followerBox .UserImage
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+}
+.followerBox .UserImage img
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.followingBox .UserImage
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+}
+.followingBox .UserImage img
+{
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
 }
