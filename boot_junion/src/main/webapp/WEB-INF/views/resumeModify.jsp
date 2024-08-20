@@ -426,7 +426,7 @@
 			});//end of uploadResult ul li
 
 			console.log(str);
-			alert(formObj);
+			// alert(formObj);
 			// return;
 			formObj.append(str).submit();
 			// return;
