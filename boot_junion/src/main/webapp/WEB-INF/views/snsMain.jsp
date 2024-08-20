@@ -39,6 +39,7 @@
                             data-user-type="${dto.user_type}"
                             data-user-email="${dto.login_email}"
                             data-login-email="${login_email}"
+                            data-login-usertype="${login_usertype}"
                             >
                             <div class="userBox">
                                 <div class="left">
@@ -80,7 +81,12 @@
             
                             <div class="iconBox">
                                 <span class="icon">
-                                    <i class="fa-regular fa-heart"></i>
+                                    <!-- <i class="fa-regular fa-heart"></i> -->
+                                    <i class="fa-regular fa-heart"
+                                    data-sns-num="${dto.sns_num}"
+                                    data-login-email="${login_email}"
+                                    data-user-type="${dto.user_type}"
+                                    onclick="toggleLike(this, '${dto.sns_num}', '${login_email}', '${login_usertype}')"></i>
                                 </span>
                                 <span class="commentIcon">
                                     <i class="fa-regular fa-comment"></i>
@@ -227,7 +233,8 @@
                 <div class="commentBottom">
                     <div class="numberCount">
                         <!-- <div class="like"> -->
-                            <h5>좋아요 5개</h5>
+                            <!-- <h5>좋아요 5개</h5> -->
+                            <h5 class="likeCount" id="modalLikeCount">좋아요 0개</h5>
                         <!-- </div> -->
                         <!-- <div class="comment"> -->
                             <h5 class="comment">댓글 4개</h5>
@@ -236,7 +243,8 @@
 
                     <div class="commentBox">
                         <span class="icon">
-                            <i class="fa-regular fa-heart"></i>
+                            <!-- <i class="fa-regular fa-heart"></i> -->
+                            <i class="fa-regular fa-heart" id="modalLikeButton" onclick="toggleModalLike(this)"></i>
                         </span>
                         <form id="commentForm">
                             <input type="hidden" name="sns_num" value="${sns_num}">
@@ -264,6 +272,10 @@ $(document).ready(function () {
         var snsDate = $(this).data('sns-date');
         var timeAgoText = timeAgo(new Date(snsDate));
         $('#timeAgoText_' + snsNum).text(timeAgoText);
+
+        var loginEmail = $(this).data('login-email');
+        var userType = $(this).data('login-usertype');
+        var heartIcon = $(this).find('.fa-heart');
         
         var uploadResultContainer = $(this).find('.mainGetResult ul');
 
@@ -281,6 +293,35 @@ $(document).ready(function () {
                 }
             });
         }
+
+         // 좋아요 상태를 확인하는 AJAX 호출
+        $.ajax({
+            url: '/sns/like/status',
+            method: 'GET',
+            data: {
+                snsNum: snsNum,
+                loginEmail: loginEmail,
+                userType: userType
+            },
+            success: function(isLiked) {
+                console.log("좋아요 성공;;",isLiked);
+                console.log("Received isLiked for snsNum:", snsNum);
+                console.log("Received isLiked for loginEmail:", loginEmail);
+                console.log("Received isLiked for userType:", userType);
+                console.log("Heart icon element:", heartIcon);
+
+                // var heartIcon = $(`.detailBox[data-sns-num='${snsNum}'] .fa-heart`);
+
+                if (isLiked) {
+                    heartIcon.removeClass('fa-regular').addClass('fa-solid'); // 좋아요 상태로 표시
+                } else {
+                    heartIcon.removeClass('fa-solid').addClass('fa-regular'); // 좋아요 취소 상태로 표시
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching like status:', error);
+            }
+        });
     });
 
     $('.detailBox, .rightCon .userBox').each(function () {
@@ -325,7 +366,7 @@ $(document).ready(function () {
     });
 
      // .snsMain .detailContent textarea, .snsMain .detailBox .iconBox .commentIcon를 클릭했을 때 모달 열기
-     $(".snsMain .detailContent .snsn, .snsMain .detailBox .iconBox .commentIcon").click(function () {
+    $(".snsMain .detailContent .snsn, .snsMain .detailBox .iconBox .commentIcon").click(function () {
         var detailBox = $(this).closest('.detailBox');
         var snsNum = detailBox.data('sns-num');
         var snsName = detailBox.data('sns-name');
@@ -335,6 +376,7 @@ $(document).ready(function () {
         var user_type = detailBox.data('user-type');
         var snsEmail = detailBox.data('user-email');
         var loginEmail = detailBox.data('login-email');
+        var loginUsertype = detailBox.data('login-usertype');
 
         console.log("sns_num: " + snsNum);
         console.log("snsName: " + snsName);
@@ -344,7 +386,7 @@ $(document).ready(function () {
         console.log("snsEmail: " + snsEmail);
         console.log("loginEmail: " + loginEmail);
 
-        openModal(snsNum, snsName, snsTitle, snsContent, snsDate, user_type, snsEmail, loginEmail);
+        openModal(snsNum, snsName, snsTitle, snsContent, snsDate, user_type, snsEmail, loginEmail, loginUsertype);
         // detailBox.addClass('prof');
         // followFunction();
     });
@@ -362,7 +404,7 @@ $(document).ready(function () {
     });
 
     // 모달 열기 함수
-    function openModal(snsNum, snsName, snsTitle, snsContent, snsDate, user_type, snsEmail, loginEmail) {
+    function openModal(snsNum, snsName, snsTitle, snsContent, snsDate, user_type, snsEmail, loginEmail, loginUsertype) {
         console.log("Opening modal for sns_num: " + snsNum); // 가져온 sns_num 확인
         console.log("Opening modal for snsUserType: " + user_type); // 가져온 sns_num 확인
         console.log("Opening modal for snsEmail: " + snsEmail); // 가져온 sns_num 확인
@@ -379,6 +421,9 @@ $(document).ready(function () {
 
         // 모달 내 prof 요소에 data-* 속성 설정
         $("#popupModal .prof").data("user-type", user_type)
+        $("#popupModal .prof").data("sns-num", snsNum)
+        $("#popupModal .prof").data("login-email", loginEmail)
+        $("#popupModal .prof").data("login-usertype", loginUsertype)
                             .data("user-email", snsEmail);
         
         followFunction();
@@ -433,7 +478,30 @@ $(document).ready(function () {
                 }
             });
         }
-    }
+
+        // 좋아요 상태를 가져와서 아이콘 상태 설정
+        $.ajax({
+            url: '/sns/like/status',
+            method: 'GET',
+            data: {
+                snsNum: snsNum,
+                loginEmail: loginEmail,
+                userType: loginUsertype
+            },
+            success: function(isLiked) {
+                var modalLikeButton = $('#modalLikeButton');
+                if (isLiked) {
+                    modalLikeButton.removeClass('fa-regular').addClass('fa-solid'); // 좋아요가 눌린 상태로 표시
+                } else {
+                    modalLikeButton.removeClass('fa-solid').addClass('fa-regular'); // 좋아요가 눌리지 않은 상태로 표시
+                }
+                updateLikeCount(snsNum, modalLikeButton); // 모달 열릴 때 좋아요 수 업데이트
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching like status:', error);
+            }
+        });
+    } //openModal 끝
 
      // 댓글 작성 및 목록 갱신
      $('#commentForm').on('submit', function (e) {
@@ -637,6 +705,92 @@ function showUploadResult(uploadResultArr, uploadResultContainer){
     });
 
     uploadResultContainer.empty().append(str);
+}
+
+// 좋아요 기능 처리
+function toggleLike(element, snsNum, loginEmail, userType) {
+    var isLiked = $(element).hasClass('fa-solid'); // 좋아요 상태 확인
+
+    var url = isLiked ? '/sns/unlike' : '/sns/like'; // 좋아요 상태에 따라 요청 URL 결정
+
+    $.ajax({
+        url: url,
+        method: 'POST',
+        data: {
+            snsNum: snsNum,
+            loginEmail: loginEmail,
+            userType: userType
+        },
+        success: function(response) {
+            if (isLiked) {
+                $(element).removeClass('fa-solid').addClass('fa-regular'); // 좋아요 취소 시 아이콘 변경
+            } else {
+                $(element).removeClass('fa-regular').addClass('fa-solid'); // 좋아요 추가 시 아이콘 변경
+            }
+            updateLikeCount(snsNum, element); // 좋아요 수 갱신
+        },
+        error: function(xhr, status, error) {
+            console.error('좋아요 처리 중 오류 발생:', error);
+            alert('좋아요 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
+        }
+    });
+}
+
+function toggleModalLike(element) {
+    var snsNum = $('#popupModal .prof').data('sns-num'); // 모달에서 sns_num 가져오기
+    var loginEmail = $('#popupModal .prof').data('login-email'); // 로그인한 사용자 이메일 가져오기
+    var userType = $('#popupModal .prof').data('login-usertype'); // 사용자 타입 가져오기
+
+    var isLiked = $(element).hasClass('fa-solid'); // 모달 내 좋아요 상태 확인
+
+    var url = isLiked ? '/sns/unlike' : '/sns/like'; // 좋아요 상태에 따라 URL 결정
+
+    $.ajax({
+        url: url,
+        method: 'POST',
+        data: {
+            snsNum: snsNum,
+            loginEmail: loginEmail,
+            userType: userType
+        },
+        success: function(response) {
+            if (isLiked) {
+                $(element).removeClass('fa-solid').addClass('fa-regular'); // 모달 내 아이콘 변경
+                // 메인 페이지의 아이콘도 변경
+                $(`.detailBox[data-sns-num=\${snsNum}] .fa-heart`).removeClass('fa-solid').addClass('fa-regular');
+            } else {
+                $(element).removeClass('fa-regular').addClass('fa-solid'); // 모달 내 아이콘 변경
+                // 메인 페이지의 아이콘도 변경
+                $(`.detailBox[data-sns-num=\${snsNum}] .fa-heart`).removeClass('fa-regular').addClass('fa-solid');
+            }
+            updateLikeCount(snsNum); // 모달 및 메인 페이지의 좋아요 수 업데이트
+        },
+        error: function(xhr, status, error) {
+            console.error('좋아요 처리 중 오류 발생:', error);
+            alert('좋아요 처리 중 오류가 발생했습니다. 다시 시도해주세요.');
+        }
+    });
+}
+
+
+
+
+// 좋아요 수 갱신
+function updateLikeCount(snsNum) {
+    $.ajax({
+        url: '/sns/like/count',
+        method: 'GET',
+        data: {
+            snsNum: snsNum
+        },
+        success: function(likeCount) {
+            // 모달 내 좋아요 수 업데이트
+            $('#modalLikeCount').text('좋아요 ' + likeCount + '개');
+        },
+        error: function(xhr, status, error) {
+            console.error('좋아요 수 가져오기 중 오류 발생:', error);
+        }
+    });
 }
 
 

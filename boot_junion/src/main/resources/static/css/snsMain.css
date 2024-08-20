@@ -214,7 +214,7 @@
 {
 	display: flex;
 	align-items: center;
-	width: 240px;
+	/* width: 240px; */
 
 }
 
@@ -422,13 +422,15 @@
 {
 	height: 100%;
 	overflow: auto;
+	display: flex;
+	flex-direction: column;
+	gap:24px 0;
 }
 .popupDetail .detailComment .commentCon
 {
 	display: flex;
-	align-items: start;
+	align-items: center;
 	justify-content: flex-start;
-	margin: 8px 0;
 }
 
 .popupDetail .detailComment .commentCon .left
@@ -464,12 +466,13 @@
 
 .popupDetail .detailComment .right
 {
-	margin: 12px 20px 0 0;
+	
 }
 .popupDetail .detailComment .right h4
 {
 	font-size: var(--font-size12);
 	font-weight: 400;
+	word-break: break-all;
 }
 .popupDetail .detailComment .right h5
 {
@@ -480,7 +483,7 @@
 
 .popupDetail .detailComment .commentBottom
 {
-	margin-top: auto;
+	margin-top: 4px;
 	/* padding: 20px; */
 }
 
@@ -508,6 +511,7 @@
 {
 	font-size: var(--font-size24);
 	margin-left: 12px;
+	cursor: pointer;
 }
 .popupDetail .detailComment .commentBottom .commentBox #commentForm
 {
@@ -576,4 +580,11 @@
 
 body.modal-open {
 	overflow: hidden;
+}
+
+.commentUserImage ul li > div 
+{
+	display: flex;
+	align-items: center;
+	justify-content: center;
 }
