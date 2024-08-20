@@ -63,11 +63,11 @@ body {
 .profBox {
     background-color: #ffffff;
     border: solid 1px #bbb;
-    border-radius: 10px;
+    border-radius: 6px;
     width: 495px;
     max-width: 495px;
     min-width: 495px;
-    height: 110px;
+    /* height: 110px; */
     margin: 20px;
     display: flex;
     flex-direction: column;
@@ -82,7 +82,7 @@ body {
     margin-bottom: 14px;
     max-width: 505px;
     max-height: 50px;
-    
+    align-items: center;
 }
 
 .UserImage {
@@ -120,12 +120,11 @@ h3, p {
     /* margin-top: 5px; */
 }
 .profName {
-    font-size: 14px;
-    margin-top: 10px;
+    font-size: 16px;
 }
 
 .profCareer {
-    font-size: 12px;
+    font-size: 14px;
 }
 
 .followbtn {
@@ -148,8 +147,9 @@ h3, p {
 
 .profComm {
     max-width: 505px;
-    max-height: 50px;
-    font-size: 12px;
+    /* max-height: 50px; */
+    font-size: 14px;
+    font-weight: 300;
     /* overflow: hidden; */
     /* white-space: nowrap; */
     /* text-overflow: ellipsis; */

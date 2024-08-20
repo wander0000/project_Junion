@@ -1,0 +1,33 @@
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+<mapper namespace="com.boot.DAO.SNSLikeDAO">
+
+	<!-- 좋아요 추가 -->
+    <insert id="snsInsertLike">
+        INSERT INTO sns_like_tb (sns_num, login_email, user_type)
+        VALUES (#{snsNum}, #{loginEmail}, #{userType})
+    </insert>
+
+    <!-- 좋아요 삭제 -->
+    <delete id="snsDeleteLike">
+        DELETE FROM sns_like_tb
+        WHERE sns_num = #{snsNum} AND login_email = #{loginEmail} AND user_type = #{userType}
+    </delete>
+
+    <!-- 특정 게시글의 좋아요 수 조회 -->
+    <select id="snsCountLike" resultType="int">
+        SELECT COUNT(*)
+        FROM sns_like_tb
+        WHERE sns_num = #{snsNum}
+    </select>
+
+    <!-- 특정 사용자가 해당 게시글에 좋아요를 눌렀는지 확인 -->
+    <select id="snsUserLike" resultType="int">
+        SELECT COUNT(*)
+        FROM sns_like_tb
+        WHERE sns_num = #{snsNum} AND login_email = #{loginEmail} AND user_type = #{userType}
+    </select>
+    
+</mapper>
