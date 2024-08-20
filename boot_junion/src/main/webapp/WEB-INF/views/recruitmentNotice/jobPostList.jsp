@@ -402,40 +402,34 @@ display:inline-block;
                     <div class="filterbox">
                         <div class="left">
                             <div class="sbox">
-                                <!-- <form> -->
-                                    <select class="select1" id="careerSelect" name="careerType">
-                                        <option value="" <c:out
-                                        value="${paging.std.careerType == null ? 'selected':''}" />>경력</option>
-                                        <c:forEach var="career" items="${careerList}">
-                                            <option value="${career}" <c:out
-                                            value="${paging.std.careerType eq career ? 'selected':''}" />>${career}</option>
-                                        </c:forEach>
-                                    </select>
-                                <!-- </form> -->
+                                <select class="select1" id="careerSelect" name="careerType">
+                                    <option value="" <c:out
+                                    value="${paging.std.careerType == null ? 'selected':''}" />>경력</option>
+                                    <c:forEach var="career" items="${careerList}">
+                                        <option value="${career}" <c:out
+                                        value="${paging.std.careerType eq career ? 'selected':''}" />>${career}</option>
+                                    </c:forEach>
+                                </select>
                             </div> <!-- selectbox 끝 -->
                             <div class="sbox">
-                                <!-- <form> -->
-                                    <select class="select1" id="stackSelect" name="stackType">
-                                        <option value=""<c:out
-                                            value="${paging.std.stackType == null ? 'selected':''}" />>기술스택</option>
-                                        <c:forEach var="stack" items="${stackList}">
-                                            <option value="${stack}" <c:out
-                                            value="${paging.std.stackType eq stack ? 'selected':''}" />>${stack}</option>
-                                        </c:forEach>
-                                    </select>
-                                <!-- </form> -->
+                                <select class="select1" id="stackSelect" name="stackType">
+                                    <option value=""<c:out
+                                        value="${paging.std.stackType == null ? 'selected':''}" />>기술스택</option>
+                                    <c:forEach var="stack" items="${stackList}">
+                                        <option value="${stack}" <c:out
+                                        value="${paging.std.stackType eq stack ? 'selected':''}" />>${stack}</option>
+                                    </c:forEach>
+                                </select>
                             </div> <!-- selectbox 끝 -->
                             <div class="sbox">
-                                <!-- <form> -->
-                                    <select class="select1" id="locationselect" name="locationType">
-                                        <option value="" <c:out value="${paging.std.locationType == null ? 'selected':''}" />>지역</option>
-                                        <c:forEach var="location" items="${locationList}">
-                                            <option value="${location}" <c:out
-                                            value="${paging.std.locationType eq location ? 'selected':''}" />>
-                                            ${location}</option>
-                                        </c:forEach>
-                                        </select>
-                                <!-- </form> -->
+                                <select class="select1" id="locationselect" name="locationType">
+                                    <option value="" <c:out value="${paging.std.locationType == null ? 'selected':''}" />>지역</option>
+                                    <c:forEach var="location" items="${locationList}">
+                                        <option value="${location}" <c:out
+                                        value="${paging.std.locationType eq location ? 'selected':''}" />>
+                                        ${location}</option>
+                                    </c:forEach>
+                                </select>
                             </div> <!-- selectbox 끝 -->
                             <button class="fil2 searchBtn">
                                 <!-- <input type="hidden" name="orderType" id="orderType" value="${orderType}"> -->
@@ -524,7 +518,7 @@ display:inline-block;
                                     </div>
                                     <div class="location">
                                         <h5 class="l1">
-                                            ${dto.notice_area1} · ${dto.notice_career}
+                                            ${dto.notice_area1} ${dto.notice_area2} · ${dto.notice_career}
                                         </h5>
                                     </div>
                                 </a>

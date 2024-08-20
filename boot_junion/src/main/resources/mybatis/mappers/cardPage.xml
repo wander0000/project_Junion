@@ -40,11 +40,14 @@
     
 <select id="cardPageList" resultType="com.boot.DTO.ComNoticeDTO">
 		<!-- 	페이징을 위한 쿼리 -->
-	   select row_noticeNum, notice_num, notice_title, com_name, notice_area1, notice_area2, notice_career, notice_jobInfo,notice_endDate,notice_hit,scrap_count,stack
-		FROM ( select row_noticeNum, notice_num, notice_title, com_name, notice_area1, notice_area2, notice_career, notice_jobInfo,notice_endDate,notice_hit,scrap_count,stack
-				FROM (  select row_number() over( ) as row_noticeNum , nt.notice_num as notice_num, nt.notice_title as notice_title, ct.com_name as com_name
-						, notice_area1 , notice_area2, notice_career, notice_jobInfo, notice_endDate, notice_hit, scrap_count, stack
-						FROM notice_tb nt
+	   select row_noticeNum, notice_num, notice_title, com_name, notice_area1, notice_area2, notice_career, 
+	   		  notice_jobInfo,notice_endDate,notice_hit,scrap_count,stack
+		FROM ( select row_noticeNum, notice_num, notice_title, com_name, notice_area1, notice_area2, notice_career, 
+					  notice_jobInfo,notice_endDate,notice_hit,scrap_count,stack
+				FROM (  select row_number() over( ) as row_noticeNum , nt.notice_num as notice_num, 
+								nt.notice_title as notice_title, ct.com_name as com_name, notice_area1 , notice_area2, 
+								notice_career, notice_jobInfo, notice_endDate, notice_hit, scrap_count, stack
+							FROM notice_tb nt
 						left outer join (select com_name, com_email 
 											from com_tb group by com_email) ct on nt.com_email= ct.com_email
 						left outer join (select notice_num, COUNT(notice_num) AS scrap_count 
@@ -54,7 +57,9 @@
             <![CDATA[
             where notice_endDate >= CURDATE()
             ]]>
-            and (ct.com_name like concat ('%', IFNULL(#{std.keyword}, ''), '%') or nt.notice_title like concat ('%', IFNULL(#{std.keyword}, ''), '%') or notice_jobInfo like concat ('%', IFNULL(#{std.keyword}, ''), '%'))
+            and (ct.com_name like concat ('%', IFNULL(#{std.keyword}, ''), '%') 
+            	or nt.notice_title like concat ('%', IFNULL(#{std.keyword}, ''), '%') 
+            	or notice_jobInfo like concat ('%', IFNULL(#{std.keyword}, ''), '%'))
             and notice_career like concat ('%', IFNULL(#{std.careerType}, ''), '%') 
 						and (nk.stack like BINARY CONCAT ('%', IFNULL(#{std.stackType}, ''), '%') OR nk.stack IS NULL)
 						and notice_area1 like concat ('%', IFNULL(#{std.locationType}, ''), '%') 
