@@ -69,8 +69,10 @@
                                                 </c:if>
                                                 <c:if test="${user_email != sessionScope.login_email}">
                                                     <div class="profileButton prof" data-login-email="${login_email}"
-                                                    data-user-type="${userInfo.user_type}" data-user-email="${user_email}">
-                                                        <button type="button" class="followbtn" style="width: 80px; height: 34px; margin-top: 20px;">팔로잉</button>
+                                                        data-user-type="${userInfo.user_type}"
+                                                        data-user-email="${user_email}">
+                                                        <button type="button" class="followbtn"
+                                                            style="width: 80px; height: 34px; margin-top: 20px;">팔로잉</button>
                                                         <button class="message"
                                                             onclick="location.href='SNSChat?receiver_id=${user_email}';">메시지</button>
                                                     </div>
@@ -78,6 +80,7 @@
                                             </div>
                                             <div class="profileCon follower">
                                                 <div class="follow">
+                                                    <h5 class="proflieConTitle following">팔로잉</h5>
                                                     <h5 class="proflieConTitle">팔로워</h5>
                                                     <span class="icon">
                                                         <i class="fa-regular fa-thumbs-up" style="cursor: pointer;"></i>
@@ -166,7 +169,8 @@
                                                                     ${resumeInfo.resume_portfolio_name}</div>
                                                                 <h5 class="infoConPosition">
                                                                     <a href="${resumeInfo.resume_portfolio_url}"
-                                                                        style="color:#111" target="_blank">${resumeInfo.resume_portfolio_url}</a>
+                                                                        style="color:#111"
+                                                                        target="_blank">${resumeInfo.resume_portfolio_url}</a>
                                                                 </h5>
                                                             </div>
                                                             <c:if test="${user_email != sessionScope.login_email}">
@@ -276,6 +280,44 @@
                                                 </div> <!-- contentBoardWrap -->
                                             </div> <!-- contentBoard 끝-->
                                         </div>
+
+                                        <!-- 팔로잉 모달 (첫 번째 HTML 블록 끝부분에 추가) -->
+                                        <div id="viewFollowing" class="followingModal">
+                                            <div class="followingPopupBox">
+                                                <input type="hidden" name="user_type"
+                                                    value="${sessionScope.login_usertype}" />
+                                                <input type="hidden" name="user_email" value="${user_email}">
+                                                <div class="boxButton">
+                                                    <div class="leftBox">
+                                                        <h3>팔로잉 목록</h3>
+                                                    </div>
+                                                    <div class="rightBox">
+                                                        <i id="followingCancelButton"
+                                                            class="fa-solid fa-xmark fa-xl"></i>
+                                                    </div>
+                                                    <!-- <h5 id="cancelButton">취소</h5> -->
+                                                </div> <!--boxButton 끝-->
+                                                <c:forEach var="dto" items="${following}">
+                                                    <div class="followingBox">
+                                                        <div class="UserImage">
+                                                            <a href="snsUserPage?user_email=${user.user_email}">
+                                                                <ul>
+                                                                    <img src="images/people.svg" alt="#" class="img">
+                                                                </ul>
+                                                            </a>
+                                                        </div>
+                                                        <div class="followingInfo">
+                                                            <a href="snsUserPage?user_email=${dto.followEmail}">
+                                                                <p>
+                                                                    <h3 class="profName">${dto.follow_name}</h3>
+                                                                </p>
+                                                                <p class="profEmail">${dto.followEmail}</p>
+                                                        </div>
+                                                        <button class="followbtn">팔로우</button>
+                                                    </div> <!--followingBox 끝-->
+                                                </c:forEach>
+                                            </div> <!--feedbackPopupBox 끝-->
+                                        </div> <!-- 모달 끝 -->
 
                                         <!-- 모달 구조 (첫 번째 HTML 블록 끝부분에 추가) -->
                                         <div id="writeFeedback" class="feedbackModal">
@@ -524,6 +566,24 @@
                     $(this).closest('.option').removeClass('active');
                 });
 
+                // '팔로잉' 버튼 클릭 시 모달 열기
+                $('.following').on('click', function (event) {
+                    event.preventDefault();
+                    $('#viewFollowing').css('display', 'flex');
+                    $('body').css({
+                        'overflow': 'hidden',
+                        'margin-right': '0px' // 스크롤바 너비만큼 오른쪽 마진 추가
+                    });
+                });
+                // 평가하기 '취소' 버튼 클릭 시 모달 닫기
+                $('#followingCancelButton').on('click', function (event) {
+                    event.preventDefault();
+                    $('#viewFollowing').hide();
+                    $('body').css({
+                        'overflow': 'auto',
+                        'margin-right': '0' // 오른쪽 마진 원래대로
+                    });
+                });
                 // '작성하기' 버튼 클릭 시 모달 열기
                 $('.estimatePortfolio').on('click', function (event) {
                     event.preventDefault();
@@ -1048,11 +1108,69 @@
         <script>
             $(document).ready(function () {
                 // 프로필 이미지 불러옴
-                $('.profileInfo').each(function () {
+                $('.followingBox').each(function () {
                     var user_type = $(this).data('user-type');
                     var snsEmail = $(this).data('user-email')
 
                     var uploadResultContainer = $(this).find('.UserProfileImage ul');
+
+                    if (user_type) {
+                        var url;
+                        var emailParam = '';
+
+                        if (user_type == 1) {
+                            url = '/getUserImageList';
+                            emailParam = { user_email: snsEmail }
+                        } else if (user_type == 2) {
+                            url = '/mainComFileList';
+                            emailParam = { com_email: snsEmail }
+                        }
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            data: emailParam, // 이메일만 데이터로 전송
+                            dataType: 'json',
+                            success: function (data) {
+                                showUploadResult(data, uploadResultContainer);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error fetching file list for email ' + email + ':', error);
+                            }
+                        });
+                    }
+                });
+            });
+            // 프로필 이미지 불러옴
+            function showUploadResult(uploadResultArr, uploadResultContainer) {
+                if (!uploadResultArr || uploadResultArr.length == 0) {
+                    return;
+                }
+
+                var str = "";
+
+                $(uploadResultArr).each(function (i, obj) {
+                    var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+                    str += "<li data-path='" + obj.uploadPath + "'";
+                    str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+                    str += "<div>";
+                    str += "<span style='display:none;'>" + obj.fileName + "</span>";
+                    str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";
+                    str += "</div></li>";
+                });
+
+                uploadResultContainer.empty().append(str);
+            }
+
+        </script>
+        <script>
+            $(document).ready(function () {
+                // 팔로잉 이미지 불러옴
+                $('.profileInfo').each(function () {
+                    var user_type = $(this).data('user-type');
+                    var snsEmail = $(this).data('user-email')
+
+                    var uploadResultContainer = $(this).find('.UserFollowingImage ul');
 
                     if (user_type) {
                         var url;

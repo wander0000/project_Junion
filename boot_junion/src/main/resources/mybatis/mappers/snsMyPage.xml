@@ -130,13 +130,20 @@
     
 <!--    팔로잉 list-->
     <select id="followingList" resultType="com.boot.DTO.SNSFollowDTO">
-		select sft.follow_email, ut.user_name, ct.com_name
-			from sns_follow_tb sft
-			left join user_tb ut
-			on sft.follow_email = ut.user_email
-			left join com_tb ct
-			on sft.follow_email = ct.com_email
-			where sft.login_email = #{login_email}
+		SELECT 
+	        sft.follow_email as followEmail, 
+	        CASE
+	            WHEN ut.user_name IS NOT NULL THEN ut.user_name
+	            WHEN ct.com_name IS NOT NULL THEN ct.com_name
+	        END AS follow_name
+	    FROM 
+	        sns_follow_tb sft
+	    LEFT JOIN 
+	        user_tb ut ON sft.follow_email = ut.user_email
+	    LEFT JOIN 
+	        com_tb ct ON sft.follow_email = ct.com_email
+	    WHERE 
+	        sft.login_email = #{login_email}
     </select>
     
 <!--    팔로워 list-->
