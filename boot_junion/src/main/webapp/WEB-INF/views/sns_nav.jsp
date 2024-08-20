@@ -17,6 +17,8 @@
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.8/dist/web/variable/pretendardvariable.css"/>
 <!-- import js -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs/lib/stomp.min.js"></script>
 </head>
 <body>
 	<div class="sns_nav">
@@ -749,57 +751,77 @@
 		
 		loadChatList();
 
-		var socket = new SockJS('/ws');
-		var stompClient = Stomp.over(socket);
-		var message;
+		// var socket = new SockJS('/ws');
+		// var stompClient = Stomp.over(socket);
+		var socket;
+		var stompClient;
+		// var message;
 
 		// 웹소켓에 연결해서 채팅 메시지 바로바로 업데이트 되어 출력
-		stompClient.connect({}, function(frame) {
-			console.log('Connected: ' + frame);
+		function connectWebSocket() {
+			var socket = new SockJS('/ws');
+			var stompClient = Stomp.over(socket);
 
-			// 채팅 메시지를 수신했을 때의 처리
-			stompClient.subscribe('/sub/public', function(messageOutput) {
-				var message = JSON.parse(messageOutput.body);
-				var chatContentBox = $(".chatContentBox");
-				var chatContent = chatContentBox.find(`.chatContent[data-user-email="\${message.receiver_id}"]`);
+			stompClient.connect({}, function(frame) {
+				console.log('Connected: ' + frame);
 
-				console.log("@# SNS_nav message.message=>"+message.message);
-				console.log("@# SNS_nav message.receiver_id=>"+message.receiver_id);
-				console.log("@# SNS_nav message.chatContent=>"+chatContent);
+				// 채팅 메시지를 수신했을 때의 처리
+				stompClient.subscribe('/sub/public', function(messageOutput) {
+					var message = JSON.parse(messageOutput.body);
+					var chatContentBox = $(".chatContentBox");
+					var chatContent = chatContentBox.find(`.chatContent[data-user-email="\${message.receiver_id}"]`);
 
-				var maxLength = 36; // 글자 수 제한
-				var messageText = message.message;
-				if (messageText.length > maxLength) {
-					messageText = messageText.substring(0, maxLength) + "...";
-				}
-				// loadChatList();
+					console.log("@# SNS_nav message.message=>"+message.message);
+					console.log("@# SNS_nav message.receiver_id=>"+message.receiver_id);
+					console.log("@# SNS_nav message.chatContent=>"+chatContent);
 
-				// updateChatMessage(message);
-
-				// 해당 유저의 채팅 메시지와 시간을 업데이트
-				// chatContent.empty();
-				// if (chatContent.length > 0) {
-				// 	chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나 :' : message.receiver_id} \${message.message}`);
-				// 	chatContent.find('.chatTime').attr('data-timestamp', message.timestamp).html(timeAgo(new Date(message.timestamp)));
-				// } else {
-				// 	loadChatList()
-				// }
-
-				// 첫 채팅 메시지라면 loadChatList() 실행
-				if (isFirstChat) {
-					loadChatList();
-					isFirstChat = false; // 첫 채팅 이후에는 다시 실행되지 않도록 플래그 업데이트
-				} else {
-					// 해당 유저의 채팅 메시지와 시간을 업데이트
-					if (chatContent.length > 0) {
-						chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나' : message.receiver_id}" :" \${messageText}`);
-						chatContent.find('.chatTime').attr('data-timestamp', message.timestamp).html(timeAgo(new Date(message.timestamp)));
-					} else {
-						loadChatList();
+					var maxLength = 36; // 글자 수 제한
+					var messageText = message.message;
+					if (messageText.length > maxLength) {
+						messageText = messageText.substring(0, maxLength) + "...";
 					}
-				}
+					// loadChatList();
+
+					// updateChatMessage(message);
+
+					// 해당 유저의 채팅 메시지와 시간을 업데이트
+					// chatContent.empty();
+					// if (chatContent.length > 0) {
+					// 	chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나 :' : message.receiver_id} \${message.message}`);
+					// 	chatContent.find('.chatTime').attr('data-timestamp', message.timestamp).html(timeAgo(new Date(message.timestamp)));
+					// } else {
+					// 	loadChatList()
+					// }
+
+					// 첫 채팅 메시지라면 loadChatList() 실행
+					if (isFirstChat) {
+						loadChatList();
+						isFirstChat = false; // 첫 채팅 이후에는 다시 실행되지 않도록 플래그 업데이트
+					} else {
+						// 해당 유저의 채팅 메시지와 시간을 업데이트
+						if (chatContent.length > 0) {
+							chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나' : message.receiver_id} : \${messageText}`);
+							chatContent.find('.chatTime').attr('data-timestamp', message.timestamp).html(timeAgo(new Date(message.timestamp)));
+						} else {
+							loadChatList();
+						}
+					}
+				}, function(error) {
+					console.error('WebSocket 연결 실패: ', error);
+					attemptReconnect(); // 연결 실패 시 재연결 시도
+				});
 			});
-		});
+		}
+
+		// 웹소켓 재연결 함수
+		function attemptReconnect() {
+			setTimeout(function() {
+				console.log('Reconnecting...');
+				connectWebSocket(); // 재연결 시도
+			}, 1000); // 5초 후 재연결 시도
+		}
+
+		attemptReconnect();
 
 		// 업데이트한 시간으로 바꿈
 		function updateChatTimes() {
@@ -838,6 +860,8 @@
 							message = message.substring(0, maxLength) + "...";
 						}
 
+						var unreadCount = room.unread_count; // 읽지 않은 메시지 수
+
 						var chatContent = `
 							<a href="SNSChat?receiver_id=\${room.user_email}">
 								<div class="chatContent"
@@ -856,6 +880,7 @@
 											<h5 class="chatTime" data-timestamp="\${room.timestamp}">\${timeAgo(new Date(room.timestamp))}</h5>
 										</div>
 									</div>
+									<h5 class="unread-count">\${unreadCount > 0 ? unreadCount : ''}</h5>
 								</div>
 							</a>
 						`;

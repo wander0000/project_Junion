@@ -247,7 +247,8 @@
     */
 
 
-    var lastTimestamp = null; // 이전 메시지의 시간을 저장할 전역 변수
+    var lastTimestampSent = null; // 이전에 보낸 메시지의 시간을 저장할 전역 변수
+    var lastTimestampReceived = null; // 이전에 받은 메시지의 시간을 저장할 전역 변수
 
     function showMessage(message) {
         var currentTimestamp = timeAgo(new Date(message.timestamp)); // 현재 메시지의 시간 계산
@@ -266,34 +267,38 @@
         // 새로운 타임스탬프 추가
         timestampSpan.setAttribute('data-timestamp', message.timestamp);
 
-        if (message.sender_id === senderId){
-            if (currentTimestamp === lastTimestamp) { // 이전 메시지와 시간이 같다면
-                var lastMessageTime = document.querySelector('.message:last-child .message-time');
+        if (message.sender_id === senderId) {
+            // sent 메시지 처리
+            if (currentTimestamp === lastTimestampSent) { // 이전에 보낸 메시지와 시간이 같다면
+                var lastMessageTime = document.querySelector('.message.sent:last-child .message-time');
                 if (lastMessageTime) lastMessageTime.style.display = 'none'; // 이전 메시지의 시간을 숨김
-            }
-            else {
-                var lastMessage = document.querySelector('.message:last-child');
+            } else {
+                var lastMessage = document.querySelector('.message.sent:last-child');
                 if (lastMessage) lastMessage.classList.add('time-visible'); // 시간이 표시되는 메시지에 클래스 추가
             }
             messageElement.appendChild(timestampSpan);
             messageElement.appendChild(messageContent);
+            
+            // 현재 보낸 메시지의 시간을 저장
+            lastTimestampSent = currentTimestamp;
         } else {
-            if (currentTimestamp === lastTimestamp) { // 이전 메시지와 시간이 같다면
-                var lastMessageTime = document.querySelector('.message:last-child .message-time');
+            // received 메시지 처리
+            if (currentTimestamp === lastTimestampReceived) { // 이전에 받은 메시지와 시간이 같다면
+                var lastMessageTime = document.querySelector('.message.received:last-child .message-time');
                 if (lastMessageTime) lastMessageTime.style.display = 'none'; // 이전 메시지의 시간을 숨김
-            }
-            else {
-                var lastMessage = document.querySelector('.message:last-child');
+            } else {
+                var lastMessage = document.querySelector('.message.received:last-child');
                 if (lastMessage) lastMessage.classList.add('time-visible'); // 시간이 표시되는 메시지에 클래스 추가
             }
             messageElement.appendChild(messageContent);
             messageElement.appendChild(timestampSpan);
+            
+            // 현재 받은 메시지의 시간을 저장
+            lastTimestampReceived = currentTimestamp;
         }
 
         document.getElementById('messages').appendChild(messageElement);
         scrollBottom();
-
-        lastTimestamp = currentTimestamp; // 현재 메시지의 시간을 저장
     }
     
 
@@ -320,46 +325,46 @@
 
 
     // 프로필 이미지 불러옴
-    // $('.chatContent').each(function () {
-    //     var userEmail = $(this).data('user-email')
+    $('.chatContent').each(function () {
+        var userEmail = $(this).data('user-email')
         
-    //     var uploadResultContainer = $(this).find('.UserImage ul');
+        var uploadResultContainer = $(this).find('.UserImage ul');
 
-    //     $.ajax({
-    //         url: '/getUserImageList',
-    //         type: 'GET',
-    //         data: {user_email: userEmail}, // 이메일만 데이터로 전송
-    //         dataType: 'json',
-    //         success: function(data) {
-    //             showUploadResult(data, uploadResultContainer);
-    //         },
-    //         error: function(xhr, status, error) {
-    //             console.error('Error fetching file list for email ' + email + ':', error);
-    //         }
-    //     });
-    // });
+        $.ajax({
+            url: '/getUserImageList',
+            type: 'GET',
+            data: {user_email: userEmail}, // 이메일만 데이터로 전송
+            dataType: 'json',
+            success: function(data) {
+                showUploadResult(data, uploadResultContainer);
+            },
+            error: function(xhr, status, error) {
+                console.error('Error fetching file list for email ' + email + ':', error);
+            }
+        });
+    });
 
-    // // 프로필 이미지 불러옴
-    // function showUploadResult(uploadResultArr, uploadResultContainer){
-    //     if (!uploadResultArr || uploadResultArr.length == 0) {
-    //         return;
-    //     }
+    // 프로필 이미지 불러옴
+    function showUploadResult(uploadResultArr, uploadResultContainer){
+        if (!uploadResultArr || uploadResultArr.length == 0) {
+            return;
+        }
 
-    //     var str = "";
+        var str = "";
 
-    //     $(uploadResultArr).each(function (i, obj) {
-    //         var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+        $(uploadResultArr).each(function (i, obj) {
+            var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 
-    //         str += "<li data-path='" + obj.uploadPath + "'";
-    //         str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
-    //         str += "<div>";
-    //         str += "<span style='display:none;'>" + obj.fileName + "</span>";
-    //         str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
-    //         str += "</div></li>";
-    //     });
+            str += "<li data-path='" + obj.uploadPath + "'";
+            str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+            str += "<div>";
+            str += "<span style='display:none;'>" + obj.fileName + "</span>";
+            str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+            str += "</div></li>";
+        });
 
-    //     uploadResultContainer.empty().append(str);
-    // }
+        uploadResultContainer.empty().append(str);
+    }
     // 프로필 이미지 끝
 </script>
 

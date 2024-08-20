@@ -399,6 +399,24 @@ a:visited {
 	min-width: 47px;
 }
 
+.unread-count {
+	color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    margin-left: auto;
+    background: var(--main-color);
+    /* padding: 3px 8px; */
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.unread-count:empty {
+    display: none;
+}
+
 /* CSS 스타일 추가 */
 .modal 
 {
