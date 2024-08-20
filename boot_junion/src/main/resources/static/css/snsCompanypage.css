@@ -444,19 +444,6 @@ section.snsCompanyPage
 	margin-left: auto;
 }
 
-.contentBoard .detailBox .userBox .right button
-{
-	width: 58px;
-	height: 30px;
-	border-radius: 6px;
-	background-color: var(--color-white);
-	border: solid 1px var(--border-color-gray);
-	color: var(--color-black);
-	font-size: var(--font-size12);
-	cursor: pointer;
-    margin-right: 10px;
-}
-
 .contentBoard .detailBox .detailContent
 {
 	text-align: center;
