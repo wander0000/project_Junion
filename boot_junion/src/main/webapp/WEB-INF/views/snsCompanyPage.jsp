@@ -50,7 +50,7 @@
                                                     <i class="fa-regular fa-thumbs-up" style="cursor: pointer;"></i>
                                                 </span>
                                             </div>
-                                            <h3 class="followerNum">${followCount.followCount}</h3>
+                                            <h3 class="followerNum">${followerCount.followerCount}</h3>
                                         </div>
                                         <div class="profileCon CEO">
                                             <h5 class="proflieConTitle">CEO</h5>
