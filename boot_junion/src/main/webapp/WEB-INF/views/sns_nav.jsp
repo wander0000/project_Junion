@@ -910,6 +910,9 @@
 					`;
 					chatContentBox.append(chatName);
 
+					// chatScroll을 열고 반복문을 그 안에 넣습니다.
+					var chatScroll = `<div class="chatScroll">`;
+
 					rooms.forEach(function(room) {
 						var message = room.message;
 						if (message.length > maxLength) {
@@ -940,29 +943,32 @@
 								</div>
 							</a>
 						`;
-						chatContentBox.append(chatContent);
-
-						// 프로필 이미지 불러옴
-						$('.chatContent').each(function () {
-							var snsEmail = $(this).data('user-email')
-							
-							var uploadResultContainer = $(this).find('.UserImage ul');
-
-							$.ajax({
-								url: '/getUserImageList',
-								type: 'GET',
-								data: {user_email: snsEmail}, // 이메일만 데이터로 전송
-								dataType: 'json',
-								success: function(data) {
-									showUploadResult(data, uploadResultContainer);
-								},
-								error: function(xhr, status, error) {
-									console.error('Error fetching file list for email ' + email + ':', error);
-								}
-							});
-						});
-						// 프로필 이미지 끝
+						// chatContentBox.append(chatContent);
+						chatScroll += chatContent;
 					});
+					chatScroll += `</div>`; // chatScroll을 닫습니다.
+            		chatContentBox.append(chatScroll); // chatScroll 전체를 chatContentBox에 추가합니다.
+					
+					// 프로필 이미지 불러옴
+					$('.chatContent').each(function () {
+						var snsEmail = $(this).data('user-email')
+						
+						var uploadResultContainer = $(this).find('.UserImage ul');
+
+						$.ajax({
+							url: '/getUserImageList',
+							type: 'GET',
+							data: {user_email: snsEmail}, // 이메일만 데이터로 전송
+							dataType: 'json',
+							success: function(data) {
+								showUploadResult(data, uploadResultContainer);
+							},
+							error: function(xhr, status, error) {
+								console.error('Error fetching file list for email ' + email + ':', error);
+							}
+						});
+					});
+					// 프로필 이미지 끝
 					// 채팅목록 불러오기 끝
 				},
 				error: function(error) {

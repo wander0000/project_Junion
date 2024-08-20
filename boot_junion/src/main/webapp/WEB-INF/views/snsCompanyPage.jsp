@@ -292,12 +292,23 @@
 
                 // '작성하기' 버튼 클릭 시 모달 열기
                 $('.writing').on('click', function (event) {
+                    $('#writeModal').show();
                     event.preventDefault();
                     $('#writeModal').css('display', 'flex');
                     $('body').css({
                         'overflow': 'hidden',
                         'margin-right': '0px' // 스크롤바 너비만큼 오른쪽 마진 추가
                     });
+                });
+
+                // '취소' 버튼 클릭 시 모달 닫기
+                $('#cancelButton').on('click', function(event) {
+                    event.preventDefault();
+                    $('#writeModal').hide();
+                    $('body').removeAttr('style'); // body에 적용된 인라인 스타일 제거
+                    $('#snsPost')[0].reset(); // 폼 초기화
+                    $('.uploadResultPost ul').empty(); // 업로드된 파일 목록 초기화
+                    $('.uploadFile').css({"display":"flex"}); // 파일 업로드 버튼 다시 보이기
                 });
 
                 $('.option h5').click(function () {
@@ -322,6 +333,18 @@
         </script>
         <script>
             $(document).ready(function () {
+
+                var userType = "<c:out value='${login_usertype}'/>";  // JSP에서 JavaScript로 userType 전달
+
+                if (userType.trim() === "2") {  // 문자열로 전달된 값과 정확하게 비교
+                    $('.sns_nav > *').not('#writeModal').hide(); 
+
+                    $('section.snsCompanyPage').css({
+                        'margin-left':'-120px'
+                    });
+                    // #writeModal은 보이도록 설정
+                    // $('#writeModal').show();
+                }
 
                 $('.detailBox').each(function () {
                     var snsNum = $(this).data('sns-num');

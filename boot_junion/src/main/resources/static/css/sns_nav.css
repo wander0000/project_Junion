@@ -399,6 +399,13 @@ a:visited {
 	min-width: 47px;
 }
 
+.chatContentBox .chatScroll
+{
+	height: 740px;
+    overflow: auto;
+    overflow-x: hidden;
+}
+
 .unread-count {
 	color: #fff;
     font-weight: bold;
