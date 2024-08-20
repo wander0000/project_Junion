@@ -76,6 +76,7 @@ section.snsCompanyPage
     font-size: 18px;
     color: #111;
 	margin: 20px;
+	text-align: center;
 }
 .com_content
 {
@@ -940,6 +941,8 @@ section.snsCompanyPage
 	width: 100%;
     height: 100%;
 	resize: none;
+	overflow: hidden;
+    padding-top: 20px;
 }
 .popupDetail .detailComment .commentBottom .commentBox input[type="submit"]
 {
