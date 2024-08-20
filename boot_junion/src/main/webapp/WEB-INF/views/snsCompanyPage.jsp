@@ -852,3 +852,64 @@
 
 
         </script>
+
+        <!-- 이미지 출력 -->
+        <script>
+            $(document).ready(function () {
+                // 프로필 이미지 불러옴
+                $('.profileInfo').each(function () {
+                    var user_type = $(this).data('user-type');
+                    var snsEmail = $(this).data('user-email')
+
+                    var uploadResultContainer = $(this).find('.UserProfileImage ul');
+
+                    if (user_type) {
+                        var url;
+                        var emailParam = '';
+
+                        if (user_type == 1) {
+                            url = '/getUserImageList';
+                            emailParam = { user_email: snsEmail }
+                        } else if (user_type == 2) {
+                            url = '/mainComFileList';
+                            emailParam = { com_email: snsEmail }
+                        }
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            data: emailParam, // 이메일만 데이터로 전송
+                            dataType: 'json',
+                            success: function (data) {
+                                showUploadResult(data, uploadResultContainer);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error fetching file list for email ' + email + ':', error);
+                            }
+                        });
+                    }
+                });
+
+            });
+
+            // 프로필 이미지 불러옴
+            function showUploadResult(uploadResultArr, uploadResultContainer) {
+                if (!uploadResultArr || uploadResultArr.length == 0) {
+                    return;
+                }
+
+                var str = "";
+
+                $(uploadResultArr).each(function (i, obj) {
+                    var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+                    str += "<li data-path='" + obj.uploadPath + "'";
+                    str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+                    str += "<div>";
+                    str += "<span style='display:none;'>" + obj.fileName + "</span>";
+                    str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";
+                    str += "</div></li>";
+                });
+
+                uploadResultContainer.empty().append(str);
+            }
+        </script>
