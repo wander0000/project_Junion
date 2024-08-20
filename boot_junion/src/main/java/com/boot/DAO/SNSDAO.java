@@ -11,6 +11,7 @@ import com.boot.DTO.SNSDTO;
 @Mapper
 public interface SNSDAO {  
 	public ArrayList<SNSDTO> snsList();
+	public ArrayList<SNSDTO> snsFollowPostList(String email);
 	
 	public SNSDTO findBySNSNum(int sns_num);
 	public void snsWrite(SNSDTO snsDTO);
