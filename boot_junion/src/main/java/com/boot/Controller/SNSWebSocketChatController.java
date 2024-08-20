@@ -43,6 +43,9 @@ public class SNSWebSocketChatController {
 	    	
 	    	model.addAttribute("receiver_id",receiver_id);
 	    	
+	    	String receiverName = chatService.getUserName(receiver_id);
+	    	model.addAttribute("receiverName",receiverName);
+	    	
 	    	int roomcheck = chatService.checkRooms(login_email, receiver_id);
 	    	
 	    	if (roomcheck != 1) {

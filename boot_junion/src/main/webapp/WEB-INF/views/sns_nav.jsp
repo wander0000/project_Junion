@@ -762,9 +762,16 @@
 				var message = JSON.parse(messageOutput.body);
 				var chatContentBox = $(".chatContentBox");
 				var chatContent = chatContentBox.find(`.chatContent[data-user-email="\${message.receiver_id}"]`);
+
 				console.log("@# SNS_nav message.message=>"+message.message);
 				console.log("@# SNS_nav message.receiver_id=>"+message.receiver_id);
 				console.log("@# SNS_nav message.chatContent=>"+chatContent);
+
+				var maxLength = 36; // 글자 수 제한
+				var messageText = message.message;
+				if (messageText.length > maxLength) {
+					messageText = messageText.substring(0, maxLength) + "...";
+				}
 				// loadChatList();
 
 				// updateChatMessage(message);
@@ -785,7 +792,7 @@
 				} else {
 					// 해당 유저의 채팅 메시지와 시간을 업데이트
 					if (chatContent.length > 0) {
-						chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나' : message.receiver_id}" :" \${message.message}`);
+						chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나' : message.receiver_id}" :" \${messageText}`);
 						chatContent.find('.chatTime').attr('data-timestamp', message.timestamp).html(timeAgo(new Date(message.timestamp)));
 					} else {
 						loadChatList();
@@ -813,8 +820,9 @@
 				type: "GET",
 				data: { senderId: loginEmail },
 				success: function(rooms) {
-					// 가져온 데이터를 JSP에 동적으로 렌더링
+					var maxLength = 36; // 글자 수 제한
 					var chatContentBox = $(".chatContentBox");
+
 					chatContentBox.empty(); // 기존 채팅 목록을 비움
 
 					var chatName = `
@@ -825,6 +833,11 @@
 					chatContentBox.append(chatName);
 
 					rooms.forEach(function(room) {
+						var message = room.message;
+						if (message.length > maxLength) {
+							message = message.substring(0, maxLength) + "...";
+						}
+
 						var chatContent = `
 							<a href="SNSChat?receiver_id=\${room.user_email}">
 								<div class="chatContent"
@@ -839,7 +852,7 @@
 									<div class="nameBox">
 										<h4>\${room.user_name}</h4>
 										<div class="chatMessage">
-											<h5>\${room.sender_id == loginEmail ? '나' : room.user_name} : \${room.message}</h5>
+											<h5>\${room.sender_id == loginEmail ? '나' : room.user_name} : \${message}</h5>
 											<h5 class="chatTime" data-timestamp="\${room.timestamp}">\${timeAgo(new Date(room.timestamp))}</h5>
 										</div>
 									</div>
@@ -939,6 +952,7 @@
 
         uploadResultContainer.empty().append(str);
     }
+
 
 // ----------------------------------------------------- 나성엽 끝 -------------------------------------------------
 </script>
