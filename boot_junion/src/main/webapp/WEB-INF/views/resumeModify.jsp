@@ -401,36 +401,36 @@
                 }
             } //유효성 검사 끝 --		
 
-			// var str="";
+			var str="";
 
-			// $(".uploadResult ul li").each(function (i, obj){
-			// 	console.log("@# obj=>"+$(obj));
-			// 	console.log("@# obj=>"+$(obj).data());
-			// 	console.log("@# obj=>"+$(obj).data("fileName"));
-			// 	// return;
+			$(".uploadResult ul li").each(function (i, obj){
+				console.log("@# obj=>"+$(obj));
+				console.log("@# obj=>"+$(obj).data());
+				console.log("@# obj=>"+$(obj).data("fileName"));
+				// return;
 
-			// 	var jobj = $(obj);
-			// 	// JavaScript개체의 속성에 대한 목록을 표시
-			// 	console.dir(jobj);
-			// 	console.log("================================");
-			// 	console.log(jobj.data("filename"));
-			// 	console.log(jobj.data("uuid"));
-			// 	console.log(jobj.data("path"));
-			// 	console.log(jobj.data("type"));
+				var jobj = $(obj);
+				// JavaScript개체의 속성에 대한 목록을 표시
+				console.dir(jobj);
+				console.log("================================");
+				console.log(jobj.data("filename"));
+				console.log(jobj.data("uuid"));
+				console.log(jobj.data("path"));
+				console.log(jobj.data("type"));
 
-			// 	str += "<input type='hidden' name='resumeUploadList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
-			// 	str += "<input type='hidden' name='resumeUploadList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
-			// 	str += "<input type='hidden' name='resumeUploadList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
-			// 	str += "<input type='hidden' name='resumeUploadList["+i+"].image' value='"+jobj.data("type")+"'>";
-			// 	// str += "<input type='hidden' name='resumeUploadList["+i+"].resume_num' value='${resumeInfo.resume_num}'>";
-			// });//end of uploadResult ul li
+				str += "<input type='hidden' name='resumeUploadList["+i+"].fileName' value='"+jobj.data("filename")+"'>";
+				str += "<input type='hidden' name='resumeUploadList["+i+"].uuid' value='"+jobj.data("uuid")+"'>";
+				str += "<input type='hidden' name='resumeUploadList["+i+"].uploadPath' value='"+jobj.data("path")+"'>";
+				str += "<input type='hidden' name='resumeUploadList["+i+"].image' value='"+jobj.data("type")+"'>";
+				str += "<input type='hidden' name='resumeUploadList["+i+"].resume_num' value='${resumeInfo.resume_num}'>";
+			});//end of uploadResult ul li
 
-			// console.log(str);
-			// alert(formObj);
-			// // return;
-			// formObj.append(str).submit();
+			console.log(str);
+			alert(formObj);
 			// return;
-			formObj.submit();
+			formObj.append(str).submit();
+			// return;
+			// formObj.submit();
 			
 		});//end of button submit
 		
