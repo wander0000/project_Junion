@@ -409,11 +409,6 @@
                                         <!-- 모달 구조 (첫 번째 HTML 블록 끝부분에 추가) -->
                                         <div id="viewFeedback" class="viewFeedback">
                                             <input type="hidden" name="resume_num" value="${resumeInfo.resume_num}">
-                                            <%-- resume_num의 값이 제대로 설정되는지 확인하는 로그 --%>
-                                                <div>resume_num:
-                                                    <c:out value="${resumeInfo.resume_num}" />
-                                                </div>
-
                                                 <div class="feedbackPopupBox">
                                                     <div class="boxButton">
                                                         <i id="viewCancelButton" class="fa-solid fa-xmark fa-xl"></i>
