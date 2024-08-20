@@ -87,7 +87,7 @@
                                                     </c:if>
                                                     <c:forEach items="${snsList}" var="dto">
                                                         <c:if test="${dto.login_email == com_email}">
-                                                            <div class="detailBox" data-sns-num="${dto.sns_num}"
+                                                            <div class="detailBox prof" data-sns-num="${dto.sns_num}"
                                                                 data-sns-name="${dto.sns_name}"
                                                                 data-sns-title="${dto.sns_title}"
                                                                 data-sns-content="${dto.sns_content}"
