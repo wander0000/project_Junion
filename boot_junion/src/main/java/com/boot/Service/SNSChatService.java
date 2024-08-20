@@ -61,4 +61,9 @@ public class SNSChatService {
     	log.info("@# snsChat=>"+snsChat);
     	snsChatDAO.insertMessage(snsChat);
     }
+
+	public String getUserName(String receiver_id) {
+		String receiverName = snsChatDAO.getUserName(receiver_id);
+		return receiverName;
+	}
 }

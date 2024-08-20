@@ -33,18 +33,17 @@
         <%@ include file="sns_nav.jsp" %>
         <div class="snsContent">
             <%@ include file="sns_header.jsp" %> 
-            <main>
-                ${login_email}
-                <div class="chatContent">
-                    <div class="left">
+            <div class="chatMain">
+                <div class="chatContent" data-user-email="${receiver_id}">
+                    <!-- <div class="left"> -->
                         <div class="UserImage">
                             <ul>
-                                <img src="images/people.svg" alt="#" class="img">
+                                <!-- <img src="images/people.svg" alt="#" class="img"> -->
                             </ul>
                         </div>
-                    </div>
+                    <!-- </div> -->
                     <div class="nameBox">
-                        <h4>${rooms.user_name}</h4>
+                        <h3>${receiverName}</h3>
                     </div>
                 </div>
                 <div id="chat-room">
@@ -56,7 +55,7 @@
                         <button id="send-button">전송</button>
                     </div>
                 </div>
-            </main>
+            </div>
         </div>
     </div>
 </body>
@@ -321,24 +320,46 @@
 
 
     // 프로필 이미지 불러옴
-    $('.chatContent').each(function () {
-        var snsEmail = $(this).data('user-email')
+    // $('.chatContent').each(function () {
+    //     var userEmail = $(this).data('user-email')
         
-        var uploadResultContainer = $(this).find('.UserImage ul');
+    //     var uploadResultContainer = $(this).find('.UserImage ul');
 
-        $.ajax({
-            url: '/getUserImageList',
-            type: 'GET',
-            data: {user_email: snsEmail}, // 이메일만 데이터로 전송
-            dataType: 'json',
-            success: function(data) {
-                showUploadResult(data, uploadResultContainer);
-            },
-            error: function(xhr, status, error) {
-                console.error('Error fetching file list for email ' + email + ':', error);
-            }
-        });
-    });
+    //     $.ajax({
+    //         url: '/getUserImageList',
+    //         type: 'GET',
+    //         data: {user_email: userEmail}, // 이메일만 데이터로 전송
+    //         dataType: 'json',
+    //         success: function(data) {
+    //             showUploadResult(data, uploadResultContainer);
+    //         },
+    //         error: function(xhr, status, error) {
+    //             console.error('Error fetching file list for email ' + email + ':', error);
+    //         }
+    //     });
+    // });
+
+    // // 프로필 이미지 불러옴
+    // function showUploadResult(uploadResultArr, uploadResultContainer){
+    //     if (!uploadResultArr || uploadResultArr.length == 0) {
+    //         return;
+    //     }
+
+    //     var str = "";
+
+    //     $(uploadResultArr).each(function (i, obj) {
+    //         var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+    //         str += "<li data-path='" + obj.uploadPath + "'";
+    //         str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+    //         str += "<div>";
+    //         str += "<span style='display:none;'>" + obj.fileName + "</span>";
+    //         str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>"; 
+    //         str += "</div></li>";
+    //     });
+
+    //     uploadResultContainer.empty().append(str);
+    // }
     // 프로필 이미지 끝
 </script>
 

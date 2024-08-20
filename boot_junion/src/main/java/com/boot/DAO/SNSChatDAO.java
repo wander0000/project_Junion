@@ -17,4 +17,6 @@ public interface SNSChatDAO {
     
     public List<SNSChat> selectMessagesByRoomId(int roomId);
     public void insertMessage(SNSChat chat);
+    
+	public String getUserName(String receiver_id);
 }

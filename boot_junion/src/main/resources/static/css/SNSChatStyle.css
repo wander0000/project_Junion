@@ -1,4 +1,6 @@
-
+.chatMain{
+    margin: 64px 480px 0;
+}
 
 #chat-room {
     width: 1000px;

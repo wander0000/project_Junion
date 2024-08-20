@@ -75,6 +75,10 @@
         INSERT INTO chat_tb (sender_id, receiver_id, chatRoom_id, message, timestamp)
         VALUES (#{sender_id}, #{receiver_id}, #{chatRoom_id}, #{message}, #{timestamp})
     </insert>
+
+    <select id="getUserName" resultType="String">
+        SELECT user_name FROM user_tb WHERE user_email = #{receiver_id}
+    </select>
     
 </mapper>
 

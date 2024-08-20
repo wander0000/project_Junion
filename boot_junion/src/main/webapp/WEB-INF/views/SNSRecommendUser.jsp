@@ -31,35 +31,37 @@
                     <!-- 개인 리스트 시작 -->
                     <div id="personal" class="form-box active">
                         <div class="profList">
-                            <c:forEach items="${userList}" var="user">
-                                <div class="prof profBox"
-                                data-login-email="${login_email}"
-                                data-user-type="${user.user_type}"
-                                data-user-email="${user.user_email}">
-                                    <div class="profInfo">
-                                        <div class="UserImage">
-                                            <a href="snsUserPage?user_email=${user.user_email}">
-                                                <ul>
-                                                    <img src="images/people.svg" alt="#" class="img">
-                                                </ul>
-                                            </a>
+                            <c:forEach items="${userList}" var="user" varStatus="status">
+                                <c:if test="${status.index < 12}">
+                                    <div class="prof profBox"
+                                    data-login-email="${login_email}"
+                                    data-user-type="${user.user_type}"
+                                    data-user-email="${user.user_email}">
+                                        <div class="profInfo">
+                                            <div class="UserImage">
+                                                <a href="snsUserPage?user_email=${user.user_email}">
+                                                    <ul>
+                                                        <img src="images/people.svg" alt="#" class="img">
+                                                    </ul>
+                                                </a>
+                                            </div>
+                                            <!-- <img class="prof-img"></img> -->
+                                            <div class="info">
+                                                <a href="snsUserPage?user_email=${user.user_email}">
+                                                    <p><h3 class="profName">${user.user_name}</h3></p>
+                                                    <p class="profCareer">${user.user_email}</p>
+                                                    <!-- <p class="profCareer">${user.stack_names}</p> -->
+                                                </a>
+                                            </div>
+                                            <button class="followbtn">팔로우</button>
                                         </div>
-                                        <!-- <img class="prof-img"></img> -->
-                                        <div class="info">
-                                            <a href="snsUserPage?user_email=${user.user_email}">
-                                                <p><h3 class="profName">${user.user_name}</h3></p>
-                                                <p class="profCareer">${user.user_email}</p>
-                                                <!-- <p class="profCareer">${user.stack_names}</p> -->
-                                            </a>
+                                        <div class="profComm">
+                                            <p>
+                                                ${user.sns_intro}
+                                            </p>
                                         </div>
-                                        <button class="followbtn">팔로우</button>
                                     </div>
-                                    <div class="profComm">
-                                        <p>
-                                            ${user.sns_intro}
-                                        </p>
-                                    </div>
-                                </div>
+                                </c:if>
                             </c:forEach>
                         </div>
                     </div>
@@ -67,33 +69,35 @@
                     <!-- 기업 리스트 시작 -->
                     <div id="corporate" class="form-box">
                         <div class="profList">
-                            <c:forEach items="${comList}" var="com">
-                                <div class="prof profBox"
-                                    data-login-email="${login_email}"
-                                    data-user-type="${com.user_type}"
-                                    data-user-email="${com.com_email}">
-                                    <div class="profInfo">
-                                        <div class="UserImage">
-                                            <a href="snsCompanyPage?com_email=${com.com_email}">
-                                                <ul>
-                                                    <img src="images/people.svg" alt="#" class="img">
-                                                </ul>
-                                            </a>
+                            <c:forEach items="${comList}" var="com" varStatus="status">
+                                <c:if test="${status.index < 12}">
+                                    <div class="prof profBox"
+                                        data-login-email="${login_email}"
+                                        data-user-type="${com.user_type}"
+                                        data-user-email="${com.com_email}">
+                                        <div class="profInfo">
+                                            <div class="UserImage">
+                                                <a href="snsCompanyPage?com_email=${com.com_email}">
+                                                    <ul>
+                                                        <img src="images/people.svg" alt="#" class="img">
+                                                    </ul>
+                                                </a>
+                                            </div>
+                                            <div class="info">
+                                                <a href="snsCompanyPage?com_email=${com.com_email}">
+                                                    <p><h3 class="profName">${com.com_name}</h3></p>
+                                                    <p class="profCareer">${com.com_email}</p>
+                                                </a>
+                                            </div>
+                                            <button class="followbtn">팔로우</button>
                                         </div>
-                                        <div class="info">
-                                            <a href="snsCompanyPage?com_email=${com.com_email}">
-                                                <p><h3 class="profName">${com.com_name}</h3></p>
-                                                <p class="profCareer">${com.com_email}</p>
-                                            </a>
+                                        <div class="profComm">
+                                            <p>
+                                                ${com.com_content}
+                                            </p>
                                         </div>
-                                        <button class="followbtn">팔로우</button>
                                     </div>
-                                    <div class="profComm">
-                                        <p>
-                                            ${com.com_content}
-                                        </p>
-                                    </div>
-                                </div>
+                                </c:if>
                             </c:forEach>
                         </div>
                     </div> 
