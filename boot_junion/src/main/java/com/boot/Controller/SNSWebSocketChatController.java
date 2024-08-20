@@ -11,6 +11,7 @@ import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.boot.DTO.SNSChat;
@@ -82,5 +83,10 @@ public class SNSWebSocketChatController {
         chatService.addMessage(chat);
         log.info("@# chat=>"+chat);
         return chat;
+    }
+    
+    @PostMapping("/api/markMessagesAsRead")
+    public void markMessagesAsRead(@RequestParam int roomNum, @RequestParam String userEmail) {
+        chatService.markMessagesAsRead(roomNum, userEmail);
     }
 }

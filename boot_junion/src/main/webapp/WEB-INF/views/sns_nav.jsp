@@ -295,6 +295,9 @@
 			</form> <!--popupBox 끝-->
 		</div> <!-- 모달 끝 -->
 	</div> <!--sns_nav 끝-->
+	<div id="messageNotification" class="notification" style="display: none;">
+		새로운 메시지가 도착했습니다!
+	</div>
 </body>
 </html>
 <script>
@@ -746,6 +749,8 @@
 	$(document).ready(function() {
 		var loginEmail = "${login_email}"; // JSP에서 로그인 이메일을 가져옴
 		var isFirstChat = true; // 접속 후 첫 채팅인지 확인하기 위한 플래그
+		var roomNum = "${roomNum}";	// 현재 사용자가 머무는 채팅방 정보
+				
 
 		console.log("@# loginEmail=>"+loginEmail);
 		
@@ -793,7 +798,11 @@
 					// 	loadChatList()
 					// }
 
-					// 첫 채팅 메시지라면 loadChatList() 실행
+					console.log("@# markMessagesAsRead roomNum=>"+roomNum);
+					console.log("@# markMessagesAsRead loginEmail=>"+loginEmail);
+					markMessagesAsRead(roomNum, loginEmail);
+
+					// 첫 채팅 메시지라면 loadChatList 실행
 					if (isFirstChat) {
 						loadChatList();
 						isFirstChat = false; // 첫 채팅 이후에는 다시 실행되지 않도록 플래그 업데이트
@@ -802,10 +811,27 @@
 						if (chatContent.length > 0) {
 							chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나' : message.receiver_id} : \${messageText}`);
 							chatContent.find('.chatTime').attr('data-timestamp', message.timestamp).html(timeAgo(new Date(message.timestamp)));
+							chatContent.find('.unread-count').html(``);
 						} else {
 							loadChatList();
+							// chatContent.find('.unread-count').html(``);
 						}
 					}
+
+					console.log("@#  roomNum=>"+roomNum);
+					console.log("@#  message.chatRoom_id=>"+message.chatRoom_id);
+					
+					if (roomNum == message.chatRoom_id) {
+						chatContent.find('.unread-count').html(``);
+					}
+
+					// 상대방이 보낸 메시지일 때만 알림 표시
+					// if (message.sender_id !== loginEmail) {
+					// 	showMessageNotification();
+					// };
+
+					// markMessagesAsRead();
+
 				}, function(error) {
 					console.error('WebSocket 연결 실패: ', error);
 					attemptReconnect(); // 연결 실패 시 재연결 시도
@@ -835,6 +861,36 @@
 
 		// 1초마다 시간을 업데이트
 		setInterval(updateChatTimes, 1000);
+
+
+		// 새로운 메시지 알림
+		function showMessageNotification() {
+			var notification = $('#messageNotification');
+			notification.fadeIn(300); // 알림 표시
+			setTimeout(function() {
+				notification.fadeOut(300); // 3초 후 알림 숨기기
+			}, 3000); // 3초 동안 알림 표시
+		}
+
+
+		// 메시지를 읽음으로 표시하는 함수
+		function markMessagesAsRead(roomNum, loginEmail) {
+			$.ajax({
+				url: "/api/markMessagesAsRead",
+				type: "POST",
+				data: {
+					roomNum: roomNum,
+					userEmail: loginEmail
+				},
+				success: function() {
+					console.log("Messages marked as read.");
+				},
+				error: function(xhr, status, error) {
+					console.error("Failed to mark messages as read:", error);
+				}
+			});
+		}
+
 
 		function loadChatList() { 
 			$.ajax({
@@ -880,7 +936,7 @@
 											<h5 class="chatTime" data-timestamp="\${room.timestamp}">\${timeAgo(new Date(room.timestamp))}</h5>
 										</div>
 									</div>
-									<h5 class="unread-count">\${unreadCount > 0 ? unreadCount : ''}</h5>
+									<h5 class="unread-count">\${unreadCount > 0 && roomNum != room.chatRoom_id ? unreadCount : ''}</h5>
 								</div>
 							</a>
 						`;
