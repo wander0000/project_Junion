@@ -217,9 +217,9 @@ public class SNSMyPageController {
 	    log.info("@# UserInfo: " + userDTO);
 	    model.addAttribute("userInfo", userDTO);
 	    
-	    SNSFollowDTO followCount = snsMyPageService.followerCount(com_email);
-	    log.info("@#follow_email: " + com_email);
-	    model.addAttribute("followCount", followCount);
+	    SNSFollowDTO followerCount = snsMyPageService.followerCount(com_email);
+	    log.info("@#follow_email: " + user_email);
+	    model.addAttribute("followerCount", followerCount);
 		
 		return "/snsCompanyPage";
 	}

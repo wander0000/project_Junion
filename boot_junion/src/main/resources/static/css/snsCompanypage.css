@@ -40,7 +40,7 @@ section.snsCompanyPage
     flex-direction: column;
     border-radius: 6px;
     width: 240px;
-    height: auto;
+    height: max-content;
 }
 
 .profileInfo 
