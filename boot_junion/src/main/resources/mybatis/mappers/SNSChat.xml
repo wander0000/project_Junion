@@ -30,16 +30,25 @@
 		           END AS other_id
 		    FROM chatroom_tb
 		    WHERE sender_id = #{senderId} OR receiver_id = #{senderId}
-		)
+		),
+	    unread_counts AS (
+	        SELECT chatRoom_id, COUNT(*) AS unread_count
+	        FROM message_status_tb ms
+	        JOIN chat_tb ct ON ms.chat_id = ct.chat_id
+	        WHERE ms.user_id = #{senderId} AND ms.is_read = FALSE
+	        GROUP BY chatRoom_id
+    	)
 		SELECT u.user_name,
 			   u.user_email,
 			   rm.chatRoom_id,
 		       rm.sender_id,
 		       rm.message,
-		       rm.timestamp
+		       rm.timestamp,
+		       COALESCE(uc.unread_count, 0) AS unread_count
 		FROM user_tb u
 		JOIN related_users ru ON u.user_email = ru.other_id
 		JOIN recent_messages rm ON rm.chatRoom_id = ru.chatRoom_id
+		LEFT JOIN unread_counts uc ON rm.chatRoom_id = uc.chatRoom_id
 		WHERE rm.chatRoom_id IN (
 		    SELECT DISTINCT chatRoom_id 
 		    FROM chatroom_tb 
@@ -72,13 +81,28 @@
     </select>
 
     <insert id="insertMessage" parameterType="com.boot.DTO.SNSChat">
+    	<!-- 메시지 삽입 -->
         INSERT INTO chat_tb (sender_id, receiver_id, chatRoom_id, message, timestamp)
         VALUES (#{sender_id}, #{receiver_id}, #{chatRoom_id}, #{message}, #{timestamp})
+    </insert>
+
+    <insert id="insertMessageStatus" parameterType="com.boot.DTO.SNSChat">
+        <!-- 읽지 않은 상태 삽입 -->
+        INSERT INTO message_status_tb (chat_id, user_id, is_read)
+    	VALUES (LAST_INSERT_ID(), #{receiver_id}, FALSE)
     </insert>
 
     <select id="getUserName" resultType="String">
         SELECT user_name FROM user_tb WHERE user_email = #{receiver_id}
     </select>
+    
+    <update id="markMessageAsRead">
+	    UPDATE message_status_tb
+	    SET is_read = TRUE
+	    WHERE chat_id IN (
+	        SELECT chat_id FROM chat_tb WHERE chatRoom_id = #{chatRoom_id}
+	    ) AND user_id = #{user_id}
+	</update>
     
 </mapper>
 

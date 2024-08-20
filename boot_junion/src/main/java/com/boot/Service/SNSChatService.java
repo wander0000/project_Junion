@@ -56,14 +56,23 @@ public class SNSChatService {
         return list;
     }
 
+    // 메시지 추가 삽입
     public void addMessage(SNSChat snsChat) {
     	log.info("@# addMessage");
     	log.info("@# snsChat=>"+snsChat);
     	snsChatDAO.insertMessage(snsChat);
+    	snsChatDAO.insertMessageStatus(snsChat);
     }
 
+    // 대화 상대 이름 불러옴
 	public String getUserName(String receiver_id) {
 		String receiverName = snsChatDAO.getUserName(receiver_id);
 		return receiverName;
+	}
+	
+	// 특정 채팅방의 메시지를 읽음으로 표시
+	public void markMessagesAsRead(int chatRoomId, String userId) {
+	    log.info("@# markMessagesAsRead - chatRoomId: {}, userId: {}", chatRoomId, userId);
+	    snsChatDAO.markMessageAsRead(chatRoomId, userId);
 	}
 }

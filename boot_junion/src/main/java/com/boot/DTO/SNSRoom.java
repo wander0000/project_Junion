@@ -15,4 +15,6 @@ public class SNSRoom {
     private String user_email;
     private String message;
     private Timestamp timestamp;
+    
+    private int unread_count;
 }

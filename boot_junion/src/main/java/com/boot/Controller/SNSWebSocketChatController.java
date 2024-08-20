@@ -33,8 +33,10 @@ public class SNSWebSocketChatController {
     @GetMapping("/SNSChat")
     public String chatView(@RequestParam String receiver_id, Model model, HttpServletRequest request) {
     	log.info("@# chatView");
+    	
     	HttpSession session = request.getSession();
     	
+    	// 로그인 여부 확인
     	if ((String)session.getAttribute("login_email") == null) {
     		return "redirect:login";
 		} else {
@@ -43,10 +45,12 @@ public class SNSWebSocketChatController {
 	    	
 	    	model.addAttribute("receiver_id",receiver_id);
 	    	
+	    	// 채팅 상대 이름 가져옴
 	    	String receiverName = chatService.getUserName(receiver_id);
 	    	model.addAttribute("receiverName",receiverName);
 	    	
 	    	int roomcheck = chatService.checkRooms(login_email, receiver_id);
+	    	int roomNum;
 	    	
 	    	if (roomcheck != 1) {
 				SNSRoom room = new SNSRoom();
@@ -55,14 +59,15 @@ public class SNSWebSocketChatController {
 				log.info("@# room=>"+room);
 				
 				chatService.createRoom(room);
-				int roomNum = chatService.getRooms(login_email, receiver_id);
-				model.addAttribute("roomNum",roomNum);
-				
-				log.info("@# room=>"+room);
+				roomNum = chatService.getRooms(login_email, receiver_id);
 			} else {
-				int roomNum = chatService.getRooms(login_email, receiver_id);
-				model.addAttribute("roomNum",roomNum);
+				roomNum = chatService.getRooms(login_email, receiver_id);
 			}
+	    	
+	    	model.addAttribute("roomNum",roomNum);
+	    	
+	    	// 채팅방의 메시지를 모두 읽음으로 표시
+	    	chatService.markMessagesAsRead(roomNum, login_email);
 	    	
 	    	return "SNSChat"; // JSP 파일명 (chat.jsp)
 		}

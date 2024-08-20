@@ -283,7 +283,7 @@ $(document).ready(function () {
         }
     });
 
-    $('.detailBox, .rightCon .userBox').each(function () {
+    $('.detailBox, .rightCon .userBox .prof').each(function () {
         var user_type = $(this).data('user-type');
         var snsEmail = $(this).data('user-email');
         
