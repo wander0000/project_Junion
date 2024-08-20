@@ -614,6 +614,7 @@
 					if (uploadResultArr.length > 0) { // 배열에 요소가 있는지 확인
 						var obj = uploadResultArr[0]; // 첫 번째 요소 가져오기 파일 하나만 보여주기
 						console.log("업로드 이미지 객체는 =>"+obj);
+						console.log("업로드 이미지 객체 obj.uploadPath는 =>"+obj.uploadPath);
 						var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
 
 						str += "<li data-path='" + obj.uploadPath + "'";
@@ -628,6 +629,7 @@
 
 					uploadUL.append(str);
 					$(".uploadDiv").css('display', 'none');
+					$(".uploadResult").css('display', 'flex');
 
 				}//showUploadResult function 끝
 
