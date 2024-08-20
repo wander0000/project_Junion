@@ -79,14 +79,16 @@
                                                 </c:if>
                                             </div>
                                             <div class="profileCon follower">
-                                                <div class="follow">
-                                                    <h5 class="proflieConTitle following">팔로잉</h5>
-                                                    <h5 class="proflieConTitle">팔로워</h5>
-                                                    <span class="icon">
-                                                        <i class="fa-regular fa-thumbs-up" style="cursor: pointer;"></i>
-                                                    </span>
+                                                <div class="followList">
+                                                    <div class="followItem">
+                                                        <h5 class="proflieConTitle">팔로워</h5>
+                                                        <h3 class="followerNum">${followerCount.followerCount}</h3>
+                                                    </div>
+                                                    <div class="followItem">
+                                                        <h5 class="proflieConTitle following">팔로잉</h5>
+                                                        <h3 class="followingNum">${followingCount.followingCount}</h3>
+                                                    </div>
                                                 </div>
-                                                <h3 class="followerNum">${followCount.followCount}</h3>
                                             </div>
                                             <div class="profileCon position">
                                                 <h5 class="proflieConTitle">희망 직무</h5>
@@ -298,7 +300,9 @@
                                                     <!-- <h5 id="cancelButton">취소</h5> -->
                                                 </div> <!--boxButton 끝-->
                                                 <c:forEach var="dto" items="${following}">
-                                                    <div class="followingBox">
+                                                    <div class="followingBox" data-login-email="${login_email}"
+                                                        data-user-type="${userInfo.user_type}"
+                                                        data-user-email="${user_email}">
                                                         <div class="UserImage">
                                                             <a href="snsUserPage?user_email=${user.user_email}">
                                                                 <ul>
@@ -311,7 +315,8 @@
                                                                 <p>
                                                                     <h3 class="profName">${dto.follow_name}</h3>
                                                                 </p>
-                                                                <p class="profEmail">${dto.followEmail}</p>
+                                                            </a>
+                                                            <p class="profEmail">${dto.followEmail}</p>
                                                         </div>
                                                         <button class="followbtn">팔로우</button>
                                                     </div> <!--followingBox 끝-->
@@ -566,8 +571,8 @@
                     $(this).closest('.option').removeClass('active');
                 });
 
-                // '팔로잉' 버튼 클릭 시 모달 열기
-                $('.following').on('click', function (event) {
+                // '팔로잉 숫자' 클릭 시 모달 열기
+                $('.followingNum').on('click', function (event) {
                     event.preventDefault();
                     $('#viewFollowing').css('display', 'flex');
                     $('body').css({
@@ -575,6 +580,7 @@
                         'margin-right': '0px' // 스크롤바 너비만큼 오른쪽 마진 추가
                     });
                 });
+
                 // 평가하기 '취소' 버튼 클릭 시 모달 닫기
                 $('#followingCancelButton').on('click', function (event) {
                     event.preventDefault();
@@ -1165,12 +1171,12 @@
         </script>
         <script>
             $(document).ready(function () {
-                // 팔로잉 이미지 불러옴
-                $('.profileInfo').each(function () {
+                // 프로필 이미지 불러옴
+                $('.followingBox').each(function () {
                     var user_type = $(this).data('user-type');
                     var snsEmail = $(this).data('user-email')
 
-                    var uploadResultContainer = $(this).find('.UserFollowingImage ul');
+                    var uploadResultContainer = $(this).find('.UserImage ul');
 
                     if (user_type) {
                         var url;
@@ -1197,7 +1203,9 @@
                         });
                     }
                 });
+
             });
+
             // 프로필 이미지 불러옴
             function showUploadResult(uploadResultArr, uploadResultContainer) {
                 if (!uploadResultArr || uploadResultArr.length == 0) {
@@ -1219,5 +1227,4 @@
 
                 uploadResultContainer.empty().append(str);
             }
-
         </script>

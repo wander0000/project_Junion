@@ -38,7 +38,9 @@ public interface SNSMyPageService {
 	
 	public void deleteFeedback(HashMap<String, String> param); //피드백 삭제
 	
-	public SNSFollowDTO followCount(String user_email); // 팔로우 카운트
+	public SNSFollowDTO followerCount(String user_email); // 팔로우 카운트
+	
+	public SNSFollowDTO followingCount(String user_email);
 	
 	public List<SNSFollowDTO> followerList(HashMap<String, String> param); // 팔로우 List
 	

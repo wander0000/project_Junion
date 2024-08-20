@@ -7,6 +7,7 @@ public class SNSFollowDTO {
     private String loginEmail;
     private String followEmail;
     private int followUserType;
-    private int followCount;
+    private int followerCount;
+    private int followingCount;
     private String follow_name;
 }
