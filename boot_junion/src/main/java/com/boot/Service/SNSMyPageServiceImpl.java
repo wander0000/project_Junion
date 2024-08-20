@@ -148,8 +148,10 @@ public class SNSMyPageServiceImpl implements SNSMyPageService {
 	@Override
 	public List<SNSFollowDTO> followingList(HashMap<String, String> param) {
 		SNSMyPageDAO dao= sqlSession.getMapper(SNSMyPageDAO.class);
+		log.info("Params: " + param);
 		List<SNSFollowDTO> followingList = dao.followingList(param);
 		log.info("@# followingList =>"+followingList);
+		log.info("Following List from DAO: " + followingList);
 		return followingList;
 	}
 	

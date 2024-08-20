@@ -108,8 +108,10 @@ public class SNSMyPageController {
 	    log.info("@#follow_email: " + user_email);
 	    model.addAttribute("followCount", followCount);
 	    
+	    param.put("login_email", user_email);
 //	    팔로잉 List
-	    List<SNSFollowDTO> followingList = snsMyPageService.followerList(param);
+	    List<SNSFollowDTO> followingList = snsMyPageService.followingList(param);
+	    log.info("Following List: " + followingList);
 	    model.addAttribute("following", followingList);
 
 //	    팔로워 List
