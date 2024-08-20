@@ -240,16 +240,30 @@
 	                            <div class="techCon">
 	                                <div class="buttonTitle">디자인</div>
 	                                <div class="buttonWrap">
-	                                    <c:forEach var="dto" items="${stack_name2}">
-											<input type="button" class="tech" name="stack_name" value="${dto.stack_name}">
+										<c:forEach var="dto" items="${stack_name2}">
+										    <c:choose>
+										        <c:when test="${stackNameList.contains(dto.stack_name)}">
+										            <input type="button" class="tech active" name="stack_name" value="${dto.stack_name}">
+										        </c:when>
+										        <c:otherwise>
+										            <input type="button" class="tech" name="stack_name" value="${dto.stack_name}">
+										        </c:otherwise>
+										    </c:choose>
 										</c:forEach>
 	                                </div>
 	                            </div>
 	                            <div class="techCon">
 	                                <div class="buttonTitle">기획</div>
 	                                <div class="buttonWrap">
-	                                    <c:forEach var="dto" items="${stack_name3}">
-											<input type="button" class="tech" name="stack_name" value="${dto.stack_name}">
+										<c:forEach var="dto" items="${stack_name3}">
+										    <c:choose>
+										        <c:when test="${stackNameList.contains(dto.stack_name)}">
+										            <input type="button" class="tech active" name="stack_name" value="${dto.stack_name}">
+										        </c:when>
+										        <c:otherwise>
+										            <input type="button" class="tech" name="stack_name" value="${dto.stack_name}">
+										        </c:otherwise>
+										    </c:choose>
 										</c:forEach>
 	                                </div>
 	                            </div>                        

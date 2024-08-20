@@ -105,6 +105,8 @@ public class JoinController {
         }
         				
 //		joinService.modify(param);		
+        
+        // stack, job 테이블에서 등록되어있는 스택,포지션값 가져오기
 		List<JoinDTO> stack = joinService.stack();		
 		model.addAttribute("stack_name", stack);
 		

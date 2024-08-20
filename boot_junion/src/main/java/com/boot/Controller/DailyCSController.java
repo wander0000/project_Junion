@@ -32,33 +32,7 @@ public class DailyCSController {
 	@Autowired
 	private DailyCSService dailyCSService;
 	
-	@PostMapping("/dailyCS")
-	@ResponseBody
-	public DailyCSDTO questionPop(@RequestParam Integer cs_num) { 
-	    log.info("POST dailyCS====>");	    
-	    
-	    DailyCSDTO dto = dailyCSService.question(cs_num);
-	    
-	    log.info("POST dailyCS dto====>" + dto);
-	    return dto;
-	}
-
-	
-	@PostMapping("/modifyCheck")
-	@ResponseBody
-	public String modifyCheck(@RequestParam Integer cs_num, @RequestParam String user_email) { 
-				
-	    
-	    log.info("modifyCheck cs_num====>"+cs_num);
-	    log.info("modifyCheck cs_num====>"+user_email);
-	    
-	    dailyCSService.modifyCheck(cs_num, user_email);	    
-	    dailyCSService.question(cs_num);
-	    
-	    return "redirect:dailyCS";
-//	    return null;
-	}
-
+	// 문제 조회
 	@GetMapping("/dailyCS")
 	public String dailyCSList(dailyCSCriteria cri3, Model model, HttpServletRequest request) 
 	{	
@@ -89,6 +63,7 @@ public class DailyCSController {
 //		return null;
 	}
 	
+	// 문제 탭버튼으로 조회
 	@PostMapping("/searchTab")
 	public String searchTab(dailyCSCriteria cri3, Model model, @RequestParam("cs_type") String cs_type, HttpServletRequest request) 
 	{			
@@ -112,9 +87,33 @@ public class DailyCSController {
 		return "dailyCS";
 	}
 	
+	// 문제 참여 여부 상태 변경
+	@PostMapping("/modifyCheck")
+	@ResponseBody
+	public String modifyCheck(@RequestParam Integer cs_num, @RequestParam String user_email) { 
+				
+	    
+	    log.info("modifyCheck cs_num====>"+cs_num);
+	    log.info("modifyCheck cs_num====>"+user_email);
+	    
+	    dailyCSService.modifyCheck(cs_num, user_email);	    
+	    dailyCSService.question(cs_num);
+	    
+	    return "redirect:dailyCS";
+//	    return null;
+	}	
 	
-	
-	
+	// 데일리 CS 문제 팝업
+	@PostMapping("/dailyCS")
+	@ResponseBody
+	public DailyCSDTO questionPop(@RequestParam Integer cs_num) { 
+	    log.info("POST dailyCS====>");	    
+	    
+	    DailyCSDTO dto = dailyCSService.question(cs_num);
+	    
+	    log.info("POST dailyCS dto====>" + dto);
+	    return dto;
+	}	
 	
 	
 	
