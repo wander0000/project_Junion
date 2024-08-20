@@ -52,6 +52,8 @@ public class SNSMyPageController {
 	        user_email = email;
 	    }
 
+	    log.info("@# param follow_email: " + param.get("follow_email"));
+	    
 	    // SNS 목록 가져오기
 	    ArrayList<SNSDTO> snsList = snsService.snsList();
 	    log.info("@# list" + snsList);
@@ -117,8 +119,14 @@ public class SNSMyPageController {
 	    log.info("Following List: " + followingList);
 	    model.addAttribute("following", followingList);
 
+	 // follow_email을 param에 명시적으로 설정
+	    param.put("follow_email", user_email);
+
+	    log.info("@# param follow_email: " + param.get("follow_email"));
+	    
 //	    팔로워 List
 	    List<SNSFollowDTO> followerList = snsMyPageService.followerList(param);
+	    log.info("Follower List: " + followerList);
 	    model.addAttribute("follower", followerList);
 	    
 	    // 게시물 삭제

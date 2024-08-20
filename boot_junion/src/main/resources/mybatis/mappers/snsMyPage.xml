@@ -153,7 +153,7 @@
     
 <!--    팔로워 list-->
     <select id="followerList" resultType="com.boot.DTO.SNSFollowDTO">
-		select sft.login_email, ut.user_name
+		select sft.login_email as loginEmail, ut.user_name as userName
 			from sns_follow_tb sft
 			join user_tb ut
 			on ut.user_email = sft.login_email

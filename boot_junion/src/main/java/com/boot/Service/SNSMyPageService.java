@@ -42,7 +42,7 @@ public interface SNSMyPageService {
 	
 	public SNSFollowDTO followingCount(String user_email);
 	
-	public List<SNSFollowDTO> followerList(HashMap<String, String> param); // 팔로우 List
+	public List<SNSFollowDTO> followerList(HashMap<String, String> param); // 팔로워 List
 	
 	public List<SNSFollowDTO> followingList(HashMap<String, String> param); // 팔로잉 List
 }

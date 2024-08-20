@@ -283,6 +283,47 @@
                                             </div> <!-- contentBoard 끝-->
                                         </div>
 
+                                        <!-- 팔로워 모달 (첫 번째 HTML 블록 끝부분에 추가) -->
+                                        <div id="viewFollower" class="followerModal">
+                                            <div class="followerPopupBox">
+                                                <input type="hidden" name="user_type"
+                                                    value="${sessionScope.login_usertype}" />
+                                                <input type="hidden" name="user_email" value="${user_email}">
+                                                <div class="boxButton">
+                                                    <div class="leftBox">
+                                                        <h3>팔로워 목록</h3>
+                                                    </div>
+                                                    <div class="rightBox">
+                                                        <i id="followerCancelButton"
+                                                            class="fa-solid fa-xmark fa-xl"></i>
+                                                    </div>
+                                                    <!-- <h5 id="cancelButton">취소</h5> -->
+                                                </div> <!--boxButton 끝-->
+                                                <c:forEach var="dto" items="${follower}">
+                                                    <div class="followerBox" data-login-email="${login_email}"
+                                                        data-user-type="${userInfo.user_type}"
+                                                        data-user-email="${user_email}">
+                                                        <div class="UserImage">
+                                                            <a href="snsUserPage?user_email=${dto.loginEmail}">
+                                                                <ul>
+                                                                    <img src="images/people.svg" alt="#" class="img">
+                                                                </ul>
+                                                            </a>
+                                                        </div>
+                                                        <div class="followerInfo">
+                                                            <a href="snsUserPage?user_email=${dto.loginEmail}">
+                                                                <p>
+                                                                    <h3 class="profName">${dto.userName}</h3>
+                                                                </p>
+                                                            </a>
+                                                            <p class="profEmail">${dto.loginEmail}</p>
+                                                        </div>
+                                                        <button class="followbtn">팔로우</button>
+                                                    </div> <!--followerBox 끝-->
+                                                </c:forEach>
+                                            </div> <!--followerPopupBox 끝-->
+                                        </div> <!-- 모달 끝 -->
+
                                         <!-- 팔로잉 모달 (첫 번째 HTML 블록 끝부분에 추가) -->
                                         <div id="viewFollowing" class="followingModal">
                                             <div class="followingPopupBox">
@@ -321,7 +362,7 @@
                                                         <button class="followbtn">팔로우</button>
                                                     </div> <!--followingBox 끝-->
                                                 </c:forEach>
-                                            </div> <!--feedbackPopupBox 끝-->
+                                            </div> <!--followingPopupBox 끝-->
                                         </div> <!-- 모달 끝 -->
 
                                         <!-- 모달 구조 (첫 번째 HTML 블록 끝부분에 추가) -->
@@ -581,7 +622,26 @@
                     });
                 });
 
-                // 평가하기 '취소' 버튼 클릭 시 모달 닫기
+                // '팔로워 숫자' 클릭 시 모달 열기
+                $('.followerNum').on('click', function (event) {
+                    event.preventDefault();
+                    $('#viewFollower').css('display', 'flex');
+                    $('body').css({
+                        'overflow': 'hidden',
+                        'margin-right': '0px' // 스크롤바 너비만큼 오른쪽 마진 추가
+                    });
+                });
+                // 팔로잉 '취소' 버튼 클릭 시 모달 닫기
+                $('#followerCancelButton').on('click', function (event) {
+                    event.preventDefault();
+                    $('#viewFollower').hide();
+                    $('body').css({
+                        'overflow': 'auto',
+                        'margin-right': '0' // 오른쪽 마진 원래대로
+                    });
+                });
+
+                // 팔로잉 '취소' 버튼 클릭 시 모달 닫기
                 $('#followingCancelButton').on('click', function (event) {
                     event.preventDefault();
                     $('#viewFollowing').hide();
@@ -590,6 +650,18 @@
                         'margin-right': '0' // 오른쪽 마진 원래대로
                     });
                 });
+
+                // 팔로잉 모달 외부 클릭 시 모달 닫기
+                $(window).on('click', function (event) {
+                    if ($(event.target).is('#viewFollowing')) {
+                        $('#viewFollowing').hide();
+                        $('body').css({
+                            'overflow': 'auto',
+                            'margin-right': '0' // 오른쪽 마진 원래대로
+                        });
+                    }
+                });
+
                 // '작성하기' 버튼 클릭 시 모달 열기
                 $('.estimatePortfolio').on('click', function (event) {
                     event.preventDefault();
@@ -1172,7 +1244,66 @@
         <script>
             $(document).ready(function () {
                 // 프로필 이미지 불러옴
-                $('.followingBox').each(function () {
+                $('.profileInfo').each(function () {
+                    var user_type = $(this).data('user-type');
+                    var snsEmail = $(this).data('user-email')
+
+                    var uploadResultContainer = $(this).find('.UserProfileImage ul');
+
+                    if (user_type) {
+                        var url;
+                        var emailParam = '';
+
+                        if (user_type == 1) {
+                            url = '/getUserImageList';
+                            emailParam = { user_email: snsEmail }
+                        } else if (user_type == 2) {
+                            url = '/mainComFileList';
+                            emailParam = { com_email: snsEmail }
+                        }
+                        $.ajax({
+                            url: url,
+                            type: 'GET',
+                            data: emailParam, // 이메일만 데이터로 전송
+                            dataType: 'json',
+                            success: function (data) {
+                                showUploadResult(data, uploadResultContainer);
+                            },
+                            error: function (xhr, status, error) {
+                                console.error('Error fetching file list for email ' + email + ':', error);
+                            }
+                        });
+                    }
+                });
+
+            });
+
+            // 프로필 이미지 불러옴
+            function showUploadResult(uploadResultArr, uploadResultContainer) {
+                if (!uploadResultArr || uploadResultArr.length == 0) {
+                    return;
+                }
+
+                var str = "";
+
+                $(uploadResultArr).each(function (i, obj) {
+                    var fileCallPath = encodeURIComponent(obj.uploadPath + "/s_" + obj.uuid + "_" + obj.fileName);
+
+                    str += "<li data-path='" + obj.uploadPath + "'";
+                    str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
+                    str += "<div>";
+                    str += "<span style='display:none;'>" + obj.fileName + "</span>";
+                    str += "<img src='/snsDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";
+                    str += "</div></li>";
+                });
+
+                uploadResultContainer.empty().append(str);
+            }
+        </script>
+        <script>
+            $(document).ready(function () {
+                // 프로필 이미지 불러옴
+                $('.followerBox').each(function () {
                     var user_type = $(this).data('user-type');
                     var snsEmail = $(this).data('user-email')
 
