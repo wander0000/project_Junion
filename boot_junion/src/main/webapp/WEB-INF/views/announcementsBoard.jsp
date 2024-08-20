@@ -135,7 +135,7 @@
 	            }
 
 	            $.ajax({
-	                url: '${pageContext.request.contextPath}/announcementRest/write', // 서버로 데이터를 전송할 API URL
+	                url: '${pageContext.request.contextPath}/announcementRest', // 서버로 데이터를 전송할 API URL
 	                type: 'POST',
 	                contentType: 'application/json',
 	                dataType: 'json',

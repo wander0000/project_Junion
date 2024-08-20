@@ -62,7 +62,7 @@ public class announcementRestController {
         }
     }
 
-    @PostMapping("/write")
+    @PostMapping("")
     public ResponseEntity<Map<String, Object>> writeAnnouncement(@RequestBody announcementsBoardDTO boardDTO) {
         log.info("Writing new announcement: {}", boardDTO);
         Map<String, Object> result = new HashMap<>();
