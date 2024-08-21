@@ -67,6 +67,18 @@
 						overflow: hidden; /* 컨테이너 영역 밖 요소 숨김 */
 						/* position: relative; */
 					}
+					.imgController
+					{
+						display: flex;
+						/* align-items: center; */
+						justify-content: center;
+						gap: 5px;
+						cursor: pointer;
+					}
+					.imgDelete 
+					{
+					font-size: 20px;
+					}
 
 
 
@@ -84,6 +96,7 @@
 						/* clip-path: circle(100px at center); */
 						overflow: hidden; /* 컨테이너 영역 밖 요소 숨김 */
 						/* position: relative; */
+						cursor: pointer;
 					}
 
 					.userImage img::before 
@@ -101,6 +114,7 @@
 						box-sizing: border-box;
 						justify-content: center;
 					}
+					
 
 					.uploadText {
 						color: #222;
@@ -509,36 +523,70 @@
 				2024-08-06 서연주
 				이미지 파일 누르면 삭제하기나 수정하기 할 수 있도록
 				*/
-				$(".uploadResult").on("click", "li", function (e) {
-					console.log("uploadResult click");
+				// $(".uploadResult").on("click", "img", function (e) {
+				// 	console.log("uploadResult click");
 
-					// 이미지 삭제 확인
-					if (confirm("하나의 파일만 업로드할 수 있습니다. 삭제하고 다시 업로드 하시겠습니까?")) {
+				// 	// 이미지 삭제 확인
+				// 	if (confirm("하나의 파일만 업로드할 수 있습니다. 삭제하고 다시 업로드 하시겠습니까?")) {
 						
-						// 1. 클릭된 이미지 제거
-						$(this).remove();
+				// 		// 1. 클릭된 이미지 제거
+				// 		$(this).remove();
 
-						//2. 컨트롤러 단으로 업로든 된 실제 파일 삭제
+				// 		//2. 컨트롤러 단으로 업로든 된 실제 파일 삭제
+				// 		var targetFile = $(this).data("file");
+				// 		var type = $(this).data("type");
+				// 		var uploadResultItem = $(this).closest("li");
+						
+				// 		$.ajax({
+				// 			type: "post"
+				// 			,data: {fileName: targetFile, type: type}
+				// 			,url: "deleteUserImage"
+				// 			,success: function(result){
+				// 				alert(result);
+				// 				//브라우저에서 해당 썸네일이나 첨부파일이미지 제거
+				// 				uploadResultItem.remove();
+				// 			}
+				// 		});//end of ajax
+						
+				// 		//3.이미지 등록 띄우기(이미지 삭제 후 파일업로드 안하고 빠져나갈 때 적용)
+				// 		$(".uploadDiv").show();
+				// 		//4.. 파일 업로드 입력 요소 트리거
+				// 		$("input[type='file']").click();
+				// 	}
+				// });
+
+				
+				//span x 영역 누르면 이미지 삭제 실행
+				$(".uploadResult").on("click","li",function(){
+					// 이미지 삭제 확인
+					if (confirm("이미지 파일을 삭제 하시겠습니까?")) {
+
+						$(this).remove();
+						
 						var targetFile = $(this).data("file");
 						var type = $(this).data("type");
-						
-						$.ajax({
-							type: "post"
-							,data: {fileName: targetFile, type: type}
-							,url: "deleteUserImage"
-							,success: function(result){
-								alert(result);
-								//브라우저에서 해당 썸네일이나 첨부파일이미지 제거
-								uploadResultItem.remove();
-							}
-						});//end of ajax
-						
-						//3.이미지 등록 띄우기(이미지 삭제 후 파일업로드 안하고 빠져나갈 때 적용)
-						$(".uploadDiv").show();
-						//4.. 파일 업로드 입력 요소 트리거
-						$("input[type='file']").click();
+						var uploadResultItem = $(this).closest("li");
+
+						console.log("@# targetFile=>"+targetFile);
+						console.log("@# type=>"+type);
+						console.log("@# uploadResultItem=>"+uploadResultItem);
+
+							//컨트롤러 단에서 업로드된 실제파일 삭제
+							$.ajax({
+								type: "post"
+								,data: {fileName: targetFile, type: type}
+								,url: "deleteUserImage"
+								,success: function(result){
+									// alert(result);
+									//브라우저에서 해당 썸네일이나 첨부파일이미지 제거
+									uploadResultItem.remove();
+								}
+							});//end of ajax
+
+							$(".uploadDiv").show();
 					}
-				});
+				});//end of click  이미지 삭제 끝
+
 
 				/*
 				2024-08-06 서연주
@@ -621,8 +669,13 @@
 						str += " data-uuid='" + obj.uuid + "' data-filename='" + obj.fileName + "' data-type='" + obj.image + "'>";
 						// str += "<div style='background:url("+rootURL+"/userImageDisplay?fileName=" + fileCallPath +")'>";
 						str += "<div>";
-						str += "<span style='display:none;'>" + obj.fileName + "</span>";
+						// str += "<span style='display:none;'>" + obj.fileName + "</span>";
 						str += "<img src='/userImageDisplay?fileName=" + fileCallPath + "' alt='" + obj.fileName + "'>";//이미지 출력처리(컨트롤러단)
+						str +="<div class='imgController'>";						
+						str += "<span class='imgName'>"+obj.fileName+"</span>";
+							// @@ 이미지 삭제버튼 (어떻게 바꿀지 생각하기)
+						str += "<span data-file=\'"+ fileCallPath +"\'data-type='image' class='imgDelete'> X </span>";
+						str += "</div>";
 						str += "</div></li>";
 					// });
 					}
@@ -634,29 +687,6 @@
 				}//showUploadResult function 끝
 
 
-
-				// //span x 영역 누르면 이미지 삭제 실행
-				// $(".uploadResult").on("click","span",function(){
-				// var targetFile = $(this).data("file");
-				// var type = $(this).data("type");
-				// var uploadResultItem = $(this).closest("li");
-
-				// console.log("@# targetFile=>"+targetFile);
-				// console.log("@# type=>"+type);
-				// console.log("@# uploadResultItem=>"+uploadResultItem);
-
-				// 	//컨트롤러 단에서 업로드된 실제파일 삭제
-				// 	$.ajax({
-				// 		type: "post"
-				// 		,data: {fileName: targetFile, type: type}
-				// 		,url: "deleteUserImage"
-				// 		,success: function(result){
-				// 			alert(result);
-				// 			//브라우저에서 해당 썸네일이나 첨부파일이미지 제거
-				// 			uploadResultItem.remove();
-				// 		}
-				// 	});//end of ajax
-				// });//end of click  이미지 삭제 끝
 
 
 
