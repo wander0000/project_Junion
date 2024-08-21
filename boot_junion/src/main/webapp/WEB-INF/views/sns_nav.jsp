@@ -908,7 +908,7 @@
 				type: "GET",
 				data: { senderId: loginEmail },
 				success: function(rooms) {
-					var maxLength = 36; // 글자 수 제한
+					var maxLength = 30; // 글자 수 제한
 					var chatContentBox = $(".chatContentBox");
 
 					chatContentBox.empty(); // 기존 채팅 목록을 비움
