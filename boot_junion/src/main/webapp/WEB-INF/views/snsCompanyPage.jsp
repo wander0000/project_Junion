@@ -55,19 +55,19 @@
                                             <div class="profileCon CEO">
                                                 <h5 class="proflieConTitle">CEO</h5>
                                                 <div class="positionWrap">
-                                                    <h3>${company.com_person}</h3>
+                                                    <h3 class="profileContent">${company.com_person}</h3>
                                                 </div>
                                             </div>
                                             <div class="profileCon tel">
                                                 <h5 class="proflieConTitle">번호</h5>
                                                 <div class="positionWrap">
-                                                    <h3>${company.com_tel}</h3>
+                                                    <h3 class="profileContent">${company.com_tel}</h3>
                                                 </div>
                                             </div>
                                             <div class="profileCon location">
                                                 <h5 class="proflieConTitle">주소</h5>
                                                 <div class="positionWrap">
-                                                    <h3>
+                                                    <h3 class="profileContent">
                                                         ${company.com_location}
                                                     </h3>
                                                 </div>

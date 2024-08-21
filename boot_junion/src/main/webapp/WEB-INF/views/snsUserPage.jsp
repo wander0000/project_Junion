@@ -58,7 +58,7 @@
                                                             <textarea name="sns_intro" rows="4"
                                                                 style="width:100%; border-radius: 5px; padding: 5px; margin-top: 20px;"
                                                                 minlength="10"
-                                                                maxlength="100">${userIntro.sns_intro}</textarea>
+                                                                maxlength="150">${userIntro.sns_intro}</textarea>
                                                             <div class="modifyButton">
                                                                 <button type="submit" class="postButton">수정 완료</button>
                                                                 <button type="button" id="cancelEdit"
@@ -94,7 +94,7 @@
                                                 <h5 class="proflieConTitle">희망 직무</h5>
                                                 <div class="positionWrap">
                                                     <c:forEach items="${SNSJob}" var="dto">
-                                                        <h3>${dto.job_name}</h3>
+                                                        <h3 class="profileContent">${dto.job_name}</h3>
                                                     </c:forEach>
                                                 </div>
                                             </div>
@@ -102,7 +102,7 @@
                                                 <h5 class="proflieConTitle">기술 스택</h5>
                                                 <div class="positionWrap">
                                                     <c:forEach items="${SNSStack}" var="dto">
-                                                        <h3>${dto.stack_name}</h3>
+                                                        <h3 class="profileContent">${dto.stack_name}</h3>
                                                     </c:forEach>
                                                 </div>
                                             </div>

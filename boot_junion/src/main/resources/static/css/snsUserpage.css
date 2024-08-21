@@ -91,10 +91,10 @@ section.snsMypage
 
 .profileInfo .intro
 {
-    /* margin-top: 20px; */
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
+    margin: 0px 20px;
 }
 
 .profileInfo .img
@@ -179,10 +179,16 @@ section.snsMypage
     font-weight: 400;
 }
 
-.proflieConTitle, .positionWrap h3 
+.proflieConTitle
 {
     font-size: 14px;
     font-weight: 600;
+}
+
+.positionWrap h3.profileContent 
+{
+    font-size: 14px;
+    font-weight: 400;
 }
 
 .UserProfileImage
