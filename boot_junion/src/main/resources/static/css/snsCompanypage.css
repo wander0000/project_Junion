@@ -143,6 +143,11 @@ section.snsCompanyPage
     border-bottom: 1px solid #e5e5ec;
 }
 
+.profileCon.follower h3.followerNum
+{
+    color: var(--main-color);
+}
+
 .profileCon, .follow 
 {
     display: flex;
