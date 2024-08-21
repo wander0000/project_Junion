@@ -668,7 +668,7 @@ button.postStatus
 				if (chk) {
 					$.ajax
 					({
-						url:"noticeScrapDelete",
+						url:"recentNoticeDelete",
 						type:'POST',
 						traditional : true, //배열로 보내는 방법
 						// dataType: 'json',
@@ -676,7 +676,7 @@ button.postStatus
 						success: function(data) {
 							if (data != 1) {
 								alert("삭제성공");
-								location.href = "individualNoticeScrap";
+								location.href = "individualrecentNotice";
 							} else {
 								alert("삭제에 실패했습니다.");
 							}

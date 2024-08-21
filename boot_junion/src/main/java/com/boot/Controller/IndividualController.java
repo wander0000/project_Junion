@@ -29,6 +29,7 @@ import com.boot.DTO.JoinDTO;
 import com.boot.DTO.NoticeScrapDTO;
 import com.boot.DTO.OfferInfoDTO;
 import com.boot.DTO.PageDTO;
+import com.boot.DTO.RecentNoticeDTO;
 import com.boot.DTO.ResumeUploadDTO;
 import com.boot.DTO.UserDTO;
 import com.boot.DTO.UserImageUploadDTO;
@@ -44,7 +45,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @Slf4j
-public class individualController {
+public class IndividualController {
 	
 	@Autowired
 	private IndividualService service;
@@ -171,7 +172,7 @@ public class individualController {
 		
 		String [] arrStr = request.getParameterValues("arrStr");//notice_num배열
         int size = arrStr.length;
-        NoticeScrapDTO dto = new NoticeScrapDTO();
+        RecentNoticeDTO dto = new RecentNoticeDTO();
         log.info("@# arrStr notice_num배열====>" + Arrays.toString(arrStr));
         for(int i=0; i<size; i++) {
         	dto.setNotice_num(Integer.parseInt(arrStr[i]));//배열값이 string으로 넘어오기땨뮨에
@@ -179,7 +180,7 @@ public class individualController {
         	
         	log.info("@# notice_num,  user_email넣은 dto====>" + dto);
         	
-        	service.noticeScrapDelete(dto);
+        	service.recentNoticeDelete(dto);
         }
 		
 		return "redirect:/individualrecentNotice";

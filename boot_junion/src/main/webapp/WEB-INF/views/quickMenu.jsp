@@ -146,11 +146,11 @@
 				</a>
 			</li>
 			<li class="quickMenuCon">
-				<a class="menuCon" href="boardCommunity">
+				<a class="menuCon" href="snsMain">
 					<span class="icon">
 						<i class="fa-regular fa-comments"></i>
 					</span>
-					<span class="text">커뮤니티</span>
+					<span class="text">SNS</span>
 				</a>
 			</li>
 			<li class="quickMenuCon">
@@ -166,7 +166,7 @@
 					<span class="icon">
 						<i class="fa-solid fa-volume-high"></i>
 					</span>
-					<span class="text">공지사항</span>
+					<span class="text">고객센터</span>
 				</a>
 			</li>	
 			<li class="quickMenuCon scrollTop">
