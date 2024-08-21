@@ -1,5 +1,10 @@
 .chatMain{
-    margin: 64px 480px 0;
+    margin: 40px 480px 0;
+}
+
+.chatMain .chatContent
+{
+    margin-left: 140px;
 }
 
 #chat-room {
