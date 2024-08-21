@@ -255,6 +255,10 @@ $(document).ready(function()
     $(".icon.cancel").on("click",function(){
         $(this).parents(".deletePop").hide();
     });
+	
+	$(".no").on("click",function(){
+        $(this).parents(".deletePop").hide();
+    });
 
 	$('.star').on('click', function() {
         var index = $(this).parent().index(); // 클릭한 별의 부모 div의 인덱스 가져오기
@@ -323,6 +327,7 @@ function deleteValue()
 	if(valueArr.length ==0) 
 	{
 		alert("선택된 글이 없습니다.");
+		$(".deletePop").hide();
 	}
 	else 
 	{
