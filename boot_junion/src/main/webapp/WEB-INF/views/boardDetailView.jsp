@@ -96,7 +96,7 @@
 	
 			                <div class="boardcontent">
 			                    <div class="contentbox">
-			                        <h5 class="content" style="white-space: pre;">${boardDetailView.board_content}</h5> 
+			                        <h5 class="content" >${boardDetailView.board_content}</h5> 
 			                    </div> 
 			                </div><!-- 콘텐트 끝-->
 

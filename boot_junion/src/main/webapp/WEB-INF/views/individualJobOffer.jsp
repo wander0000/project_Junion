@@ -315,7 +315,7 @@
 
 				.popCon {
 					background-color: #fff;
-					/* width: 800px; */
+					width: 800px;
 					/* height: 1000px; */
 					position: absolute;
 					top: 50%;
@@ -395,7 +395,7 @@
 
 				.popM .popM2 {
 					display: flex;
-					width: 720px;
+					/* width: 720px; */
 					height: 116px;
 					background-color: initial;
 					border: 1px solid var(--border-color-gray);
@@ -403,6 +403,7 @@
 					align-items: center;
 					/* justify-content:center; */
 					padding: 20px;
+					/* cursor: pointer; */
 				}
 
 				.popM .popM2 .popM2Left {
@@ -618,7 +619,7 @@
 															</div><!-- popH 끝 -->
 															<div class="popM">
 																<div class="popM1">
-																	<pre>${dto.offer_content}</pre>
+																	<div>${dto.offer_content}</div>
 																	<!-- 제안입력단 textarea 정보랑 일치시킬 것 -->
 																	<!-- <textarea cols="50" rows="8"><c:out value="${content}" /></textarea>제안입력단 textarea 정보랑 일치시킬 것 -->
 																</div>
@@ -805,6 +806,8 @@
 				});
 
 
+				
+
 
 /*
 		2024-07-27 서연주 
@@ -819,7 +822,7 @@
 			$("input[name='offerListRow']:checked").each(function() {
 				arr.push($(this).attr('id'));
 			});
-			alert(arr);//offer_no이 배열로 잘 담기는지 확인
+			// alert(arr);//offer_no이 배열로 잘 담기는지 확인
 			if(cnt == 0){
 				alert("선택된 항목이 없습니다.");
 			}
@@ -863,5 +866,14 @@
 
 
 			});
+
+
+			// /*
+			// 		2024-08-21 서연주
+			// 		공고상세 박스 누르면 공고상세보기로 가기
+			// 	*/
+			// 	function redirectToDetail(notice_num) {
+			// 		window.location.href ='/jobPostDetail?notice_num=${notice_num}';
+			// 	}
 		</script>
 		
