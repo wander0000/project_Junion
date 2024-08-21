@@ -86,8 +86,15 @@
             // 이 주제에서 메시지를 받을 때마다 콜백 함수가 호출됨
             stompClient.subscribe('/sub/public', function (chatMessage) {
                 console.log("@# stompClient=>"+stompClient);
+                console.log("@# chatMessage.receiver_id=>"+chatMessage.receiver_id);
                 console.log("@# JSON.parse(chatMessage.body)=>"+JSON.parse(chatMessage.body));
-                showMessage(JSON.parse(chatMessage.body));
+                console.log("@# JSON.parse(chatMessage.body).receiver_id=>"+JSON.parse(chatMessage.body).receiver_id);
+                
+                // showMessage(JSON.parse(chatMessage.body));
+
+                if (senderId == JSON.parse(chatMessage.body).receiver_id || senderId == JSON.parse(chatMessage.body).sender_id) {
+                        showMessage(JSON.parse(chatMessage.body));
+                }
             });
         });
 
@@ -253,54 +260,56 @@
     var lastTimestampReceived = null; // 이전에 받은 메시지의 시간을 저장할 전역 변수
 
     function showMessage(message) {
-        var currentTimestamp = timeAgo(new Date(message.timestamp)); // 현재 메시지의 시간 계산
+        // if (message.receiver_id == '${login_email}') {
+            var currentTimestamp = timeAgo(new Date(message.timestamp)); // 현재 메시지의 시간 계산
 
-        var messageElement = document.createElement('div');
-        messageElement.classList.add('message', message.sender_id === senderId ? 'sent' : 'received');
+            var messageElement = document.createElement('div');
+            messageElement.classList.add('message', message.sender_id === senderId ? 'sent' : 'received');
 
-        var messageContent = document.createElement('div');
-        messageContent.classList.add('message-content');
-        messageContent.textContent = message.message;
-        
-        var timestampSpan = document.createElement('div');
-        timestampSpan.classList.add('message-time');
-        timestampSpan.textContent = currentTimestamp;
-
-        // 새로운 타임스탬프 추가
-        timestampSpan.setAttribute('data-timestamp', message.timestamp);
-
-        if (message.sender_id === senderId) {
-            // sent 메시지 처리
-            if (currentTimestamp === lastTimestampSent) { // 이전에 보낸 메시지와 시간이 같다면
-                var lastMessageTime = document.querySelector('.message.sent:last-child .message-time');
-                if (lastMessageTime) lastMessageTime.style.display = 'none'; // 이전 메시지의 시간을 숨김
-            } else {
-                var lastMessage = document.querySelector('.message.sent:last-child');
-                if (lastMessage) lastMessage.classList.add('time-visible'); // 시간이 표시되는 메시지에 클래스 추가
-            }
-            messageElement.appendChild(timestampSpan);
-            messageElement.appendChild(messageContent);
+            var messageContent = document.createElement('div');
+            messageContent.classList.add('message-content');
+            messageContent.textContent = message.message;
             
-            // 현재 보낸 메시지의 시간을 저장
-            lastTimestampSent = currentTimestamp;
-        } else {
-            // received 메시지 처리
-            if (currentTimestamp === lastTimestampReceived) { // 이전에 받은 메시지와 시간이 같다면
-                var lastMessageTime = document.querySelector('.message.received:last-child .message-time');
-                if (lastMessageTime) lastMessageTime.style.display = 'none'; // 이전 메시지의 시간을 숨김
-            } else {
-                var lastMessage = document.querySelector('.message.received:last-child');
-                if (lastMessage) lastMessage.classList.add('time-visible'); // 시간이 표시되는 메시지에 클래스 추가
-            }
-            messageElement.appendChild(messageContent);
-            messageElement.appendChild(timestampSpan);
-            
-            // 현재 받은 메시지의 시간을 저장
-            lastTimestampReceived = currentTimestamp;
-        }
+            var timestampSpan = document.createElement('div');
+            timestampSpan.classList.add('message-time');
+            timestampSpan.textContent = currentTimestamp;
 
-        document.getElementById('messages').appendChild(messageElement);
-        scrollBottom();
+            // 새로운 타임스탬프 추가
+            timestampSpan.setAttribute('data-timestamp', message.timestamp);
+
+            if (message.sender_id === senderId) {
+                // sent 메시지 처리
+                if (currentTimestamp === lastTimestampSent) { // 이전에 보낸 메시지와 시간이 같다면
+                    var lastMessageTime = document.querySelector('.message.sent:last-child .message-time');
+                    if (lastMessageTime) lastMessageTime.style.display = 'none'; // 이전 메시지의 시간을 숨김
+                } else {
+                    var lastMessage = document.querySelector('.message.sent:last-child');
+                    if (lastMessage) lastMessage.classList.add('time-visible'); // 시간이 표시되는 메시지에 클래스 추가
+                }
+                messageElement.appendChild(timestampSpan);
+                messageElement.appendChild(messageContent);
+                
+                // 현재 보낸 메시지의 시간을 저장
+                lastTimestampSent = currentTimestamp;
+            } else {
+                // received 메시지 처리
+                if (currentTimestamp === lastTimestampReceived) { // 이전에 받은 메시지와 시간이 같다면
+                    var lastMessageTime = document.querySelector('.message.received:last-child .message-time');
+                    if (lastMessageTime) lastMessageTime.style.display = 'none'; // 이전 메시지의 시간을 숨김
+                } else {
+                    var lastMessage = document.querySelector('.message.received:last-child');
+                    if (lastMessage) lastMessage.classList.add('time-visible'); // 시간이 표시되는 메시지에 클래스 추가
+                }
+                messageElement.appendChild(messageContent);
+                messageElement.appendChild(timestampSpan);
+                
+                // 현재 받은 메시지의 시간을 저장
+                lastTimestampReceived = currentTimestamp;
+            }
+
+            document.getElementById('messages').appendChild(messageElement);
+            scrollBottom();
+        // }
     }
     
 
