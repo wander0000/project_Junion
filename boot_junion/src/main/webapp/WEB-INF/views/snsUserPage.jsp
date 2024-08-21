@@ -306,28 +306,30 @@
                                                     </div>
                                                     <!-- <h5 id="cancelButton">취소</h5> -->
                                                 </div> <!--boxButton 끝-->
-                                                <c:forEach var="dto" items="${follower}">
-                                                    <div class="followerBox  prof" data-login-email="${login_email}"
-                                                        data-user-type="${dto.userType}"
-                                                        data-user-email="${dto.loginEmail}">
-                                                        <div class="UserImage">
-                                                            <a href="snsUserPage?user_email=${dto.loginEmail}">
-                                                                <ul>
-                                                                    <img src="images/people.svg" alt="#" class="img">
-                                                                </ul>
-                                                            </a>
-                                                        </div>
-                                                        <div class="followerInfo">
-                                                            <a href="snsUserPage?user_email=${dto.loginEmail}">
-                                                                <p>
-                                                                    <h3 class="profName">${dto.userName}</h3>
-                                                                </p>
-                                                            </a>
-                                                            <p class="profEmail">${dto.loginEmail}</p>
-                                                        </div>
-                                                        <button class="followbtn">팔로우</button>
-                                                    </div> <!--followerBox 끝-->
-                                                </c:forEach>
+                                                <div class="follwerBoxScroll">
+                                                    <c:forEach var="dto" items="${follower}">
+                                                        <div class="followerBox  prof" data-login-email="${login_email}"
+                                                            data-user-type="${dto.userType}"
+                                                            data-user-email="${dto.loginEmail}">
+                                                            <div class="UserImage">
+                                                                <a href="snsUserPage?user_email=${dto.loginEmail}">
+                                                                    <ul>
+                                                                        <img src="images/people.svg" alt="#" class="img">
+                                                                    </ul>
+                                                                </a>
+                                                            </div>
+                                                            <div class="followerInfo">
+                                                                <a href="snsUserPage?user_email=${dto.loginEmail}">
+                                                                    <p>
+                                                                        <h3 class="profName">${dto.userName}</h3>
+                                                                    </p>
+                                                                </a>
+                                                                <p class="profEmail">${dto.loginEmail}</p>
+                                                            </div>
+                                                            <button class="followbtn">팔로우</button>
+                                                        </div> <!--followerBox 끝-->
+                                                    </c:forEach>
+                                                </div> <!--follwerBoxScroll 끝-->
                                             </div> <!--followerPopupBox 끝-->
                                         </div> <!-- 모달 끝 -->
 
@@ -347,28 +349,30 @@
                                                     </div>
                                                     <!-- <h5 id="cancelButton">취소</h5> -->
                                                 </div> <!--boxButton 끝-->
-                                                <c:forEach var="dto" items="${following}">
-                                                    <div class="followingBox prof" data-login-email="${login_email}"
-                                                        data-user-type="${dto.userType}"
-                                                        data-user-email="${dto.followEmail}">
-                                                        <div class="UserImage">
-                                                            <a href="snsUserPage?user_email=${user.user_email}">
-                                                                <ul>
-                                                                    <img src="images/people.svg" alt="#" class="img">
-                                                                </ul>
-                                                            </a>
-                                                        </div>
-                                                        <div class="followingInfo">
-                                                            <a href="snsUserPage?user_email=${dto.followEmail}">
-                                                                <p>
-                                                                    <h3 class="profName">${dto.follow_name}</h3>
-                                                                </p>
-                                                            </a>
-                                                            <p class="profEmail">${dto.followEmail}</p>
-                                                        </div>
-                                                        <button class="followbtn">팔로우</button>
-                                                    </div> <!--followingBox 끝-->
-                                                </c:forEach>
+                                                <div class="follwerBoxScroll">
+                                                    <c:forEach var="dto" items="${following}">
+                                                        <div class="followingBox prof" data-login-email="${login_email}"
+                                                            data-user-type="${dto.userType}"
+                                                            data-user-email="${dto.followEmail}">
+                                                            <div class="UserImage">
+                                                                <a href="snsUserPage?user_email=${user.user_email}">
+                                                                    <ul>
+                                                                        <img src="images/people.svg" alt="#" class="img">
+                                                                    </ul>
+                                                                </a>
+                                                            </div>
+                                                            <div class="followingInfo">
+                                                                <a href="snsUserPage?user_email=${dto.followEmail}">
+                                                                    <p>
+                                                                        <h3 class="profName">${dto.follow_name}</h3>
+                                                                    </p>
+                                                                </a>
+                                                                <p class="profEmail">${dto.followEmail}</p>
+                                                            </div>
+                                                            <button class="followbtn">팔로우</button>
+                                                        </div> <!--followingBox 끝-->
+                                                    </c:forEach>
+                                                </div> <!--follwerBoxScroll 끝-->
                                             </div> <!--followingPopupBox 끝-->
                                         </div> <!-- 모달 끝 -->
 
