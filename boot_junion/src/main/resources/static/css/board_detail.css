@@ -103,6 +103,10 @@ section
 {
     margin-bottom: 20px;
 }
+.board .boardcontent .content
+{
+    max-width: 1200px;
+}
 
 .board .title
 {
