@@ -395,6 +395,7 @@ section.snsMypage
 .option.active 
 {
     opacity: 1;
+    cursor: pointer;
 }
 
 .option h5

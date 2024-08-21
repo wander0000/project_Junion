@@ -802,19 +802,21 @@
 					console.log("@# markMessagesAsRead loginEmail=>"+loginEmail);
 					markMessagesAsRead(roomNum, loginEmail);
 
-					// 첫 채팅 메시지라면 loadChatList 실행
-					if (isFirstChat) {
-						loadChatList();
-						isFirstChat = false; // 첫 채팅 이후에는 다시 실행되지 않도록 플래그 업데이트
-					} else {
-						// 해당 유저의 채팅 메시지와 시간을 업데이트
-						if (chatContent.length > 0) {
-							chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나' : message.receiver_id} : \${messageText}`);
-							chatContent.find('.chatTime').attr('data-timestamp', message.timestamp).html(timeAgo(new Date(message.timestamp)));
-							chatContent.find('.unread-count').html(``);
-						} else {
+					if (message.sender_id == loginEmail || message.receiver_id == loginEmail) {
+						// 첫 채팅 메시지라면 loadChatList 실행
+						if (isFirstChat) {
 							loadChatList();
-							// chatContent.find('.unread-count').html(``);
+							isFirstChat = false; // 첫 채팅 이후에는 다시 실행되지 않도록 플래그 업데이트
+						} else {
+							// 해당 유저의 채팅 메시지와 시간을 업데이트
+							if (chatContent.length > 0) {
+								chatContent.find('.chatMessage h5').first().html(`\${message.sender_id == loginEmail ? '나' : ''} : \${messageText}`);
+								chatContent.find('.chatTime').attr('data-timestamp', message.timestamp).html(timeAgo(new Date(message.timestamp)));
+								chatContent.find('.unread-count').html(``);
+							} else {
+								loadChatList();
+								// chatContent.find('.unread-count').html(``);
+							}
 						}
 					}
 
@@ -826,7 +828,7 @@
 					// }
 
 					// 상대방이 보낸 메시지일 때만 알림 표시
-					if (message.sender_id != loginEmail && roomNum != message.chatRoom_id) {
+					if (message.sender_id != loginEmail && roomNum != message.chatRoom_id && message.receiver_id == loginEmail) {
 						showMessageNotification();
 					};
 
