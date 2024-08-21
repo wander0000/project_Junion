@@ -62,9 +62,9 @@ public class jobpostingIndividualServiceImpl implements jobpostingIndividualServ
 				if (stackList != null && !stackList.isEmpty()) {
 					List<String> stacks = Arrays.asList(stackList.split(","));
 		            // stacks 리스트에서 최대 5개의 요소만 선택
-		            if (stacks.size() > 5) {
-		            	stacks = stacks.subList(0, 5);
-		            }
+//		            if (stacks.size() > 5) {
+//		            	stacks = stacks.subList(0, 5);
+//		            }
 					list.get(i).setStackList(stacks);
 				} else {
 					list.get(i).setStackList(new ArrayList<>()); // 빈 리스트 설정
@@ -78,9 +78,9 @@ public class jobpostingIndividualServiceImpl implements jobpostingIndividualServ
 				if (jobList != null && !jobList.isEmpty()) {
 					List<String> jobs = Arrays.asList(jobList.split(","));
 		            // jobs 리스트에서 최대 5개의 요소만 선택
-		            if (jobs.size() > 5) {
-		                jobs = jobs.subList(0, 5);
-		            }
+//		            if (jobs.size() > 5) {
+//		                jobs = jobs.subList(0, 5);
+//		            }
 					list.get(i).setJobList(jobs);
 				} else {
 					list.get(i).setJobList(new ArrayList<>()); // 빈 리스트 설정

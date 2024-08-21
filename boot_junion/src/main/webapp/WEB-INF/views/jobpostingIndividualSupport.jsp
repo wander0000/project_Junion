@@ -173,16 +173,20 @@
 
 									<div class="buttbox1">
 										<div class="b1">
-											<c:forEach var="stacks" items="${sup.stackList}">
-												<div class="stack-item">${stacks}</div>
+											<c:forEach var="stacks" items="${sup.stackList}" varStatus="status">
+												<c:if test="${status.index < 5}">
+													<div class="stack-item">${stacks}</div>
+												</c:if>
 											</c:forEach>
 										</div>
 									</div>
 									
 									<div class="buttbox1">
 										<div class="b1">
-											<c:forEach var="jobs" items="${sup.jobList}">
-												<div class="job-item">${jobs}</div>
+											<c:forEach var="jobs" items="${sup.jobList}" varStatus="status">
+												<c:if test="${status.index < 5}">
+													<div class="job-item">${jobs}</div>
+												</c:if>
 											</c:forEach>
 										</div>
 									</div>
