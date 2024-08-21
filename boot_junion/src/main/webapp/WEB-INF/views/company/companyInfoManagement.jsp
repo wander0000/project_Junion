@@ -55,8 +55,9 @@
                             <!-- </div> -->
                             <div class="comInfo">
                                 <!-- <div class="sub1"> -->
+                                    <h5 class="title">${companyInfo.com_name}</h5>
                                     <!-- <h5 class="name">${companyInfo.com_name}</h5> -->
-                                    <h5 class="title">주니온</h5>
+                                    <!-- <h5 class="title">주니온</h5> -->
                                     <h5 class="contentValue" id="localyear">${companyInfo.com_location}ㆍ업력 <span class="getyear"></span></h5>
                                     <!-- <h5 class="contentValue" id="localyear">서울 성동구ㆍ업력 <span class="getyear"></span></h5> -->
                                     <!-- <h5 class="locationC" id="localyear">${companyInfo.com_location}<span class="getyear"></span></h5> -->
