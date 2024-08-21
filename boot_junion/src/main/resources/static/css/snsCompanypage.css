@@ -162,13 +162,13 @@ section.snsCompanyPage
 
 .proflieConTitle 
 {
-    font-weight: 400;
+    font-weight: 600;
 }
 
-.proflieConTitle, .positionWrap h3 
+.profileCon .positionWrap h3 
 {
     font-size: 14px;
-    font-weight: 600;
+    font-weight: 400;
 }
 
 .content.info 
