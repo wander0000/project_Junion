@@ -618,7 +618,7 @@
 															</div><!-- popH 끝 -->
 															<div class="popM">
 																<div class="popM1">
-																	<pre>${dto.offer_content}</pre>
+																	<div>${dto.offer_content}</div>
 																	<!-- 제안입력단 textarea 정보랑 일치시킬 것 -->
 																	<!-- <textarea cols="50" rows="8"><c:out value="${content}" /></textarea>제안입력단 textarea 정보랑 일치시킬 것 -->
 																</div>

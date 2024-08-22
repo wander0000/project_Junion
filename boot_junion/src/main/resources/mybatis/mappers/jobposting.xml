@@ -177,6 +177,36 @@
 	
 	
 <!--================================================= jobposting Offer 끝 =================================================-->
+
+
+
+   <select id="individualCom" resultType="com.boot.DTO.jobpostingDTO">
+		SELECT 
+		    u.user_email, 
+		    u.user_name, 
+		    u.user_gender, 
+		    TIMESTAMPDIFF(YEAR, STR_TO_DATE(u.user_birthdate, '%Y-%m-%d'), CURDATE()) AS calculated_age,
+		    o.com_email,
+		    o.offer_no,
+		    o.resume_num,
+		    DATE_FORMAT(o.offer_date, '%Y-%m-%d %H:%i') AS offer_date,
+		    o.offer_agree,
+		    o.resume_submitDate,
+		    n.notice_title  
+		FROM 
+		    USER_TB u
+		JOIN 
+		    OFFER o 
+		ON 
+		    u.user_email = o.user_email
+		JOIN 
+		    notice_tb n
+		ON 
+		    o.notice_num = n.notice_num
+		WHERE o.com_email = #{com_email}
+    </select>
+
+
 </mapper>
 
 

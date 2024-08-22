@@ -48,4 +48,8 @@ public interface jobpostingService {
     
     
     
+	public ArrayList<jobpostingDTO> individualCom(String login_email); // 기업입장) 제안관리
+    
+    
+    
 }

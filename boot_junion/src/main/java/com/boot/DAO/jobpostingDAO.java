@@ -14,6 +14,7 @@ import com.boot.DTO.jobpostingDTO;
 public interface jobpostingDAO {
 	
 	public ArrayList<jobpostingDTO> jobpostingList(String login_email); // 전체공고
+
 	/*
 	 * public ArrayList<jobpostingDTO> jobpostingOnList(String login_email); //
 	 * 진행중공고 public ArrayList<jobpostingDTO> jobpostingOffList(String login_email);
@@ -47,6 +48,8 @@ public interface jobpostingDAO {
     // 업데이트 합격, 불합격, 보류
     void updateStatus(@Param("resumeNum") int resumeNum, @Param("noticeNum") int noticeNum, @Param("updateStatus") String updateStatus);
 
+    
+	public ArrayList<jobpostingDTO> individualCom(String login_email); // 기업입장) 제안관리
 
 }
 

@@ -126,7 +126,7 @@ public class jobpostingDTO {
 	private String user_gender;
 
 
-   private String stack_name;	
+	private String stack_name;	
 	private ArrayList<String> stack_names; // stack_name 리스트를 ArrayList로 정의
 	
 	
@@ -144,5 +144,12 @@ public class jobpostingDTO {
 	
 // ===================================== jobpostingOffer 끝 ================================
 
+    
+// 기업입장 ) 인재풀 제안관리
+    
+    private int offer_no;
+    private String offer_date;
+
+    
 
 }

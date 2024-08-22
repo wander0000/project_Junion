@@ -98,6 +98,8 @@ public class IndividualController {
 		return "individualJobOffer";
 	}
 		
+
+	
 	
 	@RequestMapping("/rejectOffer")//제안 거절하기
 //	public String rejectOffer(HashMap<String, String> param, HttpServletRequest request) {

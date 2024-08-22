@@ -209,6 +209,14 @@
 	                    <span class="title">공고등록</span>
 	                </a>
 	            </li>	            
+	            <li>
+	                <a href="individualComJobOffer">
+	                    <span class="icon">
+	                        <i class="fa-regular fa-pen-to-square"></i>
+	                    </span>
+	                    <span class="title">인재풀 제안 관리</span>
+	                </a>
+	            </li>	            
 	            <!--<li>
 	                <a href="#">
 	                    <span class="icon">
