@@ -17,8 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 	import org.springframework.web.bind.annotation.RequestMethod;
 	import org.springframework.web.bind.annotation.RequestParam;
 	import org.springframework.web.bind.annotation.ResponseBody;
-	
-	import com.boot.DTO.jobpostingDTO;
+
+import com.boot.DTO.Criteria2;
+import com.boot.DTO.OfferInfoDTO;
+import com.boot.DTO.PageDTO;
+import com.boot.DTO.jobpostingDTO;
 	import com.boot.Service.jobpostingService;
 	
 	import lombok.extern.slf4j.Slf4j;
@@ -184,5 +187,30 @@ import org.springframework.web.bind.annotation.RequestMapping;
 	    }
 	    // =============================  Offer 끝  ==========================
 	
+	    
+	    
+		
+		// 채용공고 지원자 리스트
+		@RequestMapping("/individualComJobOffer")
+		public String individualComJobOffer(Model model,HttpServletRequest httpServletRequest) 
+		{
+		    log.info("@# individualComJobOffer");
+
+
+		    HttpSession session = httpServletRequest.getSession();
+		    String login_email = (String) session.getAttribute("login_email");
+		    model.addAttribute("login_email", login_email);
+		    
+		    //
+		    ArrayList<jobpostingDTO> individualCom = jobpostingService.individualCom(login_email);
+		    model.addAttribute("jobpostingSupport", individualCom);
+
+
+
+		    return "individualComJobOffer";
+		}
+
+	    
+
 	    
 	}

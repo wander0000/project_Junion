@@ -35,6 +35,16 @@ public class jobpostingServiceImpl implements jobpostingService{
 		ArrayList<jobpostingDTO> list = dao.jobpostingList(login_email);		
 		return list;
 	}
+	
+	
+	@Override
+	// 기업입장) 제안관리
+	public ArrayList<jobpostingDTO> individualCom(String login_email) {
+		log.info("@# individualCom");
+		jobpostingDAO dao = sqlSession.getMapper(jobpostingDAO.class);
+		ArrayList<jobpostingDTO> list = dao.individualCom(login_email);		
+		return list;
+	}
 
 	
 	@Override
