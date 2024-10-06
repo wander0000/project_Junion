@@ -12,10 +12,10 @@ Developed Features:
 - **Individual Member Information**: Read, Update, Delete (RUD)
 - **Individual Member's Notice Info**: Create, Read, Update, Delete (CRUD)
 <hr/>
-Contributor : 🎮jwlme@naver.com  
-Contributor : 🥑aovhff@naver.com  
+Contributor : 🎮jwlme@naver.com    
+Contributor : 🥑aovhff@naver.com   
 Contributor : 🍀jsjszszs12@gmail.com  
-Contributor : 🥞ekwjd088@naver.com  
+Contributor : 🥞ekwjd088@naver.com    
 Contributor : 🥓fgghk132@naver.com  
 Contributor : 🐿️choimin0915@naver.com
 <hr/>
@@ -27,7 +27,6 @@ Contributor : 🐿️choimin0915@naver.com
 - [x] [💿서비스 시연 영상](#서비스-시연-영상)
 - [x] [🎯서비스 핵심기능](#서비스-핵심기능)
 - [x] [🛠기술 스택](#기술-스택)
-- [x] [✨기술적 의사결정](#기술적-의사결정)
 - [x] [🚧시스템 아키텍처](#시스템-아키텍처)
 - [x] [📖ERD](#erd)
 
@@ -35,10 +34,10 @@ Contributor : 🐿️choimin0915@naver.com
 
 ### 💿서비스 시연 영상
 # 개인사용자 시나리오
-<iframe width="50%" src="https://www.youtube.com/embed/7M9xw1jGwF0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![YouTube](https://github.com/wander0000/project_Junion/raw/develop/assets/mainpage.png)](https://youtu.be/7M9xw1jGwF0?si=y6w4KeSO_IsoMR2f)
 
 # 기업사용자 시나리오
-<iframe width="50%" src="https://www.youtube.com/embed/gQHTiSeQNeE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+[![YouTube](https://github.com/wander0000/project_Junion/raw/develop/assets/commain.png)](https://youtu.be/gQHTiSeQNeE?si=FACIXxyBJnMa0G_u)
 
 
 ### 🎯서비스 핵심기능
@@ -54,13 +53,6 @@ Contributor : 🐿️choimin0915@naver.com
 💟 SNS : 팔로워,팔로잉 조회 | 다른 사용자 팔로우 | 채팅 | SNS게시글작성 | SNS게시글 조회 및 좋아요, 댓글 기능
 ```
 
-### 사용자 시나리오(시연영상)
-
-|<small>검색/필터링</small>|<small>인재 매칭 & 포지션제안</small>|
-|:-:|:-:|
-|<iframe width="100%" src="https://www.youtube.com/embed/LzOAwAQ9BZo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>|<iframe width="100%" src="https://www.youtube.com/embed/ZSCBRCvA5zo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>|
-|<small><b>SNS</b></small>|<small><b>게시판(RESTful API)</b></small>|
-|<iframe width="100%" src="https://www.youtube.com/embed/9k0EeGu-7jI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>|<iframe width="100%" src="https://www.youtube.com/embed/ABu2RIZL9kw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>|
 
 
 
