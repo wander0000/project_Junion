@@ -12,11 +12,11 @@ Developed Features:
 - **Individual Member Information**: Read, Update, Delete (RUD)
 - **Individual Member's Notice Info**: Create, Read, Update, Delete (CRUD)
 <hr/>
-Contributor : 🎮jwlme@naver.com  
-Contributor : 🥑aovhff@naver.com  
-Contributor : 🍀jsjszszs12@gmail.com  
-Contributor : 🥞ekwjd088@naver.com  
-Contributor : 🥓fgghk132@naver.com  
+Contributor : 🎮jwlme@naver.com<br>
+Contributor : 🥑aovhff@naver.com<br>
+Contributor : 🍀jsjszszs12@gmail.com<br>
+Contributor : 🥞ekwjd088@naver.com<br>
+Contributor : 🥓fgghk132@naver.com<br>
 Contributor : 🐿️choimin0915@naver.com
 <hr/>
 
