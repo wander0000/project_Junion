@@ -12,11 +12,11 @@ Developed Features:
 - **Individual Member Information**: Read, Update, Delete (RUD)
 - **Individual Member's Notice Info**: Create, Read, Update, Delete (CRUD)
 <hr/>
-Contributor : 🎮jwlme@naver.com
-Contributor : 🥑aovhff@naver.com
-Contributor : 🍀jsjszszs12@gmail.com
-Contributor : 🥞ekwjd088@naver.com
-Contributor : 🥓fgghk132@naver.com
+Contributor : 🎮jwlme@naver.com  
+Contributor : 🥑aovhff@naver.com  
+Contributor : 🍀jsjszszs12@gmail.com  
+Contributor : 🥞ekwjd088@naver.com  
+Contributor : 🥓fgghk132@naver.com  
 Contributor : 🐿️choimin0915@naver.com
 <hr/>
 
@@ -34,10 +34,12 @@ Contributor : 🐿️choimin0915@naver.com
 <hr/>
 
 ### 💿서비스 시연 영상
-#개인사용자 시나리오
-![YouTube](https://youtu.be/7M9xw1jGwF0)
-#기업사용자 시나리오
-![YouTube](https://youtu.be/gQHTiSeQNeE)
+# 개인사용자 시나리오
+<iframe width="50%" src="https://www.youtube.com/embed/7M9xw1jGwF0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+# 기업사용자 시나리오
+<iframe width="50%" src="https://www.youtube.com/embed/gQHTiSeQNeE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
 
 ### 🎯서비스 핵심기능
 ```
@@ -54,11 +56,12 @@ Contributor : 🐿️choimin0915@naver.com
 
 ### 사용자 시나리오(시연영상)
 
-|<small>검색/필터링</small>|<small>인재 매칭 & 포지션제안<small>|
+|<small>검색/필터링</small>|<small>인재 매칭 & 포지션제안</small>|
 |:-:|:-:|
-|![YouTube](https://youtu.be/LzOAwAQ9BZo)|![YouTube](https://youtu.be/ZSCBRCvA5zo)|
+|<iframe width="100%" src="https://www.youtube.com/embed/LzOAwAQ9BZo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>|<iframe width="100%" src="https://www.youtube.com/embed/ZSCBRCvA5zo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>|
 |<small><b>SNS</b></small>|<small><b>게시판(RESTful API)</b></small>|
-|![YouTube](https://youtu.be/9k0EeGu-7jI)|![YouTube](hhttps://youtu.be/ABu2RIZL9kw)|
+|<iframe width="100%" src="https://www.youtube.com/embed/9k0EeGu-7jI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>|<iframe width="100%" src="https://www.youtube.com/embed/ABu2RIZL9kw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>|
+
 
 
 ### 🛠기술 스택
